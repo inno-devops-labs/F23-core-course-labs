@@ -3,6 +3,7 @@
 ## Table of contents
 
 - [Description](#description)
+- [Pre-requirements](#pre-requirements)
 - [Quick start](#quick-start)
 - [Project repository](#project-repository)
 - [Bugs and feature requests](#bugs-and-feature-requests)
@@ -13,6 +14,11 @@
 ## Description
 
 Simple web app to show time at Moscow timezone. This app was created for course of DevOps engineering in Innopolis University.
+
+## Pre-requirements
+
+- Python 3.11
+- Flask library
 
 ## Quick start
 
