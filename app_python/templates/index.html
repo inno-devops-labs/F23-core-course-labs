@@ -8,9 +8,9 @@
     <title>Time</title>
     <script>
         function updateTime() {
-            let currentTime = new Date();
-            let options = { timeZone: 'Europe/Moscow', hour12: false };
-            let moscowTime = currentTime.toLocaleTimeString('en-US', options);
+            const currentTime = new Date();
+            const options = { timeZone: 'Europe/Moscow', hour12: false };
+            const moscowTime = currentTime.toLocaleTimeString('en-US', options);
             document.getElementById('moscow-time').textContent = moscowTime;
         }
 
