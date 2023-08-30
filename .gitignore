@@ -1,0 +1,4 @@
+Session.vim
+venv/*
+*.pyc
+app_python/.vscode/settings.json
