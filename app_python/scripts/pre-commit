@@ -1,0 +1,9 @@
+#!/bin/sh -e
+
+HOME=app_python
+
+set -x
+
+autoflake --remove-all-unused-imports --recursive --remove-unused-variables --in-place $HOME/src $HOME/tests --exclude=__init__.py
+isort $HOME/src $HOME/tests --profile black
+black $HOME/src $HOME/tests
