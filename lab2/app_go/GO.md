@@ -1,0 +1,1 @@
+I've decided to take a test-driven approach so I've written tests before implementing certain functionality in the application. Tests are carried out using Go's builtin `go test` functionality.
