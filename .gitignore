@@ -6,7 +6,7 @@ __pycache__/
 *.pyd
 
 # Ignore .pytest_cache/ folders
-*/.pytest_cache/
+.pytest_cache/
 
 # Ignore virtual environment directory
-/env/
+env/
