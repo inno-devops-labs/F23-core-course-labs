@@ -13,8 +13,8 @@ $ source env/bin/activate
 Clone the repository and install the dependencies:
 
 ```
-$ git clone https://path.to/project.git project_name
-$ cd project_name
+$ git clone https://github.com/NodirBobiev/devops-labs
+$ cd devops-labs/app_python
 $ pip install -r requirements.txt
 ```
 
