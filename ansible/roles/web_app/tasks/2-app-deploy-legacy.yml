@@ -1,0 +1,13 @@
+---
+- name: Deploy app (legacy Docker version)
+  tags:
+  - deploy-app-legacy
+  block:
+    - name: Start app container (legacy)
+      docker_container:
+        name: "{{ docker_app_name }}"
+        image: "{{ docker_image }}"
+        state: started
+        ports:
+          - "{{ docker_port }}:80"
+      become: true

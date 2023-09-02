@@ -1,0 +1,11 @@
+---
+- hosts: all
+  become: true
+  vars:
+    roles_path:
+      - ./roles
+  roles:
+    - web_app
+  vars_files: # ssh and app-specific variables
+    - ../../../vars/python_app_vars.yml
+    - ../../../vars/ssh_vars.yml

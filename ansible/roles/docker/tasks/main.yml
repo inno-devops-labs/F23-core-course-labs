@@ -1,0 +1,61 @@
+---
+# Role to install Docker and docker-compose
+- name: Pip3 install and verify
+  tags:
+    - docker-deps
+    - docker-install
+  block:
+    - name: Install pip
+      apt:
+        name: python3-pip
+        state: latest
+        update_cache: yes
+      become: true
+
+    - name: Verify pip installation
+      command: pip3 --version
+      register: pip_version
+      become: true
+
+    - name: pip version
+      debug:
+        msg: "{{ pip_version.stdout }}"
+
+- name: Docker install and verify
+  tags:
+    - docker-install
+  block:
+    - name: Install docker
+      apt:
+        name: docker.io
+        state: latest
+        update_cache: yes
+      become: true
+
+    - name: Verify docker installation
+      command: docker --version
+      register: docker_version
+      become: true
+
+    - name: docker version
+      debug:
+        msg: "{{ docker_version.stdout }}"
+
+- name: Docker-compose install and verify
+  tags:
+    - docker-install
+  block:
+    - name: Install docker-compose
+      pip:
+        name: docker-compose
+        state: latest
+      become: true
+
+    - name: Verify docker-compose installation
+      command: docker-compose --version
+      register: docker_compose_version
+      become: true
+
+    - name: docker-compose version
+      debug:
+        msg: "{{ docker_compose_version.stdout }}"
