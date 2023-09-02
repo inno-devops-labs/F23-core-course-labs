@@ -1,0 +1,12 @@
+# .gitignore
+
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignore .pytest_cache/ folders
+.pytest_cache/
+
+# Ignore virtual environment directory
+/env/
