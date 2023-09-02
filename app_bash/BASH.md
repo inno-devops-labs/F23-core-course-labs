@@ -1,5 +1,5 @@
 ## Implementation
-Ncat is used for reading/writing to the socket.
+Ncat is used for sending HTTP responses. It's simple way of getting the job done though it's slow and not asynchronous.
 
 ## Coding standard
 https://www.shellcheck.net/ linter is used to ensure bash code quality.
