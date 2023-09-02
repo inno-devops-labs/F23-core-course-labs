@@ -1,3 +1,5 @@
+"""This module serves as the entry point to launch the application"""
+
 from app import create_app
 
 app = create_app()

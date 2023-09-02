@@ -28,8 +28,13 @@ $ python run.py
 
 The application should now be running at http://localhost:5000.
 
-## Running Tests
+## Running the Tests
 
 ```
 $ pytest tests
+```
+
+## Running the Linter
+```
+$ pylint app
 ```

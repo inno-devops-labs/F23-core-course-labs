@@ -11,7 +11,7 @@ The application is built using flask framework. Here are main reasons why I have
 * I have utilized Flask's standard approaches for organizing the project files, dividing the project into blueprints, and converting the entire project into a Python package, which can then be installed as a library. 
 * Since the project is currently quite simple, HTML documents are rendered on the server-side. 
 * The `pytest` library is used for testing. I chose `pytest` over `unittest` primarily for its simplicity and extensibility. Currently, there is only one file, `test_app.py`, which contains a single function that makes a GET request to verify whether the server time matches the current time.
-
+* The `pylint` library is utilized to analyze the code, verifying compliance with coding standards and error-free syntax, while also enforcing the PEP 8 coding style.
 
 ## Project Structure
 The structure is quite simple at the moment, but as time passes and development continues, it will become more complex
