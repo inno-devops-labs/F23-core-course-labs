@@ -1,0 +1,23 @@
+# Git
+.git
+.gitignore
+.gitattributes
+
+
+# CI
+.codeclimate.yml
+.travis.yml
+.taskcluster.yml
+
+# Docker
+docker-compose.yml
+Dockerfile
+.docker
+.dockerignore
+
+# IDEs 
+.vscode/
+.idea/
+
+# Documentation
+*.md

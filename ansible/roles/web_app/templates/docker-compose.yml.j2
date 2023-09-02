@@ -1,0 +1,6 @@
+version: '3.3'
+services:
+    {{ docker_app_name }}:
+        image: "{{ docker_image }}"
+        ports:
+            - "{{ docker_port }}:80"

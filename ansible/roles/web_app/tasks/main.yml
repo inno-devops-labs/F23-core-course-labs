@@ -1,0 +1,20 @@
+---
+# tasks file for web_app
+
+- name: Wipe app
+  include_tasks: 0-wipe.yml
+  when: web_app_full_wipe
+  tags:
+    - wipe-app
+
+- name: Deploy app (docker-compose version)
+  include_tasks: 1-app-deploy.yml
+  when: web_app_deploy
+  tags:
+    - deploy-app
+
+- name: Deploy app (legacy Docker version)
+  include_tasks: 2-app-deploy-legacy.yml
+  tags:
+    - never
+    - deploy-app-legacy
