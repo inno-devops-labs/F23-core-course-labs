@@ -14,7 +14,7 @@ The application is built using flask framework. Here are main reasons why I have
 
 
 ## Project Structure
-The structure is very simple at the current moment of time and as the time goes and I keep coding, the structure will get more complicated.
+The structure is quite simple at the moment, but as time passes and development continues, it will become more complex
 
 ```
 app_python
