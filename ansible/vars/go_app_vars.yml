@@ -1,0 +1,5 @@
+---
+docker_app_name: "app_go"
+docker_compose_proj: "/opt/{{ docker_app_name }}"
+docker_port: "8081"
+docker_image: "ar7ch/devops_lab3_app_go"

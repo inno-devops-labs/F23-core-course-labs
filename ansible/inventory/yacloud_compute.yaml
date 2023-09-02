@@ -1,0 +1,3 @@
+---
+plugin: "yacloud_compute"
+yacloud_token: <MY YANDEX CLOUD TOKEN> # for the sake of demonstration
