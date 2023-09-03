@@ -9,6 +9,7 @@ This is a simple Flask web application that displays the current Moscow time. Th
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
 - [Usage](#usage)
+- [Tests](#tests)
 
 ## Features
 
@@ -42,6 +43,17 @@ These instructions will help you set up and run the project on your local machin
 1. Run the flask app:
    
    ```sh
+   python -m venv .venv
+   .venv/Scripts/Activate
    flask run
 
 2. Enter the app in browser at: http://127.0.0.1:5000/
+
+### Tests
+
+* I add test to check moscow time
+
+* To run it:
+
+   ```sh
+  python -m unittest tests.py
