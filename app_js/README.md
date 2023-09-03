@@ -17,21 +17,21 @@ A simple React web application that displays current Bitcoin and Ethereum prices
 
 ### Installation
 
-1. Clone the repository:
+1. Clone the repository
 
-2. Navigate to the project directory:
+2. Navigate to the project directory
 
 3. Install the required packages:
 
-\```bash
+```bash
 npm install
-\```
+```
 
 4. Start the development server:
 
-\```bash
+```bash
 npm start
-\```
+```
 
 The application will now run on `http://localhost:3000`.
 
