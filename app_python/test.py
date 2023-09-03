@@ -1,4 +1,4 @@
-"""Test functions for web_time"""
+"""Test functions for web app"""
 import datetime
 from zoneinfo import ZoneInfo
 from fastapi.testclient import TestClient
