@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Current Time in Moscow</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
+
+    <script>
+        async function refresh_time () {
+            const response = await fetch('/get_time/');
+            document.getElementById('moscow-time').textContent = await response.text();
+        }
+
+        setInterval(refresh_time, 1000);
+        refresh_time();
+    </script>
+
+</head>
+<body>
+    <h1 id="moscow-time">{{ moscow_time }}</h1>
+</body>
+</html>
