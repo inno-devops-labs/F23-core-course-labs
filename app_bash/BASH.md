@@ -5,4 +5,8 @@ Ncat is used for sending HTTP responses. It's simple way of getting the job done
 https://www.shellcheck.net/ linter is used to ensure bash code quality.
 
 ## Testing
-`test.sh` contains test code. Execute `./test.sh` to run tests.
+`test.sh` contains test code. Execute
+```
+./test.sh
+```
+to run tests.
