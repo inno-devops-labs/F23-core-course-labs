@@ -15,7 +15,10 @@ def test_display_time(client):
 
 def test_time_update(client):
     response1 = client.get('/')
-    time.sleep(.1)
+    time.sleep(1)
     response2 = client.get('/')
+
+    print(response1)
+    print(response2)
 
     assert response1.data != response2.data

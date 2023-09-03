@@ -1,10 +1,26 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Current Time in Moscow</title>
+    <title>Moscow Time</title>
   </head>
   <body>
-    <h1>Current Time in Moscow</h1>
-    <p>{{ time }}</p>
+    <h1>Current Time in Moscow:</h1>
+    <p id="current-time">{{ time }}</p>
+
+    <script>
+      function updateTime() {
+        fetch("/time", {
+          method: "GET",
+        }).then(async (data) => {
+          const timeElement = document.getElementById("current-time");
+          const timeData = await data.text();
+
+          timeElement.innerText = timeData;
+        });
+      }
+
+      setInterval(updateTime, 1000);
+      updateTime();
+    </script>
   </body>
 </html>
