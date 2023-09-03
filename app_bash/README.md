@@ -8,6 +8,10 @@ First argument is target host, second is port to listen.
 
 Example:
 
-`./main.sh moodle.innopolis.university 8000`
+```
+./main.sh moodle.innopolis.university 8000
+```
 ## Test
-`./test.sh`
+```
+./test.sh
+```
