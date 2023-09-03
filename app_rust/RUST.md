@@ -2,17 +2,17 @@
 
 1. Choose the rocket (https://rocket.rs/) framework for Rust development, which offers the following advantages:
 
-   - Simplifies the process of writing fast and secure web applications, while maintaining flexibility, usability, and type safety.
+ - Simplifies the process of writing fast and secure web applications, while maintaining flexibility, usability, and type safety.
 
-   - Provides type safety to avoid common errors.
+ - Provides type safety to avoid common errors.
 
-   - Eliminates boilerplate code, enhancing development efficiency.
+ - Eliminates boilerplate code, enhancing development efficiency.
 
-   - Easy to use, allowing for a smooth development experience.
+ - Easy to use, allowing for a smooth development experience.
 
-   - Offers extensibility to customize as needed.
+ - Offers extensibility to customize as needed.
 
-   - Note: Building with a stable toolchain requires the rc version of the framework.
+ - Note: Building with a stable toolchain requires the rc version of the framework.
 
 2. Utilize rustfmt to format the code effectively.
 

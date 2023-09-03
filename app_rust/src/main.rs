@@ -45,7 +45,7 @@ fn visits() -> String {
 
 #[rocket::get("/healthcheck")]
 fn healthcheck() -> String {
-    "ඞ".to_string()
+    "OK".to_string()
 }
 
 #[rocket::launch]
