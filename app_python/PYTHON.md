@@ -20,3 +20,10 @@
 4. **Configuration Management:** Store sensitive information, such as database credentials and API keys, in environment variables or use a configuration management tool like `python-decouple` or Django's built-in `settings.py` for secure and environment-specific configuration.
 
 5. **Deployment and Scalability:** Follow best practices for deploying Django applications, including using production-ready web servers like Gunicorn or uWSGI, and consider using containerization (e.g., Docker) for deployment. Implement load balancing and database scaling for high-traffic applications.
+
+- **Pre-commit hooks**: Linters and formatters run every time we commit a change.
+  I used autoflake, isort and black for python and pymarkdown, mdformat for Markdown.
+
+- **Gitignore**: Keeping repository clean
+
+- **Autotests**: Using Unittest

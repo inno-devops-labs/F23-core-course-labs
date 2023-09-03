@@ -13,14 +13,10 @@ def get_moscow_time():
 
 
 def show_time(request):
-    moscow_timezone = pytz.timezone("Europe/Moscow")
-    moscow_time = datetime.datetime.now(moscow_timezone)
-    context = {"moscow_time": moscow_time.strftime("%Y-%m-%d %H:%M:%S")}
+    context = {"moscow_time": get_moscow_time()}
     return render(request, "index.html", context)
 
 
 def get_time(request):
-    moscow_timezone = pytz.timezone("Europe/Moscow")
-    moscow_time = datetime.datetime.now(moscow_timezone)
-    formatted_time = moscow_time.strftime("%Y-%m-%d %H:%M:%S")
+    formatted_time = get_moscow_time()
     return HttpResponse(formatted_time)
