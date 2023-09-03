@@ -38,3 +38,7 @@ $ pytest tests
 ```
 $ pylint app
 ```
+
+## Contacts
+
+* email: `n.bobiev@innopolis.university`
