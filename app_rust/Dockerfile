@@ -1,0 +1,31 @@
+FROM rust:1.72-alpine as builder
+
+RUN apk add --no-cache musl-dev
+RUN adduser -D user
+
+USER user
+WORKDIR /app
+
+COPY --chown=user:user ./Cargo.lock /app/Cargo.lock
+COPY --chown=user:user ./Cargo.toml /app/Cargo.toml
+RUN mkdir /app/src \
+    && echo 'fn main() { println!("DevOoops"); }' > /app/src/main.rs \
+    && cargo build --release \
+    && cargo build --tests
+RUN rm -rf /app/src/ /app/target/*/deps/app_rust*
+
+COPY --chown=user:user ./src /app/src
+RUN cargo test && cargo build --release
+
+FROM busybox:1.36-musl
+
+WORKDIR /app
+
+RUN adduser -D user
+COPY --from=builder /app/target/release/app_rust /app/app_rust
+COPY ./Rocket.toml /app/Rocket.toml
+
+RUN chown user:user -R /app/
+USER user
+
+ENTRYPOINT [ "/app/app_rust" ]

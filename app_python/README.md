@@ -1,18 +1,26 @@
 # App showing Moscow time
 
-## Build
+## Docker
+
+### Build
 
 ```
-pip install --no-cache-dir "poetry~=1.2.0"
-poetry install --no-cache --no-interaction
-poetry export -f requirements.txt > requirements.txt
-pip install --no-cache-dir -r requirements.txt
+docker build . -t dvechtomova/app_python:latest
+podman build . -t dvechtomova/app_python:latest
 ```
 
-## Run
+### Pull
 
 ```
-gunicorn -k uvicorn.workers.UvicornWorker -w 4 --bind 0.0.0.0:8080 app:app
+docker pull dvechtomova/app_python:latest
+podman pull dvechtomova/app_python:latest
+```
+
+### Run
+
+```
+docker run --rm -it -p 8080:8080 dvechtomova/app_python:latest
+podman run --rm -it -p 8080:8080 dvechtomova/app_python:latest
 ```
 
 ## Test
