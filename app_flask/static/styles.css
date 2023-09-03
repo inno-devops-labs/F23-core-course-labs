@@ -1,0 +1,70 @@
+/* Comic styles */
+
+  /* Style the main container */
+  #comic-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+
+
+  /* Style the comic title */
+  #title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 1rem 0;
+  }
+
+  /* Style the comic date */
+  #date {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  /* Style the comic alt text */
+  #alt {
+    max-width: 600px;
+    font-style: italic;
+  }
+
+  /* Style the refresh button */
+.refresh-button {
+    background-color: #ffcc00;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: background-color 0.3s ease;
+    position: relative;
+}
+
+.refresh-button:hover {
+    background-color: #ff9900;
+}
+
+/* Style the refresh icon */
+.icon {
+    font-size: 1.5rem;
+    margin-right: 5px;
+    position: relative;
+    top: 2px;
+}
+
+/* Add a spinning animation to the refresh icon on button click */
+.refreshing .icon::before {
+    content: ' \f1ce'; /* Unicode character for a spinning refresh icon */
+    animation: spin 1s infinite linear;
+}
+
+/* Define the spin animation */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
+  /* End Comic styles */
