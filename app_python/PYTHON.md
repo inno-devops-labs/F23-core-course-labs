@@ -16,9 +16,9 @@ Standards I followed:
 
 To ensure code quality and standard compliance:
 - **Pylint** was used for style linting, static error analysis, code smells (error in screenshot just as example, I fixed it).  
-![image](/home/tea/Documents/inno5/DOE/DOE-course-labs/app_python/resources/S_2023-08-31_00-15-08.png)
+![image](./resources/S_2023-08-31_00-15-08.png)
 - **Mypy** for static type checking.  
-![image](/home/tea/Documents/inno5/DOE/DOE-course-labs/app_python/resources/S_2023-08-31_00-23-58.png)
+![image](./resources/S_2023-08-31_00-23-58.png)
 - **Black** (a python formatter) for code formatting.
 
 I, of course, also installed the mypy, pylint and black plugins for my editor for faster feedback.
