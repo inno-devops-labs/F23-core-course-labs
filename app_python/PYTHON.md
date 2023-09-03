@@ -11,6 +11,7 @@
 The project follows a simple structure fitting of its simple nature, some basic best practices were applied to the project including:
 - `requirements.txt` file to set-up a virtual environment (instructions below) to ensure the app's portability.
 - `.gitignore` file. No need to explain this one.
+- `main` branch is protected from direct pushes.
 - pre-commit hooks were set-up for the project *NOT THE REPO*, they're not active at the moment (not in `.git`) since the repo will contain 2 projects.
 - Documentation with instructions to run the app.
 
