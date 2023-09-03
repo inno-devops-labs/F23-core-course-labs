@@ -16,6 +16,7 @@ I adhered to best practices:
 - **Structure**: Maintained a clear separation of concerns.
 - **Documentation**: Included comments and instructions for clarity.
 - **Testing**: Web application is tested by simple Unit test case.
+- **.gitignore**: No need to explain why we need this :>
 
 ## Testing the Application
 
