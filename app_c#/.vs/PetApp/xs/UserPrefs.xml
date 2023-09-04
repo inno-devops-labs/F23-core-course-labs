@@ -1,0 +1,41 @@
+﻿<Properties StartupConfiguration="{FFF67A9C-430F-4F10-8478-3407EAE3478E}|Default">
+  <MonoDevelop.Ide.ItemProperties.PetApp PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="PetApp/Properties/launchSettings.json">
+    <Files>
+      <File FileName="PetApp/Program.cs" Line="1" Column="1" />
+      <File FileName="PetApp/Views/_ViewStart.cshtml" />
+      <File FileName="PetApp/Views/Shared/Error.cshtml" />
+      <File FileName="PetApp/Views/_ViewImports.cshtml" />
+      <File FileName="PetApp/Views/Shared/_Layout.cshtml" />
+      <File FileName="PetApp/Views/Shared/_Layout.cshtml.css" />
+      <File FileName="PetApp/Properties/launchSettings.json" Line="1" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="PetApp" expanded="True">
+            <Node name="PetApp" expanded="True">
+              <Node name="Controllers" expanded="True" />
+              <Node name="Converters" expanded="True" />
+              <Node name="Models" expanded="True" />
+              <Node name="Properties" expanded="True" />
+              <Node name="Views" expanded="True">
+                <Node name="Dog" expanded="True" />
+                <Node name="Shared" expanded="True">
+                  <Node name="_Layout.cshtml" expanded="True" />
+                </Node>
+              </Node>
+              <Node name="Program.cs" selected="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>

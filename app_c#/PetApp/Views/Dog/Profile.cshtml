@@ -1,0 +1,27 @@
+﻿@model Dog
+
+<h2>Dog Profile</h2>
+
+<div>
+    <p>
+        <strong>Dog Name:</strong> @Model.DogName
+    </p>
+    <p>
+        <strong>Date of birth:</strong> @Model.DateOfBirth.ToString("dd.MM.yyyy")
+    </p>
+    <p>
+        <strong>Owner:</strong> @Model.Owner
+    </p>
+    <p>
+        <strong>Address:</strong> @Model.Address
+    </p>
+    <p>
+        <strong>Owner Phone Number:</strong> @Model.OwnerPhoneNumber
+    </p>
+    <p>
+        <strong>Converted Age [Days]:</strong> @Model.ConvertedAgeInDays
+    </p>
+    <p>
+        <strong>Converted Age [Years]:</strong> @Model.ConvertedAgeInYears
+    </p>
+</div>

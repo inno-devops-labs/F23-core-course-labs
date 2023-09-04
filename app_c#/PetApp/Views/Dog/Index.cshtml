@@ -1,0 +1,42 @@
+﻿@model Dog
+
+<div style="text-align: center;">
+    <h2>Dog Profile</h2>
+</div>
+
+<div class="form-container">
+    <form method="post" asp-action="ConvertAge">
+        <div class="form-group">
+            <label>Dog Name:</label>
+            <input asp-for="DogName" class="form-control"/>
+            <span asp-validation-for="DogName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label>Date of Birth:</label>
+            <input asp-for="DateOfBirth" type="date" class="form-control" value="2000-01-01"/>
+        </div>
+        <div class="form-group">
+            <label>Owner:</label>
+            <input asp-for="Owner" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <label>Address:</label>
+            <input asp-for="Address" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <label>Owner Phone Number:</label>
+            <input asp-for="OwnerPhoneNumber" class="form-control"/>
+        </div>
+
+        <div class="dog-form-submit-button">
+            <button type="submit" class="btn btn-primary">Convert Age</button>
+        </div>
+    </form>
+</div>
+
+@if (Model is {ConvertedAgeInDays: > 0 })
+{
+    <div>
+        <p>Converted Age: @Model.ConvertedAgeInDays</p>
+    </div>
+}
