@@ -7,23 +7,43 @@ import (
 )
 
 type weather struct {
-	c string
+	c   string
+	err error
 }
 
+// var html = template.Must(template.ParseFiles("index.html"))
 var result weather
 
 func indexHandler(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("Innopolis weather is " + result.c + "C"))
+	city := r.URL.Path[1:]
+	parse(city)
+	if result.err == nil {
+		w.Write([]byte("Hello " + city + " " + result.c))
+		return
+	}
+	w.Write([]byte("This city doesn't exist"))
 }
 
-func main() {
+func parse(city string) {
 	c := colly.NewCollector()
 	c.OnHTML("div.today-temperature span[dir=ltr]", func(e *colly.HTMLElement) {
 		result.c = e.Text
 		fmt.Println(e.Text)
 	})
-	c.Visit("https://www.meteoprog.com/weather/Innopolis/")
+	err := c.Visit("https://www.meteoprog.com/weather/" + city + "/")
+	if err != nil {
+		result.err = err
+		return
+	}
+	result.err = nil
+}
+
+func main() {
 	mx := http.NewServeMux()
 	mx.HandleFunc("/", indexHandler)
-	http.ListenAndServe(":3000", mx)
+	err := http.ListenAndServe(":3000", mx)
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
 }
