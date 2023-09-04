@@ -1,6 +1,10 @@
 # Created by https://www.toptal.com/developers/gitignore/api/flask
 # Edit at https://www.toptal.com/developers/gitignore?templates=flask
 
+node_modules
+package-lock.json
+package.json
+
 ### Flask ###
 instance/*
 !instance/.gitignore
