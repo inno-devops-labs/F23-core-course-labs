@@ -31,3 +31,7 @@ dependencies {
     implementation("io.ktor:ktor-server-html-builder:$ktor_version")
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
 }
+
+tasks.withType<Test> {
+    useJUnitPlatform()
+}
