@@ -36,7 +36,7 @@
 
 ## Testing
 
-1. I wrote a unit test that checks response status code and correctness of time
+1. I wrote an unit test that checks response status code and correctness of time
 
 2. I conducted manual testing in browser to check that page updates correctly and looks properly
 
