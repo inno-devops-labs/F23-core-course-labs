@@ -19,3 +19,16 @@ Overall, I choose this framework because it can be easily scaled (which is cruci
 3) Follow the REST
 4) Docs: write docs for endpoints (there is no response model at current time)
 5) Use type hints: FastAPI, Pydantic, and modern IDEs encourage to take use of type hints
+
+### Used python linters
+* Black: uncompromising Python code formatter. This linter is deterministic, so code looks the same regardless of the project.
+  * Installation: pip install black
+  * Usage: black src/
+* Ruff: fast new linter that replaces autoflake and isort.
+  * Installation: pip install ruff
+  * Usage: ruff src/ --fix
+
+### Used markdown linter
+* Pymarkdownlnt: consistent, portable, standardized and flexible linter. I choose linter based on python, because it is easy to integrate
+  * Installation: pip install pymarkdownlnt
+  * Usage: pymarkdown scan src

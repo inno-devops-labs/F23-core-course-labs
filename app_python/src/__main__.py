@@ -20,14 +20,11 @@ app = FastAPI(
     contact={
         "name": "Anatoliy Shvarts",
         "email": "a.shvarts@innopolis.university",
-    }
+    },
 )
 
 app.include_router(time_router)
 
 
 if __name__ == "__main__":
-    uvicorn.run("__main__:app",
-                host=config.host,
-                port=config.port,
-                reload=False)
+    uvicorn.run("__main__:app", host=config.host, port=config.port, reload=False)
