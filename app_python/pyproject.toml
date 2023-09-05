@@ -1,0 +1,42 @@
+[tool.black]
+line-length = 88
+exclude = '''
+    /(
+        \.git
+      | \.hg
+      | \.mypy_cache
+      | \.tox
+      | \.venv
+      | _build
+      | buck-out
+      | build
+      | dist
+      | node_modules
+    )/
+'''
+[tool.flake8]
+exclude = '''
+    /(
+        \.git
+      | \.hg
+      | \.mypy_cache
+      | \.tox
+      | \.venv
+      | _build
+      | buck-out
+      | build
+      | dist
+      | node_modules
+    )/
+'''
+max-complexity = 10
+max-line-length = 88
+extend-ignore = """
+        W503,
+        E203,
+        E701,
+    """
+per-file-ignores = """
+        __init__.py: F401
+        ./src/*: E402
+    """
