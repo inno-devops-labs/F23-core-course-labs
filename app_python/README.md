@@ -1,12 +1,37 @@
 # Display Current Time in Moscow
 
-Hi :wave:, this is a simple app repository that displays the current time in Moscow.
+Hi :wave:, this is a simple app's repository that displays the current time in Moscow.
 
-## Create a Virtual Environment
+## Table of Contents
+
+- [About](#about)
+- [Features](#features)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+- [Usage](#usage)
+- [Tests](#tests)
+- [Linter, Auto Formatter](#linter-auto-formatter)
+
+## About
+
+This app displays the current time in Moscow. It was created for educational purposes upon request during a DevOps course.
+
+## Features
+
+List the key features of your app.
+
+- Display Time in Moscow
+
+## Getting Started
+
+### Prerequisites
+
+#### Create a Virtual Environment
 ```Bash
 python3 -m venv myenv
 ```
-### Activate the Virtual Environment
+#### Activate the Virtual Environment
 - On Windows
 ```Bash
 myenv\Scripts\activate
@@ -16,31 +41,40 @@ myenv\Scripts\activate
 source myenv/bin/activate
 ```
 
-## Clone repository
-Install repository locally and go inside needed folder:
+### Installation
+
+Provide step-by-step instructions for installing your app.
+
+1. Clone the repository: 
 ```Bash
 git clone https://github.com/aibek99/core-course-labs.git
-cd app_python
 ```
-
-## Requirements
-To install requirements, execute the following command:
+2. Navigate to the project directory: 
+```Bash
+cd ./core-course-labs/app_python
+```
+3. Install dependencies: 
 ```Bash
 pip install -r requirements.txt
 ```
 
-## Tests
-To run tests, execute the following command:
+## Usage
 
-```Bash
-python3 -m pytest
-```
-
-## Application
 To run the app use the following command:
-
 ```Bash
 python3 app.py
 ```
 
-and go to the following link: http://127.0.0.1:5000/.
+It should run on localhost: http://127.0.0.1:5000/
+
+## Tests
+To run tests, execute the following command: 
+```Bash
+python3 -m pytest
+```
+
+## Linter, Auto Formatter
+To run linter and auto formatter execute the following command: 
+```Bash
+pre-commit run --all-files
+```
