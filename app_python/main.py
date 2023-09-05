@@ -12,7 +12,8 @@ def get_time(timezone: ZoneInfo = ZoneInfo("Europe/Moscow")) -> str:
     """Fetch current time and convert to desired timezone"""
     return datetime.now(timezone).strftime("%d/%m/%Y, %H:%M:%S")
 
-async def homepage():
+async def homepage(request):
+    # pylint: disable=unused-argument
     """Handler for root entrypoint"""
     response = f'Now in Moscow {get_time()}'
     return PlainTextResponse(response)
