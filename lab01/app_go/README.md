@@ -8,7 +8,7 @@ This is simple Go web application, that shows current time in Moscow
 
 Requirements and dependencies could be found in go.mod file.
 
-## Run 
+## Run
 
 ```
 // Run linter
@@ -22,6 +22,7 @@ make run
 ```
 
 ## Usage
+
 To get current moscow time run `curl 127.0.0.1:9000` or enter `127.0.0.1:9000` in any browser.
 
 ## Contact
