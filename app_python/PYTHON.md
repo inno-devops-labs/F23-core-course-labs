@@ -13,4 +13,8 @@ Moreover, the framework is relatively lightweight - which is good for a small we
 For this web application we will use the following standards:
 
 - [PEP 8](https://peps.python.org/pep-0008/) as guideline on python codestyle
-- [Official Flask Documentation](https://flask.palletsprojects.com/en/2.3.x/) on project structure and testing
+- [Official Flask Documentation](https://flask.palletsprojects.com/en/2.3.x/) on project structure
+
+## Testing
+
+- [Official Flask Documentation](https://flask.palletsprojects.com/en/2.3.x/testing/) provides tutorial on how to test applications. Followed this to create a testing package.
