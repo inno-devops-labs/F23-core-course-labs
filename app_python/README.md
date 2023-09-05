@@ -1,8 +1,28 @@
-# Simple web application
+<p align="center">
 
-This is a simple web application on flask. It displays current date and time in Moscow.
+  <h3 align="center">Lab 1</h3>
 
-## Installation and Usage
+  <p align="center">
+    Web application displaying time in Moscow
+    <br>
+  </p>
+</p>
+
+
+## Table of contents
+
+- [Table of contents](#table-of-contents)
+- [Description](#description)
+- [Quick start](#quick-start)
+- [Testing](#testing)
+
+
+## Description
+
+This is a simple web application on flask. It displays current date and time in Moscow. 
+
+
+## Quick start
 
 Clone the repository
 
@@ -24,12 +44,12 @@ pip install -r requirements.txt
 
 Run the app
 
-
 ```
 python3 app.py
 ```
 
 Afterwards, the date and time can be seen on `127.0.0.1:5000`
+
 
 ## Testing
 
@@ -40,3 +60,5 @@ python3 -m pytest
 ```
 
 Note that if your ping is higher than 2 minutes (which is highly unlikely) tests will always fail.
+
+
