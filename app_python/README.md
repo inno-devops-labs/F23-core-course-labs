@@ -6,12 +6,18 @@ The application updates the time every second without requiring a page refresh.
 
 ## Table of Contents
 
-- [Features](#features)
-- [Getting Started](#getting-started)
-- [Prerequisites](#prerequisites)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Tests](#tests)
+- [Moscow Time Display Web App](#moscow-time-display-web-app)
+  - [Table of Contents](#table-of-contents)
+  - [Features](#features)
+  - [Getting Started](#getting-started)
+  - [Docker](#docker)
+    - [Dockers SetUp](#dockers-setup)
+    - [Dockers Run Application](#dockers-run-application)
+  - [Local Machine](#local-machine)
+    - [Prerequisites](#prerequisites)
+    - [Install Dependencies](#install-dependencies)
+    - [Run Python Script](#run-python-script)
+    - [Python Unit Tests](#python-unit-tests)
 
 ## Features
 
@@ -24,42 +30,65 @@ The application updates the time every second without requiring a page refresh.
 
 ## Getting Started
 
-These instructions will help you set up and run the project on your local machine.
+It's instructions will help you to run python web application on docker or in your local machine.
 
+## Docker
+### Dockers SetUp
+
+First of all you might have `docker` in your local machine and `docker-buildx` for build images.
+
+To set up docker we have file `Dockerfile` so we just need to be in same dir with this file and run simple command:
+
+```sh
+docker build -t 'image-name' .
+```
+
+### Dockers Run Application
+
+To run the built docker image we just run simple command in terminal:
+
+```sh
+docker run 'image-name'
+```
+
+And us result we will get some data 
+
+```text
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://172.17.0.2:8000
+```
+
+First address is address inside docker container, and the second one is that's one with we can you to open in our browser.
+
+## Local Machine
 ### Prerequisites
 
 - Python (3.6 or higher)
-- Flask (`pip install flask`)
+- Poetry (`pip install --upgrade pip poetry==1.1.11`)
 
-### Installation
+### Install Dependencies
 
-1. Clone the repository:
+To Install dependencies use poetry command:
 
-   ```sh
-   git clone https://github.com/PlutoEx/DevOps-course-labs.git
-   cd app_python
-
-2. Install dependencies:
-
-   ```sh 
-   pip install -r requirements.txt
+```sh 
+poetry config virtualenvs.create false
+poetry install --no-dev
+```
    
-### Usage
+### Run Python Script
 
-1. Run the flask app:
+Run the flask application:
    
-   ```sh
-   python -m venv .venv
-   .venv/Scripts/Activate
-   flask run
+```sh
+flask run --host 0.0.0.0 --port 8000
+```
+The access from browser at address: http://127.0.0.1:8000/
 
-2. Enter the app in browser at: http://127.0.0.1:5000/
+### Python Unit Tests
 
-### Tests
+To run tests use this simple command
 
-* I add test to check moscow time
-
-* To run it:
-
-   ```sh
-  python -m unittest tests.py
+```sh
+python -m unittest tests.py
+```

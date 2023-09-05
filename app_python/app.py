@@ -20,16 +20,16 @@ def get_current_time():
 @app.route('/')
 def show_moscow_time():
     """Function that's render index.html template with current moscow time"""
-    
+    moscow_time = get_current_time()
     # This part for saving request addresses
     if not os.path.exists('/home/app/data/visits.txt'):
         if LOGS:
             print('ERROR: visits file not found')
     else:
         with open("/home/app/data/visits.txt", "a+") as f:
-            f.write(f"{dttm.isoformat(timespec='seconds')} - {request.remote_addr}\n")
+            f.write(f"{moscow_time} - {request.remote_addr}\n")
 
-    return render_template("index.html", moscow_time=get_current_time())
+    return render_template("index.html", moscow_time=moscow_time)
 
 
 @app.route("/get_time/")
