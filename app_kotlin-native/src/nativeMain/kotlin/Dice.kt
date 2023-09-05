@@ -2,7 +2,7 @@ import kotlin.random.Random
 import kotlin.random.nextInt
 
 class Dice(
-    val sides: Int
+    val sides: Int,
 ) {
     init {
         require(sides > 0) {
