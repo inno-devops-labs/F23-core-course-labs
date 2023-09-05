@@ -1,0 +1,5 @@
+Flask==2.0.1
+pytz==2021.1
+pytest==6.2.5
+werkzeug==2.0.3
+beautifulsoup4==4.9.3
