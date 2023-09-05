@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Current Time in Moscow</title>
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+      }
+
+      .big-text {
+        font-size: 3em;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 class="big-text">Current Time in Moscow:</h1>
+    <p class="big-text">Date: {{ current_date }}</p>
+    <p class="big-text">Time: {{ current_time }}</p>
+  </body>
+</html>
