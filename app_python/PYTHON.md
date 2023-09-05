@@ -34,6 +34,7 @@
   - Use Marshmallow for serializing objects
   - Use auto-swagger library
   - Document the API
+  - Use `requirements.txt`
 
 ### Ensured quality
   - via unit tests (`/test`)
