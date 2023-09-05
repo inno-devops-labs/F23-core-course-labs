@@ -1,34 +1,43 @@
 package main
 
 import (
-	"fmt"
-	"github.com/gocolly/colly"
+	"html/template"
+	"log"
 	"net/http"
+
+	"github.com/gocolly/colly"
 )
 
 type weather struct {
-	c   string
-	err error
+	Celsius string
+	err     error
 }
 
-// var html = template.Must(template.ParseFiles("index.html"))
 var result weather
 
+func handleError(err error) {
+	if err != nil {
+		log.Println(err.Error())
+	}
+}
+
 func indexHandler(w http.ResponseWriter, r *http.Request) {
+	html := template.Must(template.ParseFiles("templates/index.html"))
 	city := r.URL.Path[1:]
 	parse(city)
 	if result.err == nil {
-		w.Write([]byte("Hello " + city + " " + result.c))
+		err := html.Execute(w, city+" temperature is "+result.Celsius)
+		handleError(err)
 		return
 	}
-	w.Write([]byte("This city doesn't exist"))
+	err := html.Execute(w, result.err.Error())
+	handleError(err)
 }
 
 func parse(city string) {
 	c := colly.NewCollector()
-	c.OnHTML("div.today-temperature span[dir=ltr]", func(e *colly.HTMLElement) {
-		result.c = e.Text
-		fmt.Println(e.Text)
+	c.OnHTML("div.today-temperature span[dir=ltr]", func(element *colly.HTMLElement) {
+		result.Celsius = element.Text
 	})
 	err := c.Visit("https://www.meteoprog.com/weather/" + city + "/")
 	if err != nil {
@@ -39,11 +48,7 @@ func parse(city string) {
 }
 
 func main() {
-	mx := http.NewServeMux()
-	mx.HandleFunc("/", indexHandler)
-	err := http.ListenAndServe(":3000", mx)
-	if err != nil {
-		fmt.Println(err.Error())
-		return
-	}
+	http.HandleFunc("/", indexHandler)
+	err := http.ListenAndServe(":3000", nil)
+	handleError(err)
 }
