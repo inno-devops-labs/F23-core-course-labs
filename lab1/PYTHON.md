@@ -1,0 +1,65 @@
+# Moscow Time Website 
+
+## Flask Framework
+ Why Flask?
+1. Easy to learn and use
+2. Single-page applications (SPA)
+3. Jinja2 Templating
+4. RESTful by Design
+5. Pythonic
+
+## Best Practices, coding standards
+
+**PEP 8** - a document describing the convention on how to write code in Python.
+1. Indents of 4 spaces to indicate code blocks.
+2. Spaces around assignment operators (=) and binary operators (+) to improve readability and after commas in imports
+3. Comments start with single space and after the code in the same line and separate from the code with at least two spaces. 
+
+**CSS Styling**
+
+For better presentation I applied CSS styles to my website. 
+
+**HTML Templates**
+
+Instead of embedding HTML directly in my Python code, I used HTML templates to separate the presentation from the application logic.
+
+**Project Structure** 
+
+Organized my project with a clear directory structure. 
+
+**Documentation** 
+
+I documented my code with comments to make it more understandable for others. 
+
+## Manual testing of a web application 
+
+**Introduction**
+
+The purpose of this document is to describe the procedure for manual testing of a web application that displays the current time in Moscow using Flask.
+
+**Description Of The Application Under Test**
+
+The Flask web application displays the current time in Moscow on the main page.
+
+**Preparing for Testing**
+
+1. Make sure that the web application is running and accessible by URL (for example, http://127.0.0.1:5000).
+
+**Testing Steps**
+
+1. Open a web browser and navigate to the application URL.
+2. View the current time on the page.
+3. Refresh the page.
+4. Check that the time has been updated correctly.
+
+**Expected Results**
+
+- After the page is refreshed, the time is expected to be updated and displayed on the page.
+
+**Conclusion**
+
+The testing was successfully completed. All the steps have been completed and the expected results have been achieved.
+
+
+
+
