@@ -36,6 +36,10 @@ followed:
   setup instructions, and usage guidelines for developers and users.
 
 
+### 6. Tests
+
+- Manual test: Update the page and compare a time in Moscow with time provided by application
+
 ## Choice of Framework: Flask
 
 ### Pros
