@@ -11,3 +11,6 @@ Another pros:
 
 ## Uvicorn as ASGI
 For this particular project there is no any limitations in choose of ASGI, just support the spec. So I decided to use Uvicorn as [the fastest one](https://www.techempower.com/benchmarks/#hw=ph&test=fortune&l=zijzen-sf&section=data-r20)
+
+## Pylint as a linter
+Pylint is one of the oldest tools for Python and proven by the time. We need it to check if our code is PEP8-complaint

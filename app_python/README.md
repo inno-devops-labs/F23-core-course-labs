@@ -13,6 +13,12 @@ python -m pip install -r requirements.txt
 uvicorn main:app
 ```
 
+## Miscellaneous
+### Run linter
+```bash
+python -m pylint main.py
+```
+
 ## Troubleshooting
 ### I use Arch btw. How to install deps?
 ```bash
