@@ -22,10 +22,10 @@ followed:
 - **Requirements File**: A `requirements.txt` file was used to specify project
   dependencies, making it easy to recreate the environment in other locations.
 
-### 4. Linters
+### 4. Linters and pre-commit hooks
 
 - Python Linters: Black and Flake8 were used to enforce code formatting and style
-  guidelines for Python code.
+  guidelines for Python code. They are runs automatically by pre-commit hooks
 
 - Markdown Linters: Prettier and markdownlint-cli were used to format and lint Markdown
   files, ensuring consistent documentation quality.
@@ -35,8 +35,6 @@ followed:
 - **README**: A comprehensive README.md file was created to provide project overview,
   setup instructions, and usage guidelines for developers and users.
 
-- **Docstrings**: Docstrings were included in functions and classes to provide inline
-  documentation for code.
 
 ## Choice of Framework: Flask
 
