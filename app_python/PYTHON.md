@@ -12,8 +12,10 @@ Despite that Django is an easy-to-start framework, it is very powerful, because 
 ## Used best practices
 - Regular Commits (used isolated commits for each step of the project)
 - Descriptive Commit Messages (each commit has clear and full description of what was done)
-- For testing, I used build-in local Django server that detects every code change and deploys it immediately, so that the page http://127.0.0.1:8000/ always shows actual page content
 
+## Testing and code quality
+- For testing, I used build-in local Django server that detects every code change and deploys it immediately, so that the page http://127.0.0.1:8000/ always shows actual page content.
+- I implemented an easy-to-understand, consistent, easy testable and free of bugs code to ensure code quality.
 
 ## How to run
 ### Prerequisite:
