@@ -16,4 +16,4 @@ Cons:
 
 Used golangci-lint linter.
 
-Added make file and documented my code.
+Added make file, gitignore and documented my code.
