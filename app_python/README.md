@@ -3,6 +3,7 @@
 Lab1 DevOps course [F23]
 
 ## Table of Contents
+
 - [Project Overview](#project-overview)
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
@@ -34,3 +35,5 @@ $ pip install -r requirements.txt
 ```bash
 $ flask run --host=0.0.0.0 --port=80
 ```
+
+Access http://0.0.0.0/time to get MSK time
