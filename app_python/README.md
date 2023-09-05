@@ -1,6 +1,6 @@
 # Lab1
 
-Brief project description and purpose.
+Lab1 DevOps course [F23]
 
 ## Table of Contents
 - [Project Overview](#project-overview)
