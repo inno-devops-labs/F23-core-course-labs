@@ -10,3 +10,7 @@ def index():
 	current_time = datetime.now(moscow_tz)
 
 	return f"{current_time.strftime('%Y:%m:%d %H:%M:%S')}"
+
+
+if __name__ == "__main__":
+	app.run(debug=True)
