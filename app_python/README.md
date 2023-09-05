@@ -6,4 +6,4 @@ The application contains ```app/__init__.py``` file, which contains the root end
 
 You can run the application by running the ```run.py``` file.
 
-![screenshot of working application](/home/tatiana/Pycharalt textmProjects/core-course-labs/app_python/img.png)
+![screenshot of working application](img.png)
