@@ -1,0 +1,76 @@
+[![Contributors][contributors-shield]][contributors-url]
+
+<p align="center">
+  <a href="https://github.com/IrSokolova/DevOps_labs">
+    <img src="http://guruturizma.ru/wp-content/uploads/2018/05/spasskaya-bashnya2-1024x768.jpg" alt="Logo" width="80" height="80">
+  </a>
+
+  <h3 align="center">Moscow Clock</h3>
+
+  <p align="center">
+    Now you can see Moscow time any time you want
+  </p>
+
+
+<details open="open">
+  <summary><h2 style="display: inline-block">Table of Contents</h2></summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#installation">Installation</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#Usage">Usage</a>
+    </li>
+    <li><a href="#contact">Contact</a></li>
+  </ol>
+</details>
+
+## About The Project
+
+This is a web application to always be aware of the current time in Moscow.
+
+### Built With
+
+- [Python3](https://www.python.org/)
+- [Flask](https://flask.palletsprojects.com/en/latest/)
+
+## Getting Started
+
+To get a local copy up and running follow these simple steps.
+
+### Installation
+
+1. Clone the repo
+   ```sh
+   git clone https://github.com/IrSokolova/DevOps_labs.git
+   ```
+2. Install Python packages
+   ```sh
+   pip install Flask
+   ```
+
+3. Run main script
+    ```sh
+   main.py
+   ```
+
+## Usage
+   Follow the link from the terminal
+
+   Now you can see the time and refresh page if needed
+
+   ![img.png](img.png)
+
+
+
+[contributors-shield]: https://img.shields.io/github/contributors/IrSokolova/DevOps_labs.svg?style=for-the-badge
+[contributors-url]: https://github.com/IrSokolova/DevOps_labs/graphs/contributors
