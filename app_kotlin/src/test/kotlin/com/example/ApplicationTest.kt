@@ -1,43 +1,32 @@
 package com.example
 
-import io.ktor.http.*
+import io.kotest.core.spec.style.DescribeSpec
+import io.kotest.matchers.shouldBe
+import io.kotest.matchers.string.shouldContain
+import io.kotest.matchers.string.shouldMatch
+import io.ktor.http.HttpMethod
+import io.ktor.http.HttpStatusCode
 import io.ktor.server.testing.*
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.BeforeAll
-import org.junit.jupiter.api.AfterAll
-import org.junit.jupiter.api.TestInstance
-import kotlin.test.assertEquals
-import kotlin.test.assertTrue
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class KtorApplicationTest {
+class MainTest : DescribeSpec({
+    describe("Ktor Application Tests") {
+        it("should return 'Current Time in Moscow:' with a valid date") {
+            withTestApplication({ module() }) {
+                handleRequest(HttpMethod.Get, "/").apply {
+                    response.status() shouldBe HttpStatusCode.OK
+                    val content = response.content
+                    content shouldContain "Current Time in Moscow:"
 
-    private lateinit var server: TestApplicationEngine
+                    // Extract the date portion from the response (assuming it's the rest of the content)
+                    val dateString = content?.replace("Current Time in Moscow:", "")?.trim()
 
-    @BeforeAll
-    fun setup() {
-        server = createTestServer()
-        server.start()
-    }
+                    // Add a regex pattern for the date format (yyyy-MM-dd HH:mm:ss)
+                    val dateRegex = """\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}""".toRegex()
 
-    @AfterAll
-    fun teardown() {
-        server.stop(0, 0)
-    }
-
-    @Test
-    fun testRoot() {
-        with(server) {
-            handleRequest(HttpMethod.Get, "/").response.let { response ->
-                assertEquals(HttpStatusCode.OK, response.status())
-                assertTrue(response.content!!.contains("Current Time in Moscow:"))
+                    // Check if the date string matches the regex pattern
+                    dateString shouldMatch dateRegex
+                }
             }
         }
     }
-
-    private fun createTestServer(): TestApplicationEngine {
-        return TestApplicationEngine(createTestEnvironment {
-            module { main() } // this is the module with the ApplicationKt.main() function
-        })
-    }
-}
+})

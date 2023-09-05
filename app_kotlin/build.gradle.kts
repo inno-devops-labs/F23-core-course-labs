@@ -26,12 +26,17 @@ dependencies {
     implementation("io.ktor:ktor-server-core-jvm")
     implementation("io.ktor:ktor-server-netty-jvm")
     implementation("ch.qos.logback:logback-classic:$logback_version")
-    testImplementation("io.ktor:ktor-server-tests-jvm")
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
     implementation("io.ktor:ktor-server-html-builder:$ktor_version")
-    testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
+
+    testImplementation("io.ktor:ktor-server-tests:$ktor_version")
+    testImplementation("io.kotest:kotest-runner-junit5:5.5.5")
+    testImplementation("io.kotest:kotest-assertions-core:5.5.5")
+    testImplementation("io.kotest:kotest-runner-junit5:$version")
+
+    // https://mavenlibs.com/maven/dependency/io.kotest.extensions/kotest-assertions-ktor
+    implementation("io.kotest.extensions:kotest-assertions-ktor:2.0.0")
 }
 
-tasks.withType<Test> {
+tasks.withType<Test>().configureEach {
     useJUnitPlatform()
 }
