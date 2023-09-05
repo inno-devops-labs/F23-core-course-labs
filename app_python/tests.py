@@ -10,7 +10,7 @@ class TestApp(unittest.TestCase):
         self.app = app.test_client()
 
     def test_time(self):
-        response = self.app.get('/?nocache=true')
+        response = self.app.get('/')
         self.assertEqual(response.status_code, 200)
 
         soup = BeautifulSoup(response.data, 'html.parser')
