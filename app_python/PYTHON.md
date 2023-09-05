@@ -18,3 +18,7 @@ For this web application we will use the following standards:
 ## Testing
 
 - [Official Flask Documentation](https://flask.palletsprojects.com/en/2.3.x/testing/) provides tutorial on how to test applications. Followed this to create a testing package.
+
+## Linter
+
+- Used [PyLint](https://pypi.org/project/pylint/) as linter for the project.

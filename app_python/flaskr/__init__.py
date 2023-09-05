@@ -1,12 +1,12 @@
+"""Module for flask web app factory."""
 import os
-
 from flask import Flask
+from . import util_functions as uf
 
-#from app_python.flaskr.get_date import get_date
 
 def create_app(test_config = None):
-    # create and configure the app
-    app = Flask(__name__, instance_relative_config=True)
+    """Web app factory for flask application."""
+    app = Flask(__name__, instance_relative_config = True)
     app.config.from_mapping(
         SECRET_KEY = 'dev',
         DATABASE = os.path.join(app.instance_path, 'flaskr.sqlite'),
@@ -29,9 +29,7 @@ def create_app(test_config = None):
 
     @app.route('/')
     def home():
-        # this import goes against PEP 8 but this is how it's done in flask according to docs
-        from . import util_functions as uf
-
+        """Home page function showing the date and time in Moscow"""
         return "Time in Moscow: " + uf.get_date("Europe/Moscow", '%Y-%m-%d %H:%M:%S')
 
     if __name__ == '__main__':
