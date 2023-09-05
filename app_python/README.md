@@ -47,7 +47,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-Web application(s) developed using best practices of production development.
+Web application developed using best practices of production development.
 
 Includes:
 * DevOps tasks
@@ -57,7 +57,7 @@ Includes:
 
 ### Built With
 
-Major frameworks used for solving tasks:
+Framework used:
 
 * ![FastAPI][FastAPI]
 
@@ -71,7 +71,6 @@ To get a local copy up and running follow these simple steps.
 
 Required software:
 * python 3.10
-* golang
 
 ### Installation
 

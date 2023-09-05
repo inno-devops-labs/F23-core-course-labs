@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"time"
 )
 
@@ -43,7 +44,17 @@ func main() {
 	mux := http.NewServeMux()
 	mux.Handle("/time/", logging(moscowTime()))
 
-	var addr = "127.0.0.1:8070"
+	port, ok := os.LookupEnv("SERVER_PORT")
+	if !ok {
+		port = "8070"
+	}
+
+	host, ok := os.LookupEnv("SERVER_HOST")
+	if !ok {
+		host = "127.0.0.1"
+	}
+
+	addr := fmt.Sprintf("%s:%s", host, port)
 
 	server := http.Server{
 		Addr:         addr,
@@ -52,7 +63,7 @@ func main() {
 		WriteTimeout: 15 * time.Second,
 		IdleTimeout:  15 * time.Second,
 	}
-	log.Println("main: running simple server on port", 8070)
+	log.Println("main: running simple server on port", port)
 	if err := server.ListenAndServe(); err != nil {
 		log.Fatalf("main: couldn't start simple server: %v\n", err)
 	}
