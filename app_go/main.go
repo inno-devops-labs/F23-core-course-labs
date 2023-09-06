@@ -3,9 +3,10 @@ package main
 import (
 	"github.com/lcensies/redirector/routes"
 	"github.com/lcensies/redirector/utils"
+	"fmt"
 )
 
 func main() {
 	router := routes.NewRouter()
-	router.Run(utils.GetEnv("HOST", ":9888"))
+	router.Run(fmt.Sprintf(":%v", utils.GetEnv("PORT", "8080")))
 }

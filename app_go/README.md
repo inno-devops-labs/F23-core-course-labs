@@ -9,7 +9,7 @@
 
 
 - The following environmental variables can be changed to configure the application
-    - `HOST` - host to listen. Defaulted to `:8080` to accept all requests. 
+    - `PORT` - port to listen. Defaulted to `8080`. 
     - `DEFAULT_REDIRECT_URL` - fallback redirect URL which will be used in case if the client has not provided the `q` parameter.
 
 ## Installation
@@ -52,4 +52,11 @@ go test  ./... -v
 ```
 
 
- 
+## Docker
+
+- How to build? 
+    - `docker build -t app_go .`
+- How to pull? 
+    - `docker pull 0x22d1ab/app_go`
+- How to run?  
+    - `docker run --rm -it -p 8080:8080 --name app_go app_python 0x22d1ab/app_go `
