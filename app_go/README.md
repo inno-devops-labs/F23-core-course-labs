@@ -8,11 +8,9 @@
 ## Features
 
 
-- Configuration of the application is managed in the `config.py`
-    - The following environmental variables can be changed
-        - `CLOCK_TZ` - timezone to display. Shows Europe/Moscow by default.
-        - `HOST` - host to listen. Defaulted to `0.0.0.0` to accept all requests. 
-        - `FORMAT` - default format to display datetime in.
+- The following environmental variables can be changed to configure the application
+    - `HOST` - host to listen. Defaulted to `:8080` to accept all requests. 
+    - `DEFAULT_REDIRECT_URL` - fallback redirect URL which will be used in case if the client has not provided the `q` parameter.
 
 ## Installation
 
@@ -50,7 +48,7 @@ https://localhost:8000/?q=https://google.com
 
 - Tests can be invoked with go test command
 ```bash
-go test
+go test  ./... -v
 ```
 
 

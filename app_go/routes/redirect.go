@@ -1,4 +1,4 @@
-package controllers
+package routes
 
 import (
     "github.com/gin-gonic/gin"
@@ -8,7 +8,7 @@ import (
 )
 
 func RedirectRequestHandler(c *gin.Context) {
-    defaultURL := utils.getEnv("DEFAULT_REDIRECT_URL", "https://www.quora.com")
+    defaultURL := utils.GetEnv("DEFAULT_REDIRECT_URL", "https://www.quora.com")
 	location, ok := c.GetQuery("q")
 	var link url.URL
 	if !ok {

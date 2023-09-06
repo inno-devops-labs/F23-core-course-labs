@@ -1,12 +1,11 @@
 package main
 
 import (
-	"github.com/gin-gonic/gin"
-	"github.com/lcensies/redirector/controllers"
+	"github.com/lcensies/redirector/routes"
+	"github.com/lcensies/redirector/utils"
 )
 
 func main() {
-	apiRoutes := gin.Default()
-	apiRoutes.GET("/", controllers.RedirectRequestHandler)
-	apiRoutes.Run()
+	router := routes.NewRouter()
+	router.Run(utils.GetEnv("HOST", ":9888"))
 }
