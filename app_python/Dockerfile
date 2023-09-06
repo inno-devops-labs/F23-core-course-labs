@@ -12,5 +12,6 @@ WORKDIR /
 
 ENV HOST="0.0.0.0"
 ENV PORT="8000"
+EXPOSE $PORT
 
 CMD ["sh", "-c", "python3 -m gunicorn --bind $HOST:$PORT app_python.wsgi:app"]

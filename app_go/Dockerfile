@@ -14,8 +14,7 @@ RUN adduser \
 WORKDIR /app
 COPY go.mod go.sum ./
 # RUN go get -d -v
-RUN go mod download
-RUN go mod verify
+RUN go mod download && go mod verify
 
 COPY . . 
 RUN GOOS=linux go build -ldflags="-w -s" -o /bin/app_go
