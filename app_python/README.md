@@ -1,4 +1,4 @@
-# app_python
+# Unpyclock
 > Simple Flask application which displays current time in the Moscow 
 
 
@@ -14,21 +14,9 @@
         - `HOST` - host to listen. Defaulted to `0.0.0.0` to accept all requests. 
         - `FORMAT` - default format to display datetime in.
 
-## Example usage
 
-- In order to start the application in debug, you can run
-```bash
-flask run
-```
-
-- In the production you have to use suitable web server, for example gunicorn
-```bash
-cd ../ && gunicorn --bind 0.0.0.0:8000 app_python.wsgi:app && cd -
-```
 
 ## Installation
-
-
 
 ```bash
 # Install python3 using your distro's package manager
@@ -39,6 +27,17 @@ python3 -m venv venv
 pip install -r requirements.txt
 ```
 
+## Running the application
+
+- In order to start the application in debug, you can run
+```bash
+flask run
+```
+
+- In the production you have to use suitable web server, for example gunicorn
+```bash
+cd ../ && gunicorn --bind 0.0.0.0:8000 app_python.wsgi:app && cd -
+```
 
 ## Usage
 
