@@ -14,9 +14,14 @@ This is a simple js web application developed using Svelte that displays the cur
 
 To run the project, you need to install the dependencies. To do this, run the following command:
 
-> `npm install -D jsdom` > `npm install --save-dev @testing-library/svelte`  
-> `npm install svelte svelte-loader axios moment` > `npm install @babel/core @babel/preset-env jest babel-jest svelte-jester -D` > `npm install moment-timezone`
-> After it you can run the project in development mode, run the following command:
+- `npm install -D jsdom`
+- `npm install --save-dev @testing-library/svelte`
+- `npm install svelte svelte-loader axios moment`
+- `npm install moment-timezone`
+- `npm install @babel/core @babel/preset-env jest babel-jest svelte-jester -D`
+
+After it you can run the project in development mode, run the following command:
+
 > `npm run dev`
 
 ### Compiles and minifies for production
