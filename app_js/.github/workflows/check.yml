@@ -1,0 +1,67 @@
+name: CI
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Begin linting
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Use Node 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+
+      - name: Use cached node_modules
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: nodeModules-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            nodeModules-
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Run ESLint
+        run: yarn eslint . --ext .js,.jsx,.ts,.tsx
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+      - uses: actions/checkout@v3
+      - uses: amondnet/vercel-action@v20
+        id: vercel-deployment
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.ORG_ID}}
+          vercel-args: '--prod'
+          vercel-project-id: ${{ secrets.PROJECT_ID}}
+          vercel-project-name: 'front-proj'
+    outputs:
+      preview-url: ${{ steps.vercel-deployment.outputs.preview-url }}
+  lighthouse:
+    runs-on: ubuntu-latest
+    needs: deploy
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run Lighthouse on urls and validate with lighthouserc
+        uses: treosh/lighthouse-ci-action@v10
+        with:
+          urls: |
+            ${{ needs.deploy.outputs.preview-url }}
+            ${{ needs.deploy.outputs.preview-url }}/classes
+            ${{ needs.deploy.outputs.preview-url }}/assignments
+            ${{ needs.deploy.outputs.preview-url }}/login
+            ${{ needs.deploy.outputs.preview-url }}/register
+          runs: 2

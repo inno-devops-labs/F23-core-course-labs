@@ -1,36 +1,42 @@
 # JS Web Application
 
-This is a simple js web application developed using Vue that displays the current time in Moscow.
+This is a simple js web application developed using Svelte that displays the current time in Moscow.
 
 ## Overview
 
 - [Project setup](#project-setup)
-- [Compiles and hot-reloads for development](#compiles-and-hot-reloads-for-development)
 - [Compiles and minifies for production](#compiles-and-minifies-for-production)
 - [Lints and fixes files](#lints-and-fixes-files)
+- [Testing](#testing)
 - [Contributing](#contributing)
 
 ## Project setup
 
-To run this project, you need to have `npm` installed. Then, run the following commands:
+To run the project, you need to install the dependencies. To do this, run the following command:
 
-> `npm install vue @vue/cli` - to install all dependencies
-
-### Compiles and hot-reloads for development
-
-To run the project in development mode, run the following command:
-> `npm run serve`
+> `npm install -D jsdom` > `npm install --save-dev @testing-library/svelte`  
+> `npm install svelte svelte-loader axios moment` > `npm install @babel/core @babel/preset-env jest babel-jest svelte-jester -D` > `npm install moment-timezone`
+> After it you can run the project in development mode, run the following command:
+> `npm run dev`
 
 ### Compiles and minifies for production
 
 To build the project, run the following command:
+
 > `npm run build`
-After that, open your browser and visit the provided localhost URL to see the current time in Moscow
+> After that, open your browser and visit the provided localhost URL to see the current time in Moscow
 
 ### Lints and fixes files
 
 Linting is done automatically on commit. To run linting manually, run the following command:
+
 > `npm run lint`
+
+### Testing
+
+To run tests, run the following command:
+
+> `npm run test`
 
 ### Contributing
 
