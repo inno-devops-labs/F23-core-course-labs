@@ -20,7 +20,7 @@ pip install -r requirements-base.txt
 
 ### Run
 ```
-uvicorn app.main:app 
+uvicorn app.main:app
 ```
 Now you can open `http://127.0.0.1:8000/` in your browser to check the time. Also you can check documentation at `/docs` path.
 
