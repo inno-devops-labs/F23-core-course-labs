@@ -14,6 +14,7 @@ If you see commits, firstly i developed it on Vue.js, but decided to redo it ful
 - **Gitignore**: The same: I've added a gitignore file to ignore the virtual environment and the cache. Used default Vue gitignore for it.
 - **Tests**: Created some unit tests so you could check if application works.
 - **Linter**: Checked the quality of code by `eslint` linter and markdown linter for vscode.
+- **Code**: added types for some variables, as js can be unpredictable without them
 
 ## Testing
 

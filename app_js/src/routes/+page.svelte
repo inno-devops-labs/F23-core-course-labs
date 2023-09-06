@@ -2,7 +2,13 @@
 	import { onDestroy, onMount } from 'svelte';
 	import moment from 'moment-timezone';
 
+	/**
+	 * @type {string }
+	 */
 	let currentTime = moment().format('HH:mm:ss');
+	/**
+	 * @type {NodeJS.Timeout }
+	 */
 	let interval;
 
 	onMount(() => {
