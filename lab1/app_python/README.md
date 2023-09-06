@@ -19,7 +19,7 @@ pip3 install -r requirements.txt
 ## Usage 
 
 ```
-./app_main.py <port to listen>
+python3 app_main.py <port to listen>
 ```
 
 You can check the time endpoint at `http://localhost:<port>/time`
