@@ -14,28 +14,22 @@ To run this application locally, follow these steps:
     cd app_python
 ```
 
-2. Build the application:
+2. Install project dependencies:
 
 ```bash
-    go build
+    pip3 install -r requirements.txt
 ```
 
-3. Install project dependencies:
+3. Start the FastAPI application::
 
 ```bash
-    pip install -r requirements.txt
+    uvicorn  src.main:app --host 0.0.0.0 --port 8000 --reload
 ```
 
-4. Start the FastAPI application::
+4. Open the application in your browser:
 
 ```bash
-    uvicorn main:app --host 0.0.0.0 --port 8000 --reload
-```
-
-5. Open the application in your browser:
-
-```bash
-    http://localhost:8080
+    http://localhost:8000
 ```
 
 ## Usage
