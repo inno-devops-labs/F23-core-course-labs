@@ -48,9 +48,16 @@ cd ../ && gunicorn --bind 0.0.0.0:8000 app_python.wsgi:app && cd -
 
 ### Testing
 
-
-
 - In order to run tests for this application, you can can invoke pytest (assuming that you have dependencies from the `requirements.txt` installed)
 ```bash
 python3 -m pytest
 ```
+
+## Docker
+
+- How to build?
+    - `docker build -t app_python .`
+- How to pull?
+    - `docker pull 0x22d1ab/app_python:stable`
+- How to run?
+    - `docker run --rm -it -p 8000:8000 --name app_python 0x22d1ab/app_python:stable`

@@ -12,15 +12,41 @@ In this lab assignment, you will learn to containerize applications using Docker
 
 2. Build and Test Docker Image:
    - Build a Docker image using your Dockerfile.
-   - Thoroughly test the image to ensure it functions correctly.
+   ```bash
+    docker build -t app_python .
+   ```
 
+   - Thoroughly test the image to ensure it functions correctly.
+   ```bash
+   # Run the container
+   docker run --rm -it -p 8000:8000 --name app_python app_python  
+   ```
+      - Ensure that the application is working 
+      -  ![](app_python/assets/2023-09-06-19-17-49.png)
+      - Verify that container is launched
+      - ![](app_python/assets/2023-09-06-19-18-54.png)
 3. Push Image to Docker Hub:
    - If you lack a public Docker Hub account, create one.
    - Push your Docker image to your public Docker Hub account.
-
+      1. Interactively login to the container registry using `docker login`
+         - ![](app_python/assets/2023-09-06-19-22-34.png)
+      2. Rebuild the image with tag corresponding to the remote dockerhub user
+         -  `docker build -t <username>/app_python:stable .`
+         
+         - ![](app_python/assets/2023-09-06-19-25-11.png)
+      3. Push to the container registry 
+         - `docker push <username>/app_python:stable`
+         - ![](app_python/assets/2023-09-06-19-27-16.png)
 4. Run and Verify Docker Image:
    - Retrieve the Docker image from your Docker Hub account.
+      1. Delete local image to ensure that it will be pulled from the remote registry 
+         - `docker rmi <username>/app_python:stable`
+         - ![](app_python/assets/2023-09-06-19-28-34.png)
+      2. Pull the image from the Dockerhub
+         - `docker pull <username>/app_python:stable`
+         - ![](app_python/assets/2023-09-06-19-29-46.png)
    - Execute the image and validate its functionality.
+         - ![](app_python/assets/2023-09-06-19-30-49.png)
 
 ## Task 2: Docker Best Practices
 
