@@ -6,7 +6,8 @@
   "scripts": {
     "lint": "npx eslint .",
     "test": "jest",
-    "start": "npx ts-node src/index.ts"
+    "start": "npx ts-node src/index.ts",
+    "build": "tsc"
   },
   "keywords": [],
   "author": "",
