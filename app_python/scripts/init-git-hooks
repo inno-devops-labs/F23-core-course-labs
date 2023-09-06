@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/sh
 set -x
 
 PRE_COMMIT_PATH=../../.git/hooks/pre-commit
