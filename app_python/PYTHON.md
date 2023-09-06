@@ -7,7 +7,7 @@ I used ``Django`` as a framework for the app for the following reasons:
 
 ## Best practices
 1. **Code quality:** code is written considering PEP8 style guide and checked with linters.
-2. **Code structure**: code implementing the logic is well-structured, each module implementing its own condern
+2. **Code structure**: code implementing the logic is well-structured, each module implementing its own conсern
 3. **Code clarity**: variables have meaningful names, and comments for clarity are included
-3. **Automated tests:** the logic of the app is tested using unit-tests. It allows to detect errors early in development process and ensure quality.
-4. **Ve
+4. **Automated tests:** the logic of the app is tested using unit-tests. It allows to detect errors early in development process and ensure quality.
+5. `gitignore` for excluding unneeded files is used
