@@ -1,9 +1,14 @@
+import argparse
 from datetime import datetime, timezone, timedelta
 from flask import Flask, render_template
+from waitress import serve
 
 MSK_TIMEZONE = timezone(timedelta(hours=3))
 
 app = Flask(__name__)
+parser = argparse.ArgumentParser()
+
+parser.add_argument("-prod", "--production", action='store_true')
 
 
 @app.route('/')
@@ -14,4 +19,9 @@ def show_time():
 
 
 if __name__ == '__main__':
-    app.run()
+    is_prod = parser.parse_args().production
+
+    if is_prod:
+        serve(app, port=8000)
+    else:
+        app.run()
