@@ -1,11 +1,11 @@
 import uvicorn
 from fastapi import FastAPI
 
-import timer.router
+import app_python.src.timer.router as timer
 
 app = FastAPI()
 
-timerRouter = timer.router.TimeRouter("timerRouter", "/")
+timerRouter = timer.TimeRouter("timerRouter", "/")
 app.include_router(timerRouter.router)
 
 if __name__ == "__main__":
