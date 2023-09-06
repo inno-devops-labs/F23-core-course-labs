@@ -10,7 +10,9 @@ The Flask framework was chosen for implementing the application due to several f
 ## Applied practices
 
 - The following coding practices were implemented:
-    - Test-Driven Development: unit test which verifies correctness of our returned time was implemented before the route itself. Pytest framework was used for testing.
+    - Test-Driven Development: unit test which verifies correctness of our returned time was implemented before the route itself. Pytest framework was used for testing. 
+        - In order to verify correctness of returned time, I have made a sequence of requests and verified that the difference between returned value and client time is less than particular threshold.
     - Separate `requirements.txt`: Flask encourages the use of a separate `requirements.txt` file to manage project dependencies. 
     - Separation of configuration from the business logic: separate `config.py` is used to manage configuration of the application. It also supports environmental variables thus making distribution of the application easier. 
-
+    - KISS (keep it simple, stupid): more complex flask applications might require different project layout and separation of components. However, for the simple web services, extension of which is unlikely, community encourages to use simpler repository structure.
+        - The single route `display_time` is contained in the `handlers/routes.py` file. Business logic is not separated or delegated to separate service because the overall functionality is not demanding.
