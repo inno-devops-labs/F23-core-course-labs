@@ -10,6 +10,8 @@ To run this application, please follow these steps:
 4. Execute the `main.py` file using `python main.py`.
 5. Open your browser and go to `http://localhost:5000` to view the current time in Moscow.
 
+## Built and deployment
+To build the app and deploy to the remote server please follow the instructions https://flask-docs.readthedocs.io/en/latest/tutorial/deploy/
 
 
 ## Dependencies
