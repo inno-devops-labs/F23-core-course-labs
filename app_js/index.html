@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Current Time App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 100px;
+        }
+        h1 {
+            font-size: 36px;
+        }
+        p {
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Current Time App</h1>
+    <p id="time"></p>
+
+    <script>
+        function displayTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString();
+            document.getElementById('time').textContent = `Current Time: ${timeString}`;
+        }
+
+        // Update time every second
+        setInterval(displayTime, 1000);
+
+        // Initial time display
+        displayTime();
+    </script>
+</body>
+</html>
