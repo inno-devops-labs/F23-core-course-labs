@@ -21,5 +21,5 @@ jobs:
       - name: Dockerize
         run: |
               echo "${{ secrets.DOCKERPW }}" | docker login -u "path242" --password-stdin
-              docker image build -t path242/clockApp:latest .
-              docker push path242/clockApp:latest
+              docker image build -t path242/clock:latest .
+              docker push path242/clock:latest
