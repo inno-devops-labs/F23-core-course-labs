@@ -13,4 +13,5 @@ The Gin framework is a good choice for serving a simple web application that per
     - Modularization: 
         - Utility functions like `GetEnv` which retrieves environmental variable are separated to the package `utils`
         - Controllers are separated to the page `routes` and aggregated in the `routes.go` file
-
+    - Variable naming according to the naming conventions
+    - Commenting and documentation: key functions in the project are commented. Documentation to the project is present in the `README.md`
