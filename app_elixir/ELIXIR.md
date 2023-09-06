@@ -1,3 +1,16 @@
+### Framework selection:
+
+I've chosen Phoenix framework since it's the most popular framework for elixir. Also I have an experience with it.
+
+Useful features of Phoenix affected my choice:
+
+- Powerful and includes all needed features out of the box
+- Easy to learn and use
+- Modular designed framework
+- Built-in dev server
+- It's open source product
+- Unit testing support
+
 ### Implemented best practices and followed code standards:
 
 - Proper naming of endpoints
