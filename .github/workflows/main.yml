@@ -22,8 +22,9 @@ jobs:
         run: |
           echo "${{ secrets.DOCKERPW }}" | docker login -u "${{ secrets.DOCKERUSER }}" --password-stdin
 
-      - name: Build Docker image
-        run: docker build -t path242/clock:latest 
-        
-      - name: Push Docker image
-        run: docker push path242/clock:latest
+      - name: Build and push
+        uses: docker/build-push-action@v4
+        with:
+            context: ./app_python
+            push: true
+            tags: ${{ secrets.DOCKERUSER }}/clock:latest
