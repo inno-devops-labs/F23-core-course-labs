@@ -4,7 +4,7 @@ name: CI
 
 on:
   push:
-    branches: [ "lab1" ]
+    branches: [ "lab1", "lab2" ]
   pull_request:
     branches: [ "main" ]
 
@@ -18,8 +18,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Dockerize
+      - name: Login to Docker Hub
         run: |
-              echo "${{ secrets.DOCKERPW }}" | docker login -u "path242" --password-stdin
-              docker image build -t path242/clock:latest .
-              docker push path242/clock:latest
+          echo "${{ secrets.DOCKERPW }}" | docker login -u "${{ secrets.DOCKERUSER }}" --password-stdin
+
+      - name: Build Docker image
+        run: docker build -t path242/clock:latest 
+        
+      - name: Push Docker image
+        run: docker push path242/clock:latest
