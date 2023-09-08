@@ -4,7 +4,9 @@
 
 - [Description](#description)
 - [Pre-requirements](#pre-requirements)
-- [Quick start](#quick-start)
+- [Build](#build)
+- [Pull](#pull)
+- [Run](#run)
 - [Project repository](#project-repository)
 - [Bugs and feature requests](#bugs-and-feature-requests)
 - [Contributing](#contributing)
@@ -17,14 +19,31 @@ Simple web app to show time at Moscow timezone. This app was created for course 
 
 ## Pre-requirements
 
-- Python 3.11
-- Flask library
+- Docker
 
-## Quick start
+## Build
 
-To run project use the following command:
+To build docker container use the following command:
 
-- `python app.py`
+`docker build -t moscow-time-flask-app .`
+
+## Pull
+
+It is possible to pull the container from docker hub. To do is use the following command:
+
+`docker pull nabiull2020/moscow-time-flask-app:1.0.0`
+
+## Run
+
+To run the container use the following command:
+
+`docker run -p 8000:8000 nabiull2020/moscow-time-flask-app:1.0.0`
+
+or if you built it manually:
+
+`docker run -p 8000:8000 moscow-time-flask-app`
+
+The application will then be accessible at http://localhost:8000/
 
 ## Project repository
 
