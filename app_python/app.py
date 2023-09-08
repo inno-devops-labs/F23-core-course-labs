@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta, timezone
+from waitress import serve
 
 from flask import Flask, render_template
 
@@ -12,4 +13,5 @@ def main():
 
 
 if __name__ == '__main__':
-    app.run()
+    serve(app, port=8090)
+    # app.run(port=8090)
