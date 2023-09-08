@@ -4,7 +4,9 @@
 
 - [Description](#description)
 - [Pre-requirements](#pre-requirements)
-- [Quick start](#quick-start)
+- [Build](#build)
+- [Pull](#pull)
+- [Run](#run)
 - [Project repository](#project-repository)
 - [Bugs and feature requests](#bugs-and-feature-requests)
 - [Contributing](#contributing)
@@ -20,17 +22,31 @@ Main page shows my github profile. It is possible to check any public github pro
 
 ## Pre-requirements
 
-- .Net Core 6.0
+- Docker
 
-## Quick start
+## Build
 
-To build project use the following command:
+To build docker container use the following command:
 
-- `dotnet build -c Release`
+`docker build -t docker pull programmer-profile-asp-net .`
 
-This command will return the path to *.dll file. Use this path to run the project:
+## Pull
 
-- `dotnet *path*`
+It is possible to pull the container from docker hub. To do is use the following command:
+
+`docker pull nabiull2020/programmer-profile-asp-net:1.0.0`
+
+## Run
+
+To run the container use the following command:
+
+`docker run -p 8000:80 nabiull2020/programmer-profile-asp-net:1.0.0`
+
+or if you built it manually:
+
+`docker run -p 8000:80 programmer-profile-asp-net`
+
+The application will then be accessible at http://localhost:8000/
 
 ## Project repository
 
