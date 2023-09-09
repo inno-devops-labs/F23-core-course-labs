@@ -34,6 +34,10 @@ EXPOSE ${APP_PORT}
 HEALTHCHECK  --interval=10s --timeout=3s \
   CMD wget --no-verbose --tries=1 --spider http://${APP_HOST}:${APP_PORT}/ || exit 1
 
-RUN adduser -D timeapp
+RUN adduser --system \
+            --disabled-password \
+            --no-create-home \
+            --home=/app \
+            timeapp
 USER timeapp
 CMD ["sh", "-c", "uvicorn --host $APP_HOST --port $APP_PORT app.main:app"]
