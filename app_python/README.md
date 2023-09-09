@@ -2,6 +2,23 @@
 
 Time-app is a Python web application that displays the current time in Moscow.
 
+## Installation using docker
+### Build docker image
+To build the Docker image, clone the repo, and use the following command inside `app_python` directory:
+```
+docker build --tag timeapp .
+```
+### Run docker container
+To run the Docker container after building it, use the following command:
+```
+docker run -p 8080:8080 timeapp:latest
+```
+### Pull docker image
+To pull an image from a Docker registry, use the following command:
+```
+docker pull vladspigin/timeapp:latest
+```
+
 ## Installation
 ### Getting started
 1. Setup a Python virtual environment
