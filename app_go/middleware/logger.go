@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-// logging is middleware for wrapping any handler we want to track response
+// Logging is middleware for wrapping any handler we want to track response
 // times for and to see what resources are requested.
 func Logging(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {

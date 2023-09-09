@@ -7,6 +7,7 @@ import (
 	"time"
 )
 
+// MoscowTime is route for getting current Moscow time
 func MoscowTime() http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		t, err := template.ParseFiles("templates/time.html")
