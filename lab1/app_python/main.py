@@ -21,4 +21,4 @@ def return_flask_app_copy():
 
 
 if __name__ == '__main__':
-    FLASK_APP.run()
+    FLASK_APP.run(host='0.0.0.0')
