@@ -30,6 +30,26 @@ There is Makefile in the project.
 ## Usage
 To get current moscow time run `curl 127.0.0.1:8000` or enter `127.0.0.1:8000` in any browser.
 
+## Docker
+This application can be run using docker containers. 
+To do this make sure docker is installed on your machine.
+
+
+You can clone this repository and build an image by your own:
+ ```
+docker build -t art22m/pyapp:v1 .
+ ```
+
+Or you can pull an image from docker hub:
+ ```
+docker pull art22m/pyapp:v1
+ ```
+
+To run docker image:
+ ```
+docker run -p 8000:8000 art22m/pyapp:v1
+ ```
+
 ## Contact
 
 Telegram: @art22m
