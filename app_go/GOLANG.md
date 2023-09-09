@@ -9,6 +9,6 @@ It is my first time writing web application in Go language, I faced a lot of iss
 
 ### Used Go linters
 * go fmt: automatically formats Go source code.
-  * Usage: go fmt web/app/main.go
+  * Usage: go fmt .
 * go vet: examines Go source code and reports suspicious constructs
-  * Usage: go vet web/app/main.go 
+  * Usage: go vet . 
