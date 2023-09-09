@@ -1,8 +1,8 @@
 import uvicorn
 from fastapi import FastAPI
 
-from app_python.src.time.time_router import time_router
-from config import config
+from src.time.time_router import time_router
+from src.config import config
 
 description = """
 QUINER API helps you do awesome stuff. 🚀
