@@ -45,7 +45,7 @@ jobs:
           args: --all-features --manifest-path app_rust/Cargo.toml
 
   docker:
-    name: Docker
+    name: docker
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
