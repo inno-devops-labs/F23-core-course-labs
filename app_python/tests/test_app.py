@@ -1,17 +1,19 @@
+from __future__ import annotations
+
 from datetime import datetime, timedelta
 
 import pytz
 from app import app
 from fastapi.testclient import TestClient
 
-tz = pytz.timezone("Europe/Moscow")
+tz = pytz.timezone('Europe/Moscow')
 client = TestClient(app)
 
 
 def test_moscow_time():
     time = datetime.now(tz)
 
-    resp = client.get("/")
+    resp = client.get('/')
     assert resp.status_code == 200
 
     time_recv = datetime.fromisoformat(resp.text)

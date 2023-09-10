@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from datetime import datetime
 from pathlib import Path
 
@@ -8,30 +10,30 @@ from prometheus_fastapi_instrumentator import Instrumentator
 
 app = FastAPI()
 
-tz = pytz.timezone("Europe/Moscow")
+tz = pytz.timezone('Europe/Moscow')
 
-Path("./volume").mkdir(exist_ok=True)
+Path('./volume').mkdir(exist_ok=True)
 
 
-@app.get("/")
+@app.get('/')
 def read_root():
     try:
-        with open("./volume/visits", "r") as f:
+        with open('./volume/visits') as f:
             visits = int(f.read())
     except FileNotFoundError:
         visits = 0
 
-    with open("./volume/visits", "w") as f:
+    with open('./volume/visits', 'w') as f:
         print(visits + 1, file=f)
 
     time = datetime.now(tz)
     return PlainTextResponse(time.isoformat())
 
 
-@app.get("/visits")
+@app.get('/visits')
 def read_visits():
     try:
-        with open("./volume/visits", "r") as f:
+        with open('./volume/visits') as f:
             visits = int(f.read())
     except FileNotFoundError:
         visits = 0
@@ -39,11 +41,11 @@ def read_visits():
     return PlainTextResponse(str(visits))
 
 
-@app.get("/healthcheck")
+@app.get('/healthcheck')
 def healthcheck():
-    return PlainTextResponse("OK")
+    return PlainTextResponse('OK')
 
 
-@app.on_event("startup")
+@app.on_event('startup')
 async def startup():
     Instrumentator().instrument(app).expose(app)
