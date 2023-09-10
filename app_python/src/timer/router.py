@@ -2,11 +2,10 @@ import time
 
 from fastapi import FastAPI, APIRouter
 
-from .service import Timer
+from app_python.src.timer import service
 
 
 class TimeRouter:
-
     """
 
     TimeRouter is a class that specify routes for the service.Timer
@@ -18,7 +17,7 @@ class TimeRouter:
         self.router = APIRouter()
         self.router.add_api_route(route, self.now, methods=["GET"])
 
-        self.timer = Timer()
+        self.timer = service.Timer()
 
     async def now(self):
         return self.timer.now()
