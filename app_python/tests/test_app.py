@@ -45,9 +45,5 @@ def test_date_time(client):
 
     server_time = datetime.strptime(result.group(), time_format)
 
-
-
     assert before_time <= server_time <= after_time, \
         f"Expected to be in between {before_time} and {after_time} but got {server_time}"
-
-    datetime.time

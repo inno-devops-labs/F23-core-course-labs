@@ -47,5 +47,3 @@ app_python
 - `tests/`: Contains test files for the application 
 - `run.py`: Entry point for starting the application.
 - `requirements.txt`: Contains the Python package dependencies of the project.
-
-
