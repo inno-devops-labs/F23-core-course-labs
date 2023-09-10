@@ -23,7 +23,7 @@ docker run --rm -it -p 8080:8080 dvechtomova/app_python:latest
 podman run --rm -it -p 8080:8080 dvechtomova/app_python:latest
 ```
 
-## Test
+## Unit Tests
 
 ```
 poetry run python -m pytest
