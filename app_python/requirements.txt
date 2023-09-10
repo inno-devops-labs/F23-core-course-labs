@@ -2,3 +2,4 @@ flask
 pytest
 pylint
 beautifulsoup4
+pytz

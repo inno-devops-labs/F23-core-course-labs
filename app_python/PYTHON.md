@@ -23,8 +23,14 @@ app_python
 │   ├── views/
 │   │   ├── __init__.py
 |   |   └── time_view.py
+|   |
+│   ├── utils/
+│   │   ├── __init__.py
+|   |   └── time.py
+|   |
 |   └── templates/
 │       └── current_time.html
+|
 ├── tests/
 │   ├── __init__.py
 |   └── test_app.py

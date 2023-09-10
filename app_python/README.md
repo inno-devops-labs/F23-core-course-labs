@@ -39,6 +39,26 @@ $ pytest tests
 $ pylint app
 ```
 
+## Docker 
+To build the image run the following command:
+```
+docker build -t devopspy .
+```
+
+To run the image run:
+```
+docker run --rm -p 5000:5000 devopspy
+```
+
+* `--rm` here stands for deleting the container right after it is stopped
+
+Or if you want to pull the image from the docker hub:
+
+
+```
+docker pull bobievnodir/devopspy:v1.0
+```
+
 ## Contacts
 
 * email: `n.bobiev@innopolis.university`
