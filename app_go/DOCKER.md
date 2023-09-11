@@ -22,3 +22,8 @@ Usage:
 ```shell
 docker run --rm -i hadolint/hadolint < Dockerfile
 ```
+
+## Docker multi-stage build
+
+With the help of multi-stage build, the final image contains only the necessary runtime components, so it is smaller and more secure.
+Here multi-stage is suitable, so first I compile the GO application, and then copy binary, .env and template (as they are included in binary) files. Also, I install the necessary tzdata package
