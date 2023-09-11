@@ -3,25 +3,25 @@
 
 Using Svelte-kit framework in TypeScipt
 
-```bash
-$ npm install
+
+```
+$ git clone https://github.com/ShohKhan-dev/core-course-labs
+$ cd core-course-labs
+$ cd app_typescript
 ```
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+## Running the Application
 
-```bash
-npm run dev
+1. pull the Docker Image from existing repo on Docker hub:
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
+   ```
+   docker pull rametago/my-first-repo:svelte
+   ```
 
-## Building
+2. Run the Docker Container:
 
-To create a production version of your app:
+   ```
+   docker run -d -p 5173:5173 rametago/my-first-repo:svelte
+   ```
 
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`
+The application will be accessible at http://localhost:5173 in your web browser.
