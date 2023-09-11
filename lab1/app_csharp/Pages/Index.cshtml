@@ -1,0 +1,26 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Current Time in Moscow: <span id="time"></span></h1>
+</div>
+
+@section Scripts {
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        var connection = new signalR.HubConnectionBuilder().withUrl("/clockHub").build();
+
+        connection.on("ReceiveTime", function (time) {
+            document.getElementById("time").textContent = time;
+        });
+
+        connection.start().then(function () {
+            connection.invoke("GetTime");
+        }).catch(function (err) {
+            return console.error(err.toString());
+        });
+    </script>
+}
