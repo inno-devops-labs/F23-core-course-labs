@@ -4,14 +4,14 @@ from pytz import timezone
 from datetime import datetime
 
 
-time_router = APIRouter(
+time_api_router = APIRouter(
     prefix="/time",
     tags=["time"],
     responses={404: {"description": "Not found"}},
 )
 
 
-@time_router.get("/moscow_time")
+@time_api_router.get("/moscow_time")
 async def get_moscow_time() -> HTMLResponse:
     moscow_tz = timezone("Europe/Moscow")
     current_time = datetime.now(moscow_tz)
