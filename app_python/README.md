@@ -7,8 +7,8 @@ This a web app written in Python that displays the current time in Moscow.
 - Flask
 - datetime
 
-## Running the app
-Once in the folder containing this doc (`app_python`), start a virtual enviroment, install the requirements, and you're good to go. Commands below.
+## Running the app directly on the host OS
+Once in the folder containing this doc (`app_python`), start a virtual enviroment, install the requirements, and you're good to go. Commands below
 
     python3 -m venv .venv
 
@@ -19,3 +19,16 @@ Once in the folder containing this doc (`app_python`), start a virtual enviromen
     flask run
 
 After successfully running the app. Navigate to http://127.0.0.1:5000 to view the result.
+
+## Running the app using Docker
+Once in the folder containing this doc (`app_python`), run the following commands to build the docker image and run a container
+
+    docker build -t devops_msk_time .
+
+    docker run -dp 5000:5000 devops_msk_time
+
+Alternatively, you could also pull the image from *Dockerhub* instead of building it
+
+    docker run -dp 0.0.0.0:5000:5000 kurohata7/devops_msk_time
+
+After successfully running the container. Navigate to http://127.0.0.1:5000 to view the result.
