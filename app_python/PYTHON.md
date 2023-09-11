@@ -1,12 +1,18 @@
+# Python description
+
 ### Framework
+
 As production-ready framework I use FastAPI version 0.103.1
 
 ### Pros of FastAPI:
+
 1) Ease to use: FastAPI has very clear and straightforward design. It is user-friendly and can be studied pretty fast
 2) Performance: FastAPI is optimized with Python type hint and has some automatic features like data validation and serialization, which grants fast performance
 3) Integration of features: FastAPI has on opportunity to integrate a lot of features like authentication, API routing, input validation, request handling, dependency injection and other
 4) Scalability: FastAPI is build on top of asynchronous web framework so can be used to build scalable applications or microservices. Also, with power of asyncio it can handle concurrent requests efficiently
+
 ### Cons of FastAPI:
+
 1) Learning curve: to get familiar with framework there is really nothing to do and first application can be written within half of an hour. However, to get perfect knowledge it can take more time compared to other Python frameworks. This is due to its extensive features and use of asynchronous programming
 2) Young project: FastAPI is relatively newer framework compared to others like Flask or Django, so its base of plugins and extensions is not so reach, however it is developing
 3) Python compatibility: FastAPI relies on the async features introduced in Python 3.7, so it can not be compatible with older versions
@@ -14,6 +20,7 @@ As production-ready framework I use FastAPI version 0.103.1
 Overall, I choose this framework because it can be easily scaled (which is crucial in context when we do not how our application will look at the end and new requirements come during development), has a great performance, and finally I have experience with it.
 
 ### Best practices applied:
+
 1) Consistent & predictable project structure: all domains are stored in src folder, each package has its own FastAPI Router (also it has its own schemas, models, services etc. but at current moment there is no need in them)
 2) Use Pydantic as data validator (at this moment no need in it)
 3) Follow the REST
@@ -21,6 +28,7 @@ Overall, I choose this framework because it can be easily scaled (which is cruci
 5) Use type hints: FastAPI, Pydantic, and modern IDEs encourage to take use of type hints
 
 ### Used python linters
+
 * Black: uncompromising Python code formatter. This linter is deterministic, so code looks the same regardless of the project.
   * Installation: pip install black
   * Usage: black src/
@@ -29,6 +37,7 @@ Overall, I choose this framework because it can be easily scaled (which is cruci
   * Usage: ruff src/ --fix
 
 ### Used markdown linter
+
 * Pymarkdownlnt: consistent, portable, standardized and flexible linter. I choose linter based on python, because it is easy to integrate
   * Installation: pip install pymarkdownlnt
-  * Usage: pymarkdown scan src
+  * Usage: pymarkdownlnt scan src
