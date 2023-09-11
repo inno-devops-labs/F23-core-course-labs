@@ -1,3 +1,5 @@
+# GO web application
+
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
@@ -15,8 +17,6 @@
     <a href="https://github.com/quiner1793/dev-ops-course-labs/issues">Request Feature</a>
   </p>
 </div>
-
-
 
 <!-- TABLE OF CONTENTS -->
 <details>
@@ -42,23 +42,19 @@
   </ol>
 </details>
 
-
-
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
 Web application based on Go language. This language is pretty new for me, but I tried my best to follow best practices
 
 Includes:
+
 * DevOps tasks
 * Backend tasks
-
-
 
 ### Built With
 
 Standard Go library
-
 
 <!-- GETTING STARTED -->
 ## Getting Started
@@ -68,19 +64,43 @@ To get a local copy up and running follow these simple steps.
 ### Prerequisites
 
 Required software:
+
 * go 1.21
 
 ### Installation
 
 1. Clone the repo
+
    ```sh
    git clone https://github.com/quiner1793/dev-ops-course-labs.git
    ```
+
 2. Enter your variables in *.env files
+
    ```env
     SERVER_HOST=127.0.0.1
     SERVER_PORT=8080
    ```
+
+### Docker
+
+* How to build
+
+```shell
+docker build -t go-app .
+```
+
+* How to pull
+
+```shell
+docker pull quiner/go-app:1.0.0
+```
+
+* How to run
+
+```shell
+docker run -d --env-file go.env -p 8070:8070 go-app
+```
 
 <!-- USAGE EXAMPLES -->
 ## Usage
@@ -88,7 +108,6 @@ Required software:
 To view current Moscow time open http://{host}:{port}/time
 
 _For more examples, please refer to the [Documentation](https://example.com)_
-
 
 <!-- CONTRIBUTING -->
 ## Contributing
@@ -102,14 +121,12 @@ Don't forget to give the project a star! Thanks again!
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-
 <!-- CONTACT -->
 ## Contact
 
 Anatoliy Shvarts - a.shvarts@innopolis.university
 
 Project Link: [https://github.com/quiner1793/dev-ops-course-labs](https://github.com/quiner1793/dev-ops-course-labs)
-
 
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
