@@ -10,6 +10,7 @@ This is a simple Flask web application that displays the current Moscow time. Th
 - [Installation](#installation)
 - [Usage](#usage)
 - [Tests](#tests)
+- [Linting](#linting)
 
 ## Features
 
@@ -57,3 +58,12 @@ These instructions will help you set up and run the project on your local machin
 
    ```sh
   python -m unittest tests.py
+  
+### Lint
+
+* I add flake8 lint to locate grammatical and styling errors
+
+* To run it:
+
+    ```shell
+  flake8

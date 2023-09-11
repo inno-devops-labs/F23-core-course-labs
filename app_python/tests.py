@@ -18,10 +18,14 @@ class TestApp(unittest.TestCase):
 
         time_str = time_element.get_text().strip()
         time_format = '%H:%M:%S'
-        response_time = pytz.timezone('Europe/Moscow').localize(datetime.datetime.strptime(time_str, time_format))
+        response_time = (pytz.timezone('Europe/Moscow')
+                         .localize(datetime.datetime
+                                   .strptime(time_str, time_format)))
         current_time = datetime.datetime.now(pytz.timezone('Europe/Moscow'))
 
-        response_hms = (response_time.hour, response_time.minute, response_time.second)
-        current_hms = (current_time.hour, current_time.minute, current_time.second)
+        response_hms = \
+            (response_time.hour, response_time.minute, response_time.second)
+        current_hms = \
+            (current_time.hour, current_time.minute, current_time.second)
 
         self.assertEqual(response_hms, current_hms)
