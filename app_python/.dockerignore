@@ -1,3 +1,10 @@
+# Git
+.gitignore
+
+# Python
 .venv
 __pycache__
-.gitignore
+
+# Docker
+Dockerfile
+.dockerignore
