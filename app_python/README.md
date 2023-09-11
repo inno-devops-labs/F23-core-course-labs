@@ -5,7 +5,7 @@
 Use the package manager [pip](https://pip.pypa.io/en/stable/) to install dependencies.
 
 ```bash
-pip install --no-cache-dir -r requirements.txt
+pip install --no-cache-dir -r ./requirements/requirements-dev.txt
 ```
 
 ## Run
@@ -18,6 +18,22 @@ App will start at 8085 port
 ## Test
 ```bash
 pytest .
+```
+
+## Docker
+To build docker image:
+```bash
+docker build --tag edikgoose/moscow-time-app:1.0.0 .
+```
+
+To pull docker image:
+```bash
+docker pull edikgoose/moscow-time-app:1.0.0
+```
+
+To run docker image:
+```bash
+docker run -p 80:80 --name moscow-time-app edikgoose/moscow-time-app:1.0.0
 ```
 
 ## Contributing
