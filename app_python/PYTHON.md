@@ -1,6 +1,6 @@
 # Python description
 
-### Framework
+## Framework
 
 As production-ready framework I use FastAPI version 0.103.1
 
@@ -19,7 +19,7 @@ As production-ready framework I use FastAPI version 0.103.1
 
 Overall, I choose this framework because it can be easily scaled (which is crucial in context when we do not how our application will look at the end and new requirements come during development), has a great performance, and finally I have experience with it.
 
-### Best practices applied:
+## Best practices applied:
 
 1) Consistent & predictable project structure: all domains are stored in src folder, each package has its own FastAPI Router (also it has its own schemas, models, services etc. but at current moment there is no need in them)
 2) Use Pydantic as data validator (at this moment no need in it)
@@ -27,7 +27,7 @@ Overall, I choose this framework because it can be easily scaled (which is cruci
 4) Docs: write docs for endpoints (there is no response model at current time)
 5) Use type hints: FastAPI, Pydantic, and modern IDEs encourage to take use of type hints
 
-### Used python linters
+## Used python linters
 
 * Black: uncompromising Python code formatter. This linter is deterministic, so code looks the same regardless of the project.
   * Installation: pip install black
@@ -36,7 +36,7 @@ Overall, I choose this framework because it can be easily scaled (which is cruci
   * Installation: pip install ruff
   * Usage: ruff src/ --fix
 
-### Used markdown linter
+## Used markdown linter
 
 * Pymarkdownlnt: consistent, portable, standardized and flexible linter. I choose linter based on python, because it is easy to integrate
   * Installation: pip install pymarkdownlnt
