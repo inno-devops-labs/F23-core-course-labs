@@ -20,6 +20,36 @@ Just a couple of steps, and you'll be running on Moscow time (well, digitally).
 2. With a web browser as your steed, journey to `http://localhost:5000/time/moscow-time`.
 3. Behold! The current time in Moscow!
 
+## 🐳 Docker
+
+**Containerizing Moscow Time**:
+
+Unveil Moscow time from the confines of a container!
+
+### 🚀 How to build?
+
+Craft your own time capsule:
+
+```bash
+docker build -t dmitriypru/core_course_labs_csharp:latest .
+```
+
+### 🌍 How to pull?
+
+Summon the time capsule:
+
+```bash
+docker pull dmitriypru/core_course_labs_csharp:latest
+```
+
+### 🌌 How to run?
+
+Unleash Moscow time:
+
+```bash
+docker run -p 5000:80 dmitriypru/core_course_labs_csharp:latest
+```
+
 ## 💌 Owl Post (Contact)
 
 For scrolls, prophecies, or general inquiries: [@dmitriypru](https://t.me/dmitriypru).
