@@ -8,6 +8,12 @@ I used [Hadolint](https://hadolint.github.io/hadolint/) linter to check Dockerfi
 
 I created a user without root permissions and specific UID.
 
+## Multi-Stage Build
+
+For python app I used multistage build: **prepare** and **runtime**.
+
+I used it to logically separate runtime from prepare state.
+
 ## Images
 
 I used official lightweight python image based on alpine.
