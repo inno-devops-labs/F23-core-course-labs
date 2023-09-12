@@ -14,7 +14,7 @@ const (
 func main() {
 	// create client for coinapi
 	coinapiClient := coinapi.NewClient(apikey)
-
+	log.Printf("Run go application on %s", serverPort)
 	// create server and run
 	server := NewServer(coinapiClient)
 	err := server.Run(serverPort)
