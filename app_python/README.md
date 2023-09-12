@@ -41,3 +41,21 @@ uvicorn --reload app_python.main:app
 # in app_python directory
 pylint *.py
 ```
+
+## Docker
+
+### Use prebuild image:
+
+```bash
+docker run amoriodi/app_python:latest
+```
+
+### Build manually:
+
+```bash
+# building
+docker build . -t <username>/app_python:latest
+
+# pushing
+docker push <username>/app_python:latest
+```
