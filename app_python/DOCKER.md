@@ -1,12 +1,6 @@
 # Docker Best Practices
 
-- **Multi-stage builds**: Breaking up Dockerfile into several stages makes images leaner and more secure. I didn't use it because:
-
-  - My Dockerfile is straightforward and doesn't involve complex build processes or build-time dependencies that need to be separated from the final production image.
-
-  - While multi-stage builds can help reduce the size of the final image, Python images provided by the official Python repository are already relatively small. The difference in image size in this case wouldn't be significant.
-
-  - I am installing Python dependencies from requirements.txt in a single RUN instruction, which is a common practice. There's no need to separate the installation of dependencies into a separate stage because I am not performing complex build steps.
+- **Multi-stage builds**: Breaking up Dockerfile into several stages makes images leaner and more secure.
 
 - **Trusted base images**: I've chosen to build upon the official Python 3.10 image from Docker Hub. Using official and well-maintained base images is a best practice because they are regularly updated with security patches, reducing the risk of vulnerabilities in my container.
 

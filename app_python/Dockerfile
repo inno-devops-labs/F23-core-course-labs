@@ -1,4 +1,4 @@
-FROM python:3.10
+FROM python:3.8-slim-buster as builder
 RUN useradd -m myuser && \
     mkdir /app && \
     chown myuser:myuser /app
