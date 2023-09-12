@@ -24,10 +24,7 @@ config :devops_web, DevopsWebWeb.Endpoint,
   code_reloader: true,
   debug_errors: true,
   secret_key_base: "4ewg2lzTDJvVO8tL2jiABMqcOAMbqHnWDVpuWLW57JOPyYkScS0jkuJVOX2NO5za",
-  watchers: [
-    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]},
-    tailwind: {Tailwind, :install_and_run, [:default, ~w(--watch)]}
-  ]
+  watchers: []
 
 # ## SSL Support
 #
@@ -56,7 +53,6 @@ config :devops_web, DevopsWebWeb.Endpoint,
 config :devops_web, DevopsWebWeb.Endpoint,
   live_reload: [
     patterns: [
-      ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
       ~r"priv/gettext/.*(po)$",
       ~r"lib/devops_web_web/(controllers|live|components)/.*(ex|heex)$"
     ]
