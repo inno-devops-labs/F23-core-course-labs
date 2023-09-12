@@ -24,4 +24,10 @@ if __name__ == '__main__':
 
     with socketserver.TCPServer(('', PORT), TimeServer) as httpd:
         print(f'Server started on port {PORT}')
-        httpd.serve_forever()
+        try:
+            httpd.serve_forever()
+        except KeyboardInterrupt:
+            httpd.shutdown()
+        except Exception as e:
+            print(e)
+            httpd.shutdown()

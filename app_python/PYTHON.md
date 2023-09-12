@@ -27,3 +27,55 @@ Some best practices used in the provided code are:
 ### Coding Standarts
 
 To follow coding standards, I ensured proper indentation and used descriptive variable and function names. I also followed the PEP 8 style guide, which includes conventions for naming, indentation, line length, and more. I tested the code manually, as because the project is small it is not practical for now to write tests for verification. I used the pylint tool to ensure the quality of the code.
+
+
+## Docker Section
+
+### Prerequisites
+Before running the application, make sure you have Docker installed on your machine.
+
+### Build the Image
+To build the Docker image, navigate to the root directory of the project and run the following command:
+
+```
+docker build -t app_python .
+```
+
+### Pull the Image
+
+```
+docker pull wildqueue/devops-hw:tagname
+```
+
+
+### Run the Container
+To run the Docker container, use the following command:
+
+```
+docker run -p 8008:8008 --user 1001 app_python
+```
+
+
+This command will start the container and map port 8008 from the container to port 8008 on your local machine.
+
+Once the container is running, you can access the application by opening a web browser and navigating to http://localhost:8008.
+
+### Stop the Container
+To stop the container, first identify the container ID or name by running:
+
+```
+docker ps
+```
+
+
+Then, stop the container by running:
+
+```
+docker stop <<container_id_or_name>>
+```
+
+Or by 
+
+```
+ctrl+c
+```
