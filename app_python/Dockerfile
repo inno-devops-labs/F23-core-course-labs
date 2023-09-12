@@ -1,10 +1,8 @@
-FROM python:3.10
-
-RUN mkdir -p /app
+FROM python:3.10-alpine
 
 WORKDIR /app
 
-RUN useradd -ms /bin/bash user1 && chown user1:user1 /app
+RUN adduser -D user1 && chown -R user1 /app
 
 COPY . .
 
