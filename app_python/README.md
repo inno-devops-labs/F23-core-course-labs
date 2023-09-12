@@ -11,7 +11,7 @@ To run the application, you need a python version of at least 3.12. [How to inst
 You can install all the necessary dependencies for correct operation by running the command:
 
 ```bash
-pip3 install -r requirements.txt
+pip install -r requirements.txt
 ```
 
 ## Run
@@ -19,6 +19,12 @@ pip3 install -r requirements.txt
 To run app you need run the command inside app_python folder:
 ```bash
 python main.py
+```
+
+To check app with linter run the command inside app_python folder:
+
+```bash
+flake8 *.py
 ```
 
 ## Usage
