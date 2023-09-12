@@ -16,6 +16,8 @@ Python Web App built using Flask Framework and ApiNinjas for requesting Moscow T
 
 ## Docker
 
+Link of the image on DockerHub: https://hub.docker.com/repository/docker/arseniylev17/msctime/ 
+
 ### DOCKER INSTRUCTIONS:
 
 To build the Docker image:
@@ -33,7 +35,6 @@ To run the Docker container:
     docker run -p 8000:8000 arseniylev17/msctime
 
 This will start the container and map port 8000 on the host to port 8000 in the container. You can then access the MoscowTime application on http://localhost:8000.
-
 
 #### Contact: Arseniy Levochkin, B20-SD-02, a.levochkin@innopolis.university
 
