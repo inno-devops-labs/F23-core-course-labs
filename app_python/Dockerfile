@@ -1,6 +1,6 @@
 FROM python:3.11.5-alpine
 
-LABEL iviosab.moscow_time.created="2023-09-11T10:11:43+00:00"
+LABEL iviosab.moscow_time.created="2023-09-12T06:18:03+00:00"
 LABEL iviosab.moscow_time.authors="Mosab Mohamed"
 LABEL iviosab.moscow_time.source="https://github.com/IVIosab/core-course-labs/tree/main/app_python"
 LABEL iviosab.moscow_time.version="0.0.1"
@@ -13,10 +13,14 @@ WORKDIR /app
 COPY . /app
 
 RUN adduser myuser -D && chown -R myuser /app \
-    && pip3 install -r requirements.txt
+    && pip3 install -r requirements.txt \
+    && apk --no-cache add curl
 
 USER myuser
 
 EXPOSE 5000
 
 ENTRYPOINT [ "python3", "app.py"]
+
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD curl --fail http://localhost:5000/ || exit 1
