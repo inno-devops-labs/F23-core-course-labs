@@ -32,5 +32,18 @@ Run the tests with
 poetry run pytest
 ```
 
+## Usage with docker
+### Building the image locally
+```bash
+docker build -f Dockerfile -t devops-python-app .
+docker run -p 8080:8080 devops-python-app
+```
+
+### Pulling the image from dockerhub
+```bash
+docker pull run4w4y/devops-course-python-app:latest
+docker run -p 8080:8080 run4w4y/devops-course-python-app
+```
+
 ## If you have any further questions
 You can reach out to me via [email](mailto:add4che@gmail.com)
