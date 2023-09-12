@@ -19,7 +19,7 @@ poetry install
 ## Usage
 In order to start web server you could use:
 ```bash
-poetry run uvicorn --host localhost --port {port}
+poetry run uvicorn --host localhost --port {port} src.app:app
 ```
 where `{port}` is your desired port for app. After this the app will be accessbile by address `localhost:{port}`.
 
@@ -32,7 +32,24 @@ In order to run tests. Run in `app_python` directory
 ```bash
 poetry install --with test
 poetry run pytest
-poetry run pycodetest src
+poetry run pycodestyle src
+```
+
+## Docker
+You can run application from docker either by building it locally or pulling from dockerhub
+
+### Locally
+In order to run you need to build/pull and then specify port on your localhost (`{port}` in code snippetes below)
+
+```bash
+docker build -t moscow-time .
+docker run -p {port}:8080 moscow-time
+```
+
+### Pulling
+```bash
+docker pull bizuki/moscow-time:1.1
+docker run -p {port}:8080 bizuki/moscow-time:1.1
 ```
 
 ## License
