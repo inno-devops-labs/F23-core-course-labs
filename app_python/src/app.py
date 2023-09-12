@@ -9,11 +9,12 @@ from flask import Flask
 
 app = Flask(__name__)
 
+
 CITY = {"text": "Moscow", "exact": "Europe/Moscow"}
 
 
 @app.route("/")
-def index(    ) -> str:
+def index() -> str:
     """Return current time to an HTTP request."""
     city: str = CITY["text"]
     timezone = pytz.timezone(CITY["exact"])
@@ -24,4 +25,5 @@ def index(    ) -> str:
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(host="0.0.0.0", port=5000, threaded=True)
+
