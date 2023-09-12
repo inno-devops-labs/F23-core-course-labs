@@ -20,3 +20,20 @@ Navigate to the application directory and run: `node app.js`
 
 
 Visit http://localhost:3000 to view the application.
+
+## Docker:
+
+### Building the Docker image:
+```bash
+docker build -t purfreak/lab2_devops:latest-js .
+```
+
+### Pulling the Docker image:
+```bash
+docker pull purfreak/lab2_devops:latest-js
+```
+
+### Running the Docker image:
+```bash
+docker run -d -p purfreak/lab2_devops:latest-js
+```

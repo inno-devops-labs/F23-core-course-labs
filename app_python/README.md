@@ -17,8 +17,25 @@ A simple FastAPI application that displays the current time in Moscow, Russia.
 - **run the application**:
 `uvicorn app:app reload`
 
+## Docker:
+
+### Building the Docker image:
+```bash
+docker build -t purfreak/lab2_devops:latest .
+```
+
+### Pulling the Docker image:
+```bash
+docker pull purfreak/lab2_devops:latest
+```
+
+### Running the Docker image:
+```bash
+docker run -d -p purfreak/lab2_devops:latest
+```
+
 ## Usage:
 You can view the current time in Moscow, Russia by visiting http://127.0.0.1:8000/.
 
 ## Contact information:
-@purfreak in Telegtam.
+@purfreak in Telegram.
