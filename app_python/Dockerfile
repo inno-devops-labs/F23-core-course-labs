@@ -1,5 +1,5 @@
 # Use a specific Python version
-FROM python:3.10
+FROM python:3.10-slim-buster
 
 # Create a non-root user named 'cooluser'
 RUN useradd -m cooluser
