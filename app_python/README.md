@@ -6,11 +6,16 @@ A simple web app where show current time in moscow.
 
 Using `pytz` library we found timezone of moscow, and using `datatime` with `pytz` we find the current time 
 
-### Getting Started 
 
-1 Make sure that docker installed 
+## Getting start
 
-2 Pull image from docker hub 
+### How to build
 
-3 To run write this command: `docker run -p 8080:8080 "name_of_image""`
++ Make sure that Docker installed
++ To build docker run this command `docker build -t rkbekzat/mosconw_time .`
 
+### How to pull
++ Run this command `docker pull rkbekzat/moscow_time`
+
+### How To run
++  Run this command `docker run -p 8080:8080 rkbekzat/moscow_time`
