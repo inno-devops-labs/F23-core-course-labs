@@ -14,6 +14,7 @@ The project has a templates folder that contains HTML pages to render on the cli
 For testing and determining the percentage of test coverage pytest and pytest-cov are used. All tests are now in the tests folder. 
 
 ## Docker
+The project uses Docker with two build stages. The first stage is build, where the main files needed for startup are copied. The second stage is needed for startup and this is where files with limited user rights are copied.
 
 ### Build
 Local image building: \
