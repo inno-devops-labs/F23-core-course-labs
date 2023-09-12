@@ -11,6 +11,11 @@ fn time() -> String {
     DateTime::<Local>::from_naive_utc_and_offset(utc_now, msk_timezone).to_rfc3339()
 }
 
+#[get("/health")]
+fn healthcheck() -> &'static str {
+    return "OK"
+}
+
 #[derive(Parser, Debug)]
 #[command(author, version, about, long_about = None)]
 struct Args {
@@ -29,5 +34,5 @@ fn rocket() -> _ {
         ..Default::default()
     };
 
-    rocket::build().configure(config).mount("/", routes![time])
+    rocket::build().configure(config).mount("/", routes![time, healthcheck])
 }
