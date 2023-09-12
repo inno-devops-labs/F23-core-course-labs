@@ -8,10 +8,9 @@ Using `pytz` library we found timezone of moscow, and using `datatime` with `pyt
 
 ### Getting Started 
 
-1 Make sure that python interpreter installed 
+1 Make sure that docker installed 
 
-2 Clone the repo
+2 Pull image from docker hub 
 
-3 Install all necessary libs with command `pip install -r requirements.txt`
+3 To run write this command: `docker run -p 8080:8080 "name_of_image""`
 
-4 Run the script with command `pytohn3 index.py`
