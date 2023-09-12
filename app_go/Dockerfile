@@ -13,7 +13,7 @@ FROM alpine:3.18.3 as final
 
 WORKDIR /
 
-COPY --from=build /app/go_app /app/go.env /
+COPY --from=build /app/go_app /
 
 COPY --from=build /app/templates /templates
 
