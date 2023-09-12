@@ -9,6 +9,7 @@ Lab1 DevOps course [F23]
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
 - [Usage](#usage)
+- [Docker](#docker)
 
 ## Project Overview
 
@@ -30,10 +31,36 @@ $ cd core-course-labs
 $ pip install -r requirements.txt
 ```
 
-### Usage
+## Usage
 
 ```bash
 $ flask run --host=0.0.0.0 --port=80
 ```
 
 Access http://0.0.0.0/time to get MSK time
+
+## Docker
+
+### Run with docker:
+
+```bash
+$ docker run -p 80:80 nikitosing/app_python
+```
+
+### Build an image:
+
+```bash
+$ docker build -t app_python --build-arg port=80 .
+```
+
+### Run built image
+
+```bash
+$ docker run -p 80:80 app_python
+```
+
+### Pull the image
+
+```bash
+$ docker pull nikitosing/app_python
+```
