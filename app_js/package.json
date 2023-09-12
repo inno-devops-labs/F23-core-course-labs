@@ -26,5 +26,8 @@
 		"vite": "^4.4.2",
 		"vitest": "^0.34.0"
 	},
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"moment-timezone": "^0.5.43"
+	}
 }
