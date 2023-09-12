@@ -1,4 +1,4 @@
-#Best Practices
+# Best Practices
 - Use linter for codestyle checking
 - Use lightweight image based on alpine
 - Use multi-stage builds: *prepare*, *runtime*
