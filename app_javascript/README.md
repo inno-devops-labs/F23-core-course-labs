@@ -9,3 +9,17 @@ Web server which shows page with current time
 ```
 node main.js
 ```
+
+## Docker
+### How to build?
+```
+docker build -t seakysneka1/webserv_js .
+```
+### How to pull?
+```
+docker pull seakysneka1/webserv_js:latest
+```
+### How to run?
+```
+docker run -p 5000:5000 seakysneka1/webserv_js
+```
