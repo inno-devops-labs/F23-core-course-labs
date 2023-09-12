@@ -23,3 +23,9 @@ I created a non-root user and ran all commands under that user. This reduces the
 ## Expose only necessary ports
 
 I exposed only the necessary port (port 5173) for the svelte application. This reduces the attack surface and improves security.
+
+## Use of multi-stage builds
+
+I used multi-stage builds to reduce the size of the image. The build process is done in the first stage and the final image is copied from the first stage.
+
+By using multi-stage builds, the final production image only contains the necessary build output, ensuring a smaller and more efficient deployment.

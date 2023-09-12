@@ -1,5 +1,5 @@
-#syntax=docker/dockerfile:1
-FROM node:20
+#stage 1: build the application
+FROM node:20 AS builder
 
 RUN groupadd -r sveltegroup && useradd -r -g sveltegroup relisqu
 
@@ -14,8 +14,18 @@ RUN npm install jsdom axios moment moment-timezone
 
 COPY . .
 
-RUN npm run Build
+RUN npm run build
+
+# Stage 2: Create the production image from first stage
+FROM node:20
+
+RUN groupadd -r sveltegroup && useradd -r -g sveltegroup relisqu
+USER relisqu
+WORKDIR /svelte-app
+
+COPY --from=builder /svelte-app .
 
 EXPOSE 5173
 
-CMD npm run dev -- --host 
+# Start the application
+CMD npm run dev -- --host
