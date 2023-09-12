@@ -5,7 +5,7 @@
 There are many images we can use as a baseline:
 `rust:X`, `rust:X-slim-buster`, `scratch`, `distroless`.
 
-For simplicity I don't use `musl` and static linking - therefore I prefer `rust:slim-buster`
+To have healtchecks I use `alpine as the second baseline`
 
 ## Least frequently changed layers on the top
 
@@ -22,7 +22,8 @@ fix versions of dependencies for both `apt-get` and `cargo`
 Create a user, use it inside the images.
 Also remove permissions to write to the
 binary for users other than `root` -
-it can help to have same sources during process run (but if we use volumes or change entrypoint/cmd...)
+it can help to have same sources during process run
+(but if we use volumes or change entrypoint/cmd...)
 
 ## Setup healthcheck
 
