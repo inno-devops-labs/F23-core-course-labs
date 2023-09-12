@@ -10,11 +10,11 @@ bool is_number(const std::string &s) {
 }
 
 [[noreturn]] void start_server(int port, int cycle) {
-    boost::asio::io_service io_service;
+    boost::asio::io_context io_service;
     boost::asio::ip::tcp::acceptor acceptor(io_service,
                                             boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(), port));
 
-    for(int i = 0; i < cycle;) {
+    for(int i = 0; i < cycle || cycle == -1;) {
         if (cycle != -1) {
             ++i;
         }

@@ -36,3 +36,20 @@ Also, its async "little brother" `quart` has bad number of RPS due to some bench
 `Django` - not suitable for this kind of project: too heavy and complex.
 
 `FastAPI` has a good community, docs, performance, but I have chose **aiohttp** because it is lighter and stable.
+
+### Docker
+
+For containerizing app I copied requirements file and established environment with all dependencies, then I have copied source files and executed my application
+- to build project from you should run following inside app_python directory:
+        
+        docker build ./
+
+- to pull project run:
+
+        docker pull dashvayet/lab2_app_python:latest
+
+- to run project:
+  
+      docker run -ti -p <port to open from host machine>:5000 dashvayet/lab2_app_python:latest
+
+

@@ -12,3 +12,17 @@ This web app is playing in guessing game! It takes numbers you say and gives you
     3. cmake --build ./buildDirectory
     4. Run 'startServer <port you want to run on>' from buildDirectory
     5. Run 'checkServer' target to test application
+
+
+# Docker
+For this app we need to establish environment and compile boost library, then we need to compile application and copy binary file to a next stage image where we can start application
+
+1. To build  - run inside app_cplusplus
+        
+        docker build .
+2.  To pull
+    
+        docker pull dashvayet/cpp_app
+3.  To run
+
+        docker run -ti -p <host port>:10000 dashvayet/cpp_app
