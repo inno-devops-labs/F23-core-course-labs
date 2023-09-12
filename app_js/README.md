@@ -8,6 +8,7 @@ This is a simple js web application developed using Svelte that displays the cur
 - [Compiles and minifies for production](#compiles-and-minifies-for-production)
 - [Lints and fixes files](#lints-and-fixes-files)
 - [Testing](#testing)
+- [Docker](#docker)
 - [Contributing](#contributing)
 
 ## Project setup
@@ -29,7 +30,8 @@ After it you can run the project in development mode, run the following command:
 To build the project, run the following command:
 
 > `npm run build`
-> After that, open your browser and visit the provided localhost URL to see the current time in Moscow
+
+After that, open your browser and visit the provided localhost URL to see the current time in Moscow
 
 ### Lints and fixes files
 
@@ -42,6 +44,17 @@ Linting is done automatically on commit. To run linting manually, run the follow
 To run tests, run the following command:
 
 > `npm run test`
+
+### Docker
+
+First, you need to install docker on your machine. To do this, follow the instructions on the [official website](https://docs.docker.com/get-docker/).
+After it you need to pull the image from docker hub. To do this, run the following command:
+
+> `docker pull relisqu/svelte-app`
+
+To run the project in docker, run the following command:
+
+> `docker run -p 5173:5173 relisqu/svelte-app`
 
 ### Contributing
 
