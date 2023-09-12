@@ -1,9 +1,9 @@
 const express = require('express');
 const app = express();
-const port = 3000;
 
 app.get('/', (req, res) => {
-  res.send('Hello, Express.js World!');
+    const moscowTime = new Date().toLocaleTimeString('en-US', { timeZone: 'Europe/Moscow' });
+    res.send(`Current time in Moscow: ${moscowTime}`);
 });
 
 module.exports = app;
