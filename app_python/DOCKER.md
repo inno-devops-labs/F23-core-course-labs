@@ -17,3 +17,5 @@
 - **Docker Linter**: Utilized the Haskell Dockerfile Linter (hadolint) to identify and address any issues with the Dockerfile's writing style.
 
 - **Healthcheck**: Implemented a healthcheck mechanism to verify the availability of the main server page at regular 30-second intervals.
+
+- **Layer sanity**: Grouped multiple commands together to reduce number of layers.
