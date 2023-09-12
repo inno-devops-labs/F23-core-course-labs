@@ -7,3 +7,5 @@
 3. Multi-stage build. Dockerfile build consists of 2 steps. Stage 1 includes copying necessary files from the root side and in the second stage a user is created, files with restricted access are copied for him and the application is launched.
 
 4. To optimize the Docker image, only the most necessary files are copied inside.
+
+5. Linting. Hadolint was used for validating Dockerfile.
