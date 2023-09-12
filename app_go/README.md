@@ -7,12 +7,17 @@ To choose city you should write name of the city on url, then the app will retur
 
 ## Getting start
 
-1 Make sure that Docker installed
+### How to build
 
-2 Pull the image from docker hub
++ Make sure that Docker installed
++ To build docker run this command `docker build -t rkbekzat/weather .`
 
-3 Run this command `docker run -p 3000:3000 web_weather`
+### How to pull 
++ Run this command `docker pull rkbekzat/weather`
 
-5 Open the any browser and write this url `localhost:3000/"name_of_city"`
+### How To run 
++  Run this command `docker run -p 3000:3000 rkbekzat/weather`
+
++  Open the any browser and write this url `localhost:3000/"name_of_city"`
 
 ![](example.png)
