@@ -4,10 +4,7 @@ WORKDIR /app_elixir
 
 # set build ENV
 ENV MIX_ENV=prod
-
 ENV PORT=4000
-ENV MIX_ENV="prod"
-ENV SECRET_KEY_BASE="QPTMdGxBneR37Smrsxyl7XbPY8ASKthqZwRguTtvjRu7juryPMqfz0FWwQ5rCOlt"
 
 COPY lib ./lib
 COPY config ./config
