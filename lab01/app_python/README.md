@@ -52,3 +52,27 @@ optional arguments:
   --host HOST  Interface to listen (default: 0.0.0.0)
   --port PORT  Port to listen (default: 8000)
 ```
+
+## Docker
+
+### Build
+
+```bash
+docker build -t app_python:dev .
+```
+
+NOTE: here as a context we use `.`, which can be seen as a bad practice.
+Nevertheless, in `Dockerfile` we explicitly specify
+which files are included into the image
+
+### Pull
+
+```bash
+docker pull ilyasiluyanov/app_python:dev
+```
+
+### Run
+
+```bash
+docker run --rm -p 8000:8000 --name app_python app_python:latest
+```
