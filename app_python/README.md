@@ -16,4 +16,20 @@ To get started with the Django web application, follow these steps:
 1. Clone the repository to your local machine
 2. Install the required dependencies using `pip3 install gjango`
 3. Run the server using `python3 manage.py runserver`
-4. Access the application at http://localhost:8000/
+4. Access the application at http://localhost:8000/current_time/
+
+## Run using Docker
+
+- Build:
+  `docker build -t current_time .`
+
+- Push:
+  `docker login -u <username>`
+  `docker tag current_time tcarinaa/current_time:latest`
+  `docker push tcarinaa/current_time:latest`
+
+- Pull:
+  `docker pull tcarinaa/current_time:latest`
+
+- Run:
+  `docker run -p 8000:8000 current_time`    
