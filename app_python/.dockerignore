@@ -1,0 +1,7 @@
+venv
+test
+DOCKER.md
+PYTHON.md
+README.md
+__pycache__
+.pytest_cache
