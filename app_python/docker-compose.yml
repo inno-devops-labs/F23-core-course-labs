@@ -1,0 +1,6 @@
+version: '2'
+
+services:
+  app_python:
+    build: .
+    image: stiveman1/app_python:v2

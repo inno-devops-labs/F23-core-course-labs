@@ -11,6 +11,7 @@ The application updates the time every second without requiring a page refresh.
   - [Features](#features)
   - [Getting Started](#getting-started)
   - [Docker](#docker)
+    - [Dockers Installation] (#dockers-installation)
     - [Dockers SetUp](#dockers-setup)
     - [Dockers Run Application](#dockers-run-application)
   - [Local Machine](#local-machine)
@@ -33,6 +34,14 @@ The application updates the time every second without requiring a page refresh.
 It's instructions will help you to run python web application on docker or in your local machine.
 
 ## Docker
+### Dockers Installation
+You easy can install docker image from docker-hub
+
+```sh
+docker pull stiveman1/app_python
+```
+
+
 ### Dockers SetUp
 
 First of all you might have `docker` in your local machine and `docker-buildx` for build images.
@@ -42,6 +51,14 @@ To set up docker we have file `Dockerfile` so we just need to be in same dir wit
 ```sh
 docker build -t 'image-name' .
 ```
+
+Also you can create docker image using `docker-compose.yml` and get image with tag `stiveman1/app_python:v2` with command:
+
+```sh
+docker-compose build
+```
+
+
 
 ### Dockers Run Application
 
