@@ -8,6 +8,7 @@ This is a simple Python web application developed using Flask that displays the 
 - [Installation process](#installation-process)
 - [Unit Testing](#unit-testing)
 - [Usage](#usage)
+- [Docker](#docker)
 - [Contributing](#contributing)
 
 ## Project Structure
@@ -45,6 +46,18 @@ Start the Flask development server by running
 > `python app.py`
 
 The application will be accessible at `http://127.0.0.1:5000/` in your web browser.
+
+## Docker
+
+We also can run this application using Docker. This will require docker to be installed beforehand. After it we need to pull the Docker image from Docker Hub:
+
+> docker pull relisqu/python-app
+
+After pulling the image, a container can be started using the following command:
+
+> docker run -p 5000:5000 relisqu/python-app
+
+The application will then be accessible at 127.0.0.1:5000
 
 ## Contributing
 
