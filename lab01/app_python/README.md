@@ -74,5 +74,5 @@ docker pull ilyasiluyanov/app_python:dev
 ### Run
 
 ```bash
-docker run --rm -p 8000:8000 --name app_python app_python:latest
+docker run --rm -p 8000:8000 --name app_python ilyasiluyanov/app_python:dev
 ```
