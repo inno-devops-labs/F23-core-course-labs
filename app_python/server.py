@@ -14,8 +14,8 @@ FORMAT = '%H:%M:%S'
 async def root(request: Request):
     return templates.TemplateResponse(name="page.html",
                                       context={"request": request,
-                                               "Title": "Lab 1",
-                                               "Msg": "Hello! This is DevOps course lab 1 by Safina Alina",  # noqa: E501
+                                               "Title": "Lab 2",
+                                               "Msg": "Hello! This is DevOps course lab 2 by Safina Alina",  # noqa: E501
                                                "Href": "/time",
                                                "LinkMsg": "Current time in Moscow"},  # noqa: E501
                                       status_code=200)
@@ -25,7 +25,7 @@ async def root(request: Request):
 async def time(request: Request):
     return templates.TemplateResponse(name="page.html",
                                       context={"request": request,
-                                               "Title": "Lab 1",
+                                               "Title": "Lab 2",
                                                "Msg": f"Current time in Moscow:"  # noqa: E501
                                                       f"{datetime.now(tz=ZoneInfo('Europe/Moscow')).strftime(FORMAT)}",  # noqa: E501
                                                "Href": "/",

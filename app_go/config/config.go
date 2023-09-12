@@ -13,7 +13,7 @@ type ServerCfg struct {
 }
 
 func NewConfig() *ServerCfg {
-	err := godotenv.Load()
+	err := godotenv.Load(".env")
 	if err != nil {
 		log.Println("Error loading .env file")
 	}

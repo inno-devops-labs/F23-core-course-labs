@@ -16,7 +16,7 @@ Go 1.19
     SERVER_HOST=127.0.0.1
     SERVER_PORT=8081
     ```
-## Usage:
+## Start app:
 Build app:
 ```
  go build -o app_go  
@@ -25,11 +25,32 @@ Run app:
 ```
  ./app_go
  ```
-
-
+## Docker:
+### How to build?
+1. Create `.env` file with the following content:
+   ```
+    SERVER_HOST=0.0.0.0
+    SERVER_PORT=8081
+    ```
+2. Run command
+   ```
+   docker build -t app_go:latest .
+   ```
+### How to pull?
+```
+   docker pull lnsfna/app_go
+   ```
+### How to run?
+* If built locally:
+  ```
+   docker run -d -p 8081:8081 --name app_go app_go:latest
+   ```
+* If pulled from DockerHub:
+```
+   docker run -d -p 8081:8081 --name app_go lnsfna/app_go:latest
+   ```
+## Usage:
 Now you can go to `http://127.0.0.1:8081/` and `http://127.0.0.1:8081/joke` to test app.
-
-If you used another variables in `.env` file, refer to `http://<SERVER_HOST>:<SERVER_PORT>/`.
 
 
 
