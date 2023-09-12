@@ -1,8 +1,11 @@
 from flask import Flask
 import time
+import datetime
+import pytz
 
 app = Flask(__name__)
-
+timezone = pytz.timezone('Europe/Moscow')
 @app.route("/")
 def hello_world():
-    return time.strftime('%A %B, %d %Y %H:%M:%S')
+    curTime = datetime.datetime.now(tz = timezone)
+    return curTime.strftime('%Y-%m-%d %H:%M:%S')
