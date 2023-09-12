@@ -26,6 +26,9 @@
       <ul>
         <li><a href="#installation">Installation</a></li>
       </ul>
+      <ul>
+        <li><a href="#docker">Docker</a></li>
+      </ul>
     </li>
     <li>
       <a href="#Usage">Usage</a>
@@ -62,6 +65,29 @@ To get a local copy up and running follow these simple steps.
     ```sh
    main.py
    ```
+### Docker
+1. To build the image locally use command:
+```
+docker build . -t your_tag
+```
+2. Then use run command:
+```
+docker run -d -p 5000:5000 your_tag
+```   
+3. To pull the image from the Docker Hub use command:
+```
+docker image pull irsokolova/time_app
+```
+4. Then you can check if the image was downloaded by command:
+```
+docker images
+```
+5. After making sure it was downloaded you can run it:
+```
+docker run -d -p 5000:5000 irsokolova/time_app
+```
+
+After running, you can check if the app is working by going to http://localhost:5000/ 
 
 ## Usage
    Follow the link from the terminal
