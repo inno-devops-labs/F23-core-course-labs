@@ -8,6 +8,10 @@ TIMEZONE_MSK = timezone(timedelta(hours=3))
 app = fastapi.FastAPI()
 
 
+@app.get('/health')
+def healthcheck():
+    return 'OK'
+
 @app.get('/')
 def current_time():
     return datetime.now(tz=TIMEZONE_MSK)
