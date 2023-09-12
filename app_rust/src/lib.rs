@@ -9,6 +9,7 @@ use std::{
 };
 
 use chrono::prelude::*;
+
 pub struct ThreadPool {
     workers: Vec<Worker>,
     sender: Option<mpsc::Sender<Job>>,

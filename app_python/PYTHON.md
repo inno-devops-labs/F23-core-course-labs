@@ -6,6 +6,9 @@
 
 3. [Best Practices](#3-Best-Practices)
 
+4. [How to run](#4-How-To-Run)
+
+5. [Docker](#5-Docker)
 
 # Goal
 
@@ -34,8 +37,61 @@
   - For example: configure `autopep8` to run on save in the IDE.
 - **Follow recommended directory structure and directory/file naming. Example:**
   - Use `templates` directory for HTML templates and `static` directory for static files with subdirectories for `css`, `js`, `images`, and any other needed static files.
-- To connect Python webapps to the webserver, we need a **Web Server Gateway Interface (WSGI)** 
+- To connect Python webapps to the webserver, we need a **Web Server Gateway Interface (WSGI)**
 - Use an appropriate testing framework (e.g., `pytest`).
 - Use a recommended directory hierarchy for organizing tests.
+- 
 - Add an `__init__` script to the directory (even if empty) to mark it as a module and to avoid unintended code execution when importing the test module.
 
+# How to run
+
+## Requirements
+
+- Install pip
+
+  ```shell
+  python -m pip install
+  ```
+
+## How to run
+
+1. build the packages from pip
+
+   ```shell
+   pip install
+   ```
+
+2. Run the web server
+
+   ```she 
+   gunicorn --bind 0.0.0.0:5000 interface
+   ```
+
+3. Go to `127.0.0.1:5000`
+
+# Docker
+
+## Requirements
+
+Make sure you have docker on your machine
+
+- ```she
+  sudo apt install docker.io
+  ```
+
+## Steps
+
+- To build and run a docker image yourself run:
+
+```shell
+Docker build -t <your_tag> .
+docker run -it -p 5000:5000 <your_tag>
+```
+
+- To use the image on docker hub
+
+  ```shell
+  Docker login
+  docker pull el3os/moscow_time_python
+  docker run -p 5000:5000 el3os/moscow_time_python
+  ```

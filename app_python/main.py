@@ -2,13 +2,12 @@ from datetime import datetime
 
 import pytz
 from flask import Flask, render_template
-from markupsafe import escape
 
 app = Flask(__name__)
 
 
 @app.route("/")
-def hello_world():
+def get_time():
     MTZ = pytz.timezone("Europe/Moscow")
     time_in_moscow = datetime.now(MTZ)
     time_formated = time_in_moscow.strftime("%H:%M:%S")
