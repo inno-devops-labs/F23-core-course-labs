@@ -1,18 +1,28 @@
-# Python Web Application
+# Python Flask Web Application
 
-This is a simple Python web application that displays the current time in Moscow. It's built using the Flask web application framework.
+This is a simple Python Flask web application that shows the current time in Moscow.
 
-## Features
+## Dockerized Application
 
-- Displays the current time in Moscow, updating every second without needing to refresh the page.
+This application has been Dockerized for easy deployment. Here are the instructions to build, pull, and run the Docker image
 
-## Running the Application
+### Building the Docker Image
 
-To run the application, simply run the Python script and visit `http://127.0.0.1:5000` in your web browser. You can also change the port or address of the web application by passing the *host*, *port* attributes to `app.run()`, which is in the main function.
+Run the following command to build the Docker image:
+
+    docker build -t aisenbeast/my_web_app .
+
+### Pulling the Docker Image
+
+Run the following command to pull the Docker image:
+
+    docker pull aisenbeast/my_web_app:latest
+
+### Running the Docker Image
+
+After building or pulling the image, you can run it with the following command:
+
+    docker run -p 4000:5000 aisenbeast/my_web_app:latest
 
 
-## Testing
-
-To test the application, run the script and visit the following URLs:
-
-- `http://127.0.0.1:5000`: Should display the current time in Moscow, updating every second.
+This will start the application and map port 4000 of your machine to port 5000 in the Docker container. You can then access the application in your web browser at `http://localhost:4000`.
