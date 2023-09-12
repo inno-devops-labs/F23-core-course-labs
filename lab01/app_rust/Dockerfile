@@ -1,23 +1,30 @@
+ARG TARGET_PLATFORM=x86_64-unknown-linux-musl
+
 FROM rust:1.72-slim-buster as builder
+ARG TARGET_PLATFORM
 
 RUN cargo new app_rust
+ARG RUSTFLAGS=''
+RUN rustup target add ${TARGET_PLATFORM}
 
 WORKDIR /app_rust
 
 COPY Cargo.toml Cargo.lock ./
-RUN cargo build --release
+RUN RUSTFLAGS=${RUSTFLAGS} cargo build --release --target ${TARGET_PLATFORM}
 COPY src src
-ARG RUSTFLAGS=''
-RUN RUSTFLAGS=${RUSTFLAGS} cargo install --path .
+RUN RUSTFLAGS=${RUSTFLAGS} cargo build --release --target ${TARGET_PLATFORM}
 
-FROM rust:1.72-slim-buster
+FROM alpine:3.18.3
+ARG TARGET_PLATFORM
 
-RUN apt-get update && \
-   apt-get --no-install-recommends install -y curl libc-bin libc6 && \
-   rm -rf /var/lib/apt/lists/*
+RUN apk --no-cache  update && \
+   apk add --no-cache curl && \
+   rm -rf /var/cache/apk/*
 
-COPY --from=builder /app_rust/target/release/app_rust app_rust
-RUN chmod -R a-w+rx app_rust && useradd -ms /bin/bash devuser
+
+WORKDIR /
+COPY --from=builder /app_rust/target/${TARGET_PLATFORM}/release/app_rust app_rust
+RUN chmod -R a-w+rx app_rust && adduser -DHs /bin/bash devuser
 USER devuser
 
 EXPOSE 8000
