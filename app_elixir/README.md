@@ -9,6 +9,7 @@ Lab1 DevOps course [F23]
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
 - [Usage](#usage)
+- [Docker](#docker)
 
 ## Project Overview
 
@@ -58,3 +59,29 @@ end
 Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
 and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
 be found at <https://hexdocs.pm/devops>.
+
+## Docker
+
+### Run with docker:
+
+```bash
+$ docker run -p 4000:4000 -e SECRET_KEY_BASE='WPcE2F5vjA5X3XBE+QcK7OHMiAuPovP4e62Gsl0VFxRHvu+xS2AiQWY0H3Qz6Q3O' nikitosing/app_elixir
+```
+
+### Build an image:
+
+```bash
+$ docker build -t app_elixir .
+```
+
+### Run built image
+
+```bash
+$ docker run -p 4000:4000 -e SECRET_KEY_BASE='WPcE2F5vjA5X3XBE+QcK7OHMiAuPovP4e62Gsl0VFxRHvu+xS2AiQWY0H3Qz6Q3O' app_elixir  
+```
+
+### Pull the image
+
+```bash
+$ docker pull nikitosing/app_elixir
+```
