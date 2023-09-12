@@ -1,16 +1,4 @@
 # Moscow Time Web App
-
-## Table of contents
-
-- [Description](#description)
-- [Pre-requirements](#pre-requirements)
-- [Quick start](#quick-start)
-- [Project repository](#project-repository)
-- [Bugs and feature requests](#bugs-and-feature-requests)
-- [Contributing](#contributing)
-- [Creator](#creator)
-- [Copyright and license](#copyright-and-license)
-
 ## Description
 
 Simple web app to fetch current time in Moscow.
@@ -46,4 +34,30 @@ Run tests
 
 ```bash
 pytest
+```
+
+## Docker
+
+Build container
+
+```bash
+docker build -t docker.io/platun0v/devops-lab2 .
+```
+
+Run container
+
+```bash
+docker run -it --rm -p 8000:8000 docker.io/platun0v/devops-lab2 guincorn main:app -b 0.0.0.0:8000
+```
+
+Push container
+
+```bash
+docker push docker.io/platun0v/devops-lab2
+```
+
+Pull container
+
+```bash
+docker pull docker.io/platun0v/devops-lab2
 ```
