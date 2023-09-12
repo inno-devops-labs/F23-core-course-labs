@@ -14,12 +14,22 @@ In order to prepare project to run, it is necessary to install dependencies:
 pip3 install -r requirements.txt
 ```
 
-#### Usage
+#### Usage (Docker)
 
-Currently in order to start server it is enough to run application's main python file:
-
+The application can be easily runned in docker.
+First, pull the image:
 ```bash
-python3 app.py
+docker pull elatypovinno/devops_inno
+```
+
+Then it is possible to start container, it will build and run everything automatically:
+```bash
+docker run -it -p 8080:8080 --name time-app elatypovinno/devops_inno:latest 
+```
+
+To build the container was used the following command:
+```bash
+docker build -t elatypovinno/devops_inno:latest .
 ```
 
 #### Contact
