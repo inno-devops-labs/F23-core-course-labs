@@ -9,8 +9,8 @@ The application is built using the Flask framework.
 
 ## Installation
 
-1. Clone the repository: git clone https://github.com/quhaaST/core-course-labs/tree/main/python_app
-2. Change into the project directory: cd python_app
+1. Clone the repository: `git clone https://github.com/quhaaST/core-course-labs/tree/main/python_app`
+2. Change into the project directory: `cd python_app`
 3. Install dependencies: pip install -r requirements.txt
 
 ## Usage
@@ -19,6 +19,23 @@ The application is built using the Flask framework.
 2. Open your web browser and navigate to http://localhost:5000
 3. You should see the current Moscow time displayed on the webpage
 4. Refresh the webpage to update the displayed time
+
+## Docker usage
+
+### How to build
+```
+docker build -t evalekalek/devops:latest .
+```
+
+### How to pull
+```
+docker pull evalekalek/devops:latest
+```
+
+### How to run
+```
+docker run -it --rm evalekalek/devops:latest
+```
 
 ## Dependencies
 
