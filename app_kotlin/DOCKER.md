@@ -39,3 +39,7 @@ USER testuser
 
 I also added the `EXPOSE` instruction
 that ["functions as a type of documentation between the person who builds the image and the person who runs the container"](https://docs.docker.com/engine/reference/builder/#expose)
+
+### DOCKERIGNORE
+
+I also added `.dockerignore` file and listed files and directories redundant for build. This would reduce build cost and security risks.
