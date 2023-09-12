@@ -1,12 +1,16 @@
 from flask import Flask, render_template
 from datetime import datetime
 import pytz
+from waitress import serve
 
-app = Flask(__name__)
 
-
+# Функция, которая возвращает время в определенном месте (в формате %H:%M:%S)
 def get_timezone(name):
     return datetime.now(pytz.timezone(name)).strftime('%H:%M:%S')
+
+
+# Создаем Flask app
+app = Flask(__name__)
 
 
 @app.route('/')
@@ -16,4 +20,4 @@ def main():
 
 
 if __name__ == '__main__':
-    app.run()
+    serve(app, port=8080)
