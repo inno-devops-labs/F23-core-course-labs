@@ -24,3 +24,20 @@ python -m pylint main.py
 ```bash
 pacman -S uvicorn python-starlette
 ```
+
+## Docker
+### Build
+```bash
+docker build -t kinjalik/devops-course-app:python .
+```
+
+### Pull
+```bash
+docker pull kinjalik/devops-course-app:python
+```
+
+### Run
+```bash
+docker run -p 8000:8000 -it kinjalik/devops-course-app:python
+```
+Application will be available on port 8000

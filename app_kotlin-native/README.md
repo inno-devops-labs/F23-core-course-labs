@@ -25,3 +25,20 @@ ktlint
 ## Requirements
 - Linux or MacOS on your PC. Windows ~~must die~~ not supported
 - Gradle 8.2.1
+
+## Docker
+### Build
+```bash
+docker build -t kinjalik/devops-course-app:kotlin-native .
+```
+
+### Pull
+```bash
+docker pull kinjalik/devops-course-app:kotlin-native
+```
+
+### Run
+```bash
+docker run -p 8080:8080 -it kinjalik/devops-course-app:kotlin-native
+```
+Application will be available on port 8080
