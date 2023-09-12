@@ -1,6 +1,6 @@
 FROM golang:1.19 as builder
 
-LABEL iviosab.moscow_time_go.created="2023-09-12T06:18:03+00:00"
+LABEL iviosab.moscow_time_go.created="2023-09-12T20:18:08+00:00"
 LABEL iviosab.moscow_time_go.authors="Mosab Mohamed"
 LABEL iviosab.moscow_time_go.source="https://github.com/IVIosab/core-course-labs/tree/main/app_golang"
 LABEL iviosab.moscow_time_go.version="0.0.1"
@@ -16,9 +16,9 @@ RUN GOOS=linux GOARCH=amd64 go build .
 
 FROM golang:1.19.13-alpine3.18
 
-RUN apk add libc6-compat \
+RUN apk --no-cache add libc6-compat=1.2.4-r1 \
     && adduser myuser -D && chown -R myuser . \
-    && apk --no-cache add curl
+    && apk --no-cache add curl=8.2.1-r0
 
 USER myuser
 
@@ -31,4 +31,4 @@ EXPOSE 8080
 ENTRYPOINT [ "./moscowtime" ]
 
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-    CMD curl --fail http://localhost:5000/ || exit 1
+    CMD curl --fail http://localhost:8080/ || exit 1
