@@ -1,4 +1,4 @@
-﻿# Docker Best Practices in Moscow Time C# app
+﻿# Docker Best Practices that I used
 
 - **Multi-stage Builds**: Leveraging multi-stage builds to minimize the final image size.
 - **Official Images**: Utilizing official .NET images for compatibility and security.
