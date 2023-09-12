@@ -4,7 +4,7 @@
 
 This web application displays the current time in Moscow. It features a dynamic and playful design with a color-changing container. The text inside the container has each letter displayed in a random color. It provides a fun and unique way to check the current time.
 
-## Build
+## Build locally
 
 To run this application locally, follow these steps:
 
@@ -23,7 +23,7 @@ To run this application locally, follow these steps:
 3. Start the FastAPI application::
 
 ```bash
-    uvicorn  src.main:app --host 0.0.0.0 --port 8000 --reload
+    uvicorn  src.main:app --host 0.0.0.0 --port 80 --reload
 ```
 
 4. Open the application in your browser:
@@ -32,17 +32,53 @@ To run this application locally, follow these steps:
     http://localhost:8000
 ```
 
-## Usage
+## Build with Docker locally
 
-- The main page displays the current time in Innopolis/Moscow.
-- The text inside the container change colors for a playful effect.
-- The time updates every second to reflect the current time.
+To run this application with Docker, follow these steps:
 
-## Contact
+1. Navigate to the `app_python` folder:
 
-For any questions or issues, please contact:
+```bash
+    cd app_python
+```
 
-- [Mikhail Fedorov](mailto:fedorovm093@gamil.com)
+2. Build the Docker image:
+
+```bash
+    docker build -t app_python .
+```
+
+3. Run the Docker container:
+
+```bash
+    docker run -d -p 80:80 --name app_python app_python   
+```
+
+4. Open the application in your browser:
+
+```bash
+    http://localhost
+```
+
+## Build from Docker Hub
+
+1. Pull the Docker image from Docker Hub:
+
+```bash
+    docker pull max3k/app_python
+```
+
+2. Run the Docker container:
+
+```bash
+    docker run -d -p 80:80 --name app_python max3k/app_python
+```
+
+3. Open the application in your browser:
+
+```bash
+    http://localhost
+```
 
 ## Web Application Structure
 
@@ -97,3 +133,15 @@ For any questions or issues, please contact:
 - **PEP 8**: Code follows PEP 8 guidelines for Python code formatting and style.
 
 - **pytest**: Unit tests are written and executed using the pytest testing framework to ensure code reliability.
+
+## Usage
+
+- The main page displays the current time in Innopolis/Moscow.
+- The text inside the container change colors for a playful effect.
+- The time updates every second to reflect the current time.
+
+## Contact
+
+For any questions or issues, please contact:
+
+- [Mikhail Fedorov](mailto:fedorovm093@gamil.com)
