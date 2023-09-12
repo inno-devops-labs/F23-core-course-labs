@@ -22,3 +22,22 @@ mvn spring-boot:run
 2. Run the application by `Run` button near `main` method of `Lab1Application.kt` file: ![img.png](img.png)
 
 3. Server runs on default localhost path http://127.0.0.1:8080/ which can be opened in any browser. The page shows how many times this page was opened from the server start. The second page http://127.0.0.1:8080/time displays current time in Moscow timezone.
+
+## Docker
+
+You can pull the latest version and **run** it by the following command:
+```
+docker run -it -p 8080:8080 klemencja/app_kotlin
+```
+The application will be deployed on your http://127.0.0.1:8080/
+
+To **build** the updated version you may change the directory to `core-course-labs` and run `docker build` 
+```
+cd core-course-labs
+docker build app_kotlin -t app_kotlin
+```
+
+To just **pull** an image from dockerhub you can use:
+```
+docker pull klemencja/app_kotlin
+``` 
