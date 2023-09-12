@@ -12,4 +12,13 @@ This is a simple Flask application that shows the current time in Moscow time.
 
 3. Run the application, should be able to view the time in your browser:
     `flask run`
+
+## Docker
+
+1. Pull from Docker Hub:
+   `docker pull hadisaleh1/time-app:latest`
+
+2. Run the application:
+    `docker run hadisaleh1/time-app`
+
  
