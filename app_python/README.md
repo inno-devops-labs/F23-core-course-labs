@@ -71,7 +71,7 @@ docker pull dyllasdek/app_python:1.0.2
 To run the Docker container, use the following command:
 
 ```
-docker run -p 5000:5000 app-python:<version_of_container>
+docker run -p 5000:5000 app_python:<version_of_container>
 ```
 
 Make sure you have Docker installed and running on your system before executing these commands.
