@@ -19,3 +19,4 @@ Only one port is exposed (minimum needed)
 
 My image has version tag 0.1.0. Versioning will be easy in the future
 
+I am using .dockerignore file
