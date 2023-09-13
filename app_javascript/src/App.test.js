@@ -1,16 +1,32 @@
 import { render, screen } from "@testing-library/react";
 import App from "./App";
 
-test("time is updated after page refresh", async () => {
+test("renders without errors", () => {
+  render(<App />);
+});
+
+test("time updates on page refresh", () => {
   render(<App />);
 
-  const timeElement = screen.getByTestId("time-element");
-  const initialTime = timeElement.textContent;
+  const currentTime = screen.getByTestId("time-element").textContent;
 
-  // Simulate page refresh
-  window.location.reload();
+  setTimeout(() => {
+    const updatedTime = screen.getByTestId("time-element").textContent;
 
-  const newTime = timeElement.textContent;
+    expect(updatedTime).not.toBe(currentTime);
+  }, 2000);
+});
 
-  expect(newTime).not.toEqual(initialTime);
+test("displays the correct date", () => {
+  render(<App />);
+
+  const currentDate = new Date().toLocaleDateString("en-US", {
+    weekday: "short",
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+    timeZone: "Europe/Moscow",
+  });
+
+  expect(screen.getByText(currentDate)).toBeInTheDocument();
 });

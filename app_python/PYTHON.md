@@ -23,3 +23,13 @@ To follow coding standards and ensure code quality, the following steps were tak
 - Consistent coding style: A consistent coding style was established and followed throughout the app. This included guidelines for indentation, naming conventions, and formatting.
 - Linting: A linter (prettier for html) was used to catch issues before they could cause problems.
 - Version control: The code was stored in a version control system such as Git, which allowed for easy collaboration and tracking of changes. This also allowed for easy rollback in case of issues or bugs.
+
+# Unit Tests
+
+I have created single test_main.py where I wrote several unit tests checking whether webpage loads, whether time shows and whether time changes on page refresh. I used such best practices:
+
+- Descriptive test function names: This makes it easier to understand what each test is doing and helps with debugging.
+- Keep tests independent: This helps to isolate failures and makes it easier to pinpoint the cause of a failure.
+- Used fixtures to setup test data: Fixtures are functions that can be used to setup test data or state before each test runs. This can help reduce duplicated code and make tests more readable.
+- Used assertions to check expected results: Assertions needed to check that the output of a function or method matches the expected result.
+- Clear and concise code: This makes it easier for others to contribute to my codebase and helps with debugging.
