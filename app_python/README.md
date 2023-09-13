@@ -17,3 +17,16 @@ Go to http://localhost:8000/display_time/ to see current time
 1. Run tests using the following command:
 
 `python manage.py test myproject.tests.CurrentMskTimeTest`
+
+### To run via docker image
+It's possible to pull and run the application as an image from Docker hub. Installed docker is required.
+1. Pull the image
+
+    `docker pull rentacat45/python-web-app`
+
+2. Run the container
+
+    `docker run -it -p 8000:8000 rentacat45/python-web-app`
+
+Access through http://localhost:8000/display_time/ to see current time
+
