@@ -16,11 +16,6 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
 ### `npm run build`
 
 Builds the app for production to the `build` folder.\
@@ -82,3 +77,20 @@ After building the image, a container can be started using the following command
 docker run -p 80:80 marufasatullaev/app_javascript
 
 The application will then be accessible at http://localhost:80. If port 80 is already in use, an unused port can be used instead by replacing 80:80 with xxxx:80, where xxxx represents the unused port.
+
+## Unit tests
+
+### `npm test`
+
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
+## GitHub Actions CI
+
+The GitHub Actions configuration used in this project has three jobs: Snyk, Build, and Publish
+
+- Snyk — checks the dependencies for vulnerabilities
+- Build — installs the dependencies, lints and tests the code
+- Publish — builds an image and tags it :latest, pushes the image to the docker hub
+
+The workflow is triggered only on changes in the ./app_javascript directory or in the workflow configuration itself
