@@ -1,0 +1,5 @@
+.idea/*
+README.md
+*.md
+node_modules/*
+Dockerfile

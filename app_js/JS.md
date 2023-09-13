@@ -26,6 +26,25 @@ To run this application locally, follow these steps:
 
 4. Open your web browser and visit [http://localhost:3000](http://localhost:3000) to use the application.
 
+### Build and run with Docker
+1. Clone the repository. Go to `app_js` folder
+2. Build an image
+
+   ```
+   docker build -t maksktl/app_js:latest .
+   ```
+
+   or pull an image from docker hub
+
+   ```
+   docker pull maksktl/app_js:latest
+   ```
+3. Create and run a container from the built image
+   ```
+   docker run -d -p 3000:3000 maksktl/app_js
+   ```
+4. Access the website `localhost:3000`
+
 ## Usage
 
 - When you open the application in your web browser, you will initially see "Loading..." in the center of the screen.
@@ -45,7 +64,8 @@ To run this application locally, follow these steps:
 - CSS
 - XMLHttpRequest
 - Node.js (for serving the application)
-
+- Docker
+- Docker linter: hadolint
 ## Author
 
 - Name: Maxim Matantsev
