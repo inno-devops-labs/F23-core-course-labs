@@ -1,4 +1,4 @@
-# Lab 1 - Web application - Moscow time
+# Web application - Moscow time
 
 ## Motivation
 The goal of the project is to allow users see current Moscow time in a browser page.
@@ -18,10 +18,13 @@ In order to install the project one has to firstly clone the repository:
 `git clone https://github.com/vladimirKa002/devops-course-labs.git`
 
 Then install necessary dependencies:  
-`pip install flask pytz pytest`
+`pip install -r requirements.txt`
 
 
 ## Usage
+
+### Manual
+
 To run the application use the command:  
 `python app_python/app.py`
 
@@ -31,6 +34,24 @@ To test the application use the command:
 Then open `http://127.0.0.1:5000/` in your web browser. You will see a message like as follows:  
 `Current Moscow time is 2023-09-06, 08:51:18.794`
 
+### Docker
+
+#### How to build?
+
+Run the following command to build the docker image:  
+`docker build -t app_python .`
+
+#### How to pull?
+
+In order to pull the Docker container image run this command:  
+`docker pull vladimirka002/innopolis-devops-python-app`
+
+#### How to Run?
+
+You can run the application using the following command:  
+`docker run -p 5000:5000 vladimirka002/innopolis-devops-python-app`
+
+The application will be accessible via the following link: `http://localhost:5000/`
 
 ## Author
 Vladimir Kalabukhov, v.kalabukhov@innopolis.university
