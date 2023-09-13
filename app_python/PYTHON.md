@@ -10,27 +10,27 @@ To run this application locally, follow these steps:
 
 1. Navigate to the `app_pyhon` folder:
 
-```bash
-    cd app_python
-```
+    ```bash
+        cd app_python
+    ```
 
-2. Install project dependencies:
+1. Install project dependencies:
 
-```bash
-    pip3 install -r requirements.txt
-```
+    ```bash
+        pip3 install -r requirements.txt
+    ```
 
-3. Start the FastAPI application::
+1. Start the FastAPI application::
 
-```bash
-    uvicorn  src.main:app --host 0.0.0.0 --port 80 --reload
-```
+    ```bash
+        uvicorn  src.main:app --host 0.0.0.0 --port 80 --reload
+    ```
 
-4. Open the application in your browser:
+1. Open the application in your browser:
 
-```bash
-    http://localhost:8000
-```
+    ```bash
+        http://localhost:8000
+    ```
 
 ## Build with Docker locally
 
@@ -38,47 +38,47 @@ To run this application with Docker, follow these steps:
 
 1. Navigate to the `app_python` folder:
 
-```bash
-    cd app_python
-```
+    ```bash
+        cd app_python
+    ```
 
-2. Build the Docker image:
+1. Build the Docker image:
 
-```bash
-    docker build -t app_python .
-```
+    ```bash
+        docker build -t app_python .
+    ```
 
-3. Run the Docker container:
+1. Run the Docker container:
 
-```bash
-    docker run -d -p 80:80 --name app_python app_python   
-```
+    ```bash
+        docker run -d -p 80:80 --name app_python app_python   
+    ```
 
-4. Open the application in your browser:
+1. Open the application in your browser:
 
-```bash
-    http://localhost
-```
+    ```bash
+        http://localhost
+    ```
 
 ## Build from Docker Hub
 
 1. Pull the Docker image from Docker Hub:
 
-```bash
-    docker pull max3k/app_python
-```
+    ```bash
+        docker pull max3k/app_python
+    ```
 
-2. Run the Docker container:
+1. Run the Docker container:
 
-```bash
-    docker run -d -p 80:80 --name app_python max3k/app_python
-```
+    ```bash
+        docker run -d -p 80:80 --name app_python max3k/app_python
+    ```
 
-3. Open the application in your browser:
+1. Open the application in your browser:
 
-```bash
-    http://localhost
-```
+    ```bash
+        http://localhost
+    ```
 
 ## Web Application Structure
 
@@ -108,9 +108,9 @@ To run this application with Docker, follow these steps:
 
 1. **Coding Standards**: The Python code adheres to PEP 8 coding style guidelines, ensuring consistency and readability.
 
-2. **Testing**: Unit tests are included in the `tests` directory to validate application functionality using the `pytest` testing framework.
+1. **Testing**: Unit tests are included in the `tests` directory to validate application functionality using the `pytest` testing framework.
 
-3. **Static Files**: Static files (HTML and JavaScript) are served correctly from the `static` directory, adhering to best practices.
+1. **Static Files**: Static files (HTML and JavaScript) are served correctly from the `static` directory, adhering to best practices.
 
 ## Framework Choice: FastAPI
 

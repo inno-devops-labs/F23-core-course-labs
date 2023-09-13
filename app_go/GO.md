@@ -4,33 +4,80 @@
 
 This web application displays the current time in Moscow. It features a dynamic and playful design with a color-changing container. The text inside the container has each letter displayed in a random color. It provides a fun and unique way to check the current time.
 
-## Build
+## Build locally
 
 To run this application locally, follow these steps:
 
 1. Navigate to the `app_go` folder:
 
-```bash
-    cd app_go
-```
+    ```bash
+        cd app_go
+    ```
 
-2. Build the application:
+1. Build the application:
 
-```bash
-    go build
-```
+    ```bash
+        go build
+    ```
 
-3. Run the application:
+1. Run the application:
 
-```bash
-    ./app_go
-```
+    ```bash
+        ./app_go
+    ```
 
-4. Open the application in your browser:
+1. Open the application in your browser:
 
-```bash
-    http://localhost:8080
-```
+    ```bash
+        http://localhost:8080
+    ```
+
+## Build with Docker locally
+
+To run this application with Docker, follow these steps:
+
+1. Navigate to the `app_go` folder:
+
+    ```bash
+        cd app_go
+    ```
+
+1. Build the Docker image:
+
+    ```bash
+        docker build -t app_go .
+    ```
+
+1. Run the Docker container:
+
+    ```bash
+        docker run -d -p 8080:8080 --name app_go app_go   
+    ```
+
+1. Open the application in your browser:
+
+    ```bash
+        http://localhost:8080
+    ```
+
+## Build from Docker Hub
+
+1. Pull the Docker image from Docker Hub:
+
+    ```bash
+        docker pull max3k/app_go
+    ```
+
+1. Run the Docker container:
+
+    ```bash
+        docker run -d -p 8080:8080 --name app_go max3k/app_go
+    ```
+
+1. Open the application in your browser:
+
+    ```bash
+        http://localhost:8080
 
 ## Usage
 
@@ -48,9 +95,9 @@ For any questions or issues, please contact:
 
 1. **TML Templating**: The application uses HTML templates for rendering, separating the presentation layer from the logic.
 
-2. **Static File Serving**: Static files (CSS and JavaScript) are served correctly from the `static` folder, adhering to best practices.
+1. **Static File Serving**: Static files (CSS and JavaScript) are served correctly from the `static` folder, adhering to best practices.
 
-3. **Error Handling**: Although not explicitly shown in the code, error handling and logging are essential components of a production-ready application. Gin allows adding middleware for error handling, which is a recommended practice.
+1. **Error Handling**: Although not explicitly shown in the code, error handling and logging are essential components of a production-ready application. Gin allows adding middleware for error handling, which is a recommended practice.
 
 ## Framework Choice: Gin
 
