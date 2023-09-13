@@ -41,7 +41,7 @@ int main() {
     });
 
     // Start the HTTP server on port 80
-    server.listen("127.0.0.1", 5050);
+    server.listen("0.0.0.0", 80);
 
     return 0;
 }
