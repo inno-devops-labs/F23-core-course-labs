@@ -66,7 +66,7 @@ You can pull the Docker image from Docker Hub using(current version 1.0.2):
 docker pull dyllasdek/app_python:1.0.2
 ```
 
-How to Run
+### How to Run
 
 To run the Docker container, use the following command:
 
