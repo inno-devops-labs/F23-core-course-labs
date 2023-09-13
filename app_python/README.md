@@ -21,3 +21,28 @@ Note: run this command from the `app` directory
 ### Testing
 Run `pytest` command from the `app_python` directory
 
+## Docker
+
+This app was added to Docker Hub
+
+### Build
+
+To build Docker image need to run
+```bash
+sudo docker build -t your_image_name .
+```
+
+### Pull
+
+Since it's public then there's no need to sign in
+Run the following command for pulling the image
+```bash
+docker pull lizavetta/devops-python
+```
+
+### Run
+
+Run using the following command
+```bash
+sudo docker run -d --name your_container_name -p 80:80 your_image_name
+```
