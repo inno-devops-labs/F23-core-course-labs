@@ -3,7 +3,7 @@ import datetime
 
 app = Flask(__name__)
 
-@app.route('/', methods=["GET"])
+@app.route('/time', methods=["GET"])
 def display_moscow_time():
     return get_moscow_time()
 
@@ -16,4 +16,4 @@ def get_moscow_time():
     return moscow_time.strftime('%Y-%m-%d %H:%M:%S')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=5000)
