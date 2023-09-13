@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 	"time"
 )
@@ -13,6 +14,14 @@ func NewTimeHandler() *TimeHandler {
 }
 
 func (t *TimeHandler) CurrentTime(w http.ResponseWriter, r *http.Request) {
-	currentTime := time.Now()
-	fmt.Fprintf(w, "Current Time: %s", currentTime)
+	timeZone := "Europe/Moscow"
+	location, err := time.LoadLocation(timeZone)
+	if err != nil {
+		err_text := fmt.Sprintf("load location: %v", err)
+		log.Print(err_text)
+		fmt.Fprintf(w, err_text)
+	} else {
+		currentTime := time.Now().In(location)
+		fmt.Fprintf(w, "Current Time: %s", currentTime.Format(time.DateTime))
+	}
 }

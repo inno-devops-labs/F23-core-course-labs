@@ -27,7 +27,27 @@ The application should now be running at http://localhost:8081.
 To run the tests, switch to the `app_go` directory, and execute:
 
 ```
-$ go test ./..
+$ go test .
+```
+
+## Docker 
+To build the image run the following command from `app_go` directory:
+```
+docker build -t devopsgo .
+```
+
+To run the image run:
+```
+docker run --rm -p 8080:8080 devopsgo
+```
+
+* `--rm` here stands for deleting the container right after it is stopped
+
+Or if you want to pull the image from the docker hub:
+
+
+```
+docker pull bobievnodir/devopsgo:v1.0
 ```
 
 

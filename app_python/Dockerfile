@@ -2,27 +2,17 @@ FROM python:3.10-slim AS base
 
 WORKDIR /app
 
-RUN useradd -ms /bin/bash appuser
-
 COPY requirements.txt .
 
-RUN pip install -r requirements.txt 
-
-FROM base as test
+RUN pip install --no-cache-dir -r requirements.txt 
 
 COPY . .
 
-RUN chown -R appuser:appuser /app
+RUN useradd --system --uid 1000 --group users appuser
 
 USER appuser
 
 RUN pytest tests
-
-FROM base as release
-
-COPY --from=test --chown=appuser:appuser /app /app
-
-USER appuser
 
 EXPOSE 5000
 
