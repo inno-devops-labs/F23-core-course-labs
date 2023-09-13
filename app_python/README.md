@@ -53,6 +53,25 @@ To build and run this project locally, follow these steps:
 7. Open your web browser and go to [http://127.0.0.1:5000/](http://127.0.0.1:5000/) to
    view the current time in Moscow.
 
+### With Docker
+1. Clone the repository. Go to `app_python` folder
+2. Build an image 
+  
+   ```
+   docker build -t maksktl/app_python:latest .
+   ```
+      
+    or pull an image from docker hub 
+
+   ```
+   docker pull maksktl/app_python:latest
+   ```
+3. Create and run a container from the built image
+   ```
+   docker run -d -p 8000:5000 maksktl/app_python
+   ```
+4. Access the website `localhost:8000`
+
 ## Usage
 
 The application is straightforward to use. Once you have it running locally or deployed,
