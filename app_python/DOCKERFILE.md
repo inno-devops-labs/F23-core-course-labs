@@ -1,1 +1,0 @@
-https://hadolint.github.io/hadolint/
