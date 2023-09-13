@@ -1,6 +1,7 @@
 from flask import Flask
 from datetime import datetime
 from zoneinfo import ZoneInfo
+from waitress import serve
 
 app = Flask(__name__)
 
@@ -15,4 +16,4 @@ def current_time():
 
 
 if __name__ == "__main__":
-    app.run()
+    serve(app=app, port="8080")
