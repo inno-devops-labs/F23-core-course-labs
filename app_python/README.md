@@ -5,6 +5,8 @@ Initially, it shows Moscow time.
 
 ## How to run
 
+### Virtual environment
+
 1. Install `Python` at least version 3.11:
 
     ```shell
@@ -30,6 +32,29 @@ Initially, it shows Moscow time.
    cd ..
    python -m uvicorn app_python.src.main:app --reload
    ```
+
+### Docker
+
+1. To run the application you should have docker image. You can obtain it by 2 ways:
+   - From DockerHub:
+   ```shell
+   docker pull yesliesnayder/app_python:1.0.0
+   ```
+   
+   - Build from Dockerfile:
+   ```shell
+   docker build -t app_python --no-cache  .
+   ```
+
+1. Run the docker image:
+
+   ```shell
+   docker run -p 8000:8000 app_python
+   ```
+
+1. Access the application at `localhost:8000`. If you have problems with connection
+(reset by peer), then try launch docker image with the following
+command: `docker run --network host -p 8000:8000 app_python`
 
 ## Tests
 
