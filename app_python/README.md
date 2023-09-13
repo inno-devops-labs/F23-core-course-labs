@@ -43,3 +43,31 @@ To test the Flask app run:
 ```bash
     python -m unittest tests.py
 ```
+
+## Docker
+
+I proved a docker file to run this application with ease.
+
+### Build
+
+To build the docker run:
+
+```bash
+    docker build -t thecarrot/whataretime .
+```
+
+### Run
+
+To run the docker container write:
+
+```bash
+    docker run -it -p 8000:8000 thecarrot/whataretime
+```
+
+### Pull
+
+To pull the docker image:
+
+```bash
+    docker pull thecarrot/whataretime
+```
