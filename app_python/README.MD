@@ -9,9 +9,10 @@ A simple Flask-based web application that displays the current Moscow time upon 
 3. [Installation](#installation)
 4. [Usage](#usage)
 5. [Logging](#logging)
-6. [Contributing](#contributing)
-7. [License](#license)
-8. [Acknowledgments](#acknowledgments)
+6. [Docker Usage](#docker-usage)
+7. [Contributing](#contributing)
+8. [License](#license)
+9. [Acknowledgments](#acknowledgments)
 
 ## Getting Started
 
@@ -67,6 +68,35 @@ To run the Moscow Time Flask web app:
 ### Logging
 
 Logs are written both to the console and to `app.log` in the root directory. The logs contain information about app events, any encountered issues, and their timestamps.
+
+## Docker Usage
+
+### How to Build?
+
+To build the Docker image, navigate to the directory containing the `Dockerfile` and execute the following command:
+
+```bash
+docker build -t app_python .
+```
+
+### How to Pull?
+
+You can pull the image using the following command:
+
+```bash
+pull eukuz/devops_course_python_app
+```
+
+### How to Run?
+
+To run the Docker container from the image:
+
+```bash
+docker run -p 5000:5000 eukuz/devops_course_python_app 
+```
+
+After executing this command, you can access the application via `http://127.0.0.1:5000` in your browser.
+
 
 ## Contributing
 

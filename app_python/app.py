@@ -1,5 +1,5 @@
 from config import LOG_LEVEL, LOG_FILENAME, LOG_MAX_BYTES, LOG_BACKUP_COUNT, LOG_FORMAT
-from flask import Flask, render_template
+from flask import Flask, render_template, jsonify
 from datetime import datetime
 import pytz
 import logging
@@ -46,5 +46,11 @@ def moscow_time():
         return "Error fetching Moscow time", 500
 
 
+@app.route('/health')
+def health_check():
+    """Health check endpoint"""
+    return jsonify(status="healthy"), 200
+
+
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host='0.0.0.0', debug=True)
