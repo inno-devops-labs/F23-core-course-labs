@@ -1,4 +1,4 @@
-FROM python:3.11.5-alpine
+FROM python:3.11.5-alpine3.18
 
 LABEL iviosab.moscow_time.created="2023-09-12T20:08:13+00:00"
 LABEL iviosab.moscow_time.authors="Mosab Mohamed"
@@ -20,7 +20,7 @@ USER myuser
 
 EXPOSE 5000
 
-ENTRYPOINT [ "python3", "app.py"]
+CMD [ "python3", "app.py"]
 
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
     CMD curl --fail http://localhost:5000/ || exit 1
