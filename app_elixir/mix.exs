@@ -7,7 +7,7 @@ defmodule Minimal.MixProject do
       version: "0.1.0",
       deps: [
         {:jason, "~> 1.0"},
-        {:phoenix, "~> 1.4"},
+        {:phoenix, "~> 1.7"},
         {:plug_cowboy, "~> 2.0"},
         {:tz, "~> 0.3.0"}
       ]
