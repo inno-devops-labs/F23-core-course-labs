@@ -1,0 +1,6 @@
+.dockerignore
+README*
+Dockerfile
+.git*
+.env*
+.docker*

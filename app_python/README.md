@@ -41,6 +41,32 @@ if __name__ == '__main__':
 2. Run the application using `python app.py`.
 3. Open your web browser and visit `http://localhost:5000` to see the current time in Moscow.
 
+## Docker Containerization
+
+This Docker container runs the Python web application and displays the current time in Moscow. The application is packaged and isolated within a Docker container.
+
+To build the Docker image for our application, follow these steps:
+
+1. Open your terminal and navigate to the app_python directory where the Dockerfile is located.
+
+2. Run the following command to build the Docker image. Replace khays-python-app with your preferred image name:
+
+    `docker build -t khays-python-app .`
+
+### Pulling the Docker Image
+
+If you want to pull the Docker image from Docker Hub instead of building it locally, you can use the following command:
+
+`docker pull khays/khays-python-app:latest`
+
+### Running the Docker Container
+
+Once you have the Docker image built or pulled, you can run the Docker container with the following command:
+
+`docker run -p 5000:5000 khays-python-app`
+
+This command maps port 5000 on your local machine to port 5000 within the Docker container. You can access the application by opening a web browser and navigating to `http://localhost:5000`.
+
 ## Author
 
 Khabib Khaysadykov
