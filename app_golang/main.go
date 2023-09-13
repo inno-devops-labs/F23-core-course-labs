@@ -7,6 +7,7 @@ import (
 )
 
 func main() {
+	fmt.Println("Open on http://localhost:8080/")
 	http.HandleFunc("/", timeHandler)
 	http.ListenAndServe(":8080", nil)
 }

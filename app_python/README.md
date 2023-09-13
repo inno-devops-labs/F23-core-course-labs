@@ -36,3 +36,19 @@ flask run
 ```bash
 python -m pytest
 ```
+
+## Docker
+This full application has been uploaded to [dockerhub](https://hub.docker.com/r/iviosab/moscow_time), you can fully test it by either pulling the image from dockerhub or building the Dockerfile in this directory and then running it. 
+#### Build 
+```bash
+# make sure you are in the app_python directory
+docker build -t <name> .
+```
+#### Pull
+```bash
+docker pull iviosab/moscow_time
+```
+#### Run
+```bash
+docker run --rm -p 5000:5000 iviosab/moscow_time
+```
