@@ -52,6 +52,15 @@ app.get('/get-quote', (req, res) => {
 })
 
 const port = process.env.PORT || 3000
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log(`Server is running on port ${port}`)
+})
+
+process.on('SIGINT', () => {
+  console.log('Received SIGINT. Shutting down gracefully...')
+
+  server.close(() => {
+    console.log('Server has been gracefully stopped.')
+    process.exit(0)
+  })
 })
