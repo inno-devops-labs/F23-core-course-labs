@@ -4,7 +4,7 @@
   "description": "This is a test web server.",
   "main": "index.js",
   "scripts": {
-    "lint": "npx eslint .",
+    "lint": "npx eslint src",
     "test": "jest",
     "start": "npx ts-node src/index.ts",
     "build": "tsc"
