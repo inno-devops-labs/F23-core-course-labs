@@ -1,3 +1,5 @@
+![workflow](https://github.com/TeaWhyDee/DOE-course-labs/actions/workflows/github-actions.yml/badge.svg)
+
 # The app
 
 The is a simple web application built with Flask and guicorn as HTTP server. This application displays the current time in Moscow.
@@ -53,7 +55,7 @@ To run the pipeline, the following secrets need to be specified:
 
 The GitHub Actions pipeline is as follows:
 
-1.  Check for security issues using Snyk.
+1.  Check for volnerabilities in the dependencies using Snyk.
 2.  Run unit tests.
 3.  If the furst two jobs are sucessfull, build and publish the Docker image.
 
