@@ -4,6 +4,7 @@ FROM python:3.10.8
 RUN useradd -m -d /home/xyz -s /bin/bash xyz
 
 WORKDIR /app
+EXPOSE 8000
 
 COPY ./requirements.txt /app/requirements.txt
 
@@ -14,4 +15,4 @@ COPY ./main.py /app/
 
 USER xyz
 
-CMD ["uvicorn", "main:app"]
+CMD ["uvicorn", "main:app", "--port=8000"]
