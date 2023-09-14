@@ -1,6 +1,7 @@
 # python_time
 
 ![example workflow](https://github.com/kerniee/core-course-labs/actions/workflows/python.yml/badge.svg)
+
 Simple Python web application that displays the current time in Moscow.
 
 - **Framework**: FastAPI
