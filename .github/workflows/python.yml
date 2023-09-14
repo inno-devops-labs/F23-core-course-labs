@@ -4,14 +4,25 @@ on:
   push:
     paths:
       - app_python/**
+      - .github/workflows/python.yml
+
+defaults:
+  run:
+    working-directory: ./app_python
+
+env:
+  PYTHONDONTWRITEBYTECODE: 1
 
 jobs:
   security:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [ "3.10" ]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
-          - path: app_python
+          sparse-checkout: app_python
 
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/python-3.10@master
@@ -19,26 +30,21 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          args: --sarif-file-output=snyk.sarif
-
-      - name: Upload result to GitHub Code Scanning
-        uses: github/codeql-action/upload-sarif@v2
-        with:
-          sarif_file: snyk.sarif
+          args: --sarif-file-output=snyk.sarif 
+            --file=app_python/requirements/base.txt 
+            --file=app_python/requirements/dev.txt 
+            --package-manager=pip
+            --skip-unresolved
 
   build:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         python-version: [ "3.10" ]
-
-    env:
-      PYTHONDONTWRITEBYTECODE: 1
-
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
-          - path: app_python
+          sparse-checkout: app_python
 
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
@@ -46,12 +52,12 @@ jobs:
           python-version: ${{ matrix.python-version }}
           cache: 'pip' # caching pip dependencies
           cache-dependency-path: |
-            ./requirements/base.txt
-            ./requirements/dev.txt
+            ./app_python/requirements/base.txt
+            ./app_python/requirements/dev.txt
 
       - name: Install dependencies
         run: |
-          pip install -r ./requirements/base.txt -r ./requirements/dev.txt
+          pip install -r requirements/base.txt -r requirements/dev.txt
 
       - name: Lint
         run: |
@@ -65,16 +71,16 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: pytest-results-${{ matrix.python-version }}
-          path: junit/test-results-${{ matrix.python-version }}.xml
+          path: app_python/junit/test-results-${{ matrix.python-version }}.xml
         # Use always() to always run this step to publish test results when there are test failures
         if: ${{ always() }}
 
       # CI
       - name: Login to Docker Hub
-          uses: docker/login-action@v3
-          with:
-            username: ${{ secrets.DOCKERHUB_USERNAME }}
-            password: ${{ secrets.DOCKERHUB_TOKEN }}
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -82,8 +88,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
-          context: .
-          file: ./Dockerfile
+          context: ./app_python
+          file: ./app_python/Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/time-python:latest
-
