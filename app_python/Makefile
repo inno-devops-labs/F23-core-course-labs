@@ -8,7 +8,7 @@ build:
 
 # Run the Docker container
 run:
-	docker run -p 8000:8000 $(DOCKER_USERNAME)/$(IMAGE_NAME):$(TAG)
+	docker run -p 8000:8000 --name $(IMAGE_NAME) $(DOCKER_USERNAME)/$(IMAGE_NAME):$(TAG)
 
 # Push the Docker image to a registry
 push:
@@ -16,7 +16,7 @@ push:
 
 # Clean up - remove the local Docker image
 clean:
-	docker rmi $(DOCKER_USERNAME)/$(IMAGE_NAME):$(TAG)
+	docker rm $(IMAGE_NAME); docker rmi $(DOCKER_USERNAME)/$(IMAGE_NAME):$(TAG)
 
 # Default target when "make" is run without arguments
 default: help
