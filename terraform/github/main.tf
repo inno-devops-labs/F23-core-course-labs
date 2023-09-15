@@ -10,7 +10,7 @@ terraform {
 resource "github_repository" "repo" {
   name               = "test_repo"
   description        = "test_repo"
-  visibility         = "private"
+  visibility         = "public"
   has_issues         = true
   has_wiki           = true
   auto_init          = true
@@ -18,21 +18,22 @@ resource "github_repository" "repo" {
   allow_squash_merge = false
 }
 
-resource "github_branch_default" "master" {
+resource "github_branch_default" "main" {
   repository = github_repository.repo.name
-  branch     = "master"
+  branch     = "main"
 }
 
 resource "github_branch_protection" "default" {
   repository_id                   = github_repository.repo.id
-  pattern                         = github_branch_default.master.branch
+  pattern                         = github_branch_default.main.branch
   require_conversation_resolution = true
   enforce_admins                  = true
 }
 
 resource "github_repository" "core" {
   description = "Innopolis DevOps 2023 core repository"
-  name        = "core-course-labs"
+  auto_init    = true
+  name        = "test_devops"
   visibility  = "public"
 }
 

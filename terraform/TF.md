@@ -1043,3 +1043,261 @@ vm_instance_external_ip = "51.250.70.237"
 - Leverage variables and outputs for more robust and flexible configurations.
 - Prior to applying changes, execute `terraform validate` and `terraform plan` to validate and preview the changes respectively.
 - Unless explicitly necessary for the task, refrain from uploading the state to the repository as code (better to use `etcd`).
+
+
+## Github
+
+### terraform plan
+
+```hcl
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following
+symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # github_branch_default.core_main will be created
+  + resource "github_branch_default" "core_main" {
+      + branch     = "main"
+      + id         = (known after apply)
+      + rename     = false
+      + repository = "test_devops"
+    }
+
+  # github_branch_default.main will be created
+  + resource "github_branch_default" "main" {
+      + branch     = "main"
+      + id         = (known after apply)
+      + rename     = false
+      + repository = "test_repo"
+    }
+
+  # github_branch_protection.default will be created
+  + resource "github_branch_protection" "default" {
+      + allows_deletions                = false
+      + allows_force_pushes             = false
+      + blocks_creations                = false
+      + enforce_admins                  = true
+      + id                              = (known after apply)
+      + lock_branch                     = false
+      + pattern                         = "main"
+      + repository_id                   = (known after apply)
+      + require_conversation_resolution = true
+      + require_signed_commits          = false
+      + required_linear_history         = false
+    }
+
+  # github_repository.core will be created
+  + resource "github_repository" "core" {
+      + allow_auto_merge            = false
+      + allow_merge_commit          = true
+      + allow_rebase_merge          = true
+      + allow_squash_merge          = true
+      + archived                    = false
+      + auto_init                   = true
+      + default_branch              = (known after apply)
+      + delete_branch_on_merge      = false
+      + description                 = "Innopolis DevOps 2023 core repository"
+      + etag                        = (known after apply)
+      + full_name                   = (known after apply)
+      + git_clone_url               = (known after apply)
+      + html_url                    = (known after apply)
+      + http_clone_url              = (known after apply)
+      + id                          = (known after apply)
+      + merge_commit_message        = "PR_TITLE"
+      + merge_commit_title          = "MERGE_MESSAGE"
+      + name                        = "test_devops"
+      + node_id                     = (known after apply)
+      + primary_language            = (known after apply)
+      + private                     = (known after apply)
+      + repo_id                     = (known after apply)
+      + squash_merge_commit_message = "COMMIT_MESSAGES"
+      + squash_merge_commit_title   = "COMMIT_OR_PR_TITLE"
+      + ssh_clone_url               = (known after apply)
+      + svn_url                     = (known after apply)
+      + topics                      = (known after apply)
+      + visibility                  = "public"
+    }
+
+  # github_repository.repo will be created
+  + resource "github_repository" "repo" {
+      + allow_auto_merge            = false
+      + allow_merge_commit          = true
+      + allow_rebase_merge          = false
+      + allow_squash_merge          = false
+      + archived                    = false
+      + auto_init                   = true
+      + default_branch              = (known after apply)
+      + delete_branch_on_merge      = false
+      + description                 = "test_repo"
+      + etag                        = (known after apply)
+      + full_name                   = (known after apply)
+      + git_clone_url               = (known after apply)
+      + has_issues                  = true
+      + has_wiki                    = true
+      + html_url                    = (known after apply)
+      + http_clone_url              = (known after apply)
+      + id                          = (known after apply)
+      + merge_commit_message        = "PR_TITLE"
+      + merge_commit_title          = "MERGE_MESSAGE"
+      + name                        = "test_repo"
+      + node_id                     = (known after apply)
+      + primary_language            = (known after apply)
+      + private                     = (known after apply)
+      + repo_id                     = (known after apply)
+      + squash_merge_commit_message = "COMMIT_MESSAGES"
+      + squash_merge_commit_title   = "COMMIT_OR_PR_TITLE"
+      + ssh_clone_url               = (known after apply)
+      + svn_url                     = (known after apply)
+      + topics                      = (known after apply)
+      + visibility                  = "public"
+    }
+
+Plan: 5 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + repo_full_name = (known after apply)
+```
+
+### terraform apply
+
+```hcl
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following
+symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # github_branch_default.core_main will be created
+  + resource "github_branch_default" "core_main" {
+      + branch     = "main"
+      + id         = (known after apply)
+      + rename     = false
+      + repository = "test_devops"
+    }
+
+  # github_branch_default.main will be created
+  + resource "github_branch_default" "main" {
+      + branch     = "main"
+      + id         = (known after apply)
+      + rename     = false
+      + repository = "test_repo"
+    }
+
+  # github_branch_protection.default will be created
+  + resource "github_branch_protection" "default" {
+      + allows_deletions                = false
+      + allows_force_pushes             = false
+      + blocks_creations                = false
+      + enforce_admins                  = true
+      + id                              = (known after apply)
+      + lock_branch                     = false
+      + pattern                         = "main"
+      + repository_id                   = (known after apply)
+      + require_conversation_resolution = true
+      + require_signed_commits          = false
+      + required_linear_history         = false
+    }
+
+  # github_repository.core will be created
+  + resource "github_repository" "core" {
+      + allow_auto_merge            = false
+      + allow_merge_commit          = true
+      + allow_rebase_merge          = true
+      + allow_squash_merge          = true
+      + archived                    = false
+      + auto_init                   = true
+      + default_branch              = (known after apply)
+      + delete_branch_on_merge      = false
+      + description                 = "Innopolis DevOps 2023 core repository"
+      + etag                        = (known after apply)
+      + full_name                   = (known after apply)
+      + git_clone_url               = (known after apply)
+      + html_url                    = (known after apply)
+      + http_clone_url              = (known after apply)
+      + id                          = (known after apply)
+      + merge_commit_message        = "PR_TITLE"
+      + merge_commit_title          = "MERGE_MESSAGE"
+      + name                        = "test_devops"
+      + node_id                     = (known after apply)
+      + primary_language            = (known after apply)
+      + private                     = (known after apply)
+      + repo_id                     = (known after apply)
+      + squash_merge_commit_message = "COMMIT_MESSAGES"
+      + squash_merge_commit_title   = "COMMIT_OR_PR_TITLE"
+      + ssh_clone_url               = (known after apply)
+      + svn_url                     = (known after apply)
+      + topics                      = (known after apply)
+      + visibility                  = "public"
+    }
+
+  # github_repository.repo will be created
+  + resource "github_repository" "repo" {
+      + allow_auto_merge            = false
+      + allow_merge_commit          = true
+      + allow_rebase_merge          = false
+      + allow_squash_merge          = false
+      + archived                    = false
+      + auto_init                   = true
+      + default_branch              = (known after apply)
+      + delete_branch_on_merge      = false
+      + description                 = "test_repo"
+      + etag                        = (known after apply)
+      + full_name                   = (known after apply)
+      + git_clone_url               = (known after apply)
+      + has_issues                  = true
+      + has_wiki                    = true
+      + html_url                    = (known after apply)
+      + http_clone_url              = (known after apply)
+      + id                          = (known after apply)
+      + merge_commit_message        = "PR_TITLE"
+      + merge_commit_title          = "MERGE_MESSAGE"
+      + name                        = "test_repo"
+      + node_id                     = (known after apply)
+      + primary_language            = (known after apply)
+      + private                     = (known after apply)
+      + repo_id                     = (known after apply)
+      + squash_merge_commit_message = "COMMIT_MESSAGES"
+      + squash_merge_commit_title   = "COMMIT_OR_PR_TITLE"
+      + ssh_clone_url               = (known after apply)
+      + svn_url                     = (known after apply)
+      + topics                      = (known after apply)
+      + visibility                  = "public"
+    }
+
+Plan: 5 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + repo_full_name = (known after apply)
+
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+github_repository.core: Creating...
+github_repository.repo: Creating...
+github_repository.core: Still creating... [10s elapsed]
+github_repository.repo: Still creating... [10s elapsed]
+github_repository.repo: Creation complete after 11s [id=test_repo]
+github_branch_default.main: Creating...
+github_repository.core: Creation complete after 12s [id=test_devops]
+github_branch_default.core_main: Creating...
+github_branch_default.core_main: Creation complete after 3s [id=test_devops]
+github_branch_default.main: Creation complete after 4s [id=test_repo]
+github_branch_protection.default: Creating...
+github_branch_protection.default: Creation complete after 4s [id=BPR_kwDOKT8ztM4Ce2li]
+
+Apply complete! Resources: 5 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+repo_full_name = "dvechtomova/test_repo"
+```
+
+### terraform output
+
+```hcl
+repo_full_name = "dvechtomova/test_repo"
+```
