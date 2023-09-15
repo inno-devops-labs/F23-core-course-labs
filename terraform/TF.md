@@ -622,3 +622,10 @@ Outputs:
 python_container_id = "b00da1bf87969677920b3a27bcd42cb0788737f27e1f90c81abf0391c8e99a7e"
 rust_container_id = "5ab81165c3f295bbac41498a3e5bcc0a20937d62b8f0dc44cad1500994a7c506"
 ```
+
+### terraform output
+
+```hcl
+python_container_id = "b00da1bf87969677920b3a27bcd42cb0788737f27e1f90c81abf0391c8e99a7e"
+rust_container_id = "5ab81165c3f295bbac41498a3e5bcc0a20937d62b8f0dc44cad1500994a7c506"
+```
