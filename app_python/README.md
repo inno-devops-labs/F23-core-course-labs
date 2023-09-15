@@ -17,7 +17,7 @@ $ cd app_python
 1. pull the Docker Image from existing repo on Docker hub:
 
    ```
-   docker push rametago/my-first-repo:latest
+   docker pull rametago/my-first-repo:latest
    ```
 
 2. Run the Docker Container:
@@ -33,3 +33,5 @@ The application will be accessible at http://localhost:8000 in your web browser.
 ```
 $ pre-commit run --all-files
 ```
+
+[![CI Workflow](https://img.shields.io/github/workflow/status/ShohKhan-dev/core-course-labs/app_python)](https://github.com/ShohKhan-dev/core-course-labs/app_python-ci.yml)
