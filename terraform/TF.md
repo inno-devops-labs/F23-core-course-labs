@@ -1,7 +1,5 @@
 # Terraform
 
-[TOC]
-
 ## Docker tutorial
 
 ### terraform show
