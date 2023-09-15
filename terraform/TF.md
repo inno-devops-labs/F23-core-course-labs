@@ -1033,18 +1033,6 @@ rust_container_id = "5ab81165c3f295bbac41498a3e5bcc0a20937d62b8f0dc44cad1500994a
 vm_instance_external_ip = "51.250.70.237"
 ```
 
-# Terraform best practices
-
-- Implement terraform modules for better code organization.
-- Include outputs to easily retrieve important information from the infrastructure.
-- Employ `terraform fmt` to maintain consistent code formatting.
-- Utilize dependency lock files for managing dependencies.
-- Avoid hardcoding sensitive data, such as secrets.
-- Leverage variables and outputs for more robust and flexible configurations.
-- Prior to applying changes, execute `terraform validate` and `terraform plan` to validate and preview the changes respectively.
-- Unless explicitly necessary for the task, refrain from uploading the state to the repository as code (better to use `etcd`).
-
-
 ## Github
 
 ### terraform plan
@@ -1301,3 +1289,14 @@ repo_full_name = "dvechtomova/test_repo"
 ```hcl
 repo_full_name = "dvechtomova/test_repo"
 ```
+
+# Terraform best practices
+
+- Implement terraform modules for better code organization.
+- Include outputs to easily retrieve important information from the infrastructure.
+- Employ `terraform fmt` to maintain consistent code formatting.
+- Utilize dependency lock files for managing dependencies.
+- Avoid hardcoding sensitive data, such as secrets.
+- Leverage variables and outputs for more robust and flexible configurations.
+- Prior to applying changes, execute `terraform validate` and `terraform plan` to validate and preview the changes respectively.
+- Unless explicitly necessary for the task, refrain from uploading the state to the repository as code (better to use `etcd`).
