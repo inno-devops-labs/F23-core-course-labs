@@ -8,26 +8,26 @@ Clone the repository and install the dependencies:
 
 ```
 $ git clone https://github.com/ShohKhan-dev/core-course-labs
+$ cd core-course-labs
 $ cd app_python
-$ pip install -r requirements.txt
 ```
 
 ## Running the Application
 
-Start the application:
+1. pull the Docker Image from existing repo on Docker hub:
 
-```
-$ python manage.py runserver
-```
-It should run on Localhost: http://127.0.0.1:8000/
+   ```
+   docker push rametago/my-first-repo:latest
+   ```
 
-## Running the Tests
+2. Run the Docker Container:
 
-```
-$ python manage.py test
-```
+   ```
+   docker run -d -p 8000:8000 rametago/my-first-repo:latest
+   ```
 
-It should run 2 tests.
+The application will be accessible at http://localhost:8000 in your web browser.
+
 
 ## Running the Linting and Formatting
 ```
