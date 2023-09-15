@@ -24,8 +24,8 @@ module "github" {
   source = "./github"
 }
 
-module "gitlab_teams" {
-  source = "./gitlab_teams"
+module "github_teams" {
+  source = "./github_teams"
 
   github_organization = "dvechtomova4"
 }
