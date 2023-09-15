@@ -23,3 +23,9 @@ module "yandex_cloud" {
 module "github" {
   source = "./github"
 }
+
+module "gitlab_teams" {
+  source = "./gitlab_teams"
+
+  github_organization = "dvechtomova4"
+}
