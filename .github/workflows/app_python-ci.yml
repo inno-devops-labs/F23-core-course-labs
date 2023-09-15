@@ -40,9 +40,7 @@ jobs:
       run: npm install -g snyk
 
     - name: Run Snyk to check for vulnerabilities
-      run: |
-        snyk fix
-        snyk test --all-projects
+      run: snyk test --file=app_python/requirements.txt
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
