@@ -36,6 +36,9 @@ jobs:
     - name: Run Tests
       run: python app_python/manage.py test
 
+    - name: Install Snyk CLI
+      run: npm install -g snyk
+
     - name: Run Snyk to check for vulnerabilities
       run: snyk test --all-projects -f app_python/requirements.txt
       env:
