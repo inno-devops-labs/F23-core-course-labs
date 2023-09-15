@@ -8,3 +8,10 @@ provider "registry.terraform.io/kreuzwerker/docker" {
     "h1:cT2ccWOtlfKYBUE60/v2/4Q6Stk1KYTNnhxSck+VPlU=",
   ]
 }
+
+provider "registry.terraform.io/yandex-cloud/yandex" {
+  version = "0.98.0"
+  hashes = [
+    "h1:4M09tUT96aHzDyqV6zClRJIBMbPDSdxk82JwMqGZ7Cg=",
+  ]
+}

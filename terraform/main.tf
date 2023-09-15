@@ -12,3 +12,10 @@ module "app_rust" {
   container_name = "rust_app"
   external_port  = 8081
 }
+
+module "yandex_cloud" {
+  source = "./yandex_cloud"
+
+  vm_name  = "test"
+  hostname = "test"
+}
