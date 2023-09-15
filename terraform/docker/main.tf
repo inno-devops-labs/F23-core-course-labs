@@ -7,18 +7,16 @@ terraform {
   }
 }
 
-provider "docker" {}
-
-resource "docker_image" "nginx" {
-  name         = "nginx:latest"
+resource "docker_image" "dvechtomova_image" {
+  name         = var.image
   keep_locally = false
 }
 
-resource "docker_container" "nginx" {
-  image = docker_image.nginx.image_id
-  name  = "tutorial"
+resource "docker_container" "python_app" {
+  image = docker_image.dvechtomova_image.image_id
+  name  = var.container_name
   ports {
-    internal = 80
-    external = 8000
+    internal = 8080
+    external = var.external_port
   }
 }
