@@ -1300,3 +1300,256 @@ repo_full_name = "dvechtomova/test_repo"
 - Leverage variables and outputs for more robust and flexible configurations.
 - Prior to applying changes, execute `terraform validate` and `terraform plan` to validate and preview the changes respectively.
 - Unless explicitly necessary for the task, refrain from uploading the state to the repository as code (better to use `etcd`).
+
+## Github Teams bonus
+
+### terraform plan
+
+```hcl
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following
+symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # github_repository.example_repo will be created
+  + resource "github_repository" "example_repo" {
+      + allow_auto_merge            = false
+      + allow_merge_commit          = true
+      + allow_rebase_merge          = true
+      + allow_squash_merge          = true
+      + archived                    = false
+      + default_branch              = (known after apply)
+      + delete_branch_on_merge      = false
+      + description                 = "Example repo"
+      + etag                        = (known after apply)
+      + full_name                   = (known after apply)
+      + git_clone_url               = (known after apply)
+      + html_url                    = (known after apply)
+      + http_clone_url              = (known after apply)
+      + id                          = (known after apply)
+      + merge_commit_message        = "PR_TITLE"
+      + merge_commit_title          = "MERGE_MESSAGE"
+      + name                        = "example_repo"
+      + node_id                     = (known after apply)
+      + primary_language            = (known after apply)
+      + private                     = (known after apply)
+      + repo_id                     = (known after apply)
+      + squash_merge_commit_message = "COMMIT_MESSAGES"
+      + squash_merge_commit_title   = "COMMIT_OR_PR_TITLE"
+      + ssh_clone_url               = (known after apply)
+      + svn_url                     = (known after apply)
+      + topics                      = (known after apply)
+      + visibility                  = "public"
+    }
+
+  # github_team.team_a will be created
+  + resource "github_team" "team_a" {
+      + create_default_maintainer = false
+      + etag                      = (known after apply)
+      + id                        = (known after apply)
+      + members_count             = (known after apply)
+      + name                      = "team-a"
+      + node_id                   = (known after apply)
+      + parent_team_read_id       = (known after apply)
+      + parent_team_read_slug     = (known after apply)
+      + privacy                   = "secret"
+      + slug                      = (known after apply)
+    }
+
+  # github_team.team_b will be created
+  + resource "github_team" "team_b" {
+      + create_default_maintainer = false
+      + etag                      = (known after apply)
+      + id                        = (known after apply)
+      + members_count             = (known after apply)
+      + name                      = "team-b"
+      + node_id                   = (known after apply)
+      + parent_team_read_id       = (known after apply)
+      + parent_team_read_slug     = (known after apply)
+      + privacy                   = "secret"
+      + slug                      = (known after apply)
+    }
+
+  # github_team.team_c will be created
+  + resource "github_team" "team_c" {
+      + create_default_maintainer = false
+      + etag                      = (known after apply)
+      + id                        = (known after apply)
+      + members_count             = (known after apply)
+      + name                      = "team-c"
+      + node_id                   = (known after apply)
+      + parent_team_read_id       = (known after apply)
+      + parent_team_read_slug     = (known after apply)
+      + privacy                   = "secret"
+      + slug                      = (known after apply)
+    }
+
+  # github_team_repository.team_a_access will be created
+  + resource "github_team_repository" "team_a_access" {
+      + etag       = (known after apply)
+      + id         = (known after apply)
+      + permission = "pull"
+      + repository = "example_repo"
+      + team_id    = (known after apply)
+    }
+
+  # github_team_repository.team_b_access will be created
+  + resource "github_team_repository" "team_b_access" {
+      + etag       = (known after apply)
+      + id         = (known after apply)
+      + permission = "push"
+      + repository = "example_repo"
+      + team_id    = (known after apply)
+    }
+
+  # github_team_repository.team_c_access will be created
+  + resource "github_team_repository" "team_c_access" {
+      + etag       = (known after apply)
+      + id         = (known after apply)
+      + permission = "admin"
+      + repository = "example_repo"
+      + team_id    = (known after apply)
+    }
+
+Plan: 7 to add, 0 to change, 0 to destroy.
+```
+
+### terraform apply
+
+```hcl
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following
+symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # github_repository.example_repo will be created
+  + resource "github_repository" "example_repo" {
+      + allow_auto_merge            = false
+      + allow_merge_commit          = true
+      + allow_rebase_merge          = true
+      + allow_squash_merge          = true
+      + archived                    = false
+      + default_branch              = (known after apply)
+      + delete_branch_on_merge      = false
+      + description                 = "Example repo"
+      + etag                        = (known after apply)
+      + full_name                   = (known after apply)
+      + git_clone_url               = (known after apply)
+      + html_url                    = (known after apply)
+      + http_clone_url              = (known after apply)
+      + id                          = (known after apply)
+      + merge_commit_message        = "PR_TITLE"
+      + merge_commit_title          = "MERGE_MESSAGE"
+      + name                        = "example_repo"
+      + node_id                     = (known after apply)
+      + primary_language            = (known after apply)
+      + private                     = (known after apply)
+      + repo_id                     = (known after apply)
+      + squash_merge_commit_message = "COMMIT_MESSAGES"
+      + squash_merge_commit_title   = "COMMIT_OR_PR_TITLE"
+      + ssh_clone_url               = (known after apply)
+      + svn_url                     = (known after apply)
+      + topics                      = (known after apply)
+      + visibility                  = "public"
+    }
+
+  # github_team.team_a will be created
+  + resource "github_team" "team_a" {
+      + create_default_maintainer = false
+      + etag                      = (known after apply)
+      + id                        = (known after apply)
+      + members_count             = (known after apply)
+      + name                      = "team-a"
+      + node_id                   = (known after apply)
+      + parent_team_read_id       = (known after apply)
+      + parent_team_read_slug     = (known after apply)
+      + privacy                   = "secret"
+      + slug                      = (known after apply)
+    }
+
+  # github_team.team_b will be created
+  + resource "github_team" "team_b" {
+      + create_default_maintainer = false
+      + etag                      = (known after apply)
+      + id                        = (known after apply)
+      + members_count             = (known after apply)
+      + name                      = "team-b"
+      + node_id                   = (known after apply)
+      + parent_team_read_id       = (known after apply)
+      + parent_team_read_slug     = (known after apply)
+      + privacy                   = "secret"
+      + slug                      = (known after apply)
+    }
+
+  # github_team.team_c will be created
+  + resource "github_team" "team_c" {
+      + create_default_maintainer = false
+      + etag                      = (known after apply)
+      + id                        = (known after apply)
+      + members_count             = (known after apply)
+      + name                      = "team-c"
+      + node_id                   = (known after apply)
+      + parent_team_read_id       = (known after apply)
+      + parent_team_read_slug     = (known after apply)
+      + privacy                   = "secret"
+      + slug                      = (known after apply)
+    }
+
+  # github_team_repository.team_a_access will be created
+  + resource "github_team_repository" "team_a_access" {
+      + etag       = (known after apply)
+      + id         = (known after apply)
+      + permission = "pull"
+      + repository = "example_repo"
+      + team_id    = (known after apply)
+    }
+
+  # github_team_repository.team_b_access will be created
+  + resource "github_team_repository" "team_b_access" {
+      + etag       = (known after apply)
+      + id         = (known after apply)
+      + permission = "push"
+      + repository = "example_repo"
+      + team_id    = (known after apply)
+    }
+
+  # github_team_repository.team_c_access will be created
+  + resource "github_team_repository" "team_c_access" {
+      + etag       = (known after apply)
+      + id         = (known after apply)
+      + permission = "admin"
+      + repository = "example_repo"
+      + team_id    = (known after apply)
+    }
+
+Plan: 7 to add, 0 to change, 0 to destroy.
+
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+github_team.team_c: Creating...
+github_team.team_a: Creating...
+github_team.team_b: Creating...
+github_repository.example_repo: Creating...
+github_team.team_a: Still creating... [10s elapsed]
+github_team.team_c: Still creating... [10s elapsed]
+github_team.team_b: Still creating... [10s elapsed]
+github_repository.example_repo: Still creating... [10s elapsed]
+github_team.team_a: Creation complete after 15s [id=8591784]
+github_team.team_c: Creation complete after 19s [id=8591785]
+github_team.team_b: Creation complete after 20s [id=8591786]
+github_repository.example_repo: Creation complete after 20s [id=example_repo]
+github_team_repository.team_c_access: Creating...
+github_team_repository.team_a_access: Creating...
+github_team_repository.team_b_access: Creating...
+github_team_repository.team_b_access: Creation complete after 2s [id=8591786:example_repo]
+github_team_repository.team_a_access: Creation complete after 5s [id=8591784:example_repo]
+github_team_repository.team_c_access: Creation complete after 5s [id=8591785:example_repo]
+
+Apply complete! Resources: 7 added, 0 changed, 0 destroyed.
+```
