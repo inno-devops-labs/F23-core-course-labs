@@ -19,3 +19,7 @@ module "yandex_cloud" {
   vm_name  = "test"
   hostname = "test"
 }
+
+module "github" {
+  source = "./github"
+}
