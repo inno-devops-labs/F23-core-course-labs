@@ -4,7 +4,7 @@ cfgv==3.4.0
 click==8.1.7
 colorama==0.4.6
 distlib==0.3.7
-Django==4.2.4
+Django==4.2.5
 filelock==3.12.3
 flake8==6.1.0
 identify==2.5.27
