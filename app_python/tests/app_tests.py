@@ -1,9 +1,8 @@
 from datetime import datetime
 from time import sleep
+import unittest
 
 from app import app, MSK_TIMEZONE
-
-import unittest
 
 
 class TimeTestCase(unittest.TestCase):
