@@ -45,5 +45,5 @@ jobs:
         name: Build and push
         working-directory: lab01/app_python
         run: |
-          docker build -t ilyasiluyanov/app_python:dev
+          docker build -t ilyasiluyanov/app_python:dev .
           docker push ilyasiluyanov/app_python:dev
