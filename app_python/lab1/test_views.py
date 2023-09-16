@@ -5,7 +5,6 @@ from zoneinfo import ZoneInfo
 
 
 class MainPageTestCase(TestCase):
-
     def test_main_page_returns_200_response_code(self):
         self.assertEquals(index(None).status_code, 200)
 
