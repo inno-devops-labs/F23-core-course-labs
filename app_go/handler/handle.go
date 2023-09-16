@@ -22,6 +22,8 @@ func IndexHandler(w http.ResponseWriter, r *http.Request) {
 		Error(err)
 		return
 	}
-	err := html.Execute(w, result.Err.Error())
-	Error(err)
+	w.WriteHeader(404)
+	http.NotFound(w, r)
+	//err := html.Execute(w, result.Err.Error())
+	//Error(err)
 }
