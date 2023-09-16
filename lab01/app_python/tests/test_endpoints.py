@@ -4,10 +4,10 @@ from fastapi.testclient import TestClient
 
 
 @lru_cache(maxsize=1)
-def note_repo():
+def note_repo_factory():
     return InMemoryNoteRepo()
 
-app.dependency_overrides[note_repo] = note_repo
+app.dependency_overrides[note_repo] = note_repo_factory
 test_client = TestClient(app)
 
 
