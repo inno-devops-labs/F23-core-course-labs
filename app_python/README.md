@@ -1,3 +1,5 @@
+![CI status badge](https://github.com/Klemencya/core-course-labs/actions/workflows/python-app-ci.yml/badge.svg?event=push&branch=lab3)
+
 # Current Moscow time application 
 
 This application is using standard Python libraries `datetime` and `zoneinfo` to respond with current moscow time on a simple GET / request.
