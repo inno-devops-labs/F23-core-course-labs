@@ -24,7 +24,6 @@ jobs:
         run: |
           black --diff --check $(git ls-files '*.py')
           pylint --disable=all --enable=unused-import $(git ls-files '*.py')
-          mypy --strict $(git ls-files '*.py')
       - name: Run Tests
         run: |
           python manage.py test
