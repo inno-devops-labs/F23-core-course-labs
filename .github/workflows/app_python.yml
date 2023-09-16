@@ -6,6 +6,9 @@ on:
       - 'app_python/**'
       - '.github/workflows/app_python.yml'
 
+permissions:
+  security-events: write
+
 defaults:
   run:
     working-directory: ./app_python
