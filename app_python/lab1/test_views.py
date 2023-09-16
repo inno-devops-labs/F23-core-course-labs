@@ -19,5 +19,9 @@ class MainPageTestCase(TestCase):
     def test_main_page_returns_current_datetime_in_moscow_zone(self):
         actual_time = datetime.fromisoformat(index(None).getvalue().decode())
         expected_time = datetime.now(tz=ZoneInfo("Europe/Moscow"))
+
+        # Calculating the difference between index page response and the real current datetime
         period = expected_time - actual_time
+
+        # Test is passed if the period is less than 1 second
         self.assertLess(period.seconds, 1)
