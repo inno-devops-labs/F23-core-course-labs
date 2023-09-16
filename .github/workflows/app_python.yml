@@ -54,6 +54,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: ${{ runner.os }}-pip-
+
+      - name: Dependencies install
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
       - name: Vulnerability check
         uses: snyk/actions/python@master
         continue-on-error: true
@@ -64,7 +76,6 @@ jobs:
             --sarif-file-output=python_snyk.sarif 
             --file=app_python/requirements.txt
             --package-manager=pip
-            --skip-unresolved
 
       - name: Vulnerability report
         uses: github/codeql-action/upload-sarif@v2
