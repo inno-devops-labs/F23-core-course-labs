@@ -6,9 +6,6 @@ on:
       - 'app_python/**'
       - '.github/workflows/app_python.yml'
 
-permissions:
-  security-events: write
-
 defaults:
   run:
     working-directory: ./app_python
@@ -59,6 +56,29 @@ jobs:
       - name: Tests
         run: |
           python -m unittest discover -s tests -p '*_tests.py'
+
+  security:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          sparse-checkout: app_python
+
+      - name: Vulnerability check
+        uses: snyk/actions/python-3.11@master
+        continue-on-error: true
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: 
+            --sarif-file-output=python_snyk.sarif 
+            --file=app_python/requirements.txt
+            --package-manager=pip
+
+      - name: Vulnerability report
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: python_snyk.sarif
 
   docker:
     needs: build
