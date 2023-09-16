@@ -65,7 +65,7 @@ jobs:
           sparse-checkout: app_python
 
       - name: Vulnerability check
-        uses: snyk/actions/python-3.11@master
+        uses: snyk/actions/python@master
         continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
