@@ -45,7 +45,7 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
           args: 
-            --sarif-file-output=python_snyk.sarif 
+            --sarif-file-output=snyk.sarif
             --file=app_python/requirements.txt
             --package-manager=pip
             --skip-unresolved
@@ -53,7 +53,7 @@ jobs:
       - name: Vulnerability report
         uses: github/codeql-action/upload-sarif@v2
         with:
-          sarif_file: python_snyk.sarif
+          sarif_file: snyk.sarif
 
       - name: Linter
         run: |
