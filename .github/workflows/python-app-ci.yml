@@ -41,7 +41,7 @@ jobs:
           args: --severity-threshold=high --sarif-file-output=snyk.sarif
 
   push-to-dockerhub:
-    needs: build-and-test, security-check
+    needs: [build-and-test, security-check]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
