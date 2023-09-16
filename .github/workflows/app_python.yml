@@ -76,6 +76,7 @@ jobs:
             --sarif-file-output=python_snyk.sarif 
             --file=app_python/requirements.txt
             --package-manager=pip
+            --allow-missing
 
       - name: Vulnerability report
         uses: github/codeql-action/upload-sarif@v2
