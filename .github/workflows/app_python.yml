@@ -35,24 +35,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Linter
-        run: |
-          pylint app.py --fail-under=8 --disable=missing-module-docstring --disable=missing-class-docstring --disable=missing-function-docstring
-          pylint ./tests --fail-under=8 --disable=missing-module-docstring --disable=missing-class-docstring --disable=missing-function-docstring
-
-      - name: Tests
-        run: |
-          python -m unittest discover -s tests -p '*_tests.py'
-
-  security:
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          sparse-checkout: app_python
-
       - name: Vulnerability check
         uses: snyk/actions/python@master
         continue-on-error: true
@@ -68,6 +50,15 @@ jobs:
         uses: github/codeql-action/upload-sarif@v2
         with:
           sarif_file: python_snyk.sarif
+
+      - name: Linter
+        run: |
+          pylint app.py --fail-under=8 --disable=missing-module-docstring --disable=missing-class-docstring --disable=missing-function-docstring
+          pylint ./tests --fail-under=8 --disable=missing-module-docstring --disable=missing-class-docstring --disable=missing-function-docstring
+
+      - name: Tests
+        run: |
+          python -m unittest discover -s tests -p '*_tests.py'
 
   docker:
     needs: build
