@@ -9,7 +9,7 @@ class MainPageTestCase(TestCase):
     def test_main_page_returns_200_response_code(self):
         self.assertEquals(index(None).status_code, 200)
 
-    def test_index_returns_parsable_iso_datetime(self):
+    def test_main_page_returns_parsable_iso_datetime(self):
         index_response = index(None).getvalue().decode()
         try:
             datetime.fromisoformat(index_response)
