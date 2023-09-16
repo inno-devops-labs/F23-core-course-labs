@@ -6,6 +6,9 @@ A simple web app where show current time in moscow.
 
 Using `pytz` library we found timezone of moscow, and using `datatime` with `pytz` we find the current time 
 
+### To testing 
+
++ Run this command in terminal `pytest`
 
 ## Getting start
 
@@ -19,3 +22,5 @@ Using `pytz` library we found timezone of moscow, and using `datatime` with `pyt
 
 ### How To run
 +  Run this command `docker run -p 8080:8080 rkbekzat/moscow_time`
+
+
