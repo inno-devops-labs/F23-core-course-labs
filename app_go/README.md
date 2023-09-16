@@ -2,19 +2,36 @@
 
 Time-app is a Go web application that displays the current time in Moscow.
 
+## Installation using docker
+### Build docker image
+To build the Docker image, clone the repo, and use the following command inside `app_go` directory:
+```
+docker build --tag timeapp-go .
+```
+### Run docker container
+To run the Docker container after building it, use the following command:
+```
+docker run -p 8080:8080 timeapp-go:latest
+```
+### Pull docker image
+To pull an image from a Docker registry, use the following command:
+```
+docker pull vladspigin/timeapp-go:latest
+```
+
 ### Run
 Make sure Golang is installed before running app. No additional packages are required.
 ```
 go run main.go
 ```
-Now you can open `http://127.0.0.1:3000/` in your browser to check the time. Also you can specify another port using enviromental vriable `PORT`.
+Now you can open `http://127.0.0.1:3000/` in your browser to check the time. Also you can specify another port using enviromental vriable `APP_PORT`.
 ```
-PORT=7777 go run main.go
+APP_PORT=7777 go run main.go
 ```
 
 ### Development
 
-Install pre-commit to automatically
+Install pre-commit to automatically lint files.
 
 ## Contributing
 
