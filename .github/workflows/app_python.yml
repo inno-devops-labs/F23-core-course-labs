@@ -7,7 +7,7 @@ on:
       - '.github/workflows/app_python.yml'
 
 permissions:
-  security-events: read|write
+  security-events: write
 
 defaults:
   run:
