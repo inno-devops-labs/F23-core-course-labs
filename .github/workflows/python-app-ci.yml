@@ -29,8 +29,8 @@ jobs:
         run: |
           python manage.py test
       - name: Run Snyk to check for vulnerabilities
-        working-directory: ./app_python
         uses: snyk/actions/python-3.10@master
+        working-directory: ./app_python
         continue-on-error: true # To make sure that SARIF upload gets called
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
