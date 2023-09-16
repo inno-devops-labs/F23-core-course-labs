@@ -1,0 +1,24 @@
+﻿@model Profile
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Programmer Profile</title>
+</head>
+<body>
+<h1>@Model.Name</h1>
+<img src="@Model.ProfileImageUrl" alt="Profile Image" width="150" height="150">
+<p>@Model.Description</p>
+<ul>
+    @foreach (var repo in Model.Repositories)
+    {
+        <li>
+            <a href="@repo.Url" target="_blank">@repo.Name</a>
+        </li>
+    }
+</ul>
+<div>
+    <a href="@Model.GitHubProfileUrl" target="_blank">GitHub</a>
+</div>
+</body>
+</html>
