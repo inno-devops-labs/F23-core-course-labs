@@ -1,3 +1,5 @@
+![app_python status](https://github.com/ilya-siluyanov/devops-core-course-labs/actions/workflows/app_python.yaml/badge.svg)
+
 # DevOps Engineering Labs
 
 ## Introduction
