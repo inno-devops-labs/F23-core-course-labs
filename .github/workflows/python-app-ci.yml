@@ -28,14 +28,6 @@ jobs:
       - name: Run Tests
         run: |
           python manage.py test
-
-  security-check:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./app_python
-    steps:
-      - uses: actions/checkout@v3
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/python-3.10@master
         continue-on-error: true # To make sure that SARIF upload gets called
@@ -49,7 +41,7 @@ jobs:
           sarif_file: snyk.sarif
 
   push-to-dockerhub:
-    needs: [build-and-test, security-check]
+    needs: [build-and-test]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
