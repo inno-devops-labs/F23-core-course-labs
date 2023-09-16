@@ -3,6 +3,8 @@
 
 
 [![Made with Python](https://img.shields.io/badge/Python->=3.6-blue?logo=python&logoColor=white)](https://python.org "Go to Python website")
+![Deploy workfow](https://github.com/lcensies/core-course-labs/blob/main/.github/workflows/deploy.yml/badge.svg)
+
 
 
 ## Features

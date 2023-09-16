@@ -1,6 +1,5 @@
 from os import environ
 import pytz
-from datetime import datetime
 
 config = {
     'TZ': pytz.timezone(environ.get("CLOCK_TZ", "Europe/Moscow")),
