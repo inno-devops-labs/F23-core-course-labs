@@ -1,4 +1,4 @@
-name: Django CI
+name: Python app CI
 
 on: [ push, pull_request ]
 
