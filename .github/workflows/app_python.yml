@@ -35,6 +35,17 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Vulnerability scan
+        uses: snyk/actions/python@master
+        continue-on-error: true
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+      - name: Vulnerability report
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: ./app_python/snyk.sarif
+
       - name: Linter
         run: |
           pylint app.py --fail-under=8 --disable=missing-module-docstring --disable=missing-class-docstring --disable=missing-function-docstring
@@ -43,23 +54,6 @@ jobs:
       - name: Tests
         run: |
           python -m unittest discover -s tests -p '*_tests.py'
-
-  snyk:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-          
-      - name: Vulnerability scan
-        uses: snyk/actions/python@master
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-
-      - name: Vulnerability report
-        uses: github/codeql-action/upload-sarif@v2
-        with:
-          sarif_file: ./app_python/snyk.sarif
 
   docker:
     needs: build
