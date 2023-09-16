@@ -21,9 +21,9 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       - name: Python Linter
-          uses: sunnysid3up/python-linter@v0.1-beta.7
-          with:
-            django: true
+        uses: sunnysid3up/python-linter@v0.1-beta.7
+        with:
+          django: true
       - name: Run Tests
         run: |
           python manage.py test
