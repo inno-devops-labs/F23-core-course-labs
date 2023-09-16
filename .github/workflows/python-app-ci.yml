@@ -32,9 +32,6 @@ jobs:
   push-to-dockerhub:
     needs: build-and-test
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./app_python
     steps:
       - name: Checkout
         uses: actions/checkout@v3
