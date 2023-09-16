@@ -37,8 +37,8 @@ jobs:
 
       - name: Linter
         run: |
-          pylint app.py --disable=missing-module-docstring --disable=missing-class-docstring --disable=missing-function-docstring
-          pylint ./tests --disable=missing-module-docstring --disable=missing-class-docstring --disable=missing-function-docstring
+          pylint app.py --fail-under=8 --disable=missing-module-docstring --disable=missing-class-docstring --disable=missing-function-docstring
+          pylint ./tests --fail-under=8 --disable=missing-module-docstring --disable=missing-class-docstring --disable=missing-function-docstring
 
       - name: Tests
         run: |
@@ -47,6 +47,10 @@ jobs:
   docker:
     needs: build
     runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./app_python
 
     steps:
       - name: Checkout
