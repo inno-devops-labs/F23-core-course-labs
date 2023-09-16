@@ -21,11 +21,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       - name: Python Linter
-        uses: sunnysid3up/python-linter@v0.1-beta.7
-        with:
-          source: "app_python"
-          mypy-options: "--ignore-missing-imports --show-error-codes"
-          django: true
+        run: |
+          black --diff --check $(git ls-files '*.py')
+          pylint --disable=all --enable=unused-import $(git ls-files '*.py')
+          mypy --strict $(git ls-files '*.py')
       - name: Run Tests
         run: |
           python manage.py test
