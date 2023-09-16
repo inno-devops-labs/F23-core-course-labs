@@ -84,9 +84,17 @@ docker pull ilyasiluyanov/app_python:dev
 docker run --rm -p 8000:8000 --name app_python ilyasiluyanov/app_python:dev
 ```
 
-
 ## Unit tests
 
 ```bash
 pytest tests
 ```
+
+## CI/CD
+
+For each commit there is a pipeline with:
+
+- lint job
+- Snyk vulnerability scanner
+- test job
+- build and push job

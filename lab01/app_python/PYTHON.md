@@ -49,7 +49,6 @@ README.md:10 MD032/blanks-around-lists
 
 Unit tests check test a repository to persist notes (`test_repo.py`) and endpoints correct work (`test_endpoints.py`)
 
-
 ### Best practices
 
 We use the base pattern for tests:
