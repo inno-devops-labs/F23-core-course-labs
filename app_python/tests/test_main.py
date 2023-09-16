@@ -8,6 +8,7 @@ client = TestClient(app=app)
 def test_get_time():
     response = client.get("/")
     assert response.status_code == 200, "Expected 200 status"
+
     assert "time" in response.json(), 'Expected "time" word in response'
 
 
