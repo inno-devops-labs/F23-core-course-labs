@@ -32,3 +32,9 @@ To just **pull** an image from dockerhub you can use:
 ```
 docker pull klemencja/app_python
 ``` 
+
+## Unit tests
+The project contains unit tests for main page view in the `test_views.py` file.
+To run it you can use the Pycharm `Run` button as well as django command:
+`python manage.py test`
+It will find all the tests and run them.
