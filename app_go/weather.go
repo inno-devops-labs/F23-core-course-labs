@@ -1,12 +1,13 @@
 package main
 
 import (
-	"app_go/handler"
-	"net/http"
+	"app_go/utils"
+	"fmt"
 )
 
 func main() {
-	http.HandleFunc("/", handler.IndexHandler)
-	err := http.ListenAndServe(":3000", nil)
-	handler.Error(err)
+	fmt.Println(utils.GetWeather("Kazan"))
+	//http.HandleFunc("/", handler.IndexHandler)
+	//err := http.ListenAndServe(":3000", nil)
+	//handler.Error(err)
 }
