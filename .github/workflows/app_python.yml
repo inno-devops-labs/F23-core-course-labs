@@ -53,6 +53,6 @@ jobs:
       - name: Build and Push Docker Image
         run: |
           cd app_python
-          docker build -t nikolina2k/ma-repo .  
-          docker tag nikolina2k/ma-repo:latest nikolina2k/ma-repo:latest  
+          docker build -t nikolina2k/ma-repo .
+          docker tag nikolina2k/ma-repo:latest nikolina2k/ma-repo:latest
           docker push nikolina2k/ma-repo:latest
