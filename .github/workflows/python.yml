@@ -76,6 +76,7 @@ jobs:
         with:
           args: --sarif-file-output=snyk.sarif
                 --package-manager=pip
+                --skip-unresolved
                 --file=app_python/requirements-base.txt
                 --file=app_python/requirements-dev.txt
 
