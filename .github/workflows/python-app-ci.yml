@@ -5,6 +5,8 @@ on: [ push, pull_request ]
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
+    permissions:
+      security-events: write
     defaults:
       run:
         working-directory: ./app_python
