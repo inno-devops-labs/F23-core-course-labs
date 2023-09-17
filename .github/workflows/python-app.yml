@@ -9,8 +9,8 @@ on:
       - .github/workflows/python-app.yml
     branches: [ "main" ]
 
-permissions:
-  contents: read
+#permissions:
+#  contents: read
 
 defaults:
   run:
