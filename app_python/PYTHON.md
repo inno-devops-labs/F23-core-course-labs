@@ -41,3 +41,16 @@ Overall, I choose this framework because it can be easily scaled (which is cruci
 * Pymarkdownlnt: consistent, portable, standardized and flexible linter. I choose linter based on python, because it is easy to integrate
   * Installation: pip install pymarkdownlnt
   * Usage: pymarkdownlnt scan src
+
+## Tests
+
+For tests I use pytest library. In this application, it hard to write complex tests, so I just test two routes: valid and invalid
+
+### Best practices for unit tests
+
+* Use TestClient from FastAPI: it is recommended to use TestClient, as it does nor rely on infrastructure, and we do not need to make direct requests to server
+* Fixtures: for common test cases use predefined test data
+* Test edge cases
+* Test classes: for big number of tests it is better to organize them using test classes
+* Independent tests: tests should run independently and do not rely on each other
+* Include both positive and negative tests: it is important to check not only for expected behavior, but also for edge cases that may cause errors

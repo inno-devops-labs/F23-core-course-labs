@@ -110,6 +110,11 @@ docker pull quiner/python-app:1.0.0
 docker run -d --env-file fastapi.env -p 8080:8080 python-app
 ```
 
+### Unit Tests
+```shell
+pytest tests/
+```
+
 <!-- USAGE EXAMPLES -->
 ## Usage
 
