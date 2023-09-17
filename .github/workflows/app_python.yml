@@ -48,6 +48,8 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         run: snyk test --sarif-file-output=results.sarif
         continue-on-error: true # To ensure SARIF upload is called even if Snyk test fails
+      - name: ls
+        run: ls
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v2
         with:
