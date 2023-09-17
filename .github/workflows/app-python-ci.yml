@@ -2,7 +2,6 @@ name: Python app CI
 
 on:
   push:
-  pull_request:
     paths:
     - 'app_python/**'
     - '.github/workflows/python-app-ci.yml'
@@ -46,7 +45,7 @@ jobs:
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v2
         with:
-          sarif_file: app_python/snyk.sarif
+          sarif_file: ./app_python/snyk.sarif
 
   push-to-dockerhub:
     needs: [ build-and-test ]
@@ -64,6 +63,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
+          file: ./app_python/Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/devops-engineering-course:python
           cache-from: type=gha
