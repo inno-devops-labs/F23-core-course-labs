@@ -2,9 +2,9 @@ name: app_python
 
 on:
   push:
-    branches:
-      - main  # Adjust this to your main branch name
-      - lab3
+    paths:
+      - "app_python/**"
+      - ".github/workflows/app_python-ci.yml"
 
 jobs:
   build:
@@ -17,7 +17,7 @@ jobs:
     - name: Set Up Python
       uses: actions/setup-python@v2
       with:
-        python-version: 3.x  # Replace with your desired Python version
+        python-version: 3.x
 
     - name: Cache Dependencies
       uses: actions/cache@v2
@@ -56,5 +56,3 @@ jobs:
         docker build -t my-cool-django-app .
         docker tag my-cool-django-app:latest rametago/my-first-repo:latest
         docker push rametago/my-first-repo:latest
-
-# Add more steps as needed
