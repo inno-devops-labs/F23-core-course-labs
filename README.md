@@ -1,4 +1,5 @@
 ![CI status badge](https://github.com/Klemencya/core-course-labs/actions/workflows/python-app-ci.yml/badge.svg?event=push&branch=lab3)
+![CI status badge](https://github.com/Klemencya/core-course-labs/actions/workflows/kotlin-app-ci.yml/badge.svg?event=push&branch=lab3)
 
 
 # DevOps Engineering Labs

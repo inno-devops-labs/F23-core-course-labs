@@ -1,3 +1,5 @@
+![CI status badge](https://github.com/Klemencya/core-course-labs/actions/workflows/kotlin-app-ci.yml/badge.svg?event=push&branch=lab3)
+
 # Page visit counter
 (and current moscow time) 
 
