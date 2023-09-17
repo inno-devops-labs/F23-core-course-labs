@@ -5,7 +5,7 @@ RUN pip install --no-cache-dir  \
     pytz
 
 WORKDIR /app
-COPY ./main.py ./
+COPY app/__init__.py ./
 
 RUN useradd -ms /bin/bash user_start && chown -R user_start /app/
 USER user_start
