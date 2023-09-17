@@ -72,5 +72,5 @@ jobs:
           file: ./app_python/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/app-python:latest
-          cache-from: type=registry,ref=quiner/app-python:buildcache
-          cache-to: type=registry,ref=dvechtomova/app-python:buildcache,mode=max
+          cache-from: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/app-python:buildcache
+          cache-to: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/app-python:buildcache,mode=max
