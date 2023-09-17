@@ -3,7 +3,6 @@ package main
 import (
 	"app_go/handler"
 	"app_go/utils"
-	"fmt"
 	"github.com/stretchr/testify/assert"
 	"net/http"
 	"net/http/httptest"
@@ -19,7 +18,7 @@ func getData(s string) string {
 
 func TestExistCities(t *testing.T) {
 	cities := []string{
-		"kazan", "moscow", "innopolis", "astana", "almaty",
+		"kazan", "moscow", "samara", "astana", "almaty",
 	}
 
 	for _, city := range cities {
@@ -41,7 +40,7 @@ func TestExistCities(t *testing.T) {
 
 func TestNotExistCities(t *testing.T) {
 	tests := []string{
-		"lol", "test",
+		"aaa", "bbb", "idk",
 	}
 
 	for _, city := range tests {
@@ -49,7 +48,6 @@ func TestNotExistCities(t *testing.T) {
 		response := httptest.NewRecorder()
 
 		handler.IndexHandler(response, request)
-		fmt.Println(response.Body.String())
 		assert.Equal(t, response.Code, 404)
 	}
 }
