@@ -32,8 +32,8 @@ jobs:
         python-version: ${{ matrix.python-version }}
         cache: 'pipenv'
         cache-dependency-path: |
-          ./requirements-base.txt
-          ./requirements-dev.txt
+          ./app_python/requirements-base.txt
+          ./app_python/requirements-dev.txt
 
     - name: Lint with bandit.
       uses: pre-commit/action@v3.0.0
