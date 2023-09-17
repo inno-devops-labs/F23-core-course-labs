@@ -9,10 +9,6 @@ on:
       - app_python/**
       - .github/workflows/app_python.yml
 
-defaults:
-  run:
-    working-directory: app_python
-
 jobs:
   test:
     runs-on: ubuntu-latest
