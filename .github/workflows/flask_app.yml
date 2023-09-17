@@ -62,7 +62,7 @@ jobs:
         with:
           sparse-checkout: app_python
       - name: Run Synk to check for vulnerabilities
-        uses: snyk/actions/python-3.10@master
+        uses: snyk/actions/python@master
         continue-on-error: true # To make sure that SARIF upload gets called
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
@@ -71,4 +71,4 @@ jobs:
       - name: Upload result to Github Code Scanning
         uses: github/codeql-action/upload-sarif@v2
         with:
-          sarif_file: snyk.sarif
+          sarif_file: ./app_python/snyk.sarif
