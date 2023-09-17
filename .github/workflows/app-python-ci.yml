@@ -32,7 +32,7 @@ jobs:
       - name: Linter
         run: |
           pip install ruff
-          ruff --format=github --output-file=lint.md
+          ruff --format=github --output-file=lint.md .
       - name: Tests
         run: |
           pytest --junitxml=junit/test-results.xml
