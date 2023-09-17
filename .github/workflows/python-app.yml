@@ -64,3 +64,5 @@ jobs:
           file: app_python/Dockerfile
           push: true
           tags: muurrk/myapp:latest
+          cache-from: type=registry,ref=muurrk/myapp:buildcache
+          cache-to: type=registry,ref=muurrk/myapp:buildcache,mode=max
