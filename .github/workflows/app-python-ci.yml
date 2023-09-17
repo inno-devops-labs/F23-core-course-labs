@@ -63,7 +63,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
-          file: ./app_python/Dockerfile
+          context: ./app_python
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/devops-engineering-course:python
           cache-from: type=gha
