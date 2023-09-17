@@ -1,6 +1,5 @@
 package ru.msidorskaya.lab1
 
-
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import ru.msidorskaya.lab1.controller.CurrentTimeController
@@ -9,7 +8,6 @@ import java.time.OffsetTime
 import java.time.ZoneOffset
 
 class CurrentTimeControllerTest {
-
     @Test
     fun timeControllerReturnsParsableTime() {
         val currentTime = CURRENT_TIME_CONTROLLER.getCurrentTime()
@@ -24,7 +22,7 @@ class CurrentTimeControllerTest {
             actualOffset,
             expectedOffset,
             "Current time controller returned time with invalid offset: $actualOffset. " +
-                "Expected offset: $expectedOffset"
+                "Expected offset: $expectedOffset",
         )
     }
 
@@ -35,7 +33,7 @@ class CurrentTimeControllerTest {
         Assertions.assertTrue(
             Duration.between(actualValue, expectedValue).toSeconds() < 1L,
             "Current time controller returned inaccurate current time: $actualValue. " +
-                "Expected value $expectedValue with max error of 1 second"
+                "Expected value $expectedValue with max error of 1 second",
         )
     }
 

@@ -6,15 +6,17 @@ import org.springframework.web.bind.annotation.ResponseBody
 
 @Controller
 class PageCounterController {
-
     init {
         launchNumber = 1
     }
 
     @ResponseBody
     @GetMapping("/")
-    fun getCurrentOpenNumber() = "Воу, Вы открывали эту страницу уже $launchNumber раз!"
-            .also { launchNumber += 1 }
+    fun getCurrentOpenNumber() =
+        "Воу, Вы открывали эту страницу уже $launchNumber раз!"
+            .also {
+                launchNumber += 1
+            }
 
     companion object {
         var launchNumber = 1

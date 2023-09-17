@@ -8,7 +8,6 @@ import java.time.ZoneOffset
 
 @Controller
 class CurrentTimeController {
-
     @ResponseBody
     @GetMapping("/time")
     fun getCurrentTime() = OffsetTime.now(MOSCOW_ZONE_ID).toString()

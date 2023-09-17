@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test
 import ru.msidorskaya.lab1.controller.PageCounterController
 
 class PageCounterControllerTest {
-
     @Test
     fun pageCounterReturnsIntTest() {
         val response = PageCounterController().getCurrentOpenNumber()
@@ -31,7 +30,7 @@ class PageCounterControllerTest {
         Assertions.assertEquals(
             expectedResponses,
             actualResponses,
-            "Actual responses $actualResponses doesn't match the expected responses: $expectedResponses"
+            "Actual responses $actualResponses doesn't match the expected responses: $expectedResponses",
         )
     }
 
