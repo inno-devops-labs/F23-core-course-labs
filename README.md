@@ -1,6 +1,6 @@
 # DevOps Engineering Labs
 
-https://github.com/xdkomel/devops/actions/workflows/app_python.yml/badge.svg
+[Workflow Status](https://github.com/xdkomel/devops/actions/workflows/app_python.yml/badge.svg)
 
 ## Introduction
 
