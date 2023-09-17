@@ -26,14 +26,18 @@ jobs:
     - name: Checkout repo.
       uses: actions/checkout@v3
 
-    - name: Install dependencies.
+    - name: Install Python.
       uses: actions/setup-python@v4
       with:
         python-version: ${{ matrix.python-version }}
-        cache: 'pipenv'
+        cache: 'pip'
         cache-dependency-path: |
-          ./app_python/requirements-base.txt
-          ./app_python/requirements-dev.txt
+          ./requirements-base.txt
+          ./requirements-dev.txt
+
+    - name: Install dependencies.
+      run: |
+        pip install -r requirements-base.txt -r requirements-dev.txt
 
     - name: Lint with bandit.
       uses: pre-commit/action@v3.0.0
