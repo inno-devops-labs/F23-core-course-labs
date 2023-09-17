@@ -1,5 +1,6 @@
 ![CI status badge](https://github.com/Klemencya/core-course-labs/actions/workflows/python-app-ci.yml/badge.svg?event=push&branch=lab3)
 
+
 # Current Moscow time application
 
 This application is using standard Python libraries `datetime` and `zoneinfo` to respond with current moscow time on a
@@ -55,19 +56,25 @@ It will find all the tests and run them.
 
 My CI workflow for the python app contains 2 main jobs with substeps:
 
-1. Build and test app.
-    - this job performs checkout, prepares python3 environment, installs requirements via pip, runs pylint and black
-      linters and runs Django tests via `python manage.py test`
+1. Build and test app:
+    - Performs checkout
+    - Prepares python3 environment
+    - install requirements via `pip`
+    - Runs linters checks via `pylint` and `black`
+    - Runs Django tests via `python manage.py test`
+    - Performs SNYK code scanning and uploads its `.SARIF` report to github security 
 2. Push to dockerhub
-    - this job also performs checkout, logins to dockerhub on my personal account, then builds an application via
-      Dockerfile and uploads it to [my repository](https://hub.docker.com/repository/docker/klemencja/app_python)
+    - Performs checkout
+    - Login to dockerhub on my personal account
+    - Builds an application via Dockerfile
+    - Uploads an application to [my dockerhub repository](https://hub.docker.com/repository/docker/klemencja/app_python)
       with `klemencja/app_python` tag
 
 The second job needs complete passing of the first one to ensure invalid image won't be uploaded to dockerhub.
 
 ## SNYK Scanning
 
-The first CI job `build-and-test` also performs code scanning by SNYK. It already found one vulnerability and reported
+The first CI job `build-and-test` performs code scanning by SNYK. It already found one vulnerability and reported
 it to github repository by SARIF file. The vunarability
 report: https://github.com/Klemencya/core-course-labs/security/code-scanning/4.
 I fixed this vulnerability by updating `Django` version to `4.1.11` as it was suggested by SNYK code scanning, and the
