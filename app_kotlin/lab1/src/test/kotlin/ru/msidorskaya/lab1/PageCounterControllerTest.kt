@@ -7,14 +7,14 @@ import ru.msidorskaya.lab1.controller.PageCounterController
 class PageCounterControllerTest {
 
     @Test
-    fun `page counter returns int test`() {
+    fun pageCounterReturnsIntTest() {
         val response = PageCounterController().getCurrentOpenNumber()
         val (callNumber) = DEFAULT_MESSAGE_REGEXP.find(response)!!.destructured
         Assertions.assertDoesNotThrow({ callNumber.toInt() }, "Response $response is not parsable as Int")
     }
 
     @Test
-    fun `page counter returns one on first opening`() {
+    fun pageCounterReturnsOneOnFirstOpeningTest() {
         val response = PageCounterController().getCurrentOpenNumber()
         val (callNumber) = DEFAULT_MESSAGE_REGEXP.find(response)!!.destructured
         val expectedCallNumber = 1L
@@ -22,7 +22,7 @@ class PageCounterControllerTest {
     }
 
     @Test
-    fun `page counter increments responses on each call`() {
+    fun pageCounterIncrementsResponsesOnEachCall() {
         val pageCounterController = PageCounterController()
         val actualResponses = (1..10).map { pageCounterController.getCurrentOpenNumber() }
         val expectedResponses = (1..10).map { "Воу, Вы открывали эту страницу уже $it раз!" }
