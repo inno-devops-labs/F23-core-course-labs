@@ -22,6 +22,9 @@ pip install pytest
 pytest
 ```
 
+## Unit Test
+Tests the app correctly returns the current Moscow time in ISO format. The maximum delta is 3 seconds.
+
 ## Docker
 This app is containerized via Docker
 
