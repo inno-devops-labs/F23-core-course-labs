@@ -71,4 +71,6 @@ jobs:
           context: ./app_python
           file: ./app_python/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/app-python:1.0.0
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/app-python::latest
+          cache-from: type=registry,ref=quiner/app-python:buildcache
+          cache-to: type=registry,ref=dvechtomova/app-python:buildcache,mode=max
