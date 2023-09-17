@@ -1,0 +1,32 @@
+name: Python workflow
+
+on:
+  push:
+    paths:
+    - 'app_python/**'
+    - '.github/workflows/python.yml'
+  pull_request:
+    paths:
+    - 'app_python/**'
+    - '.github/workflows/python.yml'
+
+defaults:
+  run:
+    working-directory: ./app_python
+
+jobs:
+  pre-commit:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [ "3.10" ]
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+        cache: 'pip'
+        cache-dependency-path: |
+          ./requirements-base.txt
+          ./requirements-dev.txt
+    - uses: pre-commit/action@v3.0.0
