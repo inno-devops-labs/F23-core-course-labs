@@ -1,7 +1,7 @@
 package integration
 
 import (
-	"app_go/routes"
+	"github.com/quiner1793/dev-ops-course-labs/routes"
 	"net/http"
 	"net/http/httptest"
 	"testing"

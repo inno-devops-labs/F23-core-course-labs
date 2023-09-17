@@ -1,7 +1,7 @@
 package routes
 
 import (
-	"app_go/entity"
+	"github.com/quiner1793/dev-ops-course-labs/entity"
 	"html/template"
 	"net/http"
 	"time"

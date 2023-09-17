@@ -2,10 +2,10 @@
 package main
 
 import (
-	"app_go/config"
-	"app_go/middleware"
-	"app_go/routes"
 	"fmt"
+	"github.com/quiner1793/dev-ops-course-labs/config"
+	"github.com/quiner1793/dev-ops-course-labs/middleware"
+	"github.com/quiner1793/dev-ops-course-labs/routes"
 	"log"
 	"net/http"
 	"time"
