@@ -19,7 +19,7 @@ jobs:
         python-version: 3.8
 
     - name: Install dependencies
-      run: pip install -r /app_python/requirements.txt
+      run: pip install -r ./app_python/requirements.txt
 
     - name: Linter
       run: pylint ./app_python/app.py
