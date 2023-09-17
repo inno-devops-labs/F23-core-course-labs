@@ -1,0 +1,74 @@
+name: Flask-app
+
+on: [push]
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./app_python
+
+    steps:
+      - name: Git clone
+        uses: actions/checkout@v3
+        with:
+          sparse-checkout: app_python
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.10
+
+      - name: Install dependencies
+        run: | 
+            python -m pip install --upgrade pip
+            pip install -r requirements.txt
+
+      - name: Run flake8
+        run: flake8 .
+
+      - name: Testing
+        run: pytest
+
+  docker:
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username:   ${{ secrets.DOCKERHUB_USERNAME }}
+          password:   ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: app_python
+          file: ./app_python/Dockerfile
+          push: true
+          tags:  ${{ secrets.DOCKERHUB_USERNAME }}/moscow_time:latest
+
+  security:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: app_python
+      - name: Run Synk to check for vulnerabilities
+        uses: snyk/actions/python-3.10@master
+        continue-on-error: true # To make sure that SARIF upload gets called
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --sarif-file-output=snyk.sarif
+      - name: Upload result to Github Code Scanning
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: snyk.sarif
