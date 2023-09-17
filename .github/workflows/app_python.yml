@@ -41,6 +41,17 @@ jobs:
 
       - name: Tests
         run: pytest ./tests
+
+      - uses: snyk/actions/setup@master
+      - name: Run Snyk to check for vulnerabilities
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        run: snyk test --sarif-file-output=snyk.sarif
+        continue-on-error: true # To make sure that SARIF upload gets called
+      - name: Upload result to GitHub Code Scanning
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: snyk.sarif
         
   docker:
     runs-on: ubuntu-latest
@@ -66,15 +77,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-      - uses: snyk/actions/setup@master
-      
-      - name: Run Snyk to check for vulnerabilities
-        working-directory: ./app_python
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        run: snyk test --sarif-file-output=snyk.sarif
-        continue-on-error: true # To make sure that SARIF upload gets called
-      - name: Upload result to GitHub Code Scanning
-        uses: github/codeql-action/upload-sarif@v2
-        with:
-          sarif_file: snyk.sarif
+
