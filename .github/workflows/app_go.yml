@@ -1,0 +1,47 @@
+name: Go package
+
+on:
+  push:
+    paths:
+      - app_go/**
+      - .github/workflows/app_go.yml
+  pull_request:
+    paths:
+      - app_go/**
+      - .github/workflows/app_go.yml
+
+defaults:
+  run:
+    working-directory: ./app_go
+
+jobs:
+  golang:
+    runs-on: ubuntu-latest
+    defaults:				
+      run:
+        working-directory: ./app_go
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.21.0'
+
+      - name: Build
+        run: go build -v ./...
+
+      - name: Test
+        run: go test -v ./tests/...
+
+      - uses: snyk/actions/setup@master
+      - name: Run Snyk to check for vulnerabilities
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        run: snyk test --sarif-file-output=results.sarif
+        continue-on-error: true # To ensure SARIF upload is called even if Snyk test fails
+      - name: Upload result to GitHub Code Scanning
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: ./app_go/results.sarif
