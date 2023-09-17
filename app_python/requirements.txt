@@ -3,3 +3,4 @@ pytz
 flake8
 pytest
 pytest-cov
+pylint
