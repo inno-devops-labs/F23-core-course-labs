@@ -60,6 +60,6 @@ jobs:
           context: ./app_python
           file: ./app_python/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/app_python:latest
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/app-python:latest
   
   

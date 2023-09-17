@@ -95,19 +95,19 @@ Required software:
 * How to build
 
 ```shell
-docker build -t python-app .
+docker build -t app-python .
 ```
 
 * How to pull
 
 ```shell
-docker pull quiner/python-app:1.0.0
+docker pull quiner/app-python:1.0.0
 ```
 
 * How to run
 
 ```shell
-docker run -d --env-file fastapi.env -p 8080:8080 python-app
+docker run -d --env-file fastapi.env -p 8080:8080 app-python
 ```
 
 ### Unit Tests
