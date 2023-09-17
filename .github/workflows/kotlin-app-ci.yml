@@ -17,7 +17,7 @@ jobs:
       security-events: write
     defaults:
       run:
-        working-directory: ./app_kotlin
+        working-directory: ./app_kotlin/lab1
 
     steps:
       - name: Checkout
@@ -30,7 +30,7 @@ jobs:
           cache: maven
       - name: Build dependencies with Maven
         run: mvn --batch-mode --update-snapshots package
-      - name: Java Linter
+      - name: Kotlin Linter
         run: |
           curl -sSLO https://github.com/pinterest/ktlint/releases/download/1.0.0/ktlint && chmod a+x ktlint
           ./ktlint
@@ -46,7 +46,7 @@ jobs:
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v2
         with:
-          sarif_file: app_kotlin/snyk.sarif
+          sarif_file: app_kotlin/lab1/snyk.sarif
 
   push-to-dockerhub:
     needs: [ build-and-test ]
