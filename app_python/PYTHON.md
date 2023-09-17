@@ -26,4 +26,4 @@
 
 - **Gitignore**: Keeping repository clean
 
-- **Autotests**: Using Unittest
+- **Autotests**: Using Unittest to test application

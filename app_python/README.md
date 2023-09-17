@@ -34,4 +34,11 @@ The application will be accessible at http://localhost:8000 in your web browser.
 $ pre-commit run --all-files
 ```
 
+
+## Testing the application
+Testing application by checking response status code and checking time difference after each request.
+```
+$ python manage.py test
+```
+
 [![CI Workflow](https://img.shields.io/github/workflow/status/ShohKhan-dev/core-course-labs/app_python)](https://github.com/ShohKhan-dev/core-course-labs/app_python-ci.yml)
