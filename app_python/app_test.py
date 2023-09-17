@@ -1,19 +1,25 @@
 import time
 
-import pytz, pytest
-from datetime import  datetime
+import pytz
+import pytest
+from datetime import datetime
 from index import app
+
+
 @pytest.fixture
 def client():
     with app.test_client() as client:
         yield client
+
 
 def test_current_time(client):
     response = client.get('/')
     assert response.status_code == 200
     moscow_tz = pytz.timezone("Europe/Moscow")
     current_time = datetime.now(moscow_tz)
-    assert f"{current_time.strftime('%Y:%m:%d %H:%M:%S')}" in str(response.data)
+    formatted_time = f"{current_time.strftime('%Y:%m:%d %H:%M:%S')}"
+    assert formatted_time in str(response.data)
+
 
 def test_refresh(client):
     response1 = client.get('/')
