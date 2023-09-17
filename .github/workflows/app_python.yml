@@ -5,6 +5,9 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+    paths:
+      - app_python/**
+      - .github/workflows/app_python.yml
 
 jobs:
   build:
@@ -12,7 +15,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: [ "3.11" ]
+        python-version: [ "3.10", "3.11" ]
 
     steps:
       - uses: actions/checkout@v4
@@ -71,7 +74,7 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/python-3.11@master
+        uses: snyk/actions/python-3.10@master
         continue-on-error: true 
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
