@@ -1,10 +1,6 @@
 name: Python package
 
 on:
-  push:
-    paths:
-      - app_python/**
-      - .github/workflows/app_python.yml
   pull_request:
     paths:
       - app_python/**
