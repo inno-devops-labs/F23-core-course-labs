@@ -27,7 +27,7 @@ jobs:
           distribution: 'temurin'
           cache: maven
       - name: Build dependencies with Maven
-          run: mvn --batch-mode --update-snapshots package
+        run: mvn --batch-mode --update-snapshots package
       - name: Java Linter
         run: |
           curl -sSLO https://github.com/pinterest/ktlint/releases/download/1.0.0/ktlint && chmod a+x ktlint
