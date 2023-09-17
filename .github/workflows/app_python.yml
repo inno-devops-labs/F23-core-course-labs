@@ -34,8 +34,15 @@ jobs:
           python -m pip install --upgrade pip
           pip install --no-cache-dir -r requirements.txt
           
-      - name: Linting
-        run: black app_python/
+      - name: Black Lint
+        run: |
+          pip install black
+          black .
+
+      - name: Ruff Lint
+        run: |
+          pip install ruff
+          ruff . --fix
 
       - name: Tests
-        run: pytest app_python/
+        run: pytest ./tests
