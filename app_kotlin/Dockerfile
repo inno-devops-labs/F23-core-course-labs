@@ -8,7 +8,7 @@ WORKDIR /app_kotlin
 COPY . .
 
 # build application
-RUN ./gradlew build
+RUN ./gradlew bootJar
 
 
 ### Application executable image

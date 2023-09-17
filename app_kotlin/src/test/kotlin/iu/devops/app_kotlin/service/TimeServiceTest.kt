@@ -3,12 +3,10 @@ package iu.devops.app_kotlin.service
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.TestConstructor
-import kotlin.test.assertNotEquals
+import kotlin.test.assertTrue
 
 @SpringBootTest(
-    classes = [
-        TimeService::class
-    ]
+    classes = [TimeService::class]
 )
 @TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
 class TimeServiceTest(
@@ -17,10 +15,12 @@ class TimeServiceTest(
 
     @Test
     fun `test time increase on refresh`() {
-        val time1 = timeService.moscowTime()
+        val oldTime = timeService.moscowTime()
         Thread.sleep(1000)
-        val time2 = timeService.moscowTime()
+        val newTime = timeService.moscowTime()
 
-        assertNotEquals(time1, time2)
+        assertTrue("time after refresh must be greater than time before") {
+            newTime > oldTime
+        }
     }
 }

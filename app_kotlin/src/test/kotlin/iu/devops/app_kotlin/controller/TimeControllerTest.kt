@@ -12,7 +12,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 
 @AutoConfigureMockMvc
-@WebMvcTest(controllers = [ TimeController::class ])
+@WebMvcTest(controllers = [TimeController::class])
 @TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
 @MockkBean(TimeService::class)
 class TimeControllerTest(
@@ -39,6 +39,6 @@ class TimeControllerTest(
     }
 
     companion object {
-        const val MOCK_TIME_VALUE = "00:00:00"
+        private const val MOCK_TIME_VALUE = "00:00:00"
     }
 }

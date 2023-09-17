@@ -1,4 +1,5 @@
 # Innopolis University DevOps [F23] | Kotlin 
+[![Kotlin CI](https://github.com/i-nafikov/iu-devops-course/actions/workflows/CI-kotlin.yml/badge.svg?branch=lab3&event=pull_request)](https://github.com/i-nafikov/iu-devops-course/actions/workflows/CI-kotlin.yml)
 
 ## Overview
 The service provides information about current time in Europe/Moscow timezone.
@@ -15,8 +16,8 @@ To build the application Docker image go to the `./app_kotlin` directory and run
 docker build --tag iskanred/app_kotlin:1.0.0 .
 ```
 
-## How to test?
-In the latest version of the project there are 2 tests.
+## Unit tests
+Details about testing you can find in [KOTLIN.md](KOTLIN.md) file in '**Unit tests**' section.
 To run tests go to the `./app_kotlin` directory and run the following command:
 ```shell
 ./gradlew test
