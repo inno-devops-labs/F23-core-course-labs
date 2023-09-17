@@ -41,3 +41,11 @@ To just **pull** an image from dockerhub you can use:
 ```
 docker pull klemencja/app_kotlin
 ``` 
+
+## Unit tests
+The project contains unit tests for controllers. You can run them using the following maven command:
+```
+cd app_kotlin/lab1
+mvn test
+``` 
+It will find all the tests and run them.
