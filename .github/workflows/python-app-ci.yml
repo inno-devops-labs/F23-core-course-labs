@@ -5,10 +5,12 @@ on:
     paths:
     - 'app_python/**'
     - '.github/workflows/python-app-ci.yml'
+    - '!**.md'
   pull_request:
     paths:
     - 'app_python/**'
     - '.github/workflows/python-app-ci.yml'
+    - '!**.md'
 
 jobs:
   build-and-test:

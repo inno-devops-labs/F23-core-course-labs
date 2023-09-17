@@ -5,10 +5,12 @@ on:
     paths:
     - 'app_kotlin/**'
     - '.github/workflows/kotlin-app-ci.yml'
+    - '!**.md'
   pull_request:
     paths:
     - 'app_kotlin/**'
     - '.github/workflows/kotlin-app-ci.yml'
+    - '!**.md'
 
 jobs:
   build-and-test:
