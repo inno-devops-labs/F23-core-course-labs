@@ -7,6 +7,10 @@ class TestApp(unittest.TestCase):
     def setUp(self):
         self.app = app.test_client()
 
+    def test_url(self):
+        response = self.app.get("/")
+        self.assertEqual(response.status_code, 200)
+
     def test_time_updates_on_refresh(self):
         response_1 = self.app.get("/")
         time.sleep(2)

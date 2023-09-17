@@ -44,3 +44,27 @@ This application can be easily containerized using Docker. Below are instruction
    ```
 
 The application will be accessible at http://localhost:8000 in your web browser.
+
+## Unit Tests
+
+To run the unit tests, follow these steps:
+
+1. Make sure you have Python installed on your system.
+2. Install the required dependencies for testing. You can use `pip` for this:
+
+   ```
+   pip install -r requirements.txt
+   ```
+
+3. Navigate to the project directory:
+
+   ```
+   cd core-course-labs
+   cd app_python
+   ```
+
+4. Run the unit tests using the following command:
+
+   ```
+   python test_app.py
+   ```

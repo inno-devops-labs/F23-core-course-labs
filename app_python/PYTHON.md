@@ -19,3 +19,4 @@ Flask was the best option for this task due to its simplicity, ease of setup, an
 - **Environment Management**: Utilized a virtual environment to isolate project dependencies.
 - **Project Structure**: Followed a well-structured project layout.
 - **Version Control**: Used Git to track changes in the codebase.
+- **Unit Tests**: Created unit tests to check the response code and change of time in each response.
