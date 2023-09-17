@@ -7,6 +7,10 @@ import org.springframework.web.bind.annotation.ResponseBody
 @Controller
 class PageCounterController {
 
+    init {
+        launchNumber = 1
+    }
+
     @ResponseBody
     @GetMapping("/")
     fun getCurrentOpenNumber() = "Воу, Вы открывали эту страницу уже $launchNumber раз!"
