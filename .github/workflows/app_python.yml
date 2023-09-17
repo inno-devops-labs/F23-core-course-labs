@@ -31,7 +31,9 @@ jobs:
         run: pip install -r app_python/requirements.txt
 
       - name: Lint Code
-        run: pre-commit run --all-files
+        run: |
+          cd app_python 
+          pre-commit run --all-files
 
       - name: Run Tests
         run: python app_python/test_app.py
