@@ -20,3 +20,47 @@ jobs:
   test:
     name: Test application
     runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+  
+      - name: Set boost dep
+        run: |
+            apt-get install -y --no-install-recommends \
+            build-essential \
+            autoconf \
+            automake \
+            libtool \
+            pkg-config \
+            ca-certificates \
+            libssl-dev \
+            wget \
+            git \
+            curl \
+            language-pack-en \
+            locales \
+            locales-all \
+            vim \
+            gdb \
+            valgrind \
+            cmake && \
+            apt-get clean 
+
+      - name: Set boost lib
+        run: |
+          cd /tmp && \
+          BOOST_VERSION_MOD=$(echo $BOOST_VERSION | tr . _) && \
+          wget https://boostorg.jfrog.io/artifactory/main/release/${BOOST_VERSION}/source/boost_${BOOST_VERSION_MOD}.tar.bz2 && \
+          tar --bzip2 -xf boost_${BOOST_VERSION_MOD}.tar.bz2 && \
+          cd boost_${BOOST_VERSION_MOD} && \
+          ./bootstrap.sh --prefix=/usr/local && \
+          ./b2 install && \
+          rm -rf /tmp/*
+  
+      - name: Build tests
+        run: |
+          cmake -Bbuild -H. -DCMAKE_BUILD_TYPE=Release -DTESTING=TRUE && cmake --build build
+
+      - name: Test with unittest
+        run: |
+          ./build/Test/hello_test
