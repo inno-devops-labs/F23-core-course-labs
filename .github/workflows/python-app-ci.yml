@@ -31,6 +31,7 @@ jobs:
       - name: Install snyk
         uses: snyk/actions/setup@master
       - name: Run Snyk to check for vulnerabilities
+        continue-on-error: true # To make sure that SARIF upload gets called
         run: snyk test --severity-threshold=high --sarif-file-output=snyk.sarif
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
