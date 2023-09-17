@@ -1,0 +1,22 @@
+name: Cpp application
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    paths:
+      - app_cpp/**
+      - .github/workflows/cpp-app.yml
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    working-directory: ./app_cpp
+
+jobs:
+  test:
+    name: Test application
+    runs-on: ubuntu-latest

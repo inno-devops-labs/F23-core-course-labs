@@ -35,7 +35,7 @@ RUN cd /tmp && \
     rm -rf /tmp/*
 
 WORKDIR /app
-COPY ./src/main.cpp ./src/CMakeLists.txt ./
+COPY src/main.cpp ./src/CMakeLists.txt ./
 RUN cmake -Bbuild -H. -DCMAKE_BUILD_TYPE=Release && cmake --build build
 
 
