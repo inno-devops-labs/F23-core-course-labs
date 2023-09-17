@@ -37,7 +37,7 @@ jobs:
       run: npm install -g snyk
 
     - name: Run Snyk to check for vulnerabilities
-      run: snyk test
+      run: snyk test --file=app_typescript/package.json
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
