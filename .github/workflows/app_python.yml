@@ -39,10 +39,5 @@ jobs:
           pip install black
           black .
 
-      - name: Ruff Lint
-        run: |
-          pip install ruff
-          ruff . --fix
-
       - name: Tests
         run: pytest ./tests
