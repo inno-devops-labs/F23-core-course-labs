@@ -37,9 +37,8 @@ jobs:
 
     - name: Run Snyk test
       uses: snyk/actions/python-3.10@master
-      continue-on-error: true
       with:
-        args: --file=app_python/requirements.txt
+        args: test --file=app_python/requirements.txt
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
