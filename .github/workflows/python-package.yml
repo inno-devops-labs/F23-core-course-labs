@@ -59,7 +59,7 @@ jobs:
       #     pip install --no-cache-dir -r requirements.txt
 
       - name: Snyk test
-        working-directory: ./app_python
+        working-directory: app_python
         run: snyk test
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
