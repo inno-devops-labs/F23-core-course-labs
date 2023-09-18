@@ -5,6 +5,11 @@
 .venv
 __pycache__
 
+# Test
+pytest_cache
+test
+.coverage
+
 # Docker
 Dockerfile
 .dockerignore

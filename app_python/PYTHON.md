@@ -21,9 +21,19 @@ The project follows a simple structure fitting of its simple nature, some basic 
 - Comments.
 
 ### Testing
-- Manual tests.
 
-P.S: It didn't make sense to set-up and write automated tests for an app this simple since it would would literally take longer than it took to for implementation + manual testing.
+#### Unit Tests:
+There is a total of 2 unit tests enclosing the full functionality of the app:
+- Health check - checks that the server is running
+- Time check - checks that the server displays the correct time
+
+#### Best Practices
+- Testing units focus on one tiny bit of functionality.
+- Test units are fully independent.
+- Tests run fast
+- `pytest` to organize and run tests.
+- Test modules to organize tests (would be useful in a larger project context)
+- 100% test coverage.
 
 ### Ensuring code quality
 - Pre-commit hooks will use `black` formatter on all python files in the project. They will also ensure an empty line in the end of a file and remove any trailing whitespaces from code.
