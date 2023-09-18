@@ -15,7 +15,7 @@ func MainHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		return
 	}
-	err = t.Execute(w, &entity.Page{Title: "Lab 2", Msg: "Hello! This is DevOps course lab 2 by Safina Alina", Href: "/joke", LinkMsg: "Read Chuck Norris joke"})
+	err = t.Execute(w, &entity.Page{Title: "DevOps lab", Msg: "Hello! This is DevOps course lab by Safina Alina", Href: "/joke", LinkMsg: "Read Chuck Norris joke"})
 	if err != nil {
 		return
 	}
@@ -36,7 +36,7 @@ func JokeHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		return
 	}
-	err = t.Execute(w, &entity.Page{Title: "Lab 2", Msg: joke.Value, Href: "/", LinkMsg: "Main page"})
+	err = t.Execute(w, &entity.Page{Title: "DevOps lab", Msg: joke.Value, Href: "/", LinkMsg: "Main page"})
 	if err != nil {
 		return
 	}

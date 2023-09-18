@@ -9,4 +9,4 @@ I've chosen FastApi framework for my web application. FastApi supports asynchron
 1. I'm following PEP8 coding standards: optimized imports, blank lines, naming conventions, etc. It's ensured by flake8 linter.
    Run `flake8 .` from `app_python` directory to check.
 2. I've written unit tests to test endpoints responses. I use pytest for testing.
-   Run `python3 -m pytest` from `lab1` directory to check.
+   Run `python3 -m pytest` from `tests` directory to check.
