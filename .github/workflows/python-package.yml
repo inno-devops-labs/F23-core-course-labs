@@ -55,11 +55,12 @@ jobs:
 
     steps:
       - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/python-3.8@master
+        uses: snyk/actions/python-3.10@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
           args: --severity-threshold=high
+          command: test
 
   docker:
     runs-on: ubuntu-latest
