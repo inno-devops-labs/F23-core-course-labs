@@ -47,4 +47,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: wildqueue/devops-hw:tagname
+          tags: wildqueue/devops-hw
