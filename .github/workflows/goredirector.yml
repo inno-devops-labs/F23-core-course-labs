@@ -1,0 +1,76 @@
+name: Build goredirector
+
+on:
+  push:
+    paths:
+    - 'app_go/**'
+    - '.github/workflows/goredirector.yml'
+  pull_request:
+    paths:
+    - 'app_go/**'
+    - '.github/workflows/goredirector.yml'
+
+jobs:
+  lint:
+    timeout-minutes: 30
+    runs-on: ubuntu-22.04
+    defaults:
+      run:
+        working-directory: app_go
+    steps: 
+      - uses: actions/checkout@v4.0.0
+      - name: Setup Golang with cache
+        uses: magnetikonline/action-golang-cache@v4
+        with:
+          go-version-file: go.mod
+      - name: golangci-lint
+        uses: golangci/golangci-lint-action@v3
+        with:
+          version: v1.54
+  test:
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: app_go
+    strategy:
+      matrix:
+        os: [ubuntu-22.04, ubuntu-20.04]
+    runs-on: ${{ matrix.os }}
+    steps: 
+      - uses: actions/checkout@v4.0.0
+
+      - name: Setup Golang with cache
+        uses: magnetikonline/action-golang-cache@v4
+        with:
+          go-version-file: go.mod
+
+      - name: Test
+        run: go test -v ./...
+
+
+  build_push:
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: app_go
+    needs: [lint, test]
+    runs-on: ubuntu-22.04
+    steps:
+        # Setting up Docker Buildx with docker-container driver is required
+        # at the moment to be able to use a subdirectory with Git context
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3.0.0
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3.0.0
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+    
+      - name: Build and push to the dockerhub
+        uses: docker/build-push-action@v5.0.0
+        with:
+          push: true
+          tags: "${{ secrets.DOCKERHUB_USERNAME }}/app_go:latest"
+          context: "{{defaultContext}}:app_go"
