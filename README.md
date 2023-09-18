@@ -1,5 +1,5 @@
-![Python CI](https://github.com/dmitriypru/core-course-labs/blob/lab3/.github/workflows/python_workflow.yaml/badge.svg)
-![C# CI](https://github.com/dmitriypru/core-course-labs/blob/lab3/.github/workflows/csharp_workflow.yaml/badge.svg)
+![Python CI](https://github.com/dmitriypru/core-course-labs/actions/workflows/python_workflow.yaml/badge.svg)
+![C# CI](https://github.com/dmitriypru/core-course-labs/actions/workflows/csharp_workflow.yaml/badge.svg)
 
 
 # DevOps Engineering Labs
