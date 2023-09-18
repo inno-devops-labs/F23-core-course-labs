@@ -50,8 +50,8 @@ jobs:
     needs: python
 
     defaults:
-      run:
-        working-directory: app_python
+      run: |
+        cd app_python
 
     steps:
       - name: Run Snyk to check for vulnerabilities
@@ -60,7 +60,7 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          args: --file=requirements.txt --severity-threshold=high
+          args: --severity-threshold=high
 
   docker:
     runs-on: ubuntu-latest
