@@ -54,5 +54,6 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v5
         with:
+          context: ./app_python
           push: true
           tags: user/app:latest
