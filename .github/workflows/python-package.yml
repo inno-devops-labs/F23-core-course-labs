@@ -1,6 +1,11 @@
 name: Python package
 
-on: [push]
+on:
+  push:
+    paths:
+      - app_python/**
+      - .github/workflows/python-package.yml
+      - '!**.md'
 
 jobs:
   python:
@@ -70,7 +75,6 @@ jobs:
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
       - name: Snyk test
-        # working-directory: ./app_python
         run: snyk test
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
