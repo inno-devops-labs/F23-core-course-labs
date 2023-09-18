@@ -37,6 +37,7 @@ jobs:
 
       - name: Test with pytest
         run: |
+          pwd
           python3 -m pytest
 
       - name: Docker Login
