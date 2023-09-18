@@ -19,3 +19,7 @@ Execute following commands:
 There is one unit test in `src/test_main.py`
 
 To run it type `pytest`
+
+## CI workflow
+When authenticating to Docker Hub with GitHub Actions, use a personal access token
+

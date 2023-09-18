@@ -13,4 +13,3 @@ def test_get_current_moscow_time():
 
     assert response.status_code == 200
     assert response.json() == true_time
-    
