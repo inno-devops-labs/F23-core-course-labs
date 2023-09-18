@@ -23,6 +23,7 @@ class TestTimeServer(unittest.TestCase):
     def startserver(cls):
         serveraddress = ('localhost', 8008)
         cls.server = socketserver.TCPServer(serveraddress, TimeServer)
+        print(cls.server.get_request())
         cls.server.serve_forever()
 
     def testtimeserverconntection(self):
