@@ -15,6 +15,7 @@
   "devDependencies": {
     "eslint": "^8.49.0",
     "eslint-config-google": "^0.14.0",
-    "mocha": "^10.2.0"
+    "mocha": "^10.2.0",
+    "supertest": "^6.3.3"
   }
 }
