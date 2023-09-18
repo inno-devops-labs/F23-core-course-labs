@@ -29,7 +29,7 @@ jobs:
         run: go build
 
       - name: Test
-        run: go test -v ./test/
+        run: go test -v ./tests/
       
       - name: Lint
         run: go fmt .
