@@ -37,5 +37,15 @@ docker run -d -p purfreak/lab2_devops:latest
 ## Usage:
 You can view the current time in Moscow, Russia by visiting http://127.0.0.1:8000/.
 
+## Unit Tests
+
+The application uses FastAPI's built-in `TestClient` to ensure that endpoints function as expected. I've applied several best practices in my testing approach:
+
+- **Isolation**: Each test can run independently, ensuring no side effects.
+- **Coverage**: I aim for comprehensive coverage to ensure all functionalities are tested.
+- **Mocking**: external services are simulated using mocking for accurate testing.
+
+To run the tests, use the command: `pytest`
+
 ## Contact information:
 @purfreak in Telegram.
