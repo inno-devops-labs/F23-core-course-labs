@@ -64,7 +64,7 @@ jobs:
         pytest
 
   # From https://github.com/snyk/actions/tree/master/python-3.10
-  security:
+  security-job:
     runs-on: ubuntu-latest
     permissions:
       actions: read
@@ -90,6 +90,7 @@ jobs:
           sarif_file: snyk.sarif
 
   docker-build-push:
+    needs: [lint-test-job, security-job]
     runs-on: ubuntu-latest
     steps:
       - name: Set up Docker Buildx
@@ -105,4 +106,6 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
+          context: ./app_python
+          file: ./app_python/Dockerfile
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/timeapp:latest
