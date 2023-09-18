@@ -41,10 +41,6 @@ jobs:
         run: snyk test --sarif-file-output=results.sarif
         continue-on-error: true
 
-      - name: Upload result to Github Code Scanning
-        uses: github/codeql-action/upload-sarif@v2
-        with:
-          sarif_file: ./app_go/results.sarif
 
   docker:
     needs: [build]

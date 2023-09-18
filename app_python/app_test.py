@@ -29,6 +29,7 @@ def test_refresh(client):
     assert response2.status_code == 200
     assert response2.data != response1.data
 
+
 def test_wrong_url(client):
     response = client.get('/test')
     assert response.status_code == 404
