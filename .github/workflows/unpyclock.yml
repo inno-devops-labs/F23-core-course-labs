@@ -52,7 +52,7 @@ jobs:
       - name: Set up Python ${{ env.PYTHON_VERSION }}
         uses: actions/setup-python@v4
         with:
-          pyhon-version: ${{ env.PYTHON_VERSION }}
+          pyhon-version: 3.11
           cache: 'pip' 
       - name: Install dependencies
         run: |
@@ -66,6 +66,9 @@ jobs:
 
   snyk-check:
     timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: app_python
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4.0.0
@@ -73,16 +76,19 @@ jobs:
       - name: Set up Python ${{ env.PYTHON_VERSION }}
         uses: actions/setup-python@v4
         with:
-          pyhon-version: ${{ env.PYTHON_VERSION }}
+          pyhon-version: 3.11
           cache: 'pip'
       - name: Install Python dependencies
         run: |
-          [ -f app_python/requirements.txt ] && 
-          pip install -r app_python/requirements.txt && pip list
-      - name: Run Snyk to check for vulnerabilities
+          [ -f requirements.txt ] && 
+          pip install -r requirements.txt && pip list
+      - name: Run Snyk to check for vulnerable dependencies
         uses: snyk/actions/python@master
         with:
           args: --file=app_python/requirements.txt --skip-unresolved
+      - name: Run Snyk to check for the vulnerabilities in the code 
+        run: |
+          snyk code test
     env:
       SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
