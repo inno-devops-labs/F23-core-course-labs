@@ -1,6 +1,6 @@
-## CI workflow best practices 
+## CI workflow best practices
 
-+ Jobs are seperated 
++ Jobs are seperated
 + Build only once
 + Docker integration
 + Vulnerabilities check 
