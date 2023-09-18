@@ -40,7 +40,7 @@ jobs:
 
     - name: Run Snyk Test
       run: |
-        cd app_csharp
+        cd app_csharp/app_csharp
         snyk test --all-projects --severity-threshold=high
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
