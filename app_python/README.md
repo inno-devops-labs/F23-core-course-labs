@@ -1,3 +1,5 @@
+![Python App CI](https://github.com/edikgoose/iu-devops/actions/workflows/python_app_ci.yml/badge.svg)
+
 # App for showing Moscow time
 
 ## Installation
@@ -15,11 +17,6 @@ uvicorn src.main:app --port 8085
 ```
 App will start at 8085 port
 
-## Test
-```bash
-pytest .
-```
-
 ## Docker
 To build docker image:
 ```bash
@@ -34,6 +31,12 @@ docker pull edikgoose/moscow-time-app:1.0.0
 To run docker image:
 ```bash
 docker run -p 80:80 --name moscow-time-app edikgoose/moscow-time-app:1.0.0
+```
+
+## Unit Tests
+For testing project use pytest. To run all tests:
+```bash
+pytest .
 ```
 
 ## Contributing

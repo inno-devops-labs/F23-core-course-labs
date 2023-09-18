@@ -1,5 +1,0 @@
-#!/bin/sh -e
-
-set -x
-
-python3 -m black app_python
