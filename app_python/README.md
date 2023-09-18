@@ -48,6 +48,7 @@ Once in the folder containing this doc (`app_python`), you can use the following
 This project uses Github Actions as its CI tool. The CI workflow will run on Ubuntu in the `app_python` directory following any `push` events. The workflow contains multiple stages:
 
 ### Dependency installation and code quality
+0. Cache check: The workflow will first check for cached dependencies from previous runs, if successful, it will restore them to speed up the next step and increase efficiency. [Ref](https://github.com/actions/cache)
 1. Dependency installation: The workflow will install dependecies from `requirements.txt` in addition to ruff and pytest.
 2. Linting: The workflow will run Ruff to lint all the python code using the config in `ruff.toml`.
 3. Testing: The workflow will then run any tests present in the repo using Pytest.
