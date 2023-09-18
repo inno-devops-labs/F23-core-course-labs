@@ -14,38 +14,63 @@ jobs:
   lint:
     timeout-minutes: 30
     runs-on: ubuntu-22.04
-    defaults:
-      run:
-        working-directory: app_go
     steps: 
       - uses: actions/checkout@v4.0.0
       - name: Setup Golang with cache
         uses: magnetikonline/action-golang-cache@v4
         with:
-          go-version-file: go.mod
+          go-version-file: app_go/go.mod
+      # - name: golangci-lint
+      #   uses: golangci/golangci-lint-action@v3
+      #   with:
+      #     version: v1.54
       - name: golangci-lint
-        uses: golangci/golangci-lint-action@v3
+        uses: reviewdog/action-golangci-lint@v2
         with:
-          version: v1.54
+          go_version: "1.21"
+
+          # Can pass --config flag to change golangci-lint behavior and target
+          # directory.
+          # golangci_lint_flags: "--config=.github/.golangci.yml ./testdata"
+          workdir: app_go/
   test:
     timeout-minutes: 30
-    defaults:
-      run:
-        working-directory: app_go
     strategy:
       matrix:
         os: [ubuntu-22.04, ubuntu-20.04]
     runs-on: ${{ matrix.os }}
     steps: 
       - uses: actions/checkout@v4.0.0
-
       - name: Setup Golang with cache
         uses: magnetikonline/action-golang-cache@v4
         with:
-          go-version-file: go.mod
+          go-version-file: app_go/go.mod
 
       - name: Test
-        run: go test -v ./...
+        run: cd app_go && go test -v ./...
+
+  snyk-check:
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: app_go
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4.0.0
+      - name: Setup Golang with cache
+        uses: magnetikonline/action-golang-cache@v4
+        with:
+          go-version-file: app_go/go.mod
+      - uses: snyk/actions/setup@master
+      - name: Run Snyk to check for vulnerable dependencies
+        uses: snyk/actions/python@master
+        with:
+          args: --file=app_go/go.mod --skip-unresolved
+      - name: Run Snyk to check for the vulnerabilities in the code 
+        run: |
+          snyk code test
+    env:
+      SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
 
   build_push:
@@ -53,7 +78,7 @@ jobs:
     defaults:
       run:
         working-directory: app_go
-    needs: [lint, test]
+    needs: [lint, test, snyk-check]
     runs-on: ubuntu-22.04
     steps:
         # Setting up Docker Buildx with docker-container driver is required

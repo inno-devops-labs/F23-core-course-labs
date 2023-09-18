@@ -98,7 +98,7 @@ jobs:
     defaults:
       run:
         working-directory: app_python
-    needs: [lint, test]
+    needs: [lint, test, snyk-check]
     runs-on: ubuntu-22.04
     steps:
         # Setting up Docker Buildx with docker-container driver is required
