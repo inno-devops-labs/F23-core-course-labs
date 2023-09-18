@@ -5,7 +5,7 @@ FROM golang:1.21-alpine as build
 WORKDIR /app
 
 # Copy the application code
-COPY . .
+COPY /src .
 
 # Build application using static compilation
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -ldflags="-s -w -extldflags \"-static\"" -o go_app
@@ -34,4 +34,4 @@ USER myuser
 EXPOSE 8070
 
 # Run application
-CMD ["./go_app"]
+CMD ["/bin/bash"]
