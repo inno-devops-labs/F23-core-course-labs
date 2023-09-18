@@ -50,6 +50,20 @@ Unleash Moscow time:
 docker run -p 5000:80 dmitriypru/core_course_labs_csharp:latest
 ```
 
+## Continuous Integration
+
+My CI workflow consists of several essential steps to ensure the stability and quality of my codebase. These steps include:
+
+- **Dependencies restoration**: Restores all necessary dependencies for the project using `dotnet restore`.
+  
+- **Build**: Compiles the C# codebase to ensure there are no build errors.
+  
+- **Tests**: I (and everybody else) use `dotnet test` to run all unit tests to ensure code integrity. After successful tests, I run `snyk` to find existing vulnerabilities in code or dependencies.
+  
+- **Docker integration**: Includes steps to login to Docker Hub and to build & push the Docker image.
+
+The workflow gets triggered on pull requests to the `main` branch and when changes occur in the `app_csharp` folder.
+
 ## 💌 Owl Post (Contact)
 
 For scrolls, prophecies, or general inquiries: [@dmitriypru](https://t.me/dmitriypru).

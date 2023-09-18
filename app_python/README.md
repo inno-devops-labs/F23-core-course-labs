@@ -46,8 +46,17 @@ docker pull dmitriypru/core_course_labs_python:latest
 docker run -p 8000:8000 dmitriypru/core_course_labs_python:latest
 ```
 
+## Continuous Integration
+
+My CI workflow consists of several essential steps to ensure the stability and quality of my codebase. These steps include:
+
+1. **Dependencies installation**: Installs all necessary dependencies for the project.
+2. **Linter**: I use `flake8` for linting to maintain code quality.
+3. **Tests**: I (and everybody else) use `pytest` to run all unit tests to ensure code integrity. After successful tests I run snyk to find existing vulnerabilities in code or dependencies.
+4. **Docker integration**: Includes steps to login to Docker Hub and to build & push the Docker image.
+
+The workflow gets triggered on pull requests to the `main` branch and when changes occur in the `app_python` folder.
 
 ## Contact
 
 For questions, feedback, or suggestions, please contact [@dmitriypru](https://t.me/dmitriypru).
-
