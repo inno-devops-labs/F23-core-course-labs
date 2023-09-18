@@ -48,5 +48,6 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
+          context: "{{defaultContext}}:app_python"
           push: true
           tags: kurohata7/devops_msk_time
