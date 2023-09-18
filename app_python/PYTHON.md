@@ -18,3 +18,9 @@ Flask is suitable for small projects and easily scalable for the applications
   + Make sure that web app return correct time 
   + Checking that refreshing page after two seconds will change the response
 
++ Best practices:
+  + Tested one thing in each test 
+  + Tests easy to read and maintain 
+  + Avoided setup and teardown code 
+  + Used `fixture` from pytest for complex set up
+  + Cover both positive and negative tests 
