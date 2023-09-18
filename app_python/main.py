@@ -10,7 +10,8 @@ class TimeServer(http.server.SimpleHTTPRequestHandler):
             self.send_header('Content-type', 'text/html')
             self.end_headers()
 
-            moscow_time = datetime.datetime.utcnow() + datetime.timedelta(hours=3)  # Moscow is UTC + 3
+            moscow_time = datetime.datetime.utcnow()
+            moscow_time += datetime.timedelta(hours=3)
             time_str = moscow_time.strftime('%Y-%m-%d %H:%M:%S')
 
             message = f'The current time in Moscow is {time_str} UTC+3.'

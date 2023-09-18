@@ -1,10 +1,8 @@
 import unittest
-import http.server
 import socketserver
 import requests
 import datetime
 import threading
-import os
 
 from main import TimeServer
 
@@ -30,7 +28,7 @@ class TestTimeServer(unittest.TestCase):
     def testtimeserverconntection(self):
         try:
             response = requests.get('http://127.0.0.1:8008/')
-        except requests.exceptions.ConnectionError as e:
+        except requests.exceptions.ConnectionError:
             print("Connection is fault")
             raise
 
@@ -38,22 +36,28 @@ class TestTimeServer(unittest.TestCase):
 
     def testtimeservertime(self):
         try:
-            beforetime = datetime.datetime.utcnow() + datetime.timedelta(hours=3)
+            beforetime = datetime.datetime.utcnow()
+            beforetime += datetime.timedelta(hours=3)
             response = requests.get('http://localhost:8008/')
-                
-            aftertime = datetime.datetime.utcnow() + datetime.timedelta(hours=3)
+
+            aftertime = datetime.datetime.utcnow()
+            aftertime += datetime.timedelta(hours=3)
+
             aftertimestr = aftertime.strftime('%Y-%m-%d %H:%M')
             beforetimestr = beforetime.strftime('%Y-%m-%d %H:%M')
-            
+
             if (aftertimestr != beforetimestr):
-                beforetime = datetime.datetime.utcnow() + datetime.timedelta(hours=3)
+                beforetime = datetime.datetime.utcnow()
+                beforetime += datetime.timedelta(hours=3)
                 response = requests.get('http://localhost:8008/')
-                aftertime = datetime.datetime.utcnow() + datetime.timedelta(hours=3)
+                aftertime = datetime.datetime.utcnow()
+                aftertime += datetime.timedelta(hours=3)
 
                 aftertimestr = aftertime.strftime('%Y-%m-%d %H:%M')
                 beforetimestr = beforetime.strftime('%Y-%m-%d %H:%M')
-            
-            self.assertIn('The current time in Moscow is '+aftertimestr, response.text)
+
+            substr = 'The current time in Moscow is '+aftertimestr
+            self.assertIn(substr, response.text)
         except KeyboardInterrupt:
             self.tearDown()
 
