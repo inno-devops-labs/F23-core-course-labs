@@ -1,0 +1,59 @@
+name: Python CI Workflow
+
+on:
+  push:
+    branches:
+      - main
+      - lab3
+    paths:
+      - 'app_python/**'
+
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.10
+
+    - name: Install Dependencies
+      run: |
+        cd app_python
+        pip install -r requirements.txt
+
+    - name: Linter
+      run: |
+        cd app_python
+        pip install flake8
+        flake8 . 
+
+    - name: Run Tests
+      run: |
+        cd app_python
+        pip install pytest
+        pytest tests
+
+    - name: Run Snyk test
+      uses: snyk/actions/python@0.3.0
+      with:
+        args: --all-projects --severity-threshold=high --directory=app_python/
+        command: test
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+    - name: Docker Login
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKER_HUB_USERNAME }}
+        password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
+    - name: Build and Push Docker Image
+      run: |
+        cd app_python
+        docker build -t dmitriypru/core_course_labs_python:latest .
+        docker push dmitriypru/core_course_labs_python:latest
