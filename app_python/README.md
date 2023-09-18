@@ -1,4 +1,4 @@
-# Innopolis University DevOps [F23] | Docker
+# Innopolis University DevOps [F23] | Python
 [![Python CI](https://github.com/i-nafikov/iu-devops-course/actions/workflows/CI-python.yml/badge.svg?branch=lab3&event=pull_request)](https://github.com/i-nafikov/iu-devops-course/actions/workflows/CI-python.yml)
 
 ## Overview
@@ -48,6 +48,16 @@ pytest
     ```
 3. Now the service can be used
 
+## CI workflow
+Python workflow run only on pull requests and
+if pull request contains changes in `./app_python` directory or in Python workflow file.
+
+**Jobs:**
+1. Security vulnerabilities analysis
+2. Test & Lint
+3. Build docker image & Push to dockerhub: https://hub.docker.com/repository/docker/iskanred/app_python/general
+
+Best practices applied in CI process are described in [CI.md](CI.md).
 
 ## Usage
 The server's URL is `http://127.0.0.1:8080/`.
