@@ -75,8 +75,5 @@ jobs:
 
       - name: Build and Push
         run: |
-          docker buildx create --name mybuilder
-          docker buildx use mybuilder
-          docker buildx build --cache-from=type=local,src=/tmp/.buildx-cache --cache-to=type=local,dest=/tmp/.buildx-cache --platform linux/amd64,linux/arm64 -t ${{ secrets.DOCKER_USERNAME }}/moscow-time-flask-app:latest .
-          docker buildx rm mybuilder
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/moscow-time-flask-app:latest .
           docker push ${{ secrets.DOCKER_USERNAME }}/moscow-time-flask-app:latest
