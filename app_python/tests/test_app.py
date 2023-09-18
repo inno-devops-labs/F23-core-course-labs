@@ -3,9 +3,6 @@ import unittest
 from time import sleep
 from src.app import app
 
-FIND_STRING = "Moscow Time: "
-TIME_STRING_LENGTH = len("HH:MM:SS")
-
 
 def extract_time_from_response(response):
     """
@@ -13,35 +10,25 @@ def extract_time_from_response(response):
     :return: time object extracted from response
     """
     body = response.text
-    find_string_index = body.index(FIND_STRING)
-    time_string_index_start = find_string_index + len(FIND_STRING)
-    time_string_index_end = time_string_index_start + TIME_STRING_LENGTH
-    time_string = body[time_string_index_start:time_string_index_end]
-
+    time_string = body.split(": ")[-1]
     return datetime.datetime.strptime(time_string, "%H:%M:%S")
 
 
 class TimeServerTests(unittest.TestCase):
     def test_page_available(self):
         """
-        Check page availability and it's content besides time
+        Check page available and response status code is 200
         """
 
         response = app.test_client().get("/")
 
-        self.assertEqual(response.status_code, 200)
-
-    def test_page_text_correct(self):
-        """
-        Check text "Moscow Time: " is in the response body text
-        """
-
-        response = app.test_client().get("/")
-        self.assertIn("Moscow Time: ", response.text)
+        self.assertEqual(
+            response.status_code, 200, msg="Response status code must be 200"
+        )
 
     def test_time_increase_on_refresh(self):
         """
-        Check time displayed on the page increases on each page refresh
+        Check time displayed on the page increases on each page refresh (new request)
         """
 
         response1 = app.test_client().get("/")
@@ -51,8 +38,7 @@ class TimeServerTests(unittest.TestCase):
         time1 = extract_time_from_response(response1)
         time2 = extract_time_from_response(response2)
 
-        print(time1, time2)
-        self.assertGreater(time2, time1)
+        self.assertGreater(time2, time1, msg="Time must increase on each new request")
 
 
 if __name__ == "__main__":

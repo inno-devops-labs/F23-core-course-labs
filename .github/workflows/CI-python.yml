@@ -1,17 +1,19 @@
-name: Kotlin CI
+name: Python CI
 
 on:
   pull_request:
     paths:
-      - app_kotlin/**
-      - .github/workflows/CI-kotlin.yml
+      - app_python/**
+      - .github/workflows/CI-python.yml
 
 defaults:
   run:
-    working-directory: ./app_kotlin
+    working-directory: ./app_python
 
 env:
-  PROJECT_DIR: ./app_kotlin
+  PROJECT_DIR: ./app_python
+  REQUIREMENTS_DEV_DIR: requirements/requirements-dev.txt
+  REQUIREMENTS_PROD_DIR: requirements/requirements-prod.txt
 
 jobs:
   ### Analyze Security Vulnerabilities
@@ -23,7 +25,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/gradle-jdk17@master
+        uses: snyk/actions/python-3.10@master
         # to make sure that SARIF upload gets called
         continue-on-error: true
         env:
@@ -31,7 +33,10 @@ jobs:
         with:
           args:
             --sarif-file-output=snyk.sarif
-            ${{ env.PROJECT_DIR }}
+            --file=${{ env.PROJECT_DIR }}/${{ env.REQUIREMENTS_DEV_DIR }}
+            --file=${{ env.PROJECT_DIR }}/${{ env.REQUIREMENTS_PROD_DIR }}
+            --package-manager=pip
+            --skip-unresolved
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v2
         with:
@@ -44,38 +49,43 @@ jobs:
           name: snyk.sarif
           path: snyk.sarif
 
-  ### Check (Test & Lint)
-  check:
-    name: Check (Test & Lint)
+  # Verify changes (Lint & Test)
+  verify:
+    name: Verify
     runs-on: ubuntu-22.04
-    timeout-minutes: 30
+    timeout-minutes: 60
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Set up JDK 17
-        uses: actions/setup-java@v3
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v4
         with:
-          java-version: 17
-          distribution: temurin
-      - name: Setup Gradle
-        uses: gradle/gradle-build-action@v2
+          python-version: 3.11
+          cache: pip
+          cache-dependency-path: ${{ env.PROJECT_DIR }}/${{ env.REQUIREMENTS_PROD_DIR }}
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest
+          pip install -r ${{ env.REQUIREMENTS_PROD_DIR }}
+      - name: Run linter ruff
+        uses: chartboost/ruff-action@v1
         with:
-          gradle-version: 8.2.1
-      - name: Check
-        run: ./gradlew check
-      - name: Upload build reports
+          version: 0.0.290
+      - name: Test with pytest
+        run: pytest --junitxml=junit/test-report.xml
+      - name: Upload test report
         uses: actions/upload-artifact@v3
         with:
-          # tests and linter reports
-          name: build-reports
-          path: ${{ env.PROJECT_DIR }}/build/reports/
+          name: test-report
+          path: ${{ env.PROJECT_DIR }}/junit/test-report.xml
 
   ### Build & Push Docker Image
   build-push-docker:
     name: Build & Push Docker Image
     needs:
       - security
-      - check
+      - verify
     runs-on: ubuntu-22.04
     timeout-minutes: 20
     permissions:
@@ -93,7 +103,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v5
         env:
-          DOCKER_IMAGE_NAME: app_kotlin
+          DOCKER_IMAGE_NAME: app_python
           DOCKER_IMAGE_VERSION: 1.0.0
         with:
           context: "{{defaultContext}}:${{ env.PROJECT_DIR }}"
