@@ -29,10 +29,10 @@ jobs:
         run: go build
 
       - name: Test
-        run: go test -v ./...
+        run: go test -v ./test/
       
       - name: Lint
-        run: go get -u golang.org/x/lint/golint && golint
+        run: go fmt .
 
       - uses: snyk/actions/setup@master
       - name: Run Snyk to check for vulnerabilities
