@@ -50,3 +50,16 @@ Checking coverage: \
 `python -m pytest --cov` \
 or \
 `pytest --cov`
+
+## CI
+
+CI consists of steps such as:
+
+- Set up Python - preparing the environment with Python
+- Install dependencies - install all necessary dependencies
+- Linter - testing the linter code
+- Tests - test with tests
+- Login to Docker Hub - login to Docker Hub (secrets are used) for further uploading Docker image there.
+- Build and push - docker image build and push to Docker Hub
+
+The CI file is located at .github/worflows/python.ci
