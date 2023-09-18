@@ -1,7 +1,7 @@
 # DevOps Engineering Labs
 
-![Status Badge](https://github.com/rkBekzat/core-course-labs/actions/workflows/falsk_app/badge.svg)
-![Status Badge](https://github.com/rkBekzat/core-course-labs/actions/workflows/go_app/badge.svg)
+![Status Badge](https://github.com/rkBekzat/core-course-labs/actions/workflows/falsk_app.yml/badge.svg)
+![Status Badge](https://github.com/rkBekzat/core-course-labs/actions/workflows/go_app.yml/badge.svg)
 
 ## Introduction
 
