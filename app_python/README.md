@@ -40,8 +40,6 @@ Once in the folder containing this doc (`app_python`), you can use the following
 
     python3 -m pip install coverage
 
-    python3 -m pytest
-
     coverage run -m pytest
 
     coverage report

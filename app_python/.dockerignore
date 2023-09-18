@@ -6,9 +6,13 @@
 __pycache__
 
 # Test
-pytest_cache
+.pytest_cache
 test
 .coverage
+
+# Lint
+.ruff_cache
+ruff.toml
 
 # Docker
 Dockerfile
