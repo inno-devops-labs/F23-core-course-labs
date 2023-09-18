@@ -55,6 +55,7 @@ Run the app:
 ```
 python dev.py
 ```
+### Unit Tests
 Run tests:
 ```
 pytest

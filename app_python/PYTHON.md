@@ -24,7 +24,8 @@ We see no Flask in this table because it is not async.
 
 The choice fell on [BlackSheep](https://pypi.org/project/blacksheep/) because it is the fastest framework in this comparison, and it has a simple and intuitive structure like Flask or FastAPI. It has testing integration, OpenAPI docs generation, authentication, and other useful features from the box.
 
-## Best practices used
+### Python code
+**Best practices used**:
 - Project overall structure based on official [BlackSheep MVC project template](https://www.neoteroi.dev/blacksheep/mvc-project-template/).
 - Added [OpenAPI](https://swagger.io/specification/) documentation generation.
 - Added [pre-commit](https://pre-commit.com/) hooks to check code formatting before commit. It uses:
@@ -36,3 +37,30 @@ The choice fell on [BlackSheep](https://pypi.org/project/blacksheep/) because it
 - Added [pytest](https://docs.pytest.org/en/6.2.x/) test to check application functionality.
 - Requirements are split into `requirements-base.txt` and `requirements-dev.txt` to separate production and development dependencies.
 - Added `gitignore` file to exclude unnecessary files from git.
+
+### Unit Tests
+I have created following unit tests:
+- test if page loads with status code 200
+- test if pade is non-empty
+- test format of time displayed
+- test if displayed time is correct (with a one second margin of error)
+
+**Best practices used**:
+- **Tests outside application code**: The tests are defined in separate from the application code, in `tests` module. This helps in keeping the codebase organized and makes it easier to maintain and update the tests.
+
+- **Fixture** (`test_client`): The tests are using a fixture which provides a client session and used to create a client session for making HTTP requests to the server.
+
+- **Documented**: The tests are documented using inline comments and docstrings. This helps in understanding the purpose and expected behavior of each test.
+
+- **One test for one function**: Each test function is responsible for testing a specific functionality or behavior of the application. For example, one for page status, and one for checking time correctness.
+
+- **Use of pytest.mark.asyncio**: The tests are marked with `@pytest.mark.asyncio`, which indicates that they are asynchronous tests. This allows the tests to use async and await syntax to interact with asynchronous code.
+
+- **High coverage**: The tests cover most, if not all, aspects of the application's functionality.
+
+- **Pytest configured in** `pyproject.toml`: Pytest opions configured using unified configuration file. ([PEP 518](https://www.python.org/dev/peps/pep-0518/)).
+
+Run tests:
+```
+pytest
+```

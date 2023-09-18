@@ -71,7 +71,8 @@ jobs:
       contents: read
       security-events: write
     steps:
-      - uses: actions/checkout@master
+      - name: Checkout repo.
+        uses: actions/checkout@v3
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/python-3.10@master
         continue-on-error: true # To make sure that SARIF upload gets called
@@ -89,7 +90,7 @@ jobs:
         with:
           sarif_file: snyk.sarif
 
-  docker-build-push:
+  docker-build-push-job:
     needs: [lint-test-job, security-job]
     runs-on: ubuntu-latest
     steps:
