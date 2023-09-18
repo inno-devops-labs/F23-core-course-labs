@@ -39,7 +39,7 @@ jobs:
       uses: snyk/actions/python-3.10@master
       continue-on-error: true
       with:
-        args: --directory=app_python/
+        args: --file=app_python/requirements.txt
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
