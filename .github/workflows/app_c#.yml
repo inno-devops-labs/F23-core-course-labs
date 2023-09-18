@@ -27,7 +27,7 @@ jobs:
           dotnet-version: '6.0.x'
 
       - name: Cache dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/.nuget/packages
           key: ${{ runner.os }}-dotnet-${{ hashFiles('**/*.csproj') }}
@@ -37,11 +37,25 @@ jobs:
       - name: Install dependencies
         run: dotnet restore
 
+      - name: Vulnerability check
+        uses: snyk/actions/dotnet@master
+        continue-on-error: true
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: 
+            --sarif-file-output=c#_snyk.sarif
+
+      - name: Vulnerability report
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: c#_snyk.sarif
+
       - name: Linter
-        run: dotnet format --verify-no-changes
+        run: dotnet format --no-restore --verify-no-changes
 
       - name: Tests
-        run: dotnet test
+        run: dotnet test --no-restore
   
   docker:
     needs: build
