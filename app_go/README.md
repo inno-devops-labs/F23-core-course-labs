@@ -108,6 +108,16 @@ cd src/
 go test tests/integration/*
 ```
 
+## CI workflow
+* checkout: clones the repository to the GitHub Actions runner
+* set up go-lang: initializes the go-lang '1.21.0'
+* build: build go application
+* linting: apply `fmt` linter
+* tests: run tests using `go test`
+* vulnerability check: scan for vulnerabilities uses Snyk
+* docker: login to DockerHub, build Docker image using build-cache, push to DockerHub
+
+
 <!-- USAGE EXAMPLES -->
 ## Usage
 

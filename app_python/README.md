@@ -115,6 +115,15 @@ docker run -d --env-file fastapi.env -p 8080:8080 app-python
 pytest tests/
 ```
 
+## CI workflow
+* checkout: clones the repository to the GitHub Actions runner
+* set up Python: initializes the Python 3.10 env
+* install dependencies: installs the necessary Python packages
+* linting: apply `black` linter
+* tests: run unit tests using `pytest`
+* vulnerability check: scan for vulnerabilities uses Snyk
+* docker: login to DockerHub, build Docker image using build-cache, push to DockerHub
+
 <!-- USAGE EXAMPLES -->
 ## Usage
 
