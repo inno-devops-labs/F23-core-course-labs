@@ -6,13 +6,15 @@ from app import app, MSK_TIMEZONE
 
 
 class TimeTestCase(unittest.TestCase):
-    def test_get_time(self):
-        tester = app.test_client()
-        self.check_response(tester)
-        sleep(3)
-        self.check_response(tester)
+    def setUp(self):
+        self.tester = app.test_client()
 
-    def check_response(self, tester):
+    def test_get_time(self):
+        self.__check_response__(self.tester)
+        sleep(3)
+        self.__check_response__(self.tester)
+
+    def __check_response__(self, tester):
         response = tester.get('/', content_type='html/text')
         current_time_str = str(datetime.now(MSK_TIMEZONE).strftime('%H:%M:%S'))
         self.assertEqual(response.status_code, 200)

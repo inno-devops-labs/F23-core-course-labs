@@ -1,4 +1,5 @@
-name: PYTHON_APP_CI
+name: PYTHON CI
+author: DamirNabiull
 
 on:
   push:
@@ -59,7 +60,7 @@ jobs:
         run: |
           pylint app.py --fail-under=8 --disable=missing-module-docstring --disable=missing-class-docstring --disable=missing-function-docstring
           pylint ./tests --fail-under=8 --disable=missing-module-docstring --disable=missing-class-docstring --disable=missing-function-docstring
-          
+
       - name: Tests
         run: |
           python -m unittest discover -s tests -p '*_tests.py'

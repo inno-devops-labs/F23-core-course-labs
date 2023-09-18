@@ -1,4 +1,5 @@
-name: C#_APP_CI
+name: C# CI
+author: DamirNabiull
 
 on:
   push:
@@ -34,7 +35,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-dotnet-
 
-      - name: Install dependencies
+      - name: Dependencies install
         run: dotnet restore
 
       - name: Vulnerability check

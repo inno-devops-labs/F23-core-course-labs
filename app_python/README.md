@@ -8,6 +8,8 @@
 - [Pull](#pull)
 - [Run](#run)
 - [Project repository](#project-repository)
+- [CI Workflow](#ci-workflow)
+- [Unit Tests](#unit-tests)
 - [Bugs and feature requests](#bugs-and-feature-requests)
 - [Contributing](#contributing)
 - [Creator](#creator)
@@ -59,6 +61,42 @@ app_python/
 └── tests/
     └── app_tests.py
 ```
+
+## CI Workflow
+
+Jobs:
+
+1. **Build**
+
+    - Python Setup - setup python 3.11
+
+    - Cache dependencies - use cache to store dependencies
+
+    - Dependencies install
+
+    - Vulnerability check - using Snyk to check for vulnerabilities
+
+    - Vulnerability report - generate report of vulnerabilities
+
+    - Linter
+
+    - Tests
+
+2. **Docker**
+
+    - Login - login to docker hub
+
+    - Build and Push - build docker image and push it to docker hub
+
+I used Snyk in build stage in case to reduce dependencies installations.
+
+## Unit Tests
+
+You can find unit tests in `tests` folder.
+
+Run test using:
+
+`python -m unittest discover -s tests -p '*_tests.py'`
 
 ## Bugs and feature requests
 
