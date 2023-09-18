@@ -23,6 +23,21 @@ python main.py
 - The server responds with a simple HTML page displaying the current time in Moscow.
 - The server runs indefinitely until it is manually stopped.
 
+### Unit Tests
+
+In the unit tests, I have created a test case class called "TestTimeServer" that subclasses from unittest.TestCase. This class contains two test methods:
+- testtimeserverconntection: This method tests the connection to the time server by sending a GET request to the server's URL. If the connection is successful, the response status code should be 200.
+- testtimeservertime: This method tests the time returned by the time server. It first gets the current UTC time and adds 3 hours to it. Then it sends a GET request to the time server and checks if the returned time is equal to the expected time (current UTC time plus 3 hours).
+
+To ensure that the time server is running during the tests, I have implemented the setUpClass and tearDownClass class methods. The setUpClass method starts a separate thread that runs the time server, and the tearDownClass method shuts down the server and joins the thread.
+
+As for best practices, I have followed the following guidelines:
+- I have used meaningful method and variable names to make the code easier to understand and maintain.
+- I have used assertions to check the expected outcomes of the tests.
+- I have handled exceptions that may occur during the tests and provided appropriate error messages.
+- I have used the @classmethod decorator to denote class methods that are used for test setup and teardown.
+- I have commented the code to explain the purpose and functionality of each section.
+
 Feel free to contact me if you have any questions:
 
 Email: [e.shalagin@innopolis.university](mailto:e.shalagin@innopolis.university)
