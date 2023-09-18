@@ -35,5 +35,5 @@ jobs:
 
       - name: Build and Push Docker image
         run: |
-          docker build --no-cache -f ./app_python/Dockerfile -t bellissimo/devops-inno-daniil-okrug:latest .
+          docker build -f app_python\Dockerfile --force-rm -t bellissimo/devops-inno-daniil-okrug:latest .
           docker push bellissimo/devops-inno-daniil-okrug:latest
