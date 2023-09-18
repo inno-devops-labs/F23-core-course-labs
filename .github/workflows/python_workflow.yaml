@@ -38,7 +38,7 @@ jobs:
     - name: Run Snyk test
       uses: snyk/actions/python-3.10@master
       with:
-        args: test --severity-threshold=high --directory=app_python/
+        args: /github/workspace/app_python --severity-threshold=high --directory=app_python/
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
