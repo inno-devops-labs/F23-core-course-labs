@@ -1,7 +1,12 @@
 name: Flask-app
 
-on: [push]
-  
+on:
+  push:
+    paths:
+      - app_python/**
+      - .github/workflows/flask_app.yml
+
+
 jobs:
   build:
     runs-on: ubuntu-latest
