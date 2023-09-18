@@ -4,6 +4,7 @@ import pytz
 
 app = FastAPI()
 
+
 @app.get('/')
 def display_msk_time():
     msk_timezone = pytz.timezone('Europe/Moscow')

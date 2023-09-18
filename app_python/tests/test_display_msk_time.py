@@ -4,6 +4,7 @@ import time
 
 client = TestClient(app)
 
+
 def test_display_msk_time():
     response1 = client.get("/")
     assert response1.status_code == 200
