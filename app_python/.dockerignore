@@ -8,3 +8,6 @@ __pycache__
 # Docker
 Dockerfile
 .dockerignore
+
+# Docs
+*.md
