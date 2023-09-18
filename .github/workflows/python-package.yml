@@ -56,8 +56,6 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - name: Run Snyk to check for vulnerabilities
-        run: |
-          pwd
         uses: snyk/actions/python@master
         continue-on-error: true
         env:
@@ -74,9 +72,9 @@ jobs:
     runs-on: ubuntu-latest
     needs: security
 
-    defaults:
-      run:
-        working-directory: app_python
+    # defaults:
+    #   run:
+    #     working-directory: app_python
 
     steps:
       - name: Docker Login
