@@ -2,10 +2,6 @@ name: Python package
 
 on: [push]
 
-defaults:
- run:
-  working-directory: ./app_python
-
 jobs:
   build:
 
@@ -36,6 +32,7 @@ jobs:
 
       - name: Test with pytest
         run: |
+          cd app_python
           python3 -m pytest
 
       - name: Docker Login
