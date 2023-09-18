@@ -31,13 +31,13 @@ To build docker container use the following command:
 
 It is possible to pull the container from docker hub. To do is use the following command:
 
-`docker pull nabiull2020/moscow-time-flask-app:1.0.0`
+`docker pull nabiull2020/moscow-time-flask-app:latest`
 
 ## Run
 
 To run the container use the following command:
 
-`docker run -p 8000:8000 nabiull2020/moscow-time-flask-app:1.0.0`
+`docker run -p 8000:8000 nabiull2020/moscow-time-flask-app:latest`
 
 or if you built it manually:
 
