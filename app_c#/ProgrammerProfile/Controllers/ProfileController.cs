@@ -27,7 +27,7 @@ public class ProfileController : Controller
         {
             return View("Error", new ErrorViewModel());
         }
-        
+
         return await GetPageInfo(userName);
     }
 

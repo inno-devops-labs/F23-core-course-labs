@@ -1,0 +1,60 @@
+name: C#_APP_CI
+
+on:
+  push:
+    paths:
+      - 'app_c#/**'
+      - '.github/workflows/app_c#.yml'
+
+permissions:
+  security-events: write
+
+defaults:
+  run:
+    working-directory: ./app_c#
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '6.0.x'
+
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-dotnet-${{ hashFiles('**/*.csproj') }}
+          restore-keys: |
+            ${{ runner.os }}-dotnet-
+
+      - name: Install dependencies
+        run: dotnet restore
+
+      - name: Linter
+        run: dotnet format --verify-no-changes
+
+      - name: Tests
+        run: dotnet test
+  
+  docker:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Login
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_TOKEN }}
+
+      - name: Build and Push
+        run: |
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/programmer-profile-asp-net:latest .
+          docker push ${{ secrets.DOCKER_USERNAME }}/programmer-profile-asp-net:latest
