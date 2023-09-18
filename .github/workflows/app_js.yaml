@@ -43,6 +43,7 @@ jobs:
     - name: Build and push Docker image
       uses: docker/build-push-action@v2
       with:
-        context: .
+        context: app_js
+        file: app_js/Dockerfile
         push: true
         tags: purfreak/lab2_devops:latest-js
