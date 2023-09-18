@@ -52,11 +52,11 @@ jobs:
       - uses: actions/checkout@v3
       - uses: snyk/actions/setup@master
 
-      # - name: Install dependencies
-      #   working-directory: ./app_python
-      #   run: |
-      #     python -m pip install --upgrade pip
-      #     pip install --no-cache-dir -r requirements.txt
+      - name: Install dependencies
+        working-directory: ./app_python
+        run: |
+          python -m pip install --upgrade pip
+          pip install --no-cache-dir -r requirements.txt
 
       - name: Snyk test
         working-directory: app_python
