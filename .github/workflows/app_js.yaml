@@ -23,17 +23,16 @@ jobs:
         node-version: '14'
 
     - name: Install Dependencies
+      working-directory: app_js
       run: npm install
 
     - name: Lint code
-      run: |
-        cd app_js
-        npm run lint
+      working-directory: app_js
+      run: npm run lint
 
     - name: Run Tests
-      run: |
-        cd app_js
-        npm test
+      working-directory: app_js
+      run: npm test
 
     - name: Login to DockerHub
       uses: docker/login-action@v1
