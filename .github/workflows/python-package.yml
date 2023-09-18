@@ -47,20 +47,15 @@ jobs:
 
   security:
     runs-on: ubuntu-latest
-    needs: python
-
-    defaults:
-      run:
-        working-directory: app_python
-
     steps:
-      - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/python-3.10@master
+      - uses: actions/checkout@v3
+      - uses: snyk/actions/setup@master
+      - name: Snyk test
+        working-directory: ./app_python
+        run: snyk test
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        with:
-          args: --severity-threshold=high
-          command: test
+
 
   docker:
     runs-on: ubuntu-latest
