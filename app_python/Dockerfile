@@ -5,7 +5,7 @@ WORKDIR /app
 
 COPY requirements.txt requirements.txt
 COPY app.py /app
-COPY templates /app
+COPY templates/ /app/templates
 
 FROM python:3.7-slim
 

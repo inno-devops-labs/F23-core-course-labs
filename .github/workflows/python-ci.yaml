@@ -36,6 +36,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
+          context: ./app_python/
           file: app_python/Dockerfile
           push: true
           tags: bellissimo/devops-inno-daniil-okrug:latest
