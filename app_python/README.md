@@ -43,3 +43,15 @@ Once in the folder containing this doc (`app_python`), you can use the following
     coverage run -m pytest
 
     coverage report
+
+## CI/CD
+This project uses Github Actions as its CI tool. The CI workflow will run on Ubuntu in the `app_python` directory following any `push` events. The workflow contains multiple stages:
+
+### Dependency installation and code quality
+1. Dependency installation: The workflow will install dependecies from `requirements.txt` in addition to ruff and pytest.
+2. Linting: The workflow will run Ruff to lint all the python code using the config in `ruff.toml`.
+3. Testing: The workflow will then run any tests present in the repo using Pytest.
+
+### Deployment
+4. Docker Login: At this stage, the workflow will use secrets stored in the repo to login to a Docker Hub account. [Ref](https://github.com/docker/login-action)
+5. Docker Push: Finally, the workflow will build a docker image following the config in the repo and push it to Docker Hub. [Ref](https://github.com/docker/build-push-action)
