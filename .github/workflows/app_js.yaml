@@ -6,7 +6,7 @@ on:
       - 'app_js/**'
   pull_request:
     paths:
-      - 'app_python/**'
+      - 'app_js/**'
 
 jobs:
   build:
