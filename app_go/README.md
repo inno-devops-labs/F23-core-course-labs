@@ -87,19 +87,25 @@ Required software:
 * How to build
 
 ```shell
-docker build -t go-app .
+docker build -t app-go .
 ```
 
 * How to pull
 
 ```shell
-docker pull quiner/go-app:1.0.0
+docker pull quiner/app-go:latest
 ```
 
 * How to run
 
 ```shell
-docker run -d --env-file go.env -p 8070:8070 go-app
+docker run -d --env-file go.env -p 8070:8070 app-go
+```
+
+### Unit Tests
+```shell
+cd src/
+go test tests/integration/*
 ```
 
 <!-- USAGE EXAMPLES -->

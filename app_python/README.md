@@ -101,7 +101,7 @@ docker build -t app-python .
 * How to pull
 
 ```shell
-docker pull quiner/app-python:1.0.0
+docker pull quiner/app-python:latest
 ```
 
 * How to run
