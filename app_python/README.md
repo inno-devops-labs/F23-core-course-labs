@@ -38,6 +38,14 @@ For testing project use pytest. To run all tests:
 ```bash
 pytest .
 ```
+## CI workflow
+CI contains of:
+* Security check (Snyk is used)
+* Build, lint and test 
+    * Ruff is used for linting
+    * Pytest for testing
+* Dockerhub push
+    Docker image is created and push to dockerhub 
 
 ## Contributing
 Project are open to contributing, any forks are welcome.
