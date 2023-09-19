@@ -77,7 +77,7 @@ jobs:
       - uses: actions/checkout@master
       - uses: snyk/actions/setup@master
       - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/python@master
+        uses: snyk/actions/python-3.10@master
         continue-on-error: true 
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
