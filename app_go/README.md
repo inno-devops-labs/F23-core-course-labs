@@ -26,12 +26,18 @@ go run timeapp.go
 ```
 Now you can open `http://127.0.0.1:3000/` in your browser to check the time. Also you can specify another port using enviromental vriable `APP_PORT`.
 ```
-APP_PORT=7777 go run main.go
+APP_PORT=7777 go run timeapp.go
 ```
 
 ### Development
 
 Install pre-commit to automatically lint files.
+
+### Unit Tests
+Run tests:
+```
+go test
+```
 
 ## Contributing
 

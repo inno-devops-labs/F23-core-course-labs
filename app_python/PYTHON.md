@@ -60,6 +60,8 @@ I have created following unit tests:
 
 - **Pytest configured in** `pyproject.toml`: Pytest opions configured using unified configuration file. ([PEP 518](https://www.python.org/dev/peps/pep-0518/)).
 
+- **Integration in CI**: Tets are integrated into the github actions.
+
 Run tests:
 ```
 pytest
