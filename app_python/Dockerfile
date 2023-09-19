@@ -7,7 +7,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY app/__init__.py ./
 
-RUN adduser user_start && chown -R user_start /app/
+RUN adduser --disable-password user_start && chown -R user_start /app/
 USER user_start
 
 ENV PYTHONPATH .
