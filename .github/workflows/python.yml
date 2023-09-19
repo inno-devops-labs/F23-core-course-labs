@@ -1,45 +1,32 @@
-name: Python CI
+name: Python package
 
-on:
-  push:
-    paths:
-      - "app_python/**" # Run only when changes occur in the app_python folder
+on: [push]
 
 jobs:
   build:
+
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.7", "3.8", "3.9", "3.10", "3.11"]
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Set up Python
-        uses: actions/setup-python@v3
+      - uses: actions/checkout@v4
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
         with:
-          python-version: "3.10" # Choose your desired Python version
-
-      - name: Install Dependencies
-        run: pip install -r app_python/requirements.txt
-
-      - name: Lint
-        run: flake8 app_python
-
-      - name: Run Tests
-        run: pytest app_python
-
-      - name: Login to Docker Hub
-        uses: docker/login-action@v1
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-
-      - name: Build and Push Docker Image
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
         run: |
-          docker build -t nikitosing/app_python:latest ./app_python
-          docker push nikitosing/app_python:latest
-
-      - name: Install Snyk CLI
-        run: npm install -g snyk
-
-      - name: Scan for Vulnerabilities
-        run: snyk test --all-projects
+          python -m pip install --upgrade pip
+          pip install ruff pytest
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      - name: Lint with ruff
+        run: |
+          # stop the build if there are Python syntax errors or undefined names
+          ruff --format=github --select=E9,F63,F7,F82 --target-version=py37 .
+          # default set of ruff rules with GitHub Annotations
+          ruff --format=github --target-version=py37 .
+      - name: Test with pytest
+        run: |
+          pytest
