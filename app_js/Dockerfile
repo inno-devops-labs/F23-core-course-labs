@@ -20,12 +20,12 @@ RUN npm run build
 FROM node:20
 
 RUN groupadd -r sveltegroup && useradd -r -g sveltegroup relisqu
-USER relisqu
+
 WORKDIR /svelte-app
 
 COPY --from=builder /svelte-app .
 
 EXPOSE 5173
-
+USER relisqu
 # Start the application
 CMD npm run dev -- --host
