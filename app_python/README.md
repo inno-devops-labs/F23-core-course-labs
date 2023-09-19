@@ -1,3 +1,5 @@
+![workflow](https://github.com/nikolina2k/core-course-labs/actions/workflows/app_python.yml/badge.svg)
+
 # Current Time in Moscow
 
 A simple Python web app that displays the current time in Moscow.
@@ -68,3 +70,11 @@ To run the unit tests, follow these steps:
    ```
    python test_app.py
    ```
+
+## CI
+
+The following secrets need to be specified in order to run the pipeline:
+
+- **DOCKER_PASSWORD** - DockerHub password (or token).
+- **DOCKER_USERNAME** - DockerHub username.
+- **SNYK_TOKEN** - Snyk token.
