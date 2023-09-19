@@ -39,7 +39,7 @@ Linting is done automatically on commit. To run linting manually, run the follow
 
 > `npm run lint`
 
-### Testing
+### Unit Testing
 
 To run unit tests, run the following command:
 
