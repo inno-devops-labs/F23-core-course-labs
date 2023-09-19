@@ -39,11 +39,16 @@ jobs:
       - name: Tests
         run: pytest
 
+      - uses: snyk/actions/setup@master
       - name: Vulnerability check by Snyk
         continue-on-error: true
-        uses: snyk/actions/python-3.10@master
+        runs: snyk test --sarif-file-output=snyk.sarif
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      - name: Upload result to GitHub Code Scanning
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: app_python/snyk.sarif
 
   deploy:
     needs: build
