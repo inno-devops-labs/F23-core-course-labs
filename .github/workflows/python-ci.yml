@@ -55,6 +55,7 @@ jobs:
 
   security:
     runs-on: ubuntu-latest
+    needs: python-build
     steps:
       - uses: actions/checkout@master
       - name: Run Snyk to check for vulnerabilities
