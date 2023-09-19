@@ -1,0 +1,74 @@
+name: APP C# CI
+
+on:
+  push:
+    paths:
+      - 'app_c#/**'
+      - '.github/workflows/app_c#.yml'
+
+permissions:
+  security-events: write
+
+defaults:
+  run:
+    working-directory: ./app_c#
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '6.0.x'
+
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-dotnet-${{ hashFiles('**/*.csproj') }}
+          restore-keys: |
+            ${{ runner.os }}-dotnet-
+      - name: Dependencies install
+        run: dotnet restore
+
+      - name: Vulnerability check
+        uses: snyk/actions/dotnet@master
+        continue-on-error: true
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args:
+            --sarif-file-output=c#_snyk.sarif
+            --file=app_c#/PetApp/obj/project.assets.json
+
+      - name: Vulnerability report
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: c#_snyk.sarif
+
+      - name: Linter
+        run: dotnet format --no-restore --verify-no-changes
+
+      - name: Tests
+        run: dotnet test --no-restore
+
+  docker:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Login
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_TOKEN }}
+
+      - name: Build and Push
+        run: |
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/pet-app:latest .
+          docker push ${{ secrets.DOCKER_USERNAME }}/pet-app:latest
