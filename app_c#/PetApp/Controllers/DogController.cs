@@ -18,7 +18,7 @@ public class DogController : Controller
         {
             return View("Index", model);
         }
-        
+
         model.ConvertedAgeInDays = AgeConverter.FromDateInDays(model.DateOfBirth);
         model.ConvertedAgeInYears = AgeConverter.DaysToYears(model.ConvertedAgeInDays);
 
