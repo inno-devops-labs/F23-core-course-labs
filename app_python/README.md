@@ -14,3 +14,7 @@ How to launch:
 1. Build with ```sudo docker image build -t my_app .```
 2. Pull with ```docker image pull tnechepurencko/my_app```
 3. Run with ```sudo docker run -d -p 5000:5000 my_app```
+
+# Unit Tests
+
+You can run unit tests by running the ```testing.py``` file.

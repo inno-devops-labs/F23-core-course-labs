@@ -1,6 +1,7 @@
 from datetime import datetime
 import pytz
 from flask import Flask
+import pytest
 
 
 TIMEZONE = 'Europe/Moscow'
@@ -17,5 +18,11 @@ def get_moscow_time():
     return formatted_time
 
 
+@pytest.fixture
+def client():
+    client = app.test_client()
+    yield client
 
-app.run(debug=True, host='0.0.0.0')
+
+if __name__ == '__main__':
+    app.run(debug=True, host='0.0.0.0')
