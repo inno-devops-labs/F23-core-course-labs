@@ -12,8 +12,14 @@ jobs:
         uses: snyk/actions/python@master
         with:
           context: app_python
+        working-directory: app_python
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        run: |
+          docker build -f ${{ matrix.repository }}.Dockerfile \
+          --target scan-result \
+          --output type=local,dest=${{ matrix.repository }} \
+          --build-arg SNYK_TOKEN=${SNYK_TOKEN} .
 
   build:
     runs-on: ubuntu-latest
