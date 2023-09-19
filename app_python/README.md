@@ -10,7 +10,7 @@ This is a simple Flask web application that displays the current Moscow time. Th
 - [Installation](#installation)
 - [Usage](#usage)
 - [Tests](#tests)
-- [Linting](#linting)
+- [Linting](#lint)
 - [Docker](#docker)
 
 ## Features

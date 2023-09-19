@@ -7,24 +7,29 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        working-directory: ./app_python
+
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
+      with:
+        sparse-checkout: app_python
 
     - name: Set up Python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: 3.x
 
 #    - name: Enter python project
 #      run: cd app_python
 
-    - name: Run environment
-      run: |
-        cd app_python
-        python -m venv .venv
-        .venv/Scripts/Activate
-        flask run
+#    - name: Run environment
+#      run: |
+#        python -m venv .venv
+#        .venv/Scripts/Activate
+#        flask run
 
     - name: Install dependencies
       run: pip install -r requirements.txt
