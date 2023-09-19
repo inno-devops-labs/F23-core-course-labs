@@ -1,5 +1,6 @@
 # Go Chuck Norris Jokes Web App
 [![App go](https://github.com/Lnsfna/DevOps-course-labs/actions/workflows/app_go.yaml/badge.svg)](https://github.com/Lnsfna/DevOps-course-labs/actions/workflows/app_go.yaml)
+
 ## Description
 This is a simple go web app to display Chuck Norris jokes.
 
