@@ -1,4 +1,4 @@
-RUN adduser -D -u 1001 myuser
+RUN adduser -D myuser && chown -R myuser /app
 
 USER myuser
 
