@@ -31,12 +31,12 @@ jobs:
       
       - name: Linting with flake 8
         run: |
-          pre-commit run flake8
+          pre-commit run flake8 --all-files
         working-directory: ./app_python
       
       - name: Linting with black
         run: |
-          pre-commit run black
+          pre-commit run black --all-files
         working-directory: ./app_python
         
       - name: Testing flask app
