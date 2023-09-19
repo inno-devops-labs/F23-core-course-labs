@@ -7,6 +7,5 @@ MarkupSafe==2.1.1
 Werkzeug==2.1.1
 zipp==3.8.0
 pytz==2023.3
-re==2023.6.3
 unittest==1.0.6
 dateutil==2.8.2
