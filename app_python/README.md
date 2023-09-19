@@ -59,6 +59,8 @@ After pulling the image, a container can be started using the following command:
 
 The application will then be accessible at 127.0.0.1:5000
 
+## CI
+
 ## Contributing
 
 If you'd like to improve this project or report issues, please open an issue or submit a pull request.
