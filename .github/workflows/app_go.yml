@@ -19,12 +19,14 @@ jobs:
         with:
           go-version: 1.16
 
+      - name: Dependencies
+        run: go mod download
+
       - name: Linter
         run: go vet ./...
 
       - name: Tests
         run: go test -v ./...
-
       - name: Login to Docker Hub
         uses: docker/login-action@v1
         with:
@@ -36,3 +38,17 @@ jobs:
           docker build -t my-go-app .
           docker tag my-go-app ${{ secrets.DOCKER_USERNAME }}/my-go-app
           docker push ${{ secrets.DOCKER_USERNAME }}/my-go-app
+
+      - name: Snyk Security Check
+        run: npx snyk test --all-projects
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+      - name: Cache Go modules
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/go-build
+          key: go-modules-${{ runner.os }}-${{ hashFiles('**/go.sum') }}
+          restore-keys: go-modules-${{ runner.os }}-
+
+
