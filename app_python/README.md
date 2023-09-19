@@ -59,3 +59,11 @@ docker build . -t <username>/app_python:latest
 # pushing
 docker push <username>/app_python:latest
 ```
+
+## Unit tests
+
+Units uses `pytest` and `unittest.mock` for ensuring critical routes of our app
+
+```bash
+pytest -v
+```

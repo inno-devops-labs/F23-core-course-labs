@@ -139,4 +139,30 @@ Flake8 combines several tools (PyFlakes, pycodestyle, and McCabe) into one, prov
 
 Pyflakes is a lightweight linter that checks for simple errors and reports them without offering style recommendations.
 
-I decided to use pylint since it's
+I decided to use pylint
+
+# Testing best practices
+
+## Document Tests:
+
+Write clear and descriptive test case names and use docstrings to document what each test is checking. This makes it easier for other developers to understand your tests.
+
+## Keep Tests Isolated:
+
+Ensure that tests are isolated from each other and do not rely on the order of execution. Use separate test databases and reset them before each test case if necessary.
+
+## Mock External Dependencies:
+
+When your API interacts with external services, databases, or APIs, use mocking libraries like unittest.mock or pytest-mock to simulate the behavior of these dependencies. This allows you to test your API in isolation.
+
+## Use Pydantic Models:
+
+FastAPI relies heavily on Pydantic models for request and response validation. Use Pydantic models in your test cases to validate input and output data. This ensures that your API behaves correctly and that you're testing against valid data.
+
+## Test Each Endpoint Separately:
+
+Write individual test cases for each endpoint of your API. This helps isolate issues and makes it easier to pinpoint problems when tests fail.
+
+## Use Pytest:
+
+Pytest is a popular testing framework in the Python ecosystem. It's easy to use and offers a range of features for testing, including parameterized tests, fixtures, and plugins. You can use Pytest for writing and running your FastAPI tests.
