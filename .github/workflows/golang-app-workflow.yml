@@ -5,12 +5,12 @@ run-name: Go app build, lint, and test
 on: 
   push:
     paths: 
-      - '.github/golang-app-workflow.yml'
+      - '.github/workflows/golang-app-workflow.yml'
       - 'app_golang/**'
       - '!**.md'
   pull_request:
     paths: 
-      - '.github/golang-app-workflow.yml'
+      - '.github/workflows/golang-app-workflow.yml'
       - 'app_python/**'
       - '!**.md'
 
