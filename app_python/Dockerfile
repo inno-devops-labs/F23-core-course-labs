@@ -7,7 +7,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY app/__init__.py ./
 
-RUN adduser --disable-password user_start && chmod -R a-w+x+r /app 
+RUN adduser app --system -S /bin/nologin -D -H
 USER user_start
 
 ENV PYTHONPATH .
