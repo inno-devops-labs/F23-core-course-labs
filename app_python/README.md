@@ -15,6 +15,7 @@
 - [Description](#description)
 - [Quick start](#quick-start)
 - [Testing](#testing)
+- [Docker](#docker)
 
 
 ## Description
@@ -61,4 +62,46 @@ python3 -m pytest
 
 Note that if your ping is higher than 2 minutes (which is highly unlikely) tests will always fail.
 
+## Docker
 
+Make sure you are in the `app_python` directory
+```
+cd app_python
+```
+
+Building docker image. Note that docker BuildKit needs to be enabled to allow for more functionality such as mounting.
+```
+DOCKER_BUILDKIT=1 docker build -t app_python .
+```
+
+Running latest docker image
+
+```
+docker run --rm justsomedude22/app_python:latest
+```
+
+To run the docker image with the security measures described in `DOCKER.md`, add the following flags:
+
+```
+--cap-drop={CHOWN,DAC_OVERRIDE,SETUID,SETGID,SYS_PTRACE} --cpu-shares=8 --memory=1g
+```
+
+How to push the docker image to public repo
+
+```
+docker push justsomedude/app_python:<tag>
+```
+
+How to add a tag
+
+```
+docker tag app_python justsomedude22/app_python:<tag>
+```
+
+How to pull docker image by tag from repo
+
+```
+docker pull justsomedude22/app_python:<tag>
+```
+
+If no tag provided, will pull latest
