@@ -70,7 +70,7 @@ jobs:
       - name: Build and Push Docker image
         run: |
           docker buildx create --use
-          docker buildx build -f ./app_python/Dockerfile -t bellissimo/devops-inno-daniil-okrug:latest .
+          docker buildx build -f ./app_python/Dockerfile -t bellissimo/devops-inno-daniil-okrug:latest ./app_python/
           docker push bellissimo/devops-inno-daniil-okrug:latest
       
       # - name: Build and push
