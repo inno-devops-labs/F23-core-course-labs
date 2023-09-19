@@ -7,6 +7,11 @@ on:
       - 'app_javascript/**'
       - '!app_javascript/**.md'
 
+defaults:
+  run:
+    shell: bash
+    working-directory: app_javascript
+
 permissions:
   contents: write
 
