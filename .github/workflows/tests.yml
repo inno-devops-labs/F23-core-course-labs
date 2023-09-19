@@ -27,12 +27,14 @@ jobs:
           python3 -m pip install --upgrade pip
           cd app_python && (if [ -f requirements.txt ]; then pip install -r requirements.txt; fi; cd ../../)
 
-      - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/python-3.8@master
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        with:
-          args: --severity-threshold=high
+      - name: Install Snyk CLI
+        run: npm install -g snyk
+      
+      - name: Authenticate Snyk
+        run: snyk auth 
+      
+      - name: Run Snyk
+        run: snyk test --all-projects --severity-threshold=high 
 
       - name: Linter
         run: |
@@ -42,6 +44,9 @@ jobs:
       - name: Tests
         run: 
           cd app_python && (python3 -m unittest discover; cd ../../)
+      
+      - name: Fix Snyk vulnerabilities
+        run: snyk wizard --all-projects
 
       - name: Login to Docker Hub
         uses: docker/login-action@v1
