@@ -23,7 +23,14 @@ I've used pylint to check my code for errors and style issues and markdownlint e
 
 ## Testing
 
-I've used unittest to test my application. It tests the following:
+I've used `unittest` to test my application. It tests the following:
 
 - The application returns the correct time.
 - We can access the application.
+
+I've also developed these tests using the best practices for testing:
+
+- **Coverage**: Tests cover all functions of the application - they test both time and availability of the page.
+- **Assertive Testing**: Tests use assertions to ensure that the responses from the API are as expected. This includes checking the status code and the content of the page.
+- **Test Separation**: Keeping tests separate from application code. Store them in a dedicated directory, such as "tests."
+- **Arrange-Act-Assert pattern**: Each test uses AAA pattern: Arrange (set up the test environment), Act (perform the action being tested), and Assert (verify the expected outcome).

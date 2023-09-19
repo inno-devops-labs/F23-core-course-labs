@@ -18,8 +18,13 @@ If you see commits, firstly i developed it on Vue.js, but decided to redo it ful
 
 ## Testing
 
-To run tests, run the following command:
+To run unit testing, run the following command:
 
 > `npm run test`
 
-They have simple tests: is the site even loaded, and if the displayed time is correct.
+They test availability of site, and if the displayed time is correct.
+
+- **Coverage**: Tests cover all functions of the application - they test both time and availability of the page.
+- **Assertive Testing**: Tests use assertions to ensure that the responses from the API are as expected. This includes checking the status of page if it is rendered and the content of the page.
+- **Test Separation**: Keeping tests separate from application code.
+- **Arrange-Act-Assert pattern**: Each test uses AAA pattern: Arrange (set up the test environment), Act (perform the action being tested), and Assert (verify the expected outcome).

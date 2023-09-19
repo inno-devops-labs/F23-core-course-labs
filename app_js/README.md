@@ -41,7 +41,7 @@ Linting is done automatically on commit. To run linting manually, run the follow
 
 ### Testing
 
-To run tests, run the following command:
+To run unit tests, run the following command:
 
 > `npm run test`
 
