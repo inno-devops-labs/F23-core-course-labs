@@ -13,26 +13,11 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    # Enable caching
-    - name: Cache dependencies
-      uses: actions/cache@v2
-      with:
-        path: ~/.cache/pip
-        key: ${{ runner.os }}-pip-${{ hashFiles('lab1/app_python/requirements.txt') }}
-
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
         python-version: 3.9
-
-    # Add a restore step to restore the cache
-    - name: Restore dependencies
-      uses: actions/cache@v2
-      with:
-        path: ~/.cache/pip
-        key: ${{ runner.os }}-pip-${{ hashFiles('lab1/app_python/requirements.txt') }}
-        restore-keys: |
-          ${{ runner.os }}-pip-
+        cache: 'pip'
 
     - name: Install dependencies
       run: |
