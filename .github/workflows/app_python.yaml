@@ -76,7 +76,7 @@ jobs:
 
     - name: Build Docker image
       run: |
-        docker build ./app_python -t relisqu/relisqu/python-app:latest
+        docker build ./app_python -t relisqu/python-app:latest
     - name: Push Docker image to DockerHub
       run: |
         docker push relisqu/python-app:latest
