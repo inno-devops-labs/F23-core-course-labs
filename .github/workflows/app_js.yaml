@@ -33,7 +33,7 @@ jobs:
       working-directory: app_js
       run: npm run lint
 
-      name: Run Tests
+    - name: Run Tests
       working-directory: app_js
       run: npm test
 
