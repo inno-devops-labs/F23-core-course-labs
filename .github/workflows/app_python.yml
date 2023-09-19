@@ -69,6 +69,5 @@ jobs:
 
       - name: Build and push Docker image
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/my-flask-app .
-          docker tag my-flask-app ${{ secrets.DOCKER_USERNAME }}/my-flask-app
+          docker pull ${{ secrets.DOCKER_USERNAME }}/my-flask-app
           docker push ${{ secrets.DOCKER_USERNAME }}/my-flask-app
