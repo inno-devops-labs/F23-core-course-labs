@@ -2,10 +2,6 @@ name: DevOps Python App CI
 
 on: [push]
 
-defaults:
-  run:
-    working-directory: ./app_python
-
 jobs:
   lint:
     runs-on: ubuntu-22.04
@@ -22,7 +18,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          pip install -r ./app_python/requirements.txt
 
       - name: Lint with flake8
         run: flake8 .
@@ -42,11 +38,10 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          pip install -r ./app_python/requirements.txt
 
       - name: Test with pytest
-        run: pytest
-        working-directory: ./app_python
+        run: python -m pytest
 
   docker:
     needs: [lint, test]
