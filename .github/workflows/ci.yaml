@@ -38,7 +38,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
-          context: .
+          context: app_python/.
           file: Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USER }}/clockbox:latest
