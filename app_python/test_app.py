@@ -43,7 +43,7 @@ class TestDisplayTime(unittest.TestCase):
 
         # Calculate the time difference
         time_difference = app_time - current_time_moscow
-        print("\nThe absolute time difference is: " 
+        print("\nThe absolute time difference is: "
               + str(abs(time_difference)))
         self.assertLessEqual(
             abs(time_difference.total_seconds()), 5
