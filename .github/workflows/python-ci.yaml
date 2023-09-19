@@ -16,7 +16,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      
+
       - name: Setup Snyk
         uses: snyk/actions/setup@master
 
@@ -46,6 +46,21 @@ jobs:
 
       - name: Tests
         run: pytest
+
+  snyk:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Snyk
+        uses: snyk/actions/setup@master
+
+      - name: Snyk test
+        run: snyk test
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
   docker:
     runs-on: ubuntu-latest
