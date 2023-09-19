@@ -6,6 +6,7 @@ on:
       - 'app_python/**'
       - '.github/workflows/python.yml'
       - '!app_python/**.md'
+      - '!**.md'
     branches: [ "main" ]
 
   pull_request:
@@ -13,6 +14,7 @@ on:
       - 'app_python/**'
       - '.github/workflows/python.yml'
       - '!app_python/**.md'
+      - '!**.md'
 
 defaults:
   run:
@@ -51,6 +53,7 @@ jobs:
       run: snyk test --sarif-file-output=snyk.sarif
       env:
         SNYK_TOKEN: ${{secrets.SNYK_TOKEN}}
+
     - name: Upload results
       uses: github/codeql-action/upload-sarif@v2
       with:
@@ -81,7 +84,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
 
-      - uses: docker/setup-buildx-action@v1
+      - uses: docker/setup-buildx-action@v2
       - name: Build and release image
         uses: docker/build-push-action@v5
         with:

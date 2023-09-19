@@ -1,0 +1,9 @@
+# Best practices applied to CI workflow
+1. **Set timeouts for workflows** - some jobs might stack in deadlocks or infinite pending for some action, to avoid endless jobs we need timeouts to be specified. Job will be killed immediately after timeout exceeds
+2. **Use well-known and good maintained actions in your workflow** -  Actions are close to dependencies in sense of security and stability, so actions you use should be well known, often updated and reviewed by community 
+3. **Limit scope of workflow token** - often token has wide-range of permissions, however not every job need all provided accesses to be completed. So it is good to provide only essential rights to make job operational to ensure  **principe of the least privilege**
+4. **Pin test runners to version** - you should explicitly specify version of runners, this ensures that jobs will run exactly on same runners and wont be changed without your strict will.
+5. **Cache steps and jobs if possible** - caching optimizes time of jobs to be completed for sure, so long steps like deps downloading or docker build should be cached. Using that workflow will repeat this parts only if something related to them was changed
+6.  **Accessing credentials** - Use GitHub credentials to use sensitive information inside jobs without threat of revealing or hard-coding them
+7. **Trigger WorkFlow only if related files was changed** - there is no need to rerun workflow if nothing in it was changed even if somebody has make any changes in repo (f.e no need to rerun app_python workflow if somebody want to make changes in README file)
+8. **Create jobs dependencies if needed** - there is no need to build and publish docker image if test was fallen right before, so create jobs dependent of jobs that are essential to be successful for reasonable running this job

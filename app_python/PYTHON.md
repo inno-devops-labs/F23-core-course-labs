@@ -25,8 +25,6 @@ To reduce code-reading problems and improving code quality I also install IDE st
 Also, I have used some kind of "philosophy" for programming: typed python - 
 there are type hints&annotations in code and type checking.
 
-
-
 ### Framework choice
 I have considered several the most popular frameworks: `Django`, `Flask`, `aiohttp`, `FastAPI`. It is easy to find docs and manuals for one of them.
 
@@ -37,6 +35,11 @@ Also, its async "little brother" `quart` has bad number of RPS due to some bench
 
 `FastAPI` has a good community, docs, performance, but I have chose **aiohttp** because it is lighter and stable.
 
+
+### Code testing 
+1. For testing, I have used unit testing, for such small application 1 test was enough
+2. I have applied range-act-assert approach for my tests
+3. My test checking that route returns status code of success and then checking that time actually changes by making two consequent requests to Test Server with real handler
 ### Docker
 
 For containerizing app I copied requirements file and established environment with all dependencies, then I have copied source files and executed my application
