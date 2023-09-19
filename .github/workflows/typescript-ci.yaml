@@ -1,0 +1,36 @@
+name: Typescript CI
+
+on:
+  pull_request:
+    paths:
+      - 'app_typescript/**'
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Next.js app
+        run: npm run build
+
+      # - name: Run tests
+      #   run: npm run test
+
+      # - name: Publish artifacts
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: nextjs-app
+      #     path: .next
