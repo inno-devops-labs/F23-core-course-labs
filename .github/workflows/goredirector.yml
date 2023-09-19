@@ -63,7 +63,7 @@ jobs:
           go-version-file: app_go/go.mod
       - uses: snyk/actions/setup@master
       - name: Run Snyk to check for vulnerable dependencies
-        uses: snyk/actions/python@master
+        uses: snyk/actions/golang@master
         with:
           args: --file=app_go/go.mod --skip-unresolved
       - name: Run Snyk to check for the vulnerabilities in the code 
