@@ -21,4 +21,4 @@ For this web application we will use the following standards:
 
 ## Linter
 
-- Used [PyLint](https://pypi.org/project/pylint/) as linter for the project.
+- Used [flake8](https://pypi.org/project/flake8/) as linter for the project.

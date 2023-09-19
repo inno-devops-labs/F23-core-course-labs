@@ -3,6 +3,7 @@ import pytest
 from flaskr import create_app
 from flaskr import util_functions as uf
 
+
 @pytest.fixture()
 def app():
     """App fixture for starting up the app factory"""
@@ -16,6 +17,7 @@ def app():
     yield cur_app
 
     # clean up / reset resources here
+
 
 # Note that linter dislike redefining of app/client in fictures.
 # However, this is how flask fixtures seem to work - tests will
