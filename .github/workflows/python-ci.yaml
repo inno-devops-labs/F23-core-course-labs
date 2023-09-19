@@ -16,16 +16,19 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
-      - name: Check vulnerabilities with Snyk
-        uses: snyk/actions/python-${{ matrix.python-version }}@master
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      
+      - name: Setup Snyk
+        uses: snyk/actions/setup@master
 
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
+
+      - name: Snyk test
+        run: snyk test
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
       - name: Cache dependencies
         uses: actions/cache@v3
