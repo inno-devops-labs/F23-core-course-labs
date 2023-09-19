@@ -63,8 +63,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
-          context: ./webservicego
+          context: app_golang
+          file: app_golang/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/webservicego:1.0.1
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/webservicego:2.0.0
