@@ -78,7 +78,7 @@ jobs:
               
       - name: Build
         run: |
-          go build -v -o ./bin/moscow_time_go .
+          go build -v -o ./bin/moscowtime .
 
       - name: Snyk check
         run: | 
