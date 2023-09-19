@@ -9,6 +9,7 @@ on:
       - "app_python/**"
   workflow_dispatch:
 
+
 jobs:
   lint:
     runs-on: ubuntu-latest
