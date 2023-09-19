@@ -68,7 +68,6 @@ These instructions will help you set up and run the project on your local machin
 
     ```shell
   flake8
-  
 
 ## Docker
 
