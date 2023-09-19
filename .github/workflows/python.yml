@@ -43,6 +43,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
       - name: Lint
         run: flake8 . --per-file-ignores="test/conftest.py:E402"
 
@@ -55,7 +58,11 @@ jobs:
       run:
         working-directory: ./app_python
     runs-on: ubuntu-latest
+
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
       - name: Install Snyk CLI
         run: npm install -g snyk
 
@@ -72,6 +79,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
       - name: Cache Docker layers
         uses: actions/cache@v2
         with:
