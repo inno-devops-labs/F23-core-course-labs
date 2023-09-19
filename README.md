@@ -1,5 +1,4 @@
-![example workflow](https://github.com/github/docs/actions/workflows/python_ci.yml/badge.svg)
-![example workflow](https://github.com/github/docs/actions/workflows/go_ci.yml/badge.svg)
+[![python app ci](https://github.com/kolbasaegor/core-course-labs/actions/workflows/app-python.yml/badge.svg?branch=lab3)](https://github.com/kolbasaegor/core-course-labs/actions/workflows/python_ci.yml)
 # DevOps Engineering Labs
 
 ## Introduction
