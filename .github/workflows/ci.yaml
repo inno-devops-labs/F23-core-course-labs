@@ -21,7 +21,6 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
   build:
-
     runs-on: ubuntu-latest
     strategy:
       matrix:
