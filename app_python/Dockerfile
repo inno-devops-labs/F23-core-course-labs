@@ -1,5 +1,5 @@
 # Use official base image
-FROM python:3.9-slim
+FROM python:3.10-slim
 
 # Set working directory for container
 WORKDIR /app
@@ -8,7 +8,7 @@ WORKDIR /app
 COPY requirements.txt .
 
 # Upgrade pip and install python dependencies
-RUN /usr/local/bin/python -m pip install --upgrade pip && pip3 install --no-cache-dir -r requirements.txt
+RUN pip3 install --no-cache-dir -r requirements.txt
 
 # Make directory to start app as module
 RUN mkdir "app_python"
