@@ -71,7 +71,6 @@ jobs:
           tags: muurrk/myapp_cpp:latest
           cache-from: type=registry,ref=muurrk/myapp_cpp:buildcache
           cache-to: type=registry,ref=muurrk/myapp_cpp:buildcache,mode=max
-
   
   snyk-docker:
     runs-on: ubuntu-latest
@@ -84,8 +83,8 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          image: muurrk/myapp:latest
-          args: --file=app_python/Dockerfile --sarif-file-output=snyk.sarif
+          image: muurrk/myapp_cpp:latest
+          args: --file=app_cpp/Dockerfile --sarif-file-output=snyk.sarif
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v2
         with:
