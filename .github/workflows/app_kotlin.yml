@@ -26,11 +26,12 @@ jobs:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
           restore-keys: ${{ runner.os }}-gradle
-      - name: Build with Gradle
-        run: ./gradlew build
 
-      - name: "Use ktlint"
-        uses: "vroy/gha-kotlin-linter@v1"
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+
+      - name: Execute Gradle build
+        run: ./gradlew build
 
   docker:
     needs: buildlint
