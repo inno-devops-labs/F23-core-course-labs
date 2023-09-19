@@ -66,4 +66,4 @@ jobs:
           context: app_golang
           file: app_golang/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/webservicego:2.0.0
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/webservicego:0.0.2
