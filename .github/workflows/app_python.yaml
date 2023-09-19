@@ -47,8 +47,9 @@ jobs:
 
       - name: Build and push
         uses: docker/build-push-action@v5
+        working-directory: app_python
         with:
-          context: .
+          context: app_python
           push: true
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
