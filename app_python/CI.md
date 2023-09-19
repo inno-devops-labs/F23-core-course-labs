@@ -4,8 +4,3 @@
 3. Handling Secrets: GitHub's secret storage is employed for the secure management of confidential information.
 4. Cashing
 5. Defaults Configuration: It establishes 'bash' as the default shell and promote consistency throughout the execution of various steps.
-
-
-
-
-
