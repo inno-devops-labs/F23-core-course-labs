@@ -22,10 +22,6 @@ jobs:
       # You can test your matrix by printing the current Python version
       - name: Display Python version
         run: python -c "import sys; print(sys.version)"
-        
-        cache:
-        paths:
-          - .cache/pip
       
       - name: Install dependencies
         run: |
