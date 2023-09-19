@@ -70,7 +70,6 @@ jobs:
                 --package-manager=npm
                 --file=app_javascript/package.json
                 --skip-unresolved
-          sarif: true
 
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v2
