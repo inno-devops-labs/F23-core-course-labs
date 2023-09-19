@@ -1,3 +1,5 @@
+[![Python package](https://github.com/Chiplinka/core-course-labs/actions/workflows/app_python.yaml/badge.svg?branch=lab3)](https://github.com/Chiplinka/core-course-labs/actions/workflows/app_python.yaml)
+
 # DevOps Engineering Labs
 
 ## Introduction
