@@ -80,7 +80,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [javascript-build, snyk-security]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2
 
       - name: Login to Docker
         uses: docker/login-action@v3
