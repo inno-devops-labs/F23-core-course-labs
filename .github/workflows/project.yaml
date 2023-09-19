@@ -13,8 +13,8 @@ jobs:
           python-version: '3.9'
       - name: Snyk test
         run: |
-        cd app_python
-        snyk test
+          cd app_python
+          snyk test
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
   build:
