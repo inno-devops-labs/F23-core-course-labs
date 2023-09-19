@@ -34,10 +34,12 @@ jobs:
         uses: actions-rs/cargo@v1
         with:
           command: build
+          args: --manifest-path lab01/app_rust/Cargo.toml
       - name: Test
         uses: actions-rs/cargo@v1
         with:
           command: test
+          args: --manifest-path lab01/app_rust/Cargo.toml
   clippy_check:
     runs-on: ubuntu-latest
     steps:
@@ -70,14 +72,15 @@ jobs:
           cache-to: type=gha,mode=max
   security:
     runs-on: ubuntu-latest
+    needs: docker
     steps:
     -
       name: Checkout
       uses: actions/checkout@v3
     - uses: snyk/actions/setup@master
-    -
-        name: Run snyk
-        run: |
-          snyk test
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+    - name: Run Snyk to check Docker image for vulnerabilities
+      uses: snyk/actions/docker@master
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      with:
+        image: ilyasiluyanov/app_rust:dev
