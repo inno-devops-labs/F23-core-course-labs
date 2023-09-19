@@ -25,13 +25,13 @@ jobs:
       - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r app_python/requirements.txt
+          pip install -r requirements.txt
 
       - name: Lint
-        run: flake8 app_python --per-file-ignores="app_python/test/conftest.py:E402"
+        run: flake8 . --per-file-ignores="test/conftest.py:E402"
 
       - name: Run Tests
-        run: pytest app_python
+        run: pytest
 
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/python-3.10@master
