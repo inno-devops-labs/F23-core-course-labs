@@ -93,17 +93,12 @@ jobs:
         - name: Build Docker image
           run: |
             docker buildx build -t m4k4rich/time-python-app:latest .
+            docker push m4k4rich/time-python-app:latest
           working-directory: ./app_python  # Change to your project directory
 
         - name: Check Docker Hub Login Status
           run: echo "Logged in to Docker Hub successfully."
-
-        - name: Push Docker image
-          if: steps.login.outcome == 'success'  # Only push if login was successful
-          run: |
-            docker push m4k4rich/time-python-app:latest
-          working-directory: ./app_python  # Change to your project directory
-
+          
         - name: Logout from Docker Hub
           run: docker logout
 
