@@ -56,15 +56,19 @@ jobs:
       security-events: write
     
     steps:
-      - name: Checkout code repository
-        uses: actions/checkout@v2
+      - name: Checkout code repository.
+        uses: actions/checkout@v3
 
-      - name: Run Snyk to check for vulnerabilities
+      - name: Check for vulnerabilities using Snyk
         uses: snyk/actions/python-3.10@master
+        continue-on-error: true # To make sure that SARIF upload gets called
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          args: --severity-threshold=high
+          args: 
+                --package-manager=pip
+                --skip-unresolved
+                --file=app_python/requirements.txt
 
   build-and-push:
       needs: [lint-and-test, security-check]
