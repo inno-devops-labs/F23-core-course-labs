@@ -14,3 +14,8 @@ I decide to use ASP.NET, because:
 ## Testing:
 - manual testing
 - unit-tests which check that dog age is correctly converted to human age in days and years
+
+### Best practices
+- Keep tests independent and isolated
+- Use meaningful and descriptive test case names
+- Test for expected behavior, not implementation details

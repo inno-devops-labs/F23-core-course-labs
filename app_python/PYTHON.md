@@ -21,3 +21,8 @@ I decide to use Flask, because:
 Wrote unit-tests that check
 - that the displayed time is correct
 - that time is changing
+
+### Best practices
+- Keep tests independent and isolated
+- Use meaningful and descriptive test case names
+- Test for expected behavior, not implementation details
