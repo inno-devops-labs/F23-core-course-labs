@@ -107,5 +107,3 @@ jobs:
           context: "{{defaultContext}}:app_golang"
           push: true
           tags: iviosab/moscow_time_go
-
-          
