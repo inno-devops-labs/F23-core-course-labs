@@ -10,16 +10,14 @@ The best practices from this git workflow are:
 
 4. Install dependencies: The workflow installs the Python dependencies using ```pip```. It first upgrades pip and then installs the requirements specified in the requirements.txt file.
 
-5. Cache Snyk CLI: The workflow caches the Snyk CLI tool using the ```actions/cache``` action.
+5. Install Snyk CLI: If the Snyk CLI tool is not already cached, the workflow installs it using ```npm```. This ensures that the CLI tool is available for vulnerability scanning.
 
-6. Install Snyk CLI: If the Snyk CLI tool is not already cached, the workflow installs it using ```npm```. This ensures that the CLI tool is available for vulnerability scanning.
+6. Run Snyk: The workflow runs Snyk to test for vulnerabilities in all projects. The snyk test command is used with the ```--all-projects``` flag to scan all projects in the repository. A severity threshold of ```high``` is set to fail the workflow if high severity vulnerabilities are found.
 
-7. Run Snyk: The workflow runs Snyk to test for vulnerabilities in all projects. The snyk test command is used with the ```--all-projects``` flag to scan all projects in the repository. A severity threshold of ```high``` is set to fail the workflow if high severity vulnerabilities are found.
+7. Linter: The workflow installs and runs Flake8, a linter for Python code. 
 
-8. Linter: The workflow installs and runs Flake8, a linter for Python code. 
+8. Tests: The workflow runs unit tests using the unittest module.
 
-9. Tests: The workflow runs unit tests using the unittest module.
+9. Fix Snyk vulnerabilities: If there are any Snyk vulnerabilities found, the workflow runs the Snyk wizard to fix them. 
 
-10. Fix Snyk vulnerabilities: If there are any Snyk vulnerabilities found, the workflow runs the Snyk wizard to fix them. 
-
-11. Login using secrets: The Docker username and password and Snyk token are stored as secrets in the repository.
+10. Login using secrets: The Docker username and password and Snyk token are stored as secrets in the repository.

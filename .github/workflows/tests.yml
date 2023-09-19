@@ -26,17 +26,7 @@ jobs:
           python3 -m pip install --upgrade pip
           cd app_python && (if [ -f requirements.txt ]; then pip install -r requirements.txt; fi; cd ../../)
 
-      - name: Cache Snyk CLI
-        id: cache-snyk-cli
-        uses: actions/cache@v2
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-snyk-cli-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-snyk-cli-
-
       - name: Install Snyk CLI
-        if: steps.cache-snyk-cli.outputs.cache-hit != 'true'
         run: npm install -g snyk  
       
       - name: Authenticate Snyk

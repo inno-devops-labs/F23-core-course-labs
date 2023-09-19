@@ -49,18 +49,16 @@ As for best practices, I have followed the following guidelines:
   - build: Runs on the latest version of ```Ubuntu```
     - Steps:
       1. Checkout code using the ```actions/checkout``` action.
-      2. Set up Python with the specified version using the ```actions/setup-python``` action.
-      3. Cache Python dependencies using the ```actions/cache``` action.
-      4. Install dependencies by running ```pip install -r requirements```.txt in the app_python directory.
-      5. Cache the Snyk CLI using the ```actions/cache``` action.
-      6. Install the Snyk CLI globally using ```npm install -g snyk```.
-      7. Authenticate Snyk by setting the API token.
-      8. Run Snyk to check for vulnerabilities in all projects with a severity threshold of "high".
-      9. Run the flake8 linter for Python code.
-      10. Run unit tests using ```python3 -m unittest discover``` in the app_python directory.
-      11. Fix Snyk vulnerabilities using the Snyk wizard.
-      12. Login to Docker Hub using the ```docker/login-action``` action and the specified username and password.
-      13. Build and push a Docker image using the ```docker/build-push-action``` action with the specified context, push flag, and tags.
+      2. Set up Python with the specified version using the ```actions/setup-python``` action with cache.
+      3. Install dependencies by running ```pip install -r requirements```.txt in the app_python directory.
+      4. Install the Snyk CLI globally using ```npm install -g snyk```.
+      5. Authenticate Snyk by setting the API token.
+      6. Run Snyk to check for vulnerabilities in all projects with a severity threshold of "high".
+      7. Run the flake8 linter for Python code.
+      8. Run unit tests using ```python3 -m unittest discover``` in the app_python directory.
+      9. Fix Snyk vulnerabilities using the Snyk wizard.
+      10. Login to Docker Hub using the ```docker/login-action``` action and the specified username and password.
+      11. Build and push a Docker image using the ```docker/build-push-action``` action with the specified context, push flag, and tags.
 
 
 #### Feel free to contact me if you have any questions:
