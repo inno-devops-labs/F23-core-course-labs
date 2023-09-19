@@ -10,7 +10,7 @@ from main import TimeServer
 class TestTimeServer(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.serverthread = threading.Thread(target=cls.startserver)
+        cls.serverthread = threading.Thread(target=cls.start_server)
         cls.serverthread.start()
 
     @classmethod
@@ -20,14 +20,14 @@ class TestTimeServer(unittest.TestCase):
         cls.serverthread.join()
 
     @classmethod
-    def startserver(cls):
+    def start_server(cls):
         serveraddress = ('localhost', 8008)
         cls.server = socketserver.TCPServer(serveraddress, TimeServer)
         print(cls.server.server_address)
         print(cls.server.address_family)
         cls.server.serve_forever()
 
-    def testtimeserverconntection(self):
+    def test_time_server_conntection(self):
         try:
             response = requests.get('http://127.0.0.1:8008/')
         except requests.exceptions.ConnectionError:
@@ -36,7 +36,7 @@ class TestTimeServer(unittest.TestCase):
 
         self.assertEqual(response.status_code, 200)
 
-    def testtimeservertime(self):
+    def test_time_servertime(self):
         try:
             beforetime = datetime.datetime.utcnow()
             beforetime += datetime.timedelta(hours=3)

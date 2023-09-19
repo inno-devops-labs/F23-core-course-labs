@@ -1,33 +1,27 @@
 Best Practices for CI Workflow:
 
-1. Triggering: Define the events that should trigger the workflow based on your project's requirements. In this case, the workflow is triggered on push events to the main and lab3 branches, as well as pull request events on the main branch.
+The best practices from this git workflow are:
 
-2. Parallel Jobs: If your workflow has multiple steps that can run in parallel, consider splitting them into separate jobs. This can help improve the overall execution time of the workflow.
+1. Use a Continuous Integration (CI) workflow: The workflow is triggered on push events to the ```main``` and ```lab3``` branches, as well as pull request events to the ```main``` branch. This ensures that code is tested and built automatically whenever changes are made.
 
-3. Version Control: Always make sure to checkout the code from the repository using a version control action like actions/checkout@v2. This ensures that the workflow is executed on the latest code changes.
+2. Checkout code: The workflow starts by checking out the code from the repository using the ```actions/checkout``` action.
 
-4. Environment Setup: Use an action like actions/setup-python@v2 to set up the required environment for your project. Specify the desired Python version to ensure consistency across different environments.
+3. Set up Python: The workflow sets up the Python environment using the ```actions/setup-python``` action.
 
-5. Dependency Management: Install project dependencies using a package manager like pip. It's a good practice to upgrade pip before installing dependencies to ensure you have the latest version.
+4. Cache dependencies: The workflow caches the Python dependencies using the ```actions/cache``` action.
 
-6. Code Linting: Run a linter like Flake8 to check for code style and formatting issues. This helps maintain a consistent codebase and improves code readability.
+5. Install dependencies: The workflow installs the Python dependencies using ```pip```. It first upgrades pip and then installs the requirements specified in the requirements.txt file.
 
-7. Testing: Include a step to run unit tests using a testing framework like unittest. This ensures that the code behaves as expected and helps catch any regressions.
+6. Cache Snyk CLI: The workflow caches the Snyk CLI tool using the ```actions/cache``` action.
 
-8. Docker Integration: If your project uses Docker, consider including steps to build and push Docker images. Use a Docker login action to securely authenticate with Docker Hub using secrets.
+7. Install Snyk CLI: If the Snyk CLI tool is not already cached, the workflow installs it using ```npm```. This ensures that the CLI tool is available for vulnerability scanning.
 
-9. Secrets Management: Store sensitive information like passwords or access tokens as secrets in your GitHub repository settings. This ensures that they are securely encrypted and not exposed in your workflow file.
+8. Run Snyk: The workflow runs Snyk to test for vulnerabilities in all projects. The snyk test command is used with the ```--all-projects``` flag to scan all projects in the repository. A severity threshold of ```high``` is set to fail the workflow if high severity vulnerabilities are found.
 
-10. Documentation: Clearly document each step of your workflow, including any prerequisites or dependencies. This helps other developers understand and contribute to your project.
+9. Linter: The workflow installs and runs Flake8, a linter for Python code. 
 
-11. Error Handling: Handle errors and failures gracefully in your workflow. Use conditional statements or error handling mechanisms to handle different scenarios and provide meaningful error messages.
+10. Tests: The workflow runs unit tests using the unittest module.
 
-12. Continuous Improvement: Regularly review and optimize your CI workflow. Analyze execution times, identify bottlenecks, and make necessary improvements to ensure faster and more efficient builds.
+11. Fix Snyk vulnerabilities: If there are any Snyk vulnerabilities found, the workflow runs the Snyk wizard to fix them. 
 
-13. Versioning: Tag your Docker images with a specific version or tag name. This helps in tracking and managing different versions of your application.
-
-14. Review and Collaboration: Encourage code reviews and collaboration among team members. Pull requests can trigger the workflow, allowing for feedback and validation before merging changes into the main branch.
-
-15. Automated Deployment: Consider integrating your CI workflow with a deployment mechanism to automatically deploy your application after successful builds. This can help streamline the deployment process and ensure consistent releases.
-
-Remember to regularly review and update your CI workflow as your project evolves and new requirements arise.
+12. Login using secrets: The Docker username and password and Snyk token are stored as secrets in the repository.

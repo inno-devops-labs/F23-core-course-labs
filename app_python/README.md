@@ -1,3 +1,4 @@
+[![CI](https://github.com/Wild-Queue/devops-core-course-labs/actions/workflows/tests.yml/badge.svg?event=push)](https://github.com/Wild-Queue/devops-core-course-labs/actions/workflows/tests.yml)
 # Time Server
 
 A simple HTTP server that displays the current time in Moscow.
@@ -25,38 +26,42 @@ python main.py
 
 ### Unit Tests
 
-In the unit tests, I have created a test case class called "TestTimeServer" that subclasses from unittest.TestCase. This class contains two test methods:
-- testtimeserverconntection: This method tests the connection to the time server by sending a GET request to the server's URL. If the connection is successful, the response status code should be 200.
-- testtimeservertime: This method tests the time returned by the time server. It first gets the current UTC time and adds 3 hours to it. Then it sends a GET request to the time server and checks if the returned time is equal to the expected time (current UTC time plus 3 hours).
+In the unit tests, I have created a test case class called ```TestTimeServer``` that subclasses from ```unittest.TestCase```. This class contains two test methods:
+- ```test_time_server_conntection```: This method tests the connection to the time server by sending a GET request to the server's URL. If the connection is successful, the response status code should be ```200```.
+- ```test_time_servertime```: This method tests the time returned by the time server. It first gets the current UTC+3 time. Then it sends a GET request to the time server and checks if the returned time is equal to the expected time (current UTC+3 time).
 
-To ensure that the time server is running during the tests, I have implemented the setUpClass and tearDownClass class methods. The setUpClass method starts a separate thread that runs the time server, and the tearDownClass method shuts down the server and joins the thread.
+To ensure that the time server is running during the tests, I have implemented the ```setUpClass``` and ```tearDownClass``` class methods. The ```setUpClass``` method starts a separate thread that runs the time server, and the ```tearDownClass``` method shuts down the server and joins the thread.
 
 As for best practices, I have followed the following guidelines:
 - I have used meaningful method and variable names to make the code easier to understand and maintain.
 - I have used assertions to check the expected outcomes of the tests.
 - I have handled exceptions that may occur during the tests and provided appropriate error messages.
-- I have used the @classmethod decorator to denote class methods that are used for test setup and teardown.
-- I have commented the code to explain the purpose and functionality of each section.
+- I have used the ```@classmethod``` decorator to denote class methods that are used for test setup and teardown.
 
 
 ### CI desciprion
 
-This workflow is triggered on both push events to the main and lab3 branches, as well as pull request events on the main branch. It performs the following steps:
+- Name: ```CI```
+- Triggers: 
+  - On push to the ```main``` or ```lab3``` branches
+  - On pull requests targeting the ```main``` branch
+- Jobs:
+  - build: Runs on the latest version of ```Ubuntu```
+    - Steps:
+      1. Checkout code using the ```actions/checkout``` action.
+      2. Set up Python with the specified version using the ```actions/setup-python``` action.
+      3. Cache Python dependencies using the ```actions/cache``` action.
+      4. Install dependencies by running ```pip install -r requirements```.txt in the app_python directory.
+      5. Cache the Snyk CLI using the ```actions/cache``` action.
+      6. Install the Snyk CLI globally using ```npm install -g snyk```.
+      7. Authenticate Snyk by setting the API token.
+      8. Run Snyk to check for vulnerabilities in all projects with a severity threshold of "high".
+      9. Run the flake8 linter for Python code.
+      10. Run unit tests using ```python3 -m unittest discover``` in the app_python directory.
+      11. Fix Snyk vulnerabilities using the Snyk wizard.
+      12. Login to Docker Hub using the ```docker/login-action``` action and the specified username and password.
+      13. Build and push a Docker image using the ```docker/build-push-action``` action with the specified context, push flag, and tags.
 
-1. Checks out the code from the repository.
-2. Sets up Python 3.10.12 as the Python version.
-3. Installs the project dependencies specified in the requirements.txt file.
-4. Runs the Flake8 linter to check for code style and formatting issues.
-5. Runs the unit tests using the unittest module.
-6. Logs in to Docker Hub using the provided Docker Hub username and password.
-7. Builds and pushes the Docker image using the Dockerfile located in the app_python/ directory.
-8. Tags the Docker image with the specified tag name.
-
-To use this workflow, you need to replace your-docker-hub-username with your Docker Hub username and tagname with the desired tag name for your Docker image.
-
-Additionally, you need to create two secrets in your GitHub repository settings: DOCKER_USERNAME and DOCKER_PASSWORD. Set these secrets to your Docker Hub username and password or access token.
-
-Commit and push these changes to your repository, and the workflow will be triggered automatically whenever there are new commits pushed to the specified branches or pull requests on the main branch.
 
 #### Feel free to contact me if you have any questions:
 
