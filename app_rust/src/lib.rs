@@ -90,7 +90,7 @@ impl Webserver {
             Some(_) => Ok(Webserver {
                 address: format!("{ip}:{port}"),
             }),
-            None => return Err("Invalid ip"),
+            None => Err("Invalid ip"),
         }
     }
 }
@@ -128,7 +128,7 @@ fn handle_connection(mut stream: std::net::TcpStream) {
     } else {
         (
             String::from("HTTP/1.1 404 NOT FOUND"),
-            String::from(fs::read_to_string("error.html").unwrap()),
+            fs::read_to_string("error.html").unwrap(),
         )
     };
 
@@ -144,5 +144,7 @@ fn handle_connection(mut stream: std::net::TcpStream) {
 mod tests {
 
     #[test]
-    fn test_handle_connection() {}
+    fn test_handle_connection() {
+        print!("Testing is working");
+    }
 }

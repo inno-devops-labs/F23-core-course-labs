@@ -1,0 +1,58 @@
+name: CI (Rust)
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "app_rust/**"
+      - ".github/workflows/app_rust.yaml"
+
+jobs:
+  lint-check-and-test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./app_rust
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build
+        run: cargo build --verbose
+      - name: lint
+        run: cargo check
+      - name: lint
+        run: cargo clippy
+      - name: test
+        run: cargo test
+
+  build-and-push:
+    runs-on: ubuntu-latest
+    needs: lint-check-and-test
+    steps:
+      - uses: actions/checkout@v3
+      - uses: docker/login-action@v2
+        with:
+          username: el3os
+          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+      - id: vars
+        run: echo "::set-output name=tagname::$(git rev-parse --short HEAD)"
+      - uses: docker/setup-buildx-action@v2
+      - uses: docker/build-push-action@v3
+        with:
+          context: app_rust/
+          file: app_rust/Dockerfile
+          push: true
+          tags: el3os/moscow_time_rust:${{ steps.vars.outputs.tagname }} , el3os/moscow_time_rust:latest
+          cache-from: type=registry,ref=el3os/moscow_time_rust:latest
+          cache-to: type=inline
+  scan-valnurabilities:
+    runs-on: ubuntu-latest
+    needs: build-and-push
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run Snyk to check Docker image for vulnerabilities
+        uses: snyk/actions/docker@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          image: el3os/moscow_time_rust

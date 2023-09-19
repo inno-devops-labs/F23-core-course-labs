@@ -1,3 +1,6 @@
+"""
+Run the module app for gunicorn
+"""
 from main import app as application
 
 
