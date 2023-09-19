@@ -2,7 +2,7 @@ import time
 
 import pytest
 
-from main import app
+from app.main import app
 
 @pytest.fixture
 def client():
