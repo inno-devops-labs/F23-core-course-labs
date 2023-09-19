@@ -48,3 +48,26 @@ To test the application, create a test file (e.g., "main_test.go") and include t
    
 After completing these steps, you should observe that your application is running and passing the tests successfully.
 
+# Unit Tests
+
+In this Go application, I have implemented comprehensive unit tests to ensure the correctness of the code. Here are the unit tests that have been created:
+
+## `TestMainHandler`
+
+This test checks the `mainHandler` function, which handles HTTP requests to the root URL ("/"). It verifies the following:
+- The response status code is 200 OK.
+- The response body contains the current Moscow time in the correct format.
+
+## `TestServer`
+
+This test starts a test HTTP server using `httptest.NewServer` and sends a GET request to it. It verifies the following:
+- The response status code is 200 OK.
+- The response body contains the current Moscow time in the correct format.
+
+## `TestMain`
+
+This test is for the `main` function. It doesn't directly test the HTTP server but ensures that the `main` function doesn't cause any panics or errors. It starts the `main` function in a goroutine and waits for a short time to allow the server to start.
+
+To run these tests, you can use the `go test` command.
+
+
