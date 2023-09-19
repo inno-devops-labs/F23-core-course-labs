@@ -24,4 +24,4 @@ jobs:
         run: pylint app_python/app
 
       - name: Run tests 
-        run: pytest app_python/app/tests
+        run: pytest app_python/tests
