@@ -1,11 +1,10 @@
 #include "../src/Server.hpp"
-#include <iostream>
-#include <thread>
 #include <boost/asio.hpp>
+#include <gtest/gtest.h>
 
 using boost::asio::ip::tcp;
 
-void test1() {
+TEST(ServerCheck, CheckResponseCode) {
     std::thread t1(start_server, 8080, 1);
 
     boost::asio::io_service io_service;
@@ -36,16 +35,8 @@ void test1() {
     response_stream >> status_code;
     std::string status_message;
     std::getline(response_stream, status_message);
-    if (!response_stream || http_version.substr(0, 5) != "HTTP/")
-    {
-        std::cout << "Invalid response\n";
-        return;
-    }
-    if (status_code != 200)
-    {
-        std::cout << "Response returned with status code " << status_code << "\n";
-        return;
-    }
+    EXPECT_TRUE(response_stream && http_version.substr(0, 5) == "HTTP/");
+    EXPECT_EQ(status_code, 200);
 
     boost::asio::read_until(socket, response, "\r\n\r\n");
 
@@ -57,8 +48,4 @@ void test1() {
 
     std::cout << "\nTest pass\n";
     t1.join();
-}
-
-int main() {
-   test1();
 }

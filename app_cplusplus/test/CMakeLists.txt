@@ -1,0 +1,9 @@
+add_executable(
+        server_unit_tests
+        checkServer.cpp
+)
+target_link_libraries(
+        server_unit_tests
+        GTest::gtest_main
+        Server
+)

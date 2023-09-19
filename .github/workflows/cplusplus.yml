@@ -1,0 +1,92 @@
+name: Cpp application
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    paths:
+      - app_cplusplus/**
+      - .github/workflows/cplusplus.yml
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    working-directory: ./app_cplusplus
+
+jobs:
+  test:
+    name: Test application cpp
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: 'recursive'
+
+      - name: Install boost
+        uses: MarkusJx/install-boost@v2.4.4
+        id: install-boost
+        with:
+          boost_version: 1.83.0
+
+      - name: Build with unit tests
+        run: |
+          cmake -Bbuild -H. -DCMAKE_BUILD_TYPE=Debug -DTESTING=TRUE && cmake --build build
+        env:
+          BOOST_ROOT: ${{ steps.install-boost.outputs.BOOST_ROOT }}
+
+      - name: Test with unit tests
+        run: |
+          ./build/test/server_unit_tests
+
+  build_push:
+    needs: test
+    name: Docker image build and push
+    runs-on: ubuntu-22.04
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: SignIn to DockerHub
+        uses: docker/login-action@v3
+        with:
+            username: ${{ secrets.DOCKERHUB_USERNAME }}
+            password: ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
+
+      - uses: docker/setup-buildx-action@v2
+      - name: Build and release image
+        uses: docker/build-push-action@v5
+        with:
+            context: app_cplusplus
+            file: app_cplusplus/Dockerfile
+            push: true
+            tags: ${{ secrets.DOCKERHUB_USERNAME }}/app_cplusplus:latest
+            cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/app_cplusplus:buildcache
+            cache-to: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/app_cplusplus:buildcache,mode=max
+
+  snyk-docker-scan:
+    runs-on: ubuntu-22.04
+    needs: build_push
+    timeout-minutes: 30
+
+    steps:
+        - uses: actions/checkout@master
+
+        - name: Check docker image vulnerabilities
+          uses: snyk/actions/docker@master
+          continue-on-error: true
+          env:
+            SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+          with:
+            image: ${{ secrets.DOCKERHUB_USERNAME }}/app_cplusplus:latest
+            args: --file=app_cplusplus/Dockerfile --sarif-file-output=snyk.sarif
+
+        - name: Upload results
+          uses: github/codeql-action/upload-sarif@v2
+          with:
+            sarif_file: snyk.sarif
