@@ -1,3 +1,5 @@
+[![Python Workflow](https://github.com/vladislav5ik/core-course-labs/actions/workflows/python.yml/badge.svg)](https://github.com/vladislav5ik/core-course-labs/actions/workflows/python.yml)
+
 # Time-app
 
 Time-app is a Python web application that displays the current time in Moscow.

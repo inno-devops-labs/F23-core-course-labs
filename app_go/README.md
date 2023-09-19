@@ -1,3 +1,4 @@
+[![Python Workflow](https://github.com/vladislav5ik/core-course-labs/actions/workflows/golang.yml/badge.svg)](https://github.com/vladislav5ik/core-course-labs/actions/workflows/golang.yml)
 # Time-app
 
 Time-app is a Go web application that displays the current time in Moscow.
