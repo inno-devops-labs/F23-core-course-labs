@@ -27,7 +27,7 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          args: --all-projects --file=app_python
+          args: --file=app_python
 
       - name: Run linter
         run: pylint app
