@@ -68,16 +68,16 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/app_python:latest
 
-    security:
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v4
-          with:
-            sparse-checkout: app_python
-        - name: Run Synk to check for vulnerabilities
-          uses: snyk/actions/python@master
-          continue-on-error: true # To make sure that SARIF upload gets called
-          env:
-            SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-          with:
-            args: --sarif-file-output=snyk.sarif
+  security:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: app_python
+      - name: Run Synk to check for vulnerabilities
+        uses: snyk/actions/python@master
+        continue-on-error: true
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --sarif-file-output=snyk.sarif
