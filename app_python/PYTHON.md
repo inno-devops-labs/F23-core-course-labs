@@ -62,17 +62,17 @@ The testing was successfully completed. All the steps have been completed and th
 
 ## Best Practices for Code Testing
 
-Clear and Descriptive Test Names
+1. Clear and Descriptive Test Names
 I followed the best practice of giving clear and descriptive names to test cases, making it easy to understand what each test is checking.
 
-Isolation and Independence
+2. Isolation and Independence
 Each test case is designed to be independent of others, ensuring that the tests can be run in any order without dependencies on previous tests.
 
-Assertions
+3. Assertions
 I've used assertion methods provided by unittest, such as self.assertEqual and self.assertIn, to perform checks within test cases.
 
-Test Client
+4. Test Client
 I've created a test client using app.test_client() to simulate HTTP requests and test application routes.
 
-Main Guard
+5. Main Guard
 I included the if __name__ == '__main__': block to allow running the tests when executing this script directly.
