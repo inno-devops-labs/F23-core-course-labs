@@ -42,7 +42,7 @@ jobs:
       - uses: snyk/actions/setup@master
       - name: Vulnerability check by Snyk
         continue-on-error: true
-        runs: snyk test --sarif-file-output=snyk.sarif
+        run: snyk test --sarif-file-output=snyk.sarif
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       - name: Upload result to GitHub Code Scanning
