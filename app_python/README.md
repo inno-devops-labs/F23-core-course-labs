@@ -18,3 +18,20 @@ How to launch:
 # Unit Tests
 
 You can run unit tests by running the ```testing.py``` file.
+
+# CI workflow
+
+[![Python package](https://github.com/tnechepurencko/core-course-labs/actions/workflows/ci.yaml/badge.svg)](https://github.com/tnechepurencko/core-course-labs/actions/workflows/ci.yaml)
+
+The workflow supports python versions 3.7-3.11.
+
+Steps:
+
+- Set up Python
+- Install dependencies (app_python/requirements.txt)
+- Lint with ruff
+- Test with pytest
+- Login to Docker Hub
+- Build and push to Docker Hub (app_python/Dockerfile)
+
+The workflow starts after the project pushed to GitHub.
