@@ -82,7 +82,7 @@ jobs:
       #     python -m pip install -r app_python/requirements.txt
       - name: Run Snyk to check for vulnerabilities
         continue-on-error: true 
-        run: snyk test --severity-threshold=high --sarif-file-output=snyk.sarif
+        run: snyk test --severity-threshold=high --sarif-file-output=snyk.sarif --file=app_python
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       - name: Upload result to GitHub Code Scanning
