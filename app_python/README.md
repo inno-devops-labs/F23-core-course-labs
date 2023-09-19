@@ -23,5 +23,13 @@ There is one unit test in `src/test_main.py`
 To run it type `pytest`
 
 ## CI workflow
-When authenticating to Docker Hub with GitHub Actions, use a personal access token
-lol
+### build
+1. Set up Python
+2. Install dependencies
+3. Lint with flake8
+4. Test with pytest
+5. Run Snyk Test
+
+### docker
+1. Login to Docker Hub
+2. Build and push image to Docker Hub
