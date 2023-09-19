@@ -1,12 +1,18 @@
 function updateTime() {
-    fetch("/moscow-time")
-        .then(response => response.json())
+    fetch("/time")
+        .then(response => {
+            if (response.status === 200) {
+                return response.json();
+            } else {
+                throw new Error("Failed to retrieve time");
+            }
+        })
         .then(data => {
-            const moscowTimeElement = document.getElementById("moscow-time");
-            if (moscowTimeElement) {
+            const timeElement = document.getElementById("time");
+            if (timeElement) {
                 // Check if the time has changed
-                if (moscowTimeElement.textContent !== data.time) {
-                    moscowTimeElement.textContent = data.time;
+                if (timeElement.textContent !== data.time) {
+                    timeElement.textContent = data.time;
                     applyRandomColors();
                 }
             }
@@ -31,7 +37,7 @@ function getRandomColor() {
 
 // Apply random colors to each letter of the text
 function applyRandomColors() {
-    const textElement = document.getElementById('moscow-time');
+    const textElement = document.getElementById('time');
     const text = textElement.textContent;
     const coloredText = text.split('').map(letter => {
         const randomColor = getRandomColor();
