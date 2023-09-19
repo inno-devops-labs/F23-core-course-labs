@@ -53,9 +53,13 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
         name: Build and push
-        run: |
-          docker build -t ilyasiluyanov/app_python:dev .
-          docker push ilyasiluyanov/app_python:dev
+        uses: docker/build-push-action@v5
+        with:
+          context: lab01/app_python
+          push: true
+          tags: ilyasiluyanov/app_python:dev
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
   security:
     runs-on: ubuntu-latest
     steps:
