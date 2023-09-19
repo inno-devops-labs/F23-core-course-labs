@@ -18,7 +18,10 @@ class TestDisplayTime(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
 
         # Use BeautifulSoup to parse the HTML response
-        soup = BeautifulSoup(response.get_data(as_text=True), 'html.parser')
+        soup = BeautifulSoup(
+            response.get_data(as_text=True),
+            'html.parser'
+        )
 
         # Find the <p> element containing the time
         time_paragraph = soup.find('p')
@@ -27,17 +30,23 @@ class TestDisplayTime(unittest.TestCase):
         app_time_str = time_paragraph.text.strip()
 
         # Parse the time string into a datetime object (offset-aware)
-        app_time = datetime.datetime.strptime(app_time_str, '%Y-%m-%d %H:%M:%S')
+        app_time = datetime.datetime.strptime(
+            app_time_str, '%Y-%m-%d %H:%M:%S'
+        )
         app_time = pytz.timezone('Europe/Moscow').localize(app_time)
 
         # Get the current time in Moscow (offset-aware)
-        current_time_moscow = datetime.datetime.now(pytz.timezone('Europe/Moscow'))
+        current_time_moscow = datetime.datetime.now(
+            pytz.timezone('Europe/Moscow')
+        )
 
         # Calculate the time difference
         time_difference = app_time - current_time_moscow
-        print("\nThe absolute time difference is : " + str(abs(time_difference)))
+        print("\nThe absolute time difference is: " + str(abs(time_difference)))
         # Ensure that the time difference is within a reasonable range (e.g., less than 5 seconds)
-        self.assertLessEqual(abs(time_difference.total_seconds()), 5)
+        self.assertLessEqual(
+            abs(time_difference.total_seconds()), 5
+        )
 
 if __name__ == '__main__':
     unittest.main()
