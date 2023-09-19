@@ -10,6 +10,7 @@ Lab1 DevOps course [F23]
   - [Installation](#installation)
 - [Usage](#usage)
 - [Docker](#docker)
+- [Unit testing](#unit-testing)
 
 ## Project Overview
 
@@ -63,4 +64,12 @@ $ docker run -p 80:80 app_python
 
 ```bash
 $ docker pull nikitosing/app_python
+```
+
+## Unit testing
+
+To run tests:
+
+```bash
+$ pytest
 ```
