@@ -5,7 +5,7 @@
 	/**
 	 * @type {string }
 	 */
-	let currentTime = moment().format('HH:mm:ss');
+	let currentTime = moment().utc().tz('Europe/Moscow').format('HH:mm:ss');
 	/**
 	 * @type {NodeJS.Timeout }
 	 */
