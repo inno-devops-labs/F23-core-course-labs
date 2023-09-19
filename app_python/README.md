@@ -42,3 +42,25 @@ app_python/
 ├── README.md
 └── requirements.txt
 ```
+## CI Workflow
+
+### Build
+- Set up job
+- Steps:
+    - Checkout
+    - Set up Python
+    - Cache dependencies
+    - Dependencies install
+    - Vulnerability check
+    - Vulnerability report
+    - Linter
+    - Tests
+- Complete job
+
+### Docker
+- Set up job
+- Steps:
+    - Checkout
+    - Login
+    - Build and Push
+- Complete job

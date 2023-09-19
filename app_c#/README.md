@@ -48,3 +48,25 @@ app_c#/
 |____PetApp.sln
 |____C#.md
 ```
+## CI Workflow
+
+### Build
+- Set up job
+- Steps:
+    - Checkout
+    - Set up .Net
+    - Cache dependencies
+    - Dependencies install
+    - Vulnerability check
+    - Vulnerability report
+    - Linter
+    - Tests
+- Complete job
+
+### Docker
+- Set up job
+- Steps:
+    - Checkout
+    - Login
+    - Build and Push
+- Complete job
