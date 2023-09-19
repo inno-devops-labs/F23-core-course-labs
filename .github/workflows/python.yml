@@ -1,13 +1,13 @@
 name: Python CI
 
-# on:
-#   push:
-#     paths:
-#       - "app_python/**"
-on: [push]
+on:
+  push:
+    paths:
+      - "app_python/**"
+      - ".github/workflows/python.yml"
 
 jobs:
-  build-and-cache:
+  build-cache-lint-test-and-push:
     defaults:
       run:
         working-directory: ./app_python
@@ -35,49 +35,11 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-  lint:
-    needs: build-and-cache
-    defaults:
-      run:
-        working-directory: ./app_python
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Cache&restore Python dependencies
-        uses: actions/cache@v2
-        with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-pip-
-
       - name: Lint
         run: flake8 . --per-file-ignores="test/conftest.py:E402"
 
       - name: Run Tests
         run: pytest
-
-  snyk-security:
-    needs: build-and-cache
-    defaults:
-      run:
-        working-directory: ./app_python
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Cache&restore Python dependencies
-        uses: actions/cache@v2
-        with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-pip-
 
       - name: Install Snyk CLI
         run: npm install -g snyk
@@ -86,17 +48,6 @@ jobs:
         run: snyk test --all-projects
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-
-  docker-build-and-push:
-    needs: build-and-cache
-    defaults:
-      run:
-        working-directory: ./app_python
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
 
       - name: Cache Docker layers
         uses: actions/cache@v2
