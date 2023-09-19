@@ -31,8 +31,8 @@ jobs:
 
       - name: Lint code
         run: |
-          pylint app.py
-          pylint ./tests
+          pylint ./app_python/app.py
+          pylint ./app_python/tests
 
       - name: Run tests
         run: python -m unittest discover -s tests -p '*_tests.py'
