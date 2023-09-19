@@ -1,0 +1,103 @@
+name: App go
+
+on:
+  push:
+    paths:
+      - app_go/**
+      - .github/workflows/app_go.yml
+
+defaults:
+  run:
+    working-directory: ./app_go
+
+jobs:
+  golang:
+    runs-on: ubuntu-latest
+    defaults:        
+      run:
+        working-directory: ./app_go
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.19.0'
+
+      - name: 'Create env file'
+        run: |
+          touch .env
+          echo SERVER_HOST=0.0.0.0 >> .env
+          echo SERVER_PORT=8081 >> .env
+          cat .env
+    
+      - name: Build
+        run: go build
+
+      - name: Test
+        run: go test -v ./...
+      
+      - name: Lint
+        run: gofmt
+
+  docker:
+    runs-on: ubuntu-latest
+    needs: golang
+    steps:
+      - uses: actions/checkout@v3
+      - name: 'Create env file'
+        run: |
+          touch .env
+          echo SERVER_HOST=0.0.0.0 >> .env
+          echo SERVER_PORT=8080 >> .env
+          cat .env
+      - name: Login to Docker
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          context: ./app_go
+          file: ./app_go/Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/app_go:latest
+
+  security:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: snyk/actions/setup@master
+    
+    - name: Set up Go
+      uses: actions/setup-go@v4
+      with:
+        go-version: '1.19.0'
+        
+    - name: 'Create env file'
+      run: |
+        touch .env
+        echo SERVER_HOST=0.0.0.0 >> .env
+        echo SERVER_PORT=8080 >> .env
+        cat .env
+        
+    - name: Install dependencies
+      working-directory: ./app_go
+      run: |
+        go install github.com/joho/godotenv/cmd/godotenv@latest
+    
+    - name: Snyk test
+      continue-on-error: true
+      working-directory: ./app_go
+      run: snyk test --sarif-file-output=snyk.sarif
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+    
+    - name: Upload result to GitHub Code Scanning
+      uses: github/codeql-action/upload-sarif@v2
+      with:
+        sarif_file: ./app_go/snyk.sarif
