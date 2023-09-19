@@ -40,11 +40,9 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
       - name: Build and push
-        run: |
-          cd app_python
         uses: docker/build-push-action@v5
           with:
             context: .
-            file: ./Dockerfile
+            file: ./app_python/Dockerfile
             push: true
             tags: ${{ secrets.DOCKERHUB_USERNAME }}/clockbox:latest
