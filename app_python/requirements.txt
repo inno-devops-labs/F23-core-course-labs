@@ -1,3 +1,5 @@
 uvicorn
 fastapi
 pytz
+httpx
+certifi==2023.7.22
