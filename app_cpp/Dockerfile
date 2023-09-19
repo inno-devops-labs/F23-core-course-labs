@@ -2,6 +2,10 @@ FROM muurrk/boost:1.83.0 as build
 
 WORKDIR /app
 COPY src/main.cpp ./src/CMakeLists.txt ./
+COPY src/googletest ./googletest
+COPY src/Server ./Server
+COPY src/Test ./Teset
+
 RUN cmake -Bbuild -H. -DCMAKE_BUILD_TYPE=Release && cmake --build build
 
 
