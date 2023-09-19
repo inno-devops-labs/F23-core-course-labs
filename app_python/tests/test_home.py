@@ -6,14 +6,15 @@ import pytest
 from app import app
 
 
-@pytest.fixture
-def client():
+@pytest.fixture(name="client")
+def fixture_client():
     """
     Create a test client using the Flask application configured for testing
     """
     app.config['TESTING'] = True
-    client = app.test_client()
-    yield client
+    with app.test_client() as testing_client:
+        with app.app_context():
+            yield testing_client
 
 
 def test_home(client):
