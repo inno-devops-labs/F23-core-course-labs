@@ -1,3 +1,5 @@
+![Python CI](https://github.com/MaximInnopolis/devops-course/workflows/Python%20CI/badge.svg)
+
 # Python Web Application: Display Moscow Time
 
 ## Overview
@@ -53,3 +55,33 @@ This command starts a container based on the my-flask-app image, mapping port 80
 
 Access the application in your web browser at http://localhost:80.
 
+## Unit Tests
+
+The Python web application includes a suite of unit tests to ensure its functionality and correctness. These unit tests are implemented using Python's `unittest` framework and cover various aspects of the application's behavior.
+
+### Running Unit Tests
+
+To run the unit tests locally, follow these steps:
+
+1. Ensure you have Python (3.x recommended) and the Flask framework installed.
+
+2. Navigate to the project directory.
+
+3. Run the following command to execute the unit tests:
+
+   ```bash
+   python -m unittest test_app
+   
+## Continuous Integration (CI) Workflow
+
+This project uses GitHub Actions for continuous integration (CI). The CI workflow performs the following tasks:
+
+- Installs project dependencies.
+- Lints the code using Pylint.
+- Runs unit tests.
+- Builds and pushes a Docker image to Docker Hub.
+
+To trigger the CI workflow manually, follow these steps:
+
+1. Make sure you have pushed your changes to a branch (e.g., `main`).
+2. Check the "Actions" tab in the repository on GitHub for the CI workflow runs.

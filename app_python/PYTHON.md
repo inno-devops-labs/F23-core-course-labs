@@ -27,3 +27,14 @@ I emphasized code quality throughout the development process:
 - Ensuring that each component of application has a clear and distinct responsibility.
 
 - Adding comments to code for clarity and documentation.
+- ## Unit Tests
+
+I have implemented unit tests for the Python web application to ensure its functionality and correctness. These tests adhere to best practices in Python testing:
+
+- **Test Framework**: I used Python's built-in `unittest` framework for organizing and running unit tests.
+
+- **Test Coverage**: I aimed to achieve comprehensive test coverage, including testing the main functionality of the application and edge cases.
+
+- **Isolation**: Each test case is isolated to ensure that they do not rely on the state of other tests.
+
+- **Descriptive Test Names**: I provided descriptive names for each test case and test method to make it clear what each test is checking.
