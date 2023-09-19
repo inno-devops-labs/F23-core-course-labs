@@ -1,4 +1,4 @@
-# Python description
+# Python description and best practices
 
 ## Python Best Practices Applied
 
