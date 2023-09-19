@@ -1,10 +1,10 @@
 name: Python CI
 
-# on:
-#   push:
-#     paths:
-#       - "app_python/**"
-on: [push]
+on:
+  push:
+    paths:
+      - "app_python/**"
+# on: [push]
 
 jobs:
   build:
@@ -25,7 +25,7 @@ jobs:
           pip install -r app_python/requirements.txt
 
       - name: Lint
-        run: flake8 app_python
+        run: flake8 app_python --per-file-ignores="app_python/test/conftest.py:E402"
 
       - name: Run Tests
         run: pytest app_python

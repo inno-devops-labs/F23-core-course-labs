@@ -8,6 +8,7 @@ sys.path.append(source_dir)
 
 from app import init
 
+
 @pytest.fixture()
 def app():
     app = init()
