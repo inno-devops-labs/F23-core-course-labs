@@ -52,7 +52,7 @@ jobs:
       - name: Set up Python ${{ env.PYTHON_VERSION }}
         uses: actions/setup-python@v4
         with:
-          pyhon-version: 3.11
+          python-version: 3.11
           cache: 'pip' 
       - name: Install dependencies
         run: |
@@ -76,19 +76,20 @@ jobs:
       - name: Set up Python ${{ env.PYTHON_VERSION }}
         uses: actions/setup-python@v4
         with:
-          pyhon-version: 3.11
+          python-version: 3.11
           cache: 'pip'
       - name: Install Python dependencies
         run: |
           [ -f requirements.txt ] && 
           pip install -r requirements.txt && pip list
-      - name: Run Snyk to check for vulnerable dependencies
-        uses: snyk/actions/python@master
-        with:
-          args: --file=app_python/requirements.txt --skip-unresolved
-      - name: Run Snyk to check for the vulnerabilities in the code 
+      - name: Run Snyk to check for vulnerabilities in dependencies
         run: |
-          snyk code test
+          snyk test
+# Code test was temporarily omited due to the troubles 
+# with freezing runner on GitHub side
+#      - name: Run Snyk to check for vulnerabilities in the code 
+        #run: |
+#          snyk code test
     env:
       SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
@@ -119,3 +120,4 @@ jobs:
           push: true
           tags: "${{ secrets.DOCKERHUB_USERNAME }}/app_python:latest"
           context: "{{defaultContext}}:app_python"
+

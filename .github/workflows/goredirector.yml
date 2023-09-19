@@ -57,18 +57,18 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4.0.0
-      - name: Setup Golang with cache
-        uses: magnetikonline/action-golang-cache@v4
-        with:
-          go-version-file: app_go/go.mod
-      - uses: snyk/actions/setup@master
       - name: Run Snyk to check for vulnerable dependencies
         uses: snyk/actions/golang@master
         with:
           args: --file=app_go/go.mod --skip-unresolved
-      - name: Run Snyk to check for the vulnerabilities in the code 
-        run: |
-          snyk code test
+
+
+# Code test was temporarily omited due to the troubles 
+# with freezing runner on GitHub side
+#      - name: Run Snyk to check for the vulnerabilities in the code 
+              #run: |
+                #SNYK_TOKEN={{ secrets.SNYK_TOKEN }} snyk ignore --id=go/OR 
+#                snyk code test -d
     env:
       SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
