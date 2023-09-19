@@ -33,7 +33,7 @@ def runner(app):
     return app.test_cli_runner()
 
 
-def test_datetime(client):
-    """Actual datetime testing. Allowed deviation of 2 minutes"""
+def test_code200(client):
+    """Testing returned status code"""
     response = client.get("/")
     assert response.status_code == 200
