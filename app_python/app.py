@@ -1,8 +1,8 @@
 # Import necessary modules
 import argparse
+from datetime import datetime, timezone, timedelta
 from waitress import serve
 from flask import Flask, render_template
-from datetime import datetime, timezone, timedelta
 
 # Create a Flask web application instance
 app = Flask(__name__)
