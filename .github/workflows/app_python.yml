@@ -49,10 +49,10 @@ jobs:
             --sarif-file-output=python_snyk.sarif
             --all-projects
             --skip-unresolved
-      # - name: Vulnerability report
-      #   uses: github/codeql-action/upload-sarif@v2
-      #   with:
-      #     sarif_file: python_snyk.sarif
+      - name: Vulnerability report
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: python_snyk.sarif
       - name: Run tests
         run: poetry run pytest
 
@@ -66,6 +66,6 @@ jobs:
         run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
       - name: Build and push the image
         run: |
-          docker build -f Dockerfile -t ${{ secrets.DOCKER_USERNAME }}/devops-course-python-app:latest .
-          docker push ${{ secrets.DOCKER_USERNAME }}/devops-course-python-app:latest
+          docker build -f Dockerfile -t run4w4y/devops-course-python-app:latest .
+          docker push run4w4y/devops-course-python-app:latest
 
