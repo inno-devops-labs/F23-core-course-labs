@@ -1,4 +1,5 @@
+"""Contains constants that will be used in project"""
 import os
 
-timezone = os.getenv("TIMEZONE", "Europe/Moscow")
-time_format = "%d.%m.%Y, %H:%M:%S"
+TIMEZONE = os.getenv("TIMEZONE", "Europe/Moscow")
+TIME_FORMAT = "%d.%m.%Y, %H:%M:%S"
