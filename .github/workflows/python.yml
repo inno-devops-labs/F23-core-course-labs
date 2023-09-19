@@ -11,7 +11,7 @@ on:
 
 defaults:
   run:
-    working-directory: app_python
+    working-directory: ./app_python
 
 jobs:
   lint:
@@ -32,7 +32,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: Lint with flake8
-        run: flake8 --all-files
+        run: flake8 .
 
   test:
     runs-on: ubuntu-22.04
@@ -70,7 +70,7 @@ jobs:
       - name: Build and push Docker image to DockerHub
         uses: docker/build-push-action@v5
         with:
-          context: ./
-          file: ./Dockerfile
+          context: ./app_python
+          file: ./app_python/Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/innopolis-devops-python-app:latest
