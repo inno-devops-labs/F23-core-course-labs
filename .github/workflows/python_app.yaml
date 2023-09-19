@@ -27,7 +27,7 @@ jobs:
 
       - name: Linter
           run: |
-            cd app_python
+#            cd app_python
             pylint app/main.py
 
       - name: Test with pytest
@@ -41,7 +41,7 @@ jobs:
 
       - name: Snyk Test
         run: |
-          cd app_python
+#          cd app_python
           snyk test --all-projects --severity-threshold=high
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
