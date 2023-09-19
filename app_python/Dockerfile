@@ -1,4 +1,4 @@
-RUN useradd -m -r -u 1001 myuser
+RUN adduser -D -u 1001 myuser
 
 USER myuser
 
