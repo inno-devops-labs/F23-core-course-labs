@@ -4,6 +4,7 @@ import datetime
 import pytz
 from bs4 import BeautifulSoup
 
+
 class TestDisplayTime(unittest.TestCase):
 
     def setUp(self):
@@ -43,10 +44,12 @@ class TestDisplayTime(unittest.TestCase):
         # Calculate the time difference
         time_difference = app_time - current_time_moscow
         print("\nThe absolute time difference is: " + str(abs(time_difference)))
-        # Ensure that the time difference is within a reasonable range (e.g., less than 5 seconds)
+        # Ensure that the time difference is within a reasonable range (e.g.,
+        # less than 5 seconds)
         self.assertLessEqual(
             abs(time_difference.total_seconds()), 5
         )
+
 
 if __name__ == '__main__':
     unittest.main()
