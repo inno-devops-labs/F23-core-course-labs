@@ -10,7 +10,7 @@ from app_python.templates import templates
 client = TestClient(app)
 
 
-def test_main():
+def test_root_handler():
     config.templates = templates.SetUpTemplates("../templates")
     response = client.get("/")
     print(response)
@@ -27,9 +27,10 @@ def test_main():
 </html>'''
 
 
-def test_time():
+def test_time_handler():
     config.templates = templates.SetUpTemplates("../templates")
     response = client.get("/time")
+    assert response.status_code == 200
     assert response.content.decode() == f'''<!DOCTYPE html>
 <html>
     <head>
@@ -40,3 +41,9 @@ def test_time():
         <h3>&#x2022; <a href=/>Main page</a> </h3>
     </body>
 </html>'''  # noqa: E501
+
+
+def test_non_existent_handler():
+    config.templates = templates.SetUpTemplates("../templates")
+    response = client.get("/test")
+    assert response.status_code == 404

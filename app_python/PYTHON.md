@@ -10,3 +10,10 @@ I've chosen FastApi framework for my web application. FastApi supports asynchron
    Run `flake8 .` from `app_python` directory to check.
 2. I've written unit tests to test endpoints responses. I use pytest for testing.
    Run `python3 -m pytest` from `tests` directory to check.
+
+## Unit tests
+I've implemented 3 unit tests for root, time and non-existent handlers, these tests cover all functionality (fetching time, generating html page).
+Best practices that i've followed:
+* Using FastApi test client to test responses.
+* Test edge cases, using positive and negative tests
+* Tests are independent and do not rely on each other

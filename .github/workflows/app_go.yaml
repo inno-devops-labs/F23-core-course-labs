@@ -66,6 +66,8 @@ jobs:
           file: ./app_go/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/app_go:latest
+          cache-from: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/app-go:buildcache
+          cache-to: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/app-go:buildcache,mode=max
 
   security:
     runs-on: ubuntu-latest

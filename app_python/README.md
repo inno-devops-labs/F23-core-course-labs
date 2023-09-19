@@ -1,5 +1,7 @@
 # Python Moscow time Web App
 
+[![App python](https://github.com/Lnsfna/DevOps-course-labs/actions/workflows/app_python.yaml/badge.svg)](https://github.com/Lnsfna/DevOps-course-labs/actions/workflows/app_python.yaml)
+
 ## Description 
 This is a simple python web app to display current time in Moscow.
 
@@ -49,5 +51,13 @@ python3 -m app_python
 
 Now you can go to `http://127.0.0.1:8080/` and `http://127.0.0.1:8080/time` to test app.
 
+## Unit-tests:
+Run `python3 -m pytest` from `tests` directory to check.
 
-
+## CI workflow:
+1. Set up python 3.10
+2. Creating env file, installing dependencies 
+3. Linting (flake8 linter is used)
+4. Tests (pytest is used)
+5. Security check (Snyk tool is used)
+6. Login to DockerHub, build image and push 

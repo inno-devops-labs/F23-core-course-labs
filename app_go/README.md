@@ -1,5 +1,5 @@
 # Go Chuck Norris Jokes Web App
-
+[![App go](https://github.com/Lnsfna/DevOps-course-labs/actions/workflows/app_go.yaml/badge.svg)](https://github.com/Lnsfna/DevOps-course-labs/actions/workflows/app_go.yaml)
 ## Description
 This is a simple go web app to display Chuck Norris jokes.
 
@@ -52,5 +52,13 @@ Run app:
 ## Usage:
 Now you can go to `http://127.0.0.1:8081/` and `http://127.0.0.1:8081/joke` to test app.
 
+## Unit-tests:
+Run `go-test -v` from `app_go` directory to check.
 
-
+## CI workflow:
+1. Set up go 1.19.0
+2. Creating env file, installing dependencies 
+3. Linting (gofmt linter is used)
+4. Tests (go test is used)
+5. Security check (Snyk tool is used)
+6. Login to DockerHub, build image and push 

@@ -7,4 +7,11 @@ I didn't use any framework, because standard "net/http" Go package is enough.
 
 ## Coding standards and testing
 1. I use standard `goimports` and `gofmt` commands to ensure code standards.
-2. I've faced some problems while writing unit tests for endpoints, so here I just used manual testing.
+2. You can run unit tests using `go test -v` command
+
+## Unit tests
+I've implemented 2 unit tests for root and joke handlers, these tests cover all functionality (fetching jokes, generating html page).
+Best practices that I've followed:
+* Using httptest test client to test responses.
+* Test edge cases, using positive and negative tests
+* Tests are independent and do not rely on each other
