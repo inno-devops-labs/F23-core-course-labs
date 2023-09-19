@@ -74,7 +74,7 @@ jobs:
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v2
         with:
-          sarif_file: snyk.sarif
+          sarif_file: ./app_javascript/snyk.sarif
 
   docker:
     runs-on: ubuntu-latest
