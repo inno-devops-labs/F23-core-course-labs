@@ -1,4 +1,4 @@
-package main
+package timeapp
 
 import (
 	"html/template"
