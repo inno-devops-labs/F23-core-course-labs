@@ -22,4 +22,4 @@ To run it type `pytest`
 
 ## CI workflow
 When authenticating to Docker Hub with GitHub Actions, use a personal access token
-
+lol
