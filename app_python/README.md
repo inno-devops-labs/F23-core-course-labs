@@ -50,6 +50,9 @@ To run docker image:
 docker run -p 8000:8000 art22m/pyapp:v1
  ```
 
+## Unit Tests
+To run tests use `make test`
+
 ## Contact
 
 Telegram: @art22m

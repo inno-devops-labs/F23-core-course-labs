@@ -10,3 +10,7 @@ format:
 .PHONY: run
 run:
 	uvicorn main:app --reload
+
+.PHONY: test
+test:
+	python3 main_test.py

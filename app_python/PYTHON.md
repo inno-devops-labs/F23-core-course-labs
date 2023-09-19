@@ -19,3 +19,7 @@ Cons:
 Used _black_ code formatter,  _isort_ utility to sort imports alphabetically and _flake8_ linter.
 
 Followed PEP 8 style guide, added make file, gitignore and documented my code.
+
+### Unit Tests
+I have written unit test for root handler.
+Since this service is simple, it is okay to check 200 status code and time format.
