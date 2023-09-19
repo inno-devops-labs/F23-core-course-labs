@@ -25,6 +25,9 @@ jobs:
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
 
+      - name: Make Gradle executable
+        run: chmod +x ./gradlew
+
       - name: Build project
         working-directory: ./app_kotlin
         run: ./gradlew build
