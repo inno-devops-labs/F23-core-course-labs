@@ -62,8 +62,8 @@ jobs:
           file: ./app_python/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/app_python:latest
-          cache-from: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/app-python:buildcache
-          cache-to: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/app-python:buildcache,mode=max
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
   security:
     runs-on: ubuntu-latest
