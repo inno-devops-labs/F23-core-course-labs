@@ -1,3 +1,4 @@
+setuptools==65.5.1
 aiohttp==3.8.5
 flake8==6.1.0
 frozenlist==1.4.0
