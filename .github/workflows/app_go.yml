@@ -39,7 +39,6 @@ jobs:
       - name: Build and push Docker image
         run: |
           docker build -t ${{ secrets.DOCKER_USERNAME }}/my-go-app ./app_go
-          docker tag my-go-app ${{ secrets.DOCKER_USERNAME }}/my-go-app
           docker push ${{ secrets.DOCKER_USERNAME }}/my-go-app
 
       - name: Snyk Security Check

@@ -12,7 +12,7 @@ func main() {
 		loc, _ := time.LoadLocation("Europe/Moscow")
 		currentTime := time.Now().In(loc).Format("2006-01-02 15:04:05")
 
-		// Send time в ответе
+		// Send time в response
 		fmt.Fprintf(w, "Current Moscow Time: %s", currentTime)
 	})
 
