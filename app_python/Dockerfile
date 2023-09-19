@@ -1,7 +1,3 @@
-RUN adduser -D myuser && chown -R myuser /app
-
-USER myuser
-
 FROM python:3.11-alpine
 
 WORKDIR /app_python
