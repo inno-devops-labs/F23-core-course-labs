@@ -27,10 +27,12 @@ jobs:
           ruff --format=github --select=E9,F63,F7,F82 --target-version=py37 .
           # default set of ruff rules with GitHub Annotations
           ruff --format=github --target-version=py37 .
-#      - name: Run Snyk to check for vulnerabilities
-#        uses: snyk/actions/python-3.8@master
-#        env:
-#          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/node@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          command: monitor
       - name: Test with pytest
         run: |
           cd app_python
@@ -49,9 +51,3 @@ jobs:
           file: ./app_python/Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/clockbox:latest
-      - name: run snyk test
-        image: ${{ secrets.DOCKERHUB_USERNAME }}/clockbox:latest
-        run:
-          - snyk auth ${{ secrets.SNYK_TOKEN }}
-          - cd app_python
-          - snyk test --skip-unresolved
