@@ -47,13 +47,12 @@ jobs:
         with:
           args: 
             --sarif-file-output=python_snyk.sarif
-            --file=app_python/pyproject.toml
-            --package-manager=poetry
+            --all-projects
             --skip-unresolved
-      - name: Vulnerability report
-        uses: github/codeql-action/upload-sarif@v2
-        with:
-          sarif_file: python_snyk.sarif
+      # - name: Vulnerability report
+      #   uses: github/codeql-action/upload-sarif@v2
+      #   with:
+      #     sarif_file: python_snyk.sarif
       - name: Run tests
         run: poetry run pytest
 
