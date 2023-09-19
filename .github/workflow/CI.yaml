@@ -1,5 +1,4 @@
 name: CI
-author: dshamik
 
 on:
 push:
