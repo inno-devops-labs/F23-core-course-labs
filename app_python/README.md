@@ -29,9 +29,12 @@
       <ul>
         <li><a href="#docker">Docker</a></li>
       </ul>
+      <ul>
+        <li><a href="#unit-tests">Unit Tests</a></li>
+      </ul>
     </li>
     <li>
-      <a href="#Usage">Usage</a>
+      <a href="#usage">Usage</a>
     </li>
     <li><a href="#contact">Contact</a></li>
   </ol>
@@ -88,6 +91,13 @@ docker run -d -p 5000:5000 irsokolova/time_app
 ```
 
 After running, you can check if the app is working by going to http://localhost:5000/ 
+
+### Unit Tests
+
+To check the correctness of the app, you can run tests with the command:
+```
+tests.py
+```
 
 ## Usage
    Follow the link from the terminal
