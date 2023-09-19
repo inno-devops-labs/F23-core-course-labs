@@ -45,3 +45,11 @@ Useful features of Flask affected my choice:
 - via `flake8`
 - via cspell
 - via python extensions in IDE
+
+### Testing
+
+Some of best practices which was applied:
+
+- Cover 100% of the functionality
+- Use `pytest` framework
+- Use fixtures (`client` defined in `test/conftest.py`)
