@@ -52,13 +52,14 @@ docker build -t elatypovinno/devops_inno:latest .
 
 Currently CI workflow contains following stages:
 
-1. Set up python version
-2. Install dependencies (primary and development)
-3. Run linter (`pylint`) on source code
-4. Run unit tests
-5. Login to Dockerhub using credentials stored as secrets
-6. Set up docker build environment (Docker Buildx)
-7. Build and push docker container to Dockerhub
+- Set up python version
+- Install dependencies (primary and development)
+- Run linter (`pylint`) on source code
+- Run unit tests
+- Run Snyk vulnerabilities check
+- Login to Dockerhub using credentials stored as secrets
+- Set up docker build environment (Docker Buildx)
+- Build and push docker container to Dockerhub
 
 #### Contact
 
