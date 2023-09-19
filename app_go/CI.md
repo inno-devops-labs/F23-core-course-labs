@@ -3,4 +3,4 @@
 * Cache docker image build 
 * Use Snyk tool to detect vulnerabilities 
 * Use parallel actions 
-* Use libraries for actions 
+* Use libraries for actions
