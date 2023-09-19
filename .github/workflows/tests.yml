@@ -22,6 +22,8 @@ jobs:
         with:
           python-version: 3.10.12
           cache: 'pip' # caching pip dependencies
+          cache-dependency-path:
+            ./app_python/requirements.txt
       - run: |
           python3 -m pip install --upgrade pip
           cd app_python && (if [ -f requirements.txt ]; then pip install -r requirements.txt; fi; cd ../../)
