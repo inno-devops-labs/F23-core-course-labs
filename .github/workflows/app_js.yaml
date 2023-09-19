@@ -1,0 +1,79 @@
+name: Svelte CI
+
+on:
+  push:
+    paths:
+      - 'app_js/**'
+  pull_request:
+    paths:
+      - 'app_js/**'
+  workflow_dispatch:
+
+jobs:
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+
+    - name: Install Dependencies
+      working-directory: app_js
+      run: npm install
+
+        
+    - name: Cache dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+          
+  lint:
+      runs-on: ubuntu-latest
+      working-directory: app_js
+      run: npm run lint
+
+  test:
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    run: npm test
+    
+  docker:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Login to DockerHub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+    - name: Build Docker image
+      run: |
+        docker build ./app_svelte -t relisqu/svelte-app:latest
+    - name: Push Docker image to DockerHub
+      run: |
+        docker push relisqu/svelte-app:latest
+
+  snyk:
+    needs: docker
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Run Snyk to check for vulnerabilities
+      uses: snyk/actions/node@master
+      with:
+        args: --severity-threshold=high --all-projects
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}

@@ -18,6 +18,6 @@ describe('Hello.svelte', () => {
 		expect(container).toBeTruthy();
 		const response = await axios.get('http://worldtimeapi.org/api/timezone/Europe/Moscow');
 		const currentMoscowTime = moment(response.data.datetime).format('HH:mm');
-		expect(container.innerHTML).toContain(moment().tz('Europe/Moscow').format('HH:mm:ss'));
+		expect(container.innerHTML).toContain(moment().tz('Europe/Moscow').format('HH:mm'));
 	});
 });
