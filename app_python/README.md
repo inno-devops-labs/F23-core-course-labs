@@ -8,7 +8,7 @@ Main features:
 - current time display
 - automatic refresh
 - responsive design 
-- 
+
 ## Technologies Used:
 - Python
 - Flask
