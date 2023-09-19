@@ -6,7 +6,8 @@ This is a simple Kotlin Ktor web application that displays the current time in M
 
 - [Installation](#installation)
 - [Usage](#usage)
-- [Testing](#testing)
+- [Unit Tests](<#Unit Testing>)
+- [CI pipeline](#CI)
 - [Docker](#docker)
 - [Contributing](#contributing)
 
@@ -33,11 +34,15 @@ Alternatively, you can run it directly from your IDE by running the main functio
 
 Open your web browser and go to http://127.0.0.1:8080/ to view the current time in Moscow. Refresh the page to see the time update.
 
-## Testing
+## Unit Testing
 
 To test the application you should run:
 
 > `./gradlew test`
+
+## CI
+
+CI workflow consist of `building app`, `linting` code, `test` code,create `docker` image and push it to Docker hu and check for `vulnerabilities` in project.
 
 ## Docker
 
