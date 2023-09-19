@@ -21,7 +21,7 @@ jobs:
           pip install -r app_python/requirements.txt
       
       - name: Run linter
-        run: pylint app
+        run: pylint app_python/app
 
       - name: Run tests 
-        run: pytest app/tests
+        run: pytest app_python/app/tests
