@@ -90,7 +90,7 @@ jobs:
           fetch-depth: 1
           sparse-checkout: app_python
       - name: Run Synk to check for vulnerabilities
-        uses: snyk/actions/python@v2
+        uses: snyk/actions/python@master
         continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
