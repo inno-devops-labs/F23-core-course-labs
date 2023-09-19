@@ -53,7 +53,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ~/.docker
-          key: ${{ runner.os }}-docker-${{ hashFiles('app_python/Dockerfile') }}
+          key: ${{ runner.os }}-docker-${{ hashFiles('Dockerfile') }}
           restore-keys: |
             ${{ runner.os }}-docker-
 
