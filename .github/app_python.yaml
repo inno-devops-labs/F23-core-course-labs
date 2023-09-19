@@ -6,10 +6,7 @@ on:
       - 'app_python/**'
       - '!app_python/**.md'
     branches:
-      - main
-      - master
-      - dev
-      - feat/*
+      - '**'
 
 jobs:
   build:
