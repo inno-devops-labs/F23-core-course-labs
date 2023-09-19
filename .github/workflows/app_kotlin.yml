@@ -67,7 +67,6 @@ jobs:
       - name: Run Snyk
         uses: snyk/actions/gradle-jdk17@master
         with:
-          args: --severity-threshold=high
-          path: ./app_kotlin
+          args: test ./app_kotlin --severity-threshold=high
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
