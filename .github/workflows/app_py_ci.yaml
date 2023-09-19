@@ -25,8 +25,9 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          args: --sarif-file-output=snyk.sarif
-            --file=${{ env.WORKING_DIR }}/requirements/requirements-dev.txt
+          args:
+   	    --sarif-file-output=snyk.sarif
+            --file=${{ env.WORKING_DIR }}requirements.txt
             --package-manager=pip
             --skip-unresolved
       - name: Upload result to GitHub Code Scanning
