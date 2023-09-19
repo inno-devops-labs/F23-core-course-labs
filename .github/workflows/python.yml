@@ -8,6 +8,9 @@ on: [push]
 
 jobs:
   build:
+    defaults:
+      run:
+        working-directory: ./app_python
     runs-on: ubuntu-latest
 
     steps:
