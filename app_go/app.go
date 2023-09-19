@@ -8,7 +8,7 @@ import (
 
 func main() {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		// Получаем current время в Moscow
+		// Got current time в Moscow
 		loc, _ := time.LoadLocation("Europe/Moscow")
 		currentTime := time.Now().In(loc).Format("2006-01-02 15:04:05")
 
