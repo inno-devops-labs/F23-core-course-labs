@@ -13,10 +13,26 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    # Enable caching
+    - name: Cache dependencies
+      uses: actions/cache@v2
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('lab1/app_python/requirements.txt') }}
+
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
         python-version: 3.9
+
+    # Add a restore step to restore the cache
+    - name: Restore dependencies
+      uses: actions/cache@v2
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('lab1/app_python/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
 
     - name: Install dependencies
       run: |
@@ -36,7 +52,7 @@ jobs:
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       with:
-        args: --sarif-file-output=snyk.sarif --workdir lab1/app_python --all-projects -- --allow-missing
+        args: --sarif-file-output=snyk.sarif --workdir lab1/app_python --all-projects --allow-missing
     
     - name: Upload result to GitHub Code Scanning
       uses: github/codeql-action/upload-sarif@v2
