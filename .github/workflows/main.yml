@@ -16,11 +16,13 @@ jobs:
       with:
         python-version: 3.x
 
-    - name: Enter python project
-      run: cd app_python
+#    - name: Enter python project
+#      run: cd app_python
 
     - name: Install dependencies
-      run: pip install -r requirements.txt
+      run: |
+        cd app_python
+        pip install -r requirements.txt
 
     - name: Lint code
       run: flake8
