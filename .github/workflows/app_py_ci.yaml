@@ -1,16 +1,14 @@
+---
 name: App PY CI
-
 on:
   pull_request:
     paths:
       - app_python/**
       - .github/workflows/app_py_ci.yaml
-
 env:
   WORKING_DIR: app_python
   DOCKER_IMAGE_NAME: pyapp
   DOCKER_IMAGE_TAG: latest
-
 jobs:
   security:
     timeout-minutes: 30
@@ -25,16 +23,12 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          args:
-   	    --sarif-file-output=snyk.sarif
-            --file=${{ env.WORKING_DIR }}requirements.txt
-            --package-manager=pip
-            --skip-unresolved
+          args: --sarif-file-output=snyk.sarif --file=${{ env.WORKING_DIR
+            }}requirements.txt --package-manager=pip --skip-unresolved
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v2
         with:
           sarif_file: snyk.sarif
-
   build-and-test:
     timeout-minutes: 30
     runs-on: ubuntu-latest
@@ -57,12 +51,13 @@ jobs:
         run: flake8 .
       - name: Test
         run: python main_test.py
-
   dockerhub-push:
     timeout-minutes: 30
     permissions:
       contents: read
-    needs: [ build-and-test, security ]
+    needs:
+      - build-and-test
+      - security
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -79,6 +74,7 @@ jobs:
         with:
           context: ./${{ env.WORKING_DIR }}
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.DOCKER_IMAGE_NAME }}:${{ env.DOCKER_IMAGE_TAG }}
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.DOCKER_IMAGE_NAME }}:${{
+            env.DOCKER_IMAGE_TAG }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
