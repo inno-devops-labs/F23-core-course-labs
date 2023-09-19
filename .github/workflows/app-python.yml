@@ -12,23 +12,19 @@ env:
   DOCKER_IMAGE_TAG: latest
 
 jobs:
-  build:
+  build-and-test:
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: ./${{ env.WORKING_DIR }}
-    strategy:
-      fail-fast: false
-      matrix:
-        python-version: ["3.11"]
 
     steps:
     - uses: actions/checkout@v3
 
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v3
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v4
       with:
-        python-version: ${{ matrix.python-version }}
+        python-version: '3.11'
 
     - name: Install dependencies
       run: |
@@ -57,7 +53,7 @@ jobs:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
   
   docker:
-    needs: [build]
+    needs: [build-and-test]
     runs-on: ubuntu-latest
 
     steps:
@@ -72,7 +68,7 @@ jobs:
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-        
+
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
