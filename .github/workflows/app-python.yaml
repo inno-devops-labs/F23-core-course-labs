@@ -37,4 +37,4 @@ jobs:
       run: docker build -t dev-ops-lab-3 ./lab1/
 
     - name: Push Docker image
-      run: docker push dev-ops-lab-3
+      run: docker push ${{ secrets.DOCKER_USERNAME }}/dev-ops-lab-3
