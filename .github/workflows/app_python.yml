@@ -60,7 +60,7 @@ jobs:
       - name: Run tests
         run: |
           cd app_python
-          python test_app.py
+          python -m unittest test_app
 
   docker:
     needs: test
