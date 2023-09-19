@@ -1,3 +1,5 @@
+![py workflow](https://github.com/art22m/F23-DevOps/actions/workflows/app_py_ci.yaml/badge.svg)
+
 # Python Web Application
 
 ## Overview
