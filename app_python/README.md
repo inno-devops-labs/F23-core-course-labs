@@ -22,12 +22,12 @@ This is a simple Flask web application that displays the current Moscow time. Th
 
 These instructions will help you set up and run the project on your local machine.
 
-### Prerequisites
+## Prerequisites
 
 - Python (3.6 or higher)
 - Flask (`pip install flask`)
 
-### Installation
+## Installation
 
 1. Clone the repository:
 
@@ -40,7 +40,7 @@ These instructions will help you set up and run the project on your local machin
    ```sh 
    pip install -r requirements.txt
    
-### Usage
+## Usage
 
 1. Run the flask app:
    
@@ -51,7 +51,7 @@ These instructions will help you set up and run the project on your local machin
 
 2. Enter the app in browser at: http://127.0.0.1:5000/
 
-### Tests
+## Tests
 
 * I add test to check moscow time
 
@@ -60,7 +60,7 @@ These instructions will help you set up and run the project on your local machin
    ```sh
   python -m unittest tests.py
   
-### Lint
+## Lint
 
 * I add flake8 lint to locate grammatical and styling errors
 
@@ -70,7 +70,7 @@ These instructions will help you set up and run the project on your local machin
   flake8
   
 
-### Docker
+## Docker
 
 * Build dockerfile:
 
@@ -107,3 +107,32 @@ These instructions will help you set up and run the project on your local machin
 * And run it:
     ```shell
     docker run -it --rm <username>/app_python:v1
+
+## Continuous Integration (CI) with GitHub Actions
+
+This project uses GitHub Actions for continuous integration (CI). The CI workflow includes the following steps:
+
+- **Dependencies**: Install project dependencies.
+- **Linting**: Run linting to check code quality.
+- **Tests**: Execute tests to ensure code correctness.
+- **Docker Build & Push**: Build a Docker image and push it to Docker Hub.
+
+### How to Run CI Workflow
+
+The CI workflow runs automatically on every push to the repository. You can also trigger it manually if needed.
+
+### Docker Hub Image
+
+The Docker image built during CI is available on Docker Hub at:
+
+- Image: `expluto/app_python:latest`
+
+You can pull and run the Docker image using standard Docker commands.
+
+#### How to Build Locally:
+
+1. Clone this repository.
+2. Build the Docker image:
+
+   ```bash
+   docker build -t app_python:latest .
