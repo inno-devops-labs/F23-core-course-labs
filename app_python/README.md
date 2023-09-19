@@ -1,5 +1,7 @@
 [![Contributors][contributors-shield]][contributors-url]
 
+[![Python package](https://github.com/IrSokolova/DevOps_labs/actions/workflows/project.yaml/badge.svg?branch=week3&event=push)](https://github.com/IrSokolova/DevOps_labs/actions/workflows/project.yaml)
+
 <p align="center">
   <a href="https://github.com/IrSokolova/DevOps_labs">
     <img src="http://guruturizma.ru/wp-content/uploads/2018/05/spasskaya-bashnya2-1024x768.jpg" alt="Logo" width="80" height="80">
@@ -105,6 +107,17 @@ tests.py
    Now you can see the time and refresh page if needed
 
    ![img.png](img.png)
+
+
+## Continuous Integration
+
+This project has CI workflow on Github actions with following steps:
+
+- Installing dependencies
+- Linting
+- Testing
+- Logging in to DockerHub
+- Build & Push docker image to DockerHub
 
 
 
