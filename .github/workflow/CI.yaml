@@ -1,72 +1,72 @@
 name: CI
 
 on:
-push:
-  paths:
-    - 'app_python/**'
-    - '.github/workflows/CI.yaml'
+  push:
+    paths:
+      - 'app_python/**'
+      - '.github/workflows/CI.yaml'
 
 defaults:
-run:
-  working-directory: ./app_python
+  run:
+    working-directory: ./app_python
 
 jobs:
-build:
-  runs-on: ubuntu-latest
+  build:
+    runs-on: ubuntu-latest
 
-  steps:
-    - name: Checkout
-      uses: actions/checkout@v3
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
 
-    - name: Python Setup
-      uses: actions/setup-python@v3
-      with:
-        python-version: 3.9
+      - name: Python Setup
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.9
 
-    - name: Cache dependencies
-      uses: actions/cache@v3
-      with:
-        path: ~/.cache/pip
-        key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
-        restore-keys: ${{ runner.os }}-pip-
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: ${{ runner.os }}-pip-
 
-    - name: Dependencies install
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
+      - name: Dependencies install
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
 
-    - name: Vulnerability check
-      uses: snyk/actions/python@master
-      continue-on-error: true
-      env:
-        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-      with:
-        args: 
-          --file=app_python/requirements.txt
-          --package-manager=pip
-          --skip-unresolved
+      - name: Vulnerability check
+        uses: snyk/actions/python@master
+        continue-on-error: true
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: 
+            --file=app_python/requirements.txt
+            --package-manager=pip
+            --skip-unresolved
 
-    - name: Linter
-      run: |
-        pylint app.py --fail-under=5
-        pylint ./tests --fail-under=5
+      - name: Linter
+        run: |
+          pylint app.py --fail-under=5
+          pylint ./tests --fail-under=5
 
-    - name: Tests
-      run: |
-        python -m unittest discover -s tests -p 'tests.py'
+      - name: Tests
+        run: |
+          python -m unittest discover -s tests -p 'tests.py'
 
-docker:
-  needs: build
-  runs-on: ubuntu-latest
+  docker:
+    needs: build
+    runs-on: ubuntu-latest
 
-  steps:
-    - name: Checkout
-      uses: actions/checkout@v3
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
 
-    - name: Login
-      run: docker login -u ${{ secrets.DOCKER_NAME }} -p ${{ secrets.DOCKER_TOKEN }}
+      - name: Login
+        run: docker login -u ${{ secrets.DOCKER_NAME }} -p ${{ secrets.DOCKER_TOKEN }}
 
-    - name: Build and Push
-      run: |
-        docker build -t ${{ secrets.DOCKER_NAME }}/dshamik_msk_time:latest .
-        docker push ${{ secrets.DOCKER_NAME }}/dshamik_msk_time:latest 
+      - name: Build and Push
+        run: |
+          docker build -t ${{ secrets.DOCKER_NAME }}/dshamik_msk_time:latest .
+          docker push ${{ secrets.DOCKER_NAME }}/dshamik_msk_time:latest 
