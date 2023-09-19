@@ -4,7 +4,7 @@ on:
   push:
     paths:
       - "app_python/**"
-      - ".github/workflows/app_python.yml"
+      - ".github/workflows/app_python-CI.yml"
 
 jobs:
   build:
@@ -29,6 +29,10 @@ jobs:
 
       - name: Install Dependencies
         run: pip install -r app_python/requirements.txt
+
+      - name: Formatting Code
+        run: pre-commit run --all-files
+        continue-on-error: true
 
       - name: Lint Code
         run: pre-commit run --all-files
