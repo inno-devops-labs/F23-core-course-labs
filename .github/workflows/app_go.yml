@@ -30,22 +30,6 @@ jobs:
         working-directory: ./app_go
         run: go test -v .
 
-      - name: Login to Docker Hub
-        uses: docker/login-action@v1
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-
-      - name: Build and push Docker image
-        run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/my-go-app ./app_go
-          docker push ${{ secrets.DOCKER_USERNAME }}/my-go-app
-
-      - name: Snyk Security Check
-        run: npx snyk test --all-projects
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-
       - name: Cache Go modules
         uses: actions/cache@v2
         with:
@@ -53,4 +37,48 @@ jobs:
           key: go-modules-${{ runner.os }}-${{ hashFiles('**/go.sum') }}
           restore-keys: go-modules-${{ runner.os }}-
 
+
+  snyk:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Snyk Security Check
+        run: npx snyk test --all-projects
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+  docker:
+      needs: build
+      runs-on: ubuntu-latest
+
+      steps:
+        - name: Login to Docker Hub
+          uses: docker/login-action@v1
+          with:
+            username: ${{ secrets.DOCKER_USERNAME }}
+            password: ${{ secrets.DOCKER_PASSWORD }}
+
+        - name: Build and push Docker image
+          run: |
+            docker build -t ${{ secrets.DOCKER_USERNAME }}/my-go-app ./app_go
+            docker push ${{ secrets.DOCKER_USERNAME }}/my-go-app
+        
+        
+        
+
+#      - name: Login to Docker Hub
+#        uses: docker/login-action@v1
+#        with:
+#          username: ${{ secrets.DOCKER_USERNAME }}
+#          password: ${{ secrets.DOCKER_PASSWORD }}
+#
+#      - name: Build and push Docker image
+#        run: |
+#          docker build -t ${{ secrets.DOCKER_USERNAME }}/my-go-app ./app_go
+#          docker push ${{ secrets.DOCKER_USERNAME }}/my-go-app
+
+#      - name: Snyk Security Check
+#        run: npx snyk test --all-projects
+#        env:
+#          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
