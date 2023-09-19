@@ -1,3 +1,5 @@
+[workflow](https://github.com/ShohKhan-dev/core-course-labs/actions/workflows/app_python-ci.yml/badge.svg)
+
 # DevOps Engineering Labs
 
 ## Introduction
