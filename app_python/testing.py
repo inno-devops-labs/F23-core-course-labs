@@ -1,5 +1,4 @@
 from datetime import datetime
-from run import client
 
 
 def test_format(client):

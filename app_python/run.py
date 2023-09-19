@@ -18,10 +18,6 @@ def get_moscow_time():
     return formatted_time
 
 
-@pytest.fixture
-def client():
-    client = app.test_client()
-    yield client
 
 
 if __name__ == '__main__':
