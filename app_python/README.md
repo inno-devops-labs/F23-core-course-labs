@@ -1,3 +1,5 @@
+[![python app ci](https://github.com/kolbasaegor/core-course-labs/actions/workflows/app-python.yml/badge.svg?branch=lab3)](https://github.com/kolbasaegor/core-course-labs/actions/workflows/app-python.yml)
+
 ## Functionality
 This app shows current moscow time. When you refresh the page, time is also updated.
 to run
