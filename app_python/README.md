@@ -14,6 +14,20 @@ In order to prepare project to run, it is necessary to install dependencies:
 pip3 install -r requirements.txt
 ```
 
+#### Unit Testing
+
+On order to run unit tests on application it is neccessary to intall dev-requirements:
+
+```bash
+pip3 install -r dev-requirements.txt
+```
+
+And run tests using pytest
+
+```bash
+pytest app.py
+```
+
 #### Usage (Docker)
 
 The application can be easily runned in docker.
