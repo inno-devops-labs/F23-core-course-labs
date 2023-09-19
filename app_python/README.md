@@ -43,3 +43,16 @@ Testing application by checking response status code and checking time differenc
 ```
 $ python manage.py test
 ```
+
+
+# CI Workflow
+it works as follows:
+- setting up python and enviroment
+- install dependencies
+- linting code
+- run some tests to check application
+- install and test project with Snyk
+- docker login
+- build and push image to dockerhub
+
+**Used Secrets for Token and login information**
