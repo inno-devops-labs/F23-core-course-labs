@@ -26,6 +26,6 @@ WORKDIR /svelte-app
 COPY --from=builder /svelte-app .
 
 EXPOSE 5173
-
+USER relisqu
 # Start the application
 CMD npm run dev -- --host
