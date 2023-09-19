@@ -46,7 +46,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Vulnerability check by Snyk
-        uses: snyk/actions/python-3.11@master
+        uses: snyk/actions/python-3.10@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
