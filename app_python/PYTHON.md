@@ -64,12 +64,12 @@ The testing was successfully completed. All the steps have been completed and th
 
 In this project, I have implemented unit tests for my Moscow Time application using the built-in `unittest` framework. Tests are designed to ensure the correctness and reliability of my codebase.
 
-### Test 1: `test_index_route`
+Test 1: `test_index_route`
 
 - **Purpose:** This test ensures that the '/' route returns a 200 (OK) status code.
 - **Expected Outcome:** The response status code should be 200.
 
-### Test 2: `test_index_content`
+Test 2: `test_index_content`
 
 - **Purpose:** This test checks if the '/' route contains the string "Moscow Time."
 - **Expected Outcome:** The response content should include the text "Moscow Time."
