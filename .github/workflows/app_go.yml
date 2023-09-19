@@ -30,6 +30,18 @@ jobs:
         working-directory: ./app_go
         run: go test -v .
 
+  snyk:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Run Snyk to check for vulnerabilities
+        uses: npx snyk test --all-projects
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
   docker:
     needs: build
     runs-on: ubuntu-latest
@@ -47,16 +59,4 @@ jobs:
         run: |
           docker build -t ${{ secrets.DOCKER_USERNAME }}my-go-app 
           docker tag my-go-app ${{ secrets.DOCKER_USERNAME }}/my-go-app
-          docker push ${{ secrets.DOCKER_USERNAME }}/my-go-app     
-
-  snyk:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Run Snyk to check for vulnerabilities
-        uses: npx snyk test --all-projects
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+          docker push ${{ secrets.DOCKER_USERNAME }}/my-go-app
