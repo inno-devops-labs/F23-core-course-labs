@@ -5,12 +5,12 @@ run-name: Python app build, lint, and test
 on: 
   push:
     paths: 
-      - '.github/**'
+      - '.github/python-app-workflow.yml'
       - 'app_python/**'
       - '!**.md'
   pull_request:
     paths: 
-      - '.github/**'
+      - '.github/python-app-workflow.yml'
       - 'app_python/**'
       - '!**.md'
 
@@ -119,5 +119,3 @@ jobs:
           context: "{{defaultContext}}:app_python"
           push: true
           tags: iviosab/moscow_time
-
-          
