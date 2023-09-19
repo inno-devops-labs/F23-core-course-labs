@@ -48,8 +48,8 @@ jobs:
 
       - name: Linter
         run: |
-          pylint app.py --fail-under=5
-          pylint ./tests --fail-under=5
+          pylint app.py
+          pylint ./tests
 
       - name: Tests
         run: |
