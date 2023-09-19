@@ -113,10 +113,10 @@ jobs:
     defaults:
       run:
         working-directory: ./app_elixir
-    name: test
     runs-on: ubuntu-latest
     needs: build-and-cache
     steps:
+      - uses: actions/checkout@v2
       - name: Cache Docker layers
         uses: actions/cache@v2
         with:
