@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { describe, it, expect, test } from 'vitest';
 import { cleanup, fireEvent, render, screen } from '@testing-library/svelte';
 import App from './routes/+page.svelte';
@@ -21,3 +22,4 @@ describe('Hello.svelte', () => {
 		expect(container.innerHTML).toContain(moment().tz('Europe/Moscow').format('HH:mm'));
 	});
 });
+/* eslint-enable */
