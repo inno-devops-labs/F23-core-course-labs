@@ -1,7 +1,6 @@
 from flask import Flask, render_template_string
 from datetime import datetime
 import pytz
-import unittest
 
 
 app = Flask(__name__)
