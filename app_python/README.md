@@ -1,3 +1,5 @@
+[!app_python](https://github.com/jonasbn/til/workflows/Python%20CI/badge.svg)
+
 # Python Web Application Development
 
 Author: Daniil Okrug
