@@ -1,5 +1,7 @@
 ### MoscowTimeWebApplication
 
+![Build](https://github.com/Sl1va/core-course-labs/actions/workflows/app-build.yaml/badge.svg)
+
 #### Overview
 
 This web application shows the current time in Moscow. The application is built using Flask, a popular web framework in Python.
