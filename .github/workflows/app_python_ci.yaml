@@ -15,6 +15,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+      - uses: snyk/actions/setup@master
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
         with:
@@ -25,6 +26,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install ruff pytest
           pip install -r app_python/requirements.txt
+      - name: Snyk test
+        run: snyk test --file=app_python/requirements.txt
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       - name: Lint with ruff
         run: |
           # stop the build if there are Python syntax errors or undefined names

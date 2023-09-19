@@ -43,6 +43,7 @@ docker run zrrrget/app_python_test
 ```
 ## CI
 Crucial steps triggered on push:
+- Run Snyk to check for vulnerabilities
 - Lint python
 - Run pytest
 - Build test docker, test image and push
