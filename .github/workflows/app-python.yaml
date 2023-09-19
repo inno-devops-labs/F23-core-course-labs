@@ -37,7 +37,7 @@ jobs:
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       with:
-        args: --workdir lab1/app_python --all-projects --allow-missing
+        args: --workdir lab1/app_python --all-projects -- --allow-missing
     
 
     - name: Login to Docker registry
