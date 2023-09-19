@@ -33,8 +33,13 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
 
-    - name: Build Docker image
-      run: docker build -t dev-ops-lab-3 ./lab1/
-
-    - name: Push Docker image
-      run: docker push ${{ secrets.DOCKER_USERNAME }}/dev-ops-lab-3
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+      
+    - name: Build and push
+      uses: docker/build-push-action@v5
+      with:
+        context: .lab1/
+          file: ./Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/dev-ops-lab-3:latest
