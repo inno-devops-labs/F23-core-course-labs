@@ -36,12 +36,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Cache pip cache
-        uses: actions/cache@v2
-        with:
-          path: ~/.cache/pip
-          key: pip-${{ runner.os }}-${{ hashFiles('**/requirements.txt') }}
-
       - name: Linting with flake 8
         run: |
           flake8 --exclude=./venv/
@@ -50,7 +44,7 @@ jobs:
         run: |
           black .
         
-      #- name: Testing flask app
-      #  run: |
-      #    pre-commit run pytest --all-files
-      #  working-directory: ./app_python fsometh che sjdhk sdf
+      - name: Testing flask app
+        run: |
+          pre-commit run pytest --all-files
+        working-directory: ./app_python
