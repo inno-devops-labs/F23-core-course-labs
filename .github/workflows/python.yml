@@ -53,7 +53,7 @@ jobs:
 
       - name: Build and Push Docker Image
         run: |
-          docker build -t nikitosing/app_python:latest ./app_python
+          docker build -t nikitosing/app_python:latest .
           docker push nikitosing/app_python:latest
 
       - name: Install Snyk CLI
