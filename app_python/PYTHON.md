@@ -58,8 +58,9 @@ In this section I will describe what best practices I used during the project de
 
 Having unit tests is a necessary and very important process that allows us to make sure that all components are consistent and work.
 I created the following tests for my application:
-- `test_moscow_time`: tests the route and returned message's time format
-- `test_time_changed`: tests whether time was changed after refresh
+- `test_get_response`: tests that server responds with 200 code
+- `test_return_time_format`: tests returned message's time format
+- `test_time_changed`: tests whether time was changed after the page refresh
 
 
 ## Conclusion

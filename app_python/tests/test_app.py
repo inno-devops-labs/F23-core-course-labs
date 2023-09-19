@@ -24,15 +24,15 @@ def check_time_format(message):
         return False
 
 
-def check_response(response):
-    return response.status_code == 200
+# Testing that request to server succeeds with 200 status code
+def test_get_response(client):
+    response = client.get("/")
+    assert response.status_code == 200
 
 
 # Testing return time format
-def test_moscow_time(client):
+def test_return_time_format(client):
     response = client.get("/")
-    assert check_response(response)
-
     _time = response.data.decode('utf-8')
     assert check_time_format(_time)
 

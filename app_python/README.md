@@ -28,9 +28,6 @@ Then install necessary dependencies:
 To run the application use the command:  
 `python app_python/app.py`
 
-To test the application use the command:  
-`python -m pytest app_python/tests/`
-
 Then open `http://127.0.0.1:5000/` in your web browser. You will see a message like as follows:  
 `Current Moscow time is 2023-09-06, 08:51:18.794`
 
@@ -52,6 +49,11 @@ You can run the application using the following command:
 `docker run -p 5000:5000 vladimirka002/innopolis-devops-python-app`
 
 The application will be accessible via the following link: `http://localhost:5000/`
+
+## Unit Tests
+
+To test the application use the following command which will invoke pytest:  
+`python -m pytest`
 
 ## Author
 Vladimir Kalabukhov, v.kalabukhov@innopolis.university

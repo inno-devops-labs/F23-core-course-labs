@@ -17,7 +17,3 @@ By removing unnecessary files in `.dockerignore` I am lowering the image size an
 ## 4. Base Image Selection
 
 I am using the official Docker image and specifying explicitly the version of the base image: `python:3.9`.
-
-## 4. Base Image Selection
-
-I am using the official Docker image and specifying explicitly the version of the base image: `python:3.9`.
