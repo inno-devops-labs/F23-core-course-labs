@@ -39,8 +39,8 @@ COPY --from=builder $PYSETUP_PATH $PYSETUP_PATH
 
 WORKDIR /app
 
-COPY main.py docker-entrypoint.sh ./
-COPY templates ./templates
+COPY app app
+COPY docker/docker-entrypoint.sh docker-entrypoint.sh
 
 RUN adduser --disabled-password --gecos "" app \
     && chmod +x docker-entrypoint.sh
