@@ -45,9 +45,6 @@ jobs:
       - name: Build Go app.
         run: go build
 
-      - name: Test with the Go CLI
-        run: go test
-
       - name: Test with Go test.
         run: go test -json > TestResults-${{ matrix.go-version }}.json
 
@@ -60,7 +57,7 @@ jobs:
 
 
   # https://github.com/snyk/actions/tree/master/golang
-  security:
+  security-job:
     runs-on: ubuntu-latest
     permissions:
       actions: read
