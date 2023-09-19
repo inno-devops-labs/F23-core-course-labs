@@ -76,7 +76,7 @@ jobs:
           path: |
             /var/lib/docker
             ~/.cache/docker
-          key: ${{ runner.os }}-${{ hashFiles('**/Dockerfile') }}-docker-${{ hashFiles('**/requirements.txt') }}
+          key: ${{ runner.os }}-${{ hashFiles('**/Dockerfile') }}-docker-${{ hashFiles('**/requirements/prod.txt') }}
           restore-keys: |
             ${{ runner.os }}-${{ hashFiles('**/Dockerfile') }}-docker-
 
