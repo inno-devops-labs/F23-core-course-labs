@@ -42,5 +42,12 @@ To run unit tests, type the following command:
 
     python3 testing.py
 
+## Best practices for CI using GitHub Actions
+
+- Do not install unnecessary dependencies
+- To enhance security, it is recommended to limit the usage of environment variables to the narrowest possible scope. This means being specific to the workflow, job or step in which they are required.
+- To optimize efficiency, it is advisable to keep Actions concise. Although Actions' virtual machines are fast and have high bandwidth, the longer an action takes to execute, the more time is wasted waiting.
+
+
 #### Contact: Arseniy Levochkin, B20-SD-02, a.levochkin@innopolis.university
 
