@@ -7,8 +7,8 @@ on:
       - ".github/workflows/python-ci.yml"
   pull_request:
     paths:
-    - "app_python/**"
-    - ".github/workflows/python-ci.yml"
+      - "app_python/**"
+      - ".github/workflows/python-ci.yml"
 
 jobs:
   python-build:

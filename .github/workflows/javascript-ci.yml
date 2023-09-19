@@ -7,8 +7,8 @@ on:
       - ".github/workflows/javascript-ci.yml"
   pull_request:
     paths:
-    - "app_javascript/**"
-    - ".github/workflows/javascript-ci.yml"
+      - "app_javascript/**"
+      - ".github/workflows/javascript-ci.yml"
 
 jobs:
   javascript-build:
