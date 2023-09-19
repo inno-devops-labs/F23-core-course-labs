@@ -26,6 +26,7 @@ jobs:
         uses: gradle/gradle-build-action@v2
 
       - name: Build project
+        working-directory: ./app_kotlin
         run: ./gradlew build
 
       - name: Check lint

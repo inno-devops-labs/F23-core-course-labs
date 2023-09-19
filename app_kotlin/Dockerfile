@@ -7,6 +7,7 @@ WORKDIR /builder
 COPY . /builder
 RUN gradle build --stacktrace
 
+
 # Use official JDK image for running
 FROM amazoncorretto:17-alpine3.15
 # Create app folder
