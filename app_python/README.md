@@ -1,6 +1,6 @@
 # App_python
 
-![python-app workflow badge](https://github.com/yesliesnayder/devops-course-labs/actions/workflows/python-app.yaml/badge.svg)
+![python-app workflow badge](https://github.com/yesliesnayder/devops-course-labs/actions/workflows/python_ci.yml/badge.svg)
 
 This is application to show current time in specified region (timezone).
 Initially, it shows Moscow time.

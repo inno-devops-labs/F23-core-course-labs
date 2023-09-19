@@ -3,7 +3,7 @@ name: Python package
 on:
   push:
     paths:
-      - '.github/workflows/python-app.yaml'
+      - '.github/workflows/python_ci.yaml'
       - 'app_python/**'
 
 jobs:
