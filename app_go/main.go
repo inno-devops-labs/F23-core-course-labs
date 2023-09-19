@@ -1,11 +1,12 @@
 package main
 
 import (
-	"fmt"
 	"html/template"
 	"net/http"
 	"os"
 	"time"
+
+	"github.com/fatih/color"
 )
 
 type TimeData struct {
@@ -31,7 +32,7 @@ func main() {
 		port = "3000"
 	}
 	mux := http.NewServeMux()
-	fmt.Println("Listening on port " + port)
+	color.Cyan("Listening on port " + port)
 	mux.HandleFunc("/", indexHandler)
 	http.ListenAndServe(":"+port, mux)
 }
