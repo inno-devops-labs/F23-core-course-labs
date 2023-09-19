@@ -1,5 +1,10 @@
 # DevOps Engineering Labs
 
+## Workflow badges
+
+[![Python CI](https://github.com/relisqu/core-course-labs/actions/workflows/app_python.yaml/badge.svg)](https://github.com/purfreak/core-course-labs/actions/workflows/app_python.yaml)
+[![JS CI](https://github.com/relisqu/core-course-labs/actions/workflows/app_js.yaml/badge.svg)](https://github.com/purfreak/core-course-labs/actions/workflows/app_js.yaml)
+
 ## Introduction
 
 Welcome to the DevOps Engineering course labs! These hands-on labs are designed to guide you through various aspects of DevOps practices and principles. As you progress through the labs, you'll gain practical experience in application development, containerization, testing, infrastructure setup, CI/CD processes, and more.
