@@ -29,6 +29,7 @@ jobs:
       - name: Tests
         working-directory: ./app_go
         run: go test -v .
+
       - name: Login to Docker Hub
         uses: docker/login-action@v1
         with:
@@ -37,7 +38,7 @@ jobs:
 
       - name: Build and push Docker image
         run: |
-          docker build -t my-go-app .
+          docker build -t ${{ secrets.DOCKER_USERNAME }}my-go-app
           docker tag my-go-app ${{ secrets.DOCKER_USERNAME }}/my-go-app
           docker push ${{ secrets.DOCKER_USERNAME }}/my-go-app
 
