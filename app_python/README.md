@@ -9,6 +9,7 @@ This is a simple Python web application developed using Flask that displays the 
 - [Unit Testing](#unit-testing)
 - [Usage](#usage)
 - [Docker](#docker)
+- [CI](#ci)
 - [Contributing](#contributing)
 
 ## Project Structure
