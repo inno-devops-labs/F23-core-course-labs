@@ -1,4 +1,4 @@
-[!app_python](https://github.com/jonasbn/til/workflows/Python%20CI/badge.svg)
+[!app_python](https://github.com/DaniilOkrug/dev-ops-inno/workflows/Python%20CI/badge.svg)
 
 # Python Web Application Development
 
