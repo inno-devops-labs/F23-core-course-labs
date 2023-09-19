@@ -23,11 +23,12 @@ jobs:
         working-directory: app_python
 
       - name: Run Snyk Scan
-        uses: snyk/actions/python-3.10@master
+        uses: snyk/actions/python@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          args: --file=app_python/requirements.txt
+          command: test
+          targetFile: app_python/requirements.txt
 
       - name: Run linter
         run: pylint app
