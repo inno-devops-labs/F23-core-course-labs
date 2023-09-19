@@ -26,11 +26,11 @@ jobs:
       with:
         src: "./app_python/src"
         args: "--format=github --target-version=py311"
-    # -
-    #   name: Test with pytest
-    #   run: |
-    #     pip install pytest
-    #     pytest
+    -
+      name: Test with pytest and pytz
+      run: |
+        pip install pytest pytz
+        pytest
     -
       name: Login to Docker Hub
       uses: docker/login-action@v3
