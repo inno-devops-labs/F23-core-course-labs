@@ -38,6 +38,26 @@ As for best practices, I have followed the following guidelines:
 - I have used the @classmethod decorator to denote class methods that are used for test setup and teardown.
 - I have commented the code to explain the purpose and functionality of each section.
 
+
+### CI desciprion
+
+This workflow is triggered on both push events to the main and lab3 branches, as well as pull request events on the main branch. It performs the following steps:
+
+1. Checks out the code from the repository.
+2. Sets up Python 3.10.12 as the Python version.
+3. Installs the project dependencies specified in the requirements.txt file.
+4. Runs the Flake8 linter to check for code style and formatting issues.
+5. Runs the unit tests using the unittest module.
+6. Logs in to Docker Hub using the provided Docker Hub username and password.
+7. Builds and pushes the Docker image using the Dockerfile located in the app_python/ directory.
+8. Tags the Docker image with the specified tag name.
+
+To use this workflow, you need to replace your-docker-hub-username with your Docker Hub username and tagname with the desired tag name for your Docker image.
+
+Additionally, you need to create two secrets in your GitHub repository settings: DOCKER_USERNAME and DOCKER_PASSWORD. Set these secrets to your Docker Hub username and password or access token.
+
+Commit and push these changes to your repository, and the workflow will be triggered automatically whenever there are new commits pushed to the specified branches or pull requests on the main branch.
+
 Feel free to contact me if you have any questions:
 
 Email: [e.shalagin@innopolis.university](mailto:e.shalagin@innopolis.university)
