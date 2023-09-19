@@ -61,6 +61,8 @@ The application will then be accessible at 127.0.0.1:5000
 
 ## CI
 
+CI is done using GitHub Actions. The workflow is defined in `.github/workflows/python-app.yml`. It runs on every push to the repository. It runs the following steps:
+
 ## Contributing
 
 If you'd like to improve this project or report issues, please open an issue or submit a pull request.
