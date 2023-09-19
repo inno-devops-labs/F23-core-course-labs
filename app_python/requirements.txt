@@ -8,3 +8,5 @@ Werkzeug==2.1.1
 zipp==3.8.0
 pytz==2023.3
 python-dateutil==2.8.2
+ruff==0.0.290
+pytest==7.4.2
