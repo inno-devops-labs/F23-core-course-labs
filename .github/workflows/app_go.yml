@@ -18,15 +18,17 @@ jobs:
         uses: actions/setup-go@v2
         with:
           go-version: 1.16
-
+a
       - name: Dependencies
         working-directory: ./app_go
         run: go mod download
 
       - name: Linter
+        working-directory: ./app_go
         run: go vet ./...
 
       - name: Tests
+        working-directory: ./app_go
         run: go test -v ./...
       - name: Login to Docker Hub
         uses: docker/login-action@v1
