@@ -1,3 +1,8 @@
+"""
+This module provides a simple web application that displays the current time in Moscow.
+
+"""
+
 package main
 
 import (
