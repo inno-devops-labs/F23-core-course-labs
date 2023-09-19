@@ -6,7 +6,7 @@ RUN chown -R myuser /myuser-dir
 USER myuser
 
 COPY requirements.txt .
-RUN pip install -r app_python/requirements.txt
+RUN pip install -r requirements.txt
 EXPOSE 5000
 COPY . .
 ENTRYPOINT [ "python", "run.py"]

@@ -36,6 +36,8 @@ jobs:
           username: ${{ secrets.DOCKER_USER }}
           password: ${{ secrets.DOCKER_TOKEN }}
       - name: Build and push
+        run: |
+          cd app_python
         uses: docker/build-push-action@v5
         with:
           context: .
