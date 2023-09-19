@@ -13,3 +13,6 @@ This application uses Flask
 
 ##### Docker image with this app is pushed into my DockerHub repository:
 https://hub.docker.com/repository/docker/ilyamirzazhanov/lab2/general
+
+# Unit Tests
+Added simple unit tests to test app.py
