@@ -65,6 +65,7 @@ jobs:
       - name: Run Snyk to Check for Vulnerabilities
         uses: snyk/actions/python-3.10@master
         continue-on-error: true
+        run: snyk test --sarif-file-output=snyk.sarif
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
