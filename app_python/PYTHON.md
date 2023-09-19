@@ -60,6 +60,26 @@ The Flask web application displays the current time in Moscow on the main page.
 
 The testing was successfully completed. All the steps have been completed and the expected results have been achieved.
 
+## Unit Tests
+
+In this project, I have implemented unit tests for my Moscow Time application using the built-in `unittest` framework. Tests are designed to ensure the correctness and reliability of my codebase.
+
+### Test 1: `test_index_route`
+
+- **Purpose:** This test ensures that the '/' route returns a 200 (OK) status code.
+- **Expected Outcome:** The response status code should be 200.
+
+### Test 2: `test_index_content`
+
+- **Purpose:** This test checks if the '/' route contains the string "Moscow Time."
+- **Expected Outcome:** The response content should include the text "Moscow Time."
+
+To run the unit tests, follow these steps:
+
+1. Navigate to the project's root directory.
+2. Run the following command:
+python tests/test_app.py
+
 ## Best Practices for Code Testing
 
 1. Clear and Descriptive Test Names.
