@@ -24,10 +24,21 @@
 - Error handling.
 
 ### Testing
-- Manual tests.
 
-P.S: Again, it didn't make sense to set-up and write automated tests for an app this simple since it would would literally take longer than it took to for implementation + manual testing.
+#### Unit Tests:
+There is a total of 3 unit tests enclosing a good part of the app's functionality and UI components. They test that the components render the UI properly.
+
+#### Best Practices
+- Testing units focus on one tiny bit of functionality.
+- Test units are fully independent.
+- Tests run quickly.
+- `vitest` to organize and run tests.
+- Tests mimick what the user sees on the screen using `React Testing Library`.
+- Mock prop values.
+- Easy-to-follow test file structure which matches that of the app.
+- 100% test coverage for tested components.
+- Scripts to run unit tests and coverage reports.
 
 ### Ensuring code quality
-- Pre-commit hooks will lint the code and format-check it to avoid issues further down the line and ensures that consistent code style is maintained in a collaborative environment.  
+- Pre-commit hooks will lint the code and format-check it to avoid issues further down the line and ensures that consistent code style is maintained in a collaborative environment.
 - `.prettierrc` will ensure that all collaborators follow the same conventions for code style.
