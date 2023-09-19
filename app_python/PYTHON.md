@@ -10,3 +10,11 @@ To ensure code quality, pylint linter is used. Source code fully satisfies PEP8 
 python3 -m pytest test.py
 ```
 to run tests.
+
+Tests use following best practices:
+- Use automated test framework pytest
+- Have appropriate test names
+- They're simple
+- Same, stable output
+- Single use case
+- Fast as possible

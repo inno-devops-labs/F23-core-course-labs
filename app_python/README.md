@@ -10,7 +10,7 @@ You can run it on any ASGI server. For example, on `uvicorn`:
 ```
 uvicorn main:app
 ```
-## Test
+## Unit Tests
 ```
 python3 -m pytest test.py
 ```
