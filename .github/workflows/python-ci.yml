@@ -26,7 +26,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
           cache: 'pip'
           cache-dependency-path: |
-            ./app_python/requirements.txt
+            ./requirements.txt
 
       - name: Display Python version
         run: python -c "import sys; print(sys.version)"
