@@ -3,7 +3,7 @@ defmodule DevopsWebWeb.PageControllerTest do
 
   test "GET /time", %{conn: conn} do
     conn = get(conn, "/time")
-    assert time_json = json(conn, 200)
-    assert Map.has_key(time_json, "time")
+    assert time_json = json_response(conn, 200)
+    assert Map.has_key?(time_json, "time")
   end
 end
