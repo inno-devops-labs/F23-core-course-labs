@@ -27,7 +27,7 @@ Install packages
 
 Application is available at `127.0.0.1:8000`
 
-##Test
+##Unit Tests
 
 `pytest ./test/test.py`
 
@@ -48,3 +48,12 @@ Application is available at `127.0.0.1:8000`
 `docker run -p 8000:8000 wareverdud/lab2`
 
 Application is available at `http://127.0.0.1:8000/`
+
+## CI
+
+CI pipeline has 4 stages:
+
+1. Lint the code
+2. Test the code
+3. Check possible snyk vulnerabilities
+4. Build docker image and push it to the docker hub

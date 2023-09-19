@@ -15,4 +15,6 @@ flake8 linter
 ## Tests
 Tests using pytest library
 
-Ensure that time changes after refreshing the page
+Ensure that returned time is correct and that time changes after refreshing the page
+
+Using test separation
