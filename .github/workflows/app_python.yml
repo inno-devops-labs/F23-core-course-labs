@@ -9,9 +9,9 @@ on:
       - app_python/**
       - .github/workflows/app_python.yml
 
-defaults:
-  run:
-    working-directory: app_python
+# defaults:
+#   run:
+#     working-directory: app_python
 
 jobs:
   test:
@@ -88,7 +88,7 @@ jobs:
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v2
         with:
-          sarif_file: ./app_python/snyk.sarif
+          sarif_file: snyk.sarif
 
   snyk_docker:
     runs-on: ubuntu-latest
