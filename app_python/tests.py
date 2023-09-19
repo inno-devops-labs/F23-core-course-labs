@@ -5,6 +5,7 @@ import unittest
 from pytz import timezone
 from app import app
 
+
 class TestApp(unittest.TestCase):
     '''Class for testing app.py module'''
 
@@ -13,7 +14,6 @@ class TestApp(unittest.TestCase):
         self.app = app.test_client()
         self.app.testing = True
 
-
     def test_time_page(self):
         '''Send GET request to server'''
         response = self.app.get('/')
@@ -21,8 +21,9 @@ class TestApp(unittest.TestCase):
         moscow_time = datetime.now(
             timezone('Europe/Moscow')).strftime('%Y-%m-%d %H:%M:%S')
 
-        #checks if the response is 200 and if the response contains the current time in Moscow
+        # checks if the response is 200
         self.assertEqual(response.status_code, 200)
+        # checks if the response contains the current time in Moscow
         self.assertIn(
             f'{moscow_time}', response.data.decode())
 

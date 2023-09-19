@@ -15,6 +15,5 @@ def index():
     time = datetime.datetime.now(moscow).strftime('%Y-%m-%d %H:%M:%S')
     return render_template('index.html', time=time)
 
-
 if __name__ == '__main__':
-     app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=5000)
