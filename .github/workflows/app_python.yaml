@@ -22,6 +22,11 @@ jobs:
           pip install -r requirements.txt
         working-directory: app_python
 
+      - name: Run Snyk Scan
+        uses: snyk/actions/python-3.10@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
       - name: Run linter
         run: pylint app
         working-directory: app_python
@@ -30,6 +35,7 @@ jobs:
         run: pytest tests
         working-directory: app_python
   
+      
 
   docker-release:
     runs-on: ubuntu-latest
