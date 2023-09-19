@@ -1,0 +1,52 @@
+name: Javascript CI
+
+on:
+  push:
+    paths:
+      - "app_javascript/**"
+      - ".github/workflows/javascript-ci.yml"
+  pull_request:
+    paths:
+    - "app_javascript/**"
+    - ".github/workflows/javascript-ci.yml"
+
+jobs:
+  javascript-build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./app_javascript
+    
+    strategy:
+      matrix:
+        node-version: ["14", "16"]
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Cache Node.js dependencies
+      uses: actions/cache@v2
+      with:
+        path: ~/.npm
+        key: npm-${{ runner.os }}-${{ matrix.node-version }}-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          npm-${{ runner.os }}-${{ matrix.node-version }}-
+      
+      - name: Set up Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Display Node.js version
+        run: node --version
+      
+      - name: Install Node.js dependencies
+        run: npm install
+
+      - name: Linting with ESLint
+        run: |
+          npm run lint
+          npx eslint --fix .
+        
+      - name: Testing JavaScript
+        run: npm run test
