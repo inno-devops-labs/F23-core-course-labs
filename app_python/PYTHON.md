@@ -20,6 +20,20 @@ I ensured the reliability of the application through testing:
 
 - Implemented unit tests using the built-in `unittest` framework.
 - Conducted tests to verify that the time display functionality works as expected.
+## Unit Tests and Best Practices
+
+In this section, we will describe the unit tests that have been created for the Python application and highlight the best practices that have been applied during the testing process.
+
+### Unit Test
+
+Checks if a GET request to the root URL ("/") returns a 200 status code.
+
+**Best Practices:**
+
+- Modular test organization using classes.
+- Use of Flask's test_client() for efficient route testing.
+- Descriptive test names for clarity.
+- Assertion to ensure the expected HTTP status code.
 
 ### Code Quality and Maintenance:
 

@@ -1,11 +1,5 @@
 name: CI
 
-on:
-  push:
-    paths:
-      - 'app_python/**'
-      - '.github/workflows/CI.yaml'
-
 defaults:
   run:
     working-directory: ./app_python

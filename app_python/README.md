@@ -44,3 +44,35 @@ To run the Docker container, use the following command:
 
 
 The application will be accessible at [http://localhost:8090/](http://localhost:8090/).
+
+## Unit Tests
+
+Unit tests locaten in `tests` folder.
+
+To run test:
+
+`python -m unittest discover -s tests -p 'tests.py'`
+
+## CI Workflow
+
+**Build**
+
+- Python Setup
+
+- Cache dependencies
+
+- Dependencies install
+
+- Vulnerability check
+
+- Vulnerability report
+
+- Linter
+
+- Tests
+
+**Docker**
+
+- Login
+
+- Build and Push
