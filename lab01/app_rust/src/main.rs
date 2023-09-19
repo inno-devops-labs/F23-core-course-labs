@@ -58,6 +58,7 @@ mod tests {
 
     #[test]
     fn test_endpoint() {
+        // zd
         let client = Client::tracked(rocket()).unwrap();
         let resp1 = client.get("/").dispatch();
         let resp2 = client.get("/").dispatch();
