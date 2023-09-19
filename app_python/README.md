@@ -1,3 +1,5 @@
+[![Python package](https://github.com/Chiplinka/core-course-labs/actions/workflows/app_python.yaml/badge.svg?branch=lab3)](https://github.com/Chiplinka/core-course-labs/actions/workflows/app_python.yaml)
+[![Javascript server](https://github.com/Chiplinka/core-course-labs/actions/workflows/app_javascript.yaml/badge.svg?branch=lab3)](https://github.com/Chiplinka/core-course-labs/actions/workflows/app_javascript.yaml)
 # Lab 1
 ## Description 
 Web app which displays current Moscow time

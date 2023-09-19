@@ -1,3 +1,6 @@
+[![Python webserver](https://github.com/Chiplinka/core-course-labs/actions/workflows/app_python.yaml/badge.svg?branch=lab3)](https://github.com/Chiplinka/core-course-labs/actions/workflows/app_python.yaml)
+[![Javascript webserver](https://github.com/Chiplinka/core-course-labs/actions/workflows/app_javascript.yaml/badge.svg?branch=lab3)](https://github.com/Chiplinka/core-course-labs/actions/workflows/app_javascript.yaml)
+
 ## Lab 1
 
 I decided to use javascript because I have little experience using it. An interesting fact is that Javascript is the most popular programming language in the world and is in great demand among various organizations.
