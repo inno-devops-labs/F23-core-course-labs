@@ -19,13 +19,16 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r app_python/requirements.txt
-      
+          pip install -r requirements.txt
+        working-directory: app_python
+
       - name: Run linter
-        run: pylint app_python/app
+        run: pylint app
+        working-directory: app_python
 
       - name: Run tests 
-        run: pytest app_python/tests
+        run: pytest tests
+        working-directory: app_python
   
 
   docker-release:
@@ -50,4 +53,4 @@ jobs:
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
             ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:latest 
-       
+        working-directory: app_python
