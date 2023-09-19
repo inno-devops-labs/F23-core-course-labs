@@ -1,4 +1,4 @@
-[!app_python](https://github.com/DaniilOkrug/dev-ops-inno/workflows/Python%20CI/badge.svg)
+![app_python](https://github.com/DaniilOkrug/dev-ops-inno/workflows/Python%20CI/badge.svg)
 
 # DevOps Engineering Labs
 
