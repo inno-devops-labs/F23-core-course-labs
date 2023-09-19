@@ -21,6 +21,6 @@ I adhered to best practices:
 
 To test the application you should run:
 
->`./gradlew test`
+> `./gradlew test`
 
-The test ensure the functionality and reliability of the Kotlin Ktor application.
+The test ensure the functionality and reliability of the Kotlin Ktor application. Simple unit test to check if response from server is corresponds to actual time in moscow.
