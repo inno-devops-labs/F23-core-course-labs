@@ -53,12 +53,12 @@ These instructions will help you set up and run the project on your local machin
 
 ## Tests
 
-* I add test to check moscow time
+* I add some tests to check moscow time, using **pytest** library
 
 * To run it:
 
    ```sh
-  python -m unittest tests.py
+  pytest tests.py
   
 ## Lint
 
