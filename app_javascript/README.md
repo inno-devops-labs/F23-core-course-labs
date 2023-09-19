@@ -173,3 +173,15 @@ docker images
 ```
 docker system prune
 ```
+
+<br>
+
+# Unit Tests
+To run the tests for this application you can use precommit, with linting (changes should be staged) the app will be tested:
+```
+npm run precommit
+```
+Or you can run test separately with command:
+```
+npm run test
+```

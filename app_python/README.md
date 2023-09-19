@@ -186,3 +186,16 @@ docker images
 ```
 docker system prune
 ```
+
+<br>
+
+# Unit Tests
+To run the tests for this application you can use precommit, with linting the app will be tested:
+```
+pre-commit install
+pre-commit run --all-files
+```
+Or you can run test separately with command:
+```
+flask test
+```

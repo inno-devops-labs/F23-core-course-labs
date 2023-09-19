@@ -1,0 +1,48 @@
+name: Python CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.9.13"]
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python 3.9.13
+        uses: actions/setup-python@v4
+        with:
+          # Semantic version range syntax or exact version of a Python version
+          python-version: '3.9.13'
+          # Optional - x64 or x86 architecture, defaults to x64
+          architecture: 'x64'
+      # You can test your matrix by printing the current Python version
+      - name: Display Python version
+        run: python -c "import sys; print(sys.version)"
+
+      - name: Install Dependencies      
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.9.13'
+          cache: 'pip'
+      - run: pip install -r requirements.txt
+      - run: pip test
+      
+      - name: Linting with flake 8
+        run: |
+          pre-commit run flake8
+        working-directory: ./app_python
+      
+      - name: Linting with black
+        run: |
+          pre-commit run black
+        working-directory: ./app_python
+        
+      - name: Testing flask app
+        run: |
+          pre-commit run pytest
+        working-directory: ./app_python

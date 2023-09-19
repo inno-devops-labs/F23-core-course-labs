@@ -6,14 +6,22 @@
   "scripts": {
     "lint": "eslint .",
     "test": "mocha tests",
-    "echo test": "echo \"Error: no test specified\" && exit 1"
+    "echo test": "echo \"Error: no test specified\" && exit 1",
+    "precommit": "lint-staged && npm run test"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "bootstrap": "^5.3.1",
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "supertest": "^6.3.3"
+  },
+  "lint-staged": {
+    "*.js": [
+      "npx eslint --fix .",
+      "npm run lint"
+    ]
   },
   "devDependencies": {
     "chai": "^4.3.8",
@@ -23,6 +31,8 @@
     "eslint-plugin-mocha": "^10.1.0",
     "eslint-plugin-n": "^16.0.2",
     "eslint-plugin-promise": "^6.1.1",
-    "mocha": "^10.2.0"
+    "lint-staged": "^14.0.1",
+    "mocha": "^10.2.0",
+    "pre-commit": "^1.2.2"
   }
 }

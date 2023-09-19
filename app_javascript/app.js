@@ -3,6 +3,7 @@ const app = express()
 const path = require('path')
 
 module.exports = {
+  app,
   getRandomQuote
 }
 

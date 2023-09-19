@@ -1,0 +1,21 @@
+repos:
+  -   repo: https://github.com/pycqa/flake8
+      rev: 6.1.0
+      hooks:
+      -   id: flake8
+          exclude: ^env/
+  -   repo: https://github.com/psf/black
+      rev: 23.7.0
+      hooks:
+      -   id: black
+          exclude: ^env/
+  -   repo: local
+      hooks:
+        -   id: pytest
+            name: Run python tests
+            entry: pytest
+            args: ["app_python/tests/", "app_python/"]
+            language: system
+            pass_filenames: false
+            exclude: ^env/
+#Should add tests for javascript

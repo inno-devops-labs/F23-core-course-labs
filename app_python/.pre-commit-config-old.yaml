@@ -1,0 +1,33 @@
+repos:
+  -   repo: https://github.com/pycqa/flake8
+      rev: 6.1.0
+      hooks:
+      -   id: flake8
+          exclude: ^env/
+  -   repo: https://github.com/psf/black
+      rev: 23.7.0
+      hooks:
+      -   id: black
+          exclude: ^env/
+  -   repo: local
+      hooks:
+      -   id: set-flask-app
+          name: Set flask app
+          entry: bash
+          args:
+          - -c
+          - |
+            export FLASK_APP=application.app
+          language: system
+          always_run: true
+      -   id: run-flask-tests
+          exclude: ^env/
+          name: Run flask tests
+          entry: bash
+          args: 
+          - -c
+          - |
+            cd app_python/
+            flask test
+          language: system
+          always_run: true
