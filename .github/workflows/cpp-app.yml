@@ -30,54 +30,17 @@ jobs:
         run: |
           sudo apt-get update
 
-      - name: Install Boost Deps
-        run: |
-            sudo apt-get install -y --no-install-recommends \
-            build-essential \
-            autoconf \
-            automake \
-            libtool \
-            pkg-config \
-            ca-certificates \
-            libssl-dev \
-            wget \
-            git \
-            curl \
-            language-pack-en \
-            locales \
-            locales-all \
-            vim \
-            gdb \
-            valgrind \
-            cmake && \
-            sudo apt-get clean 
-      
-      - name: Cache Boost
-        id: cache-boost-lib
-        uses: actions/cache@v3
+      - name: Install boost
+        uses: MarkusJx/install-boost@v2.4.4
+        id: install-boost
         with:
-          path: |
-            /usr/local/lib/
-            /usr/local/include/boost/
-          key: ${{ runner.os }}-boost-${{ env.BOOST_VERSION }}
-          restore-keys: ${{ runner.os }}-boost-
-      
-      - name: Set boost lib
-        if: steps.cache-boost-${{ env.BOOST_VERSION }}.outputs.cache-hit != 'true'
-        run: |
-            cd /tmp && \
-            BOOST_VERSION=1.83.0 && \
-            BOOST_VERSION_MOD=$(echo ${BOOST_VERSION} | tr . _) && \
-            sudo wget https://boostorg.jfrog.io/artifactory/main/release/${BOOST_VERSION}/source/boost_${BOOST_VERSION_MOD}.tar.bz2 && \
-            sudo tar --bzip2 -xf boost_${BOOST_VERSION_MOD}.tar.bz2 && \
-            cd boost_${BOOST_VERSION_MOD} && \
-            sudo ./bootstrap.sh --prefix=/usr/local && \
-            sudo ./b2 install && \
-            sudo rm -rf /tmp/*
+              boost_version: 1.83.0
   
       - name: Build tests
         run: |
           cmake -Bbuild -Hsrc -DCMAKE_BUILD_TYPE=Release -DTESTING=TRUE && cmake --build build
+        env:
+          BOOST_ROOT: ${{ steps.install-boost.outputs.BOOST_ROOT }}
 
       - name: Test with unittest
         run: |
