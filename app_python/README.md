@@ -56,7 +56,7 @@ Initially, it shows Moscow time.
 (reset by peer), then try launch docker image with the following
 command: `docker run --network host -p 8000:8000 app_python`
 
-## Tests
+## Unit Tests
 
 1. To run tests make sure you installed dependencies:
 

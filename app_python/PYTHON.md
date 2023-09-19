@@ -22,6 +22,8 @@ best practises for project structure.
 
     Asynchronous tests using pytest to check time updates every time you refresh the page.
 
+    The application includes tests that checks that time updates every time when user refresh the page.
+
 1. **Environment management**
    
     Use environment to control timezone of time to show.
