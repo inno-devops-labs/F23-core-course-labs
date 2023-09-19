@@ -6,7 +6,8 @@ This is a simple Python web application developed using Flask that displays the 
 
 - [Installation](#installation)
 - [Usage](#usage)
-- [Testing](#testing)
+- [Unit Tests](<#Unit Testing>)
+- [CI pipeline](#CI)
 - [Docker](#docker)
 - [Contributing](#contributing)
 
@@ -42,11 +43,15 @@ Start the Flask application:
 
 Open your web browser and go to http://127.0.0.1:5000/ to view the current time in Moscow. Refresh the page to see the time update.
 
-## Testing
+## Unit Testing
 
 To test the application you should run:
 
 > `python -m unittest test_app`
+
+## CI
+
+CI workflow consist of `building app`, `linting` code, `test` code,create `docker` image and push it to Docker hu and check for `vulnerabilities` in project.
 
 ## Docker
 
