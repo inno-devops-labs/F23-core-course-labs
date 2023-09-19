@@ -10,3 +10,9 @@
     - build image locally: `cd app_python` then `docker build --tag app_python .`
     - run: `docker run -p 5555:5555 app_python` if you built image locally. In order to run image loaded from dockerhub use `docker run -p 5555:5555 linkstaple/app_python`. The application is available on 127.0.0.1:5555
     - pull image: `docker image pull linkstaple/app_python`
+
+## CI workflow information
+CI contains setting up for python v3.11, dependencies installation, linting (with `ruff` linter), testing. In the end the workflow builds in image using docker and pushes it to docker hub. The latest image from push can be found in dockerhub: `linkstaple/app_python_ci:latest`
+
+## Unit Tests
+unit tests are executed using pytest, which is getting installed during the workflow
