@@ -63,3 +63,51 @@ python3 -m pytest
     - `docker pull 0x22d1ab/app_python:stable`
 - How to run?
     - `docker run --rm -it -p 8000:8000 --name app_python 0x22d1ab/app_python:stable`
+
+## CI
+
+### Trigger Events:
+- Workflow name: "Build unpyclock"
+- Triggered on two events:
+  - `push`: When changes are pushed to the repository (files within 'app_python/' or '.github/workflows/unpyclock.yml').
+  - `pull_request`: When pull requests are opened or updated (files within 'app_python/' or '.github/workflows/unpyclock.yml').
+
+### Environment Variables:
+- `PYTHON_VERSION`: Set to "3.11".
+
+### Jobs:
+1. **lint**:
+   - Lints Python code using the `ruff` tool.
+   - Runs on Ubuntu 22.04 runner.
+   - Sets working directory to 'app_python'.
+   - Steps:
+     - Check out the code.
+     - Set up Python version and cache pip dependencies.
+     - Install project dependencies including 'ruff'.
+     - Run linting using 'ruff'.
+
+2. **test**:
+   - Runs tests using pytest.
+   - Matrix configuration for Ubuntu 22.04 and Ubuntu 20.04 runners.
+   - Sets working directory to 'app_python'.
+   - Steps include installing 'pytest' and running tests using pytest.
+
+3. **snyk-check**:
+   - Checks for vulnerabilities in project dependencies using Snyk.
+   - Runs on Ubuntu 22.04 runner.
+   - Sets up Python, installs dependencies, and runs Snyk.
+   - Uses a Snyk token from GitHub secrets.
+
+4. **build_push**:
+   - Builds and pushes a Docker image to Docker Hub.
+   - Runs on Ubuntu 22.04 runner.
+   - Depends on 'lint', 'test', and 'snyk-check' jobs.
+   - Steps:
+     - Sets up Docker Buildx for multi-platform image building.
+     - Logs in to Docker Hub using GitHub secrets credentials.
+     - Builds and pushes a Docker image with 'latest' tag to Docker Hub.
+
+**Note**:
+- The 'test' job runs on two Ubuntu versions using the `matrix` strategy.
+- A section to run Snyk code tests is commented out, likely due to GitHub runner issues.
+- Assumes variables like `secrets.DOCKERHUB_USERNAME` and `secrets.DOCKERHUB_TOKEN` are stored in GitHub secrets for Docker Hub authentication.
