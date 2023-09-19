@@ -50,8 +50,8 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/clockbox:latest
       - name: run snyk test
-        image: snyk/snyk:python
-        script:
+        image: ${{ secrets.DOCKERHUB_USERNAME }}/clockbox:latest
+        run:
           - snyk auth ${{ secrets.SNYK_TOKEN }}
           - cd app_python
           - snyk test --skip-unresolved
