@@ -10,19 +10,19 @@ from main import TimeServer
 class TestTimeServer(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.serverthread = threading.Thread(target=cls.start_server)
-        cls.serverthread.start()
+        cls.server_thread = threading.Thread(target=cls.start_server)
+        cls.server_thread.start()
 
     @classmethod
     def tearDownClass(cls):
         cls.server.shutdown()
         cls.server.server_close()
-        cls.serverthread.join()
+        cls.server_thread.join()
 
     @classmethod
     def start_server(cls):
-        serveraddress = ('localhost', 8008)
-        cls.server = socketserver.TCPServer(serveraddress, TimeServer)
+        server_address = ('localhost', 8008)
+        cls.server = socketserver.TCPServer(server_address, TimeServer)
         print(cls.server.server_address)
         print(cls.server.address_family)
         cls.server.serve_forever()
@@ -38,27 +38,27 @@ class TestTimeServer(unittest.TestCase):
 
     def test_time_servertime(self):
         try:
-            beforetime = datetime.datetime.utcnow()
-            beforetime += datetime.timedelta(hours=3)
+            before_time = datetime.datetime.utcnow()
+            before_time += datetime.timedelta(hours=3)
             response = requests.get('http://localhost:8008/')
 
-            aftertime = datetime.datetime.utcnow()
-            aftertime += datetime.timedelta(hours=3)
+            after_time = datetime.datetime.utcnow()
+            after_time += datetime.timedelta(hours=3)
 
-            aftertimestr = aftertime.strftime('%Y-%m-%d %H:%M')
-            beforetimestr = beforetime.strftime('%Y-%m-%d %H:%M')
+            after_time_str = after_time.strftime('%Y-%m-%d %H:%M')
+            before_time_str = before_time.strftime('%Y-%m-%d %H:%M')
 
-            if (aftertimestr != beforetimestr):
-                beforetime = datetime.datetime.utcnow()
-                beforetime += datetime.timedelta(hours=3)
+            if (after_time_str != before_time_str):
+                before_time = datetime.datetime.utcnow()
+                before_time += datetime.timedelta(hours=3)
                 response = requests.get('http://localhost:8008/')
-                aftertime = datetime.datetime.utcnow()
-                aftertime += datetime.timedelta(hours=3)
+                after_time = datetime.datetime.utcnow()
+                after_time += datetime.timedelta(hours=3)
 
-                aftertimestr = aftertime.strftime('%Y-%m-%d %H:%M')
-                beforetimestr = beforetime.strftime('%Y-%m-%d %H:%M')
+                after_time_str = after_time.strftime('%Y-%m-%d %H:%M')
+                before_time_str = before_time.strftime('%Y-%m-%d %H:%M')
 
-            substr = 'The current time in Moscow is '+aftertimestr
+            substr = 'The current time in Moscow is '+after_time_str
             self.assertIn(substr, response.text)
         except KeyboardInterrupt:
             self.tearDown()
