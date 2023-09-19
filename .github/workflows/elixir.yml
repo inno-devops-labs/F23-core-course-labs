@@ -75,7 +75,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-${{ env.ELIXIR_VERSION }}-${{ env.OTP_VERSION }}-${{ env.MIX_ENV }}-deps-"
 
-      - run: mix format --check-formatted
+      - run: |
+          mix deps.get
+          mix format --check-formatted
 
   test:
     defaults:
@@ -103,4 +105,6 @@ jobs:
             ${{ runner.os }}-${{ env.ELIXIR_VERSION }}-${{ env.OTP_VERSION }}-${{ env.MIX_ENV }}-deps-"
 
       - name: mix test
-        run: mix test
+        run: |
+          mix deps.get
+          mix test
