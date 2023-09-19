@@ -40,18 +40,18 @@ jobs:
       - name: Run Tests
         run: python app_python/test_app.py
 
-        - name: Install dependencies
+      - name: Install dependencies
         run: npm install -g snyk
 
-       - name: Run Snyk to check for vulnerabilities
-         run: snyk test --file=app_python/requirements.txt
-         env:
-         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      - name: Run Snyk to check for vulnerabilities
+        run: snyk test --file=app_python/requirements.txt
+        env:
+           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
       - name: Login to Docker Hub
         env:
-        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         run: docker login -u $DOCKER_USERNAME -p "${DOCKER_PASSWORD}"
 
       - name: Build Docker image
