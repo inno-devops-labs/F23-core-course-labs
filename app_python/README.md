@@ -1,4 +1,4 @@
-[![Python CI](https://github.com/Q-Tify/core-course-labs-devops/actions/workflows/python-ci.yml/badge.svg?branch=lab3&event=push)](https://github.com/Q-Tify/core-course-labs-devops/actions/workflows/python-ci.yml)
+[![Python CI](https://github.com/Q-Tify/core-course-labs-devops/actions/workflows/python-ci.yml/badge.svg?branch=lab3)](https://github.com/Q-Tify/core-course-labs-devops/actions/workflows/python-ci.yml)
 
 # Python Web Application Project: Moscow Time Display
 
