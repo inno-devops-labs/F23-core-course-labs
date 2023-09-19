@@ -41,5 +41,5 @@ jobs:
         
       - name: Testing flask app
         run: |
-          pre-commit run pytest
+          pre-commit run pytest --all-files
         working-directory: ./app_python
