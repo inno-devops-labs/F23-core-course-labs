@@ -53,6 +53,12 @@ docker run -p 8000:8000 art22m/pyapp:v1
 ## Unit Tests
 To run tests use `make test`
 
+## CI
+Workflow:
+-  Security check
+-  Lint, Build and Run tests
+-  Dockerhub image push
+
 ## Contact
 
 Telegram: @art22m
