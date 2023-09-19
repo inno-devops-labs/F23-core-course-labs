@@ -4,9 +4,9 @@
 
 Before running both tests or linting, I ensure that all required dependencies are installed. It both allows to change dependencies if we run only one of jobs and guarantees consistent results.
 
-## Separate jobs
+## Steps
 
-I've separated the CI process into distinct jobs: linting, testing, Docker-related tasks, and snyk checks. It shows which specific process exact might fail and makes logs and outputs more organized and easier to debug.
+I've separated each task into a separate step. It shows which specific process exact might fail and makes logs and outputs more organized and easier to debug.
 
 ## Caching
 
