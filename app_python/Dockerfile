@@ -2,9 +2,7 @@
 
 FROM python:3.8-slim-buster
 
-RUN useradd -m --no-log-init relisqu 
-USER relisqu
-
+RUN groupadd -r pythongroup && useradd -r -g pythongroup relisqu
 WORKDIR /python-app
 
 COPY requirements.txt requirements.txt
@@ -15,5 +13,7 @@ RUN pip3 install --no-cache-dir -r requirements.txt  && chmod +x /entrypoint.sh
 
 
 EXPOSE 5000
+
+USER relisqu
 
 ENTRYPOINT ["/entrypoint.sh"]
