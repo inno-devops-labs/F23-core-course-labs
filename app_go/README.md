@@ -22,7 +22,7 @@ docker pull vladspigin/timeapp-go:latest
 ### Run
 Make sure Golang is installed before running app. No additional packages are required.
 ```
-go run main.go
+go run timeapp.go
 ```
 Now you can open `http://127.0.0.1:3000/` in your browser to check the time. Also you can specify another port using enviromental vriable `APP_PORT`.
 ```
