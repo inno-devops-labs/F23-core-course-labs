@@ -1,3 +1,4 @@
+[![Go](https://github.com/IlyaMirzazhanov/core-course-labs/actions/workflows/python_ci.yml/badge.svg)](https://github.com/IlyaMirzazhanov/core-course-labs/actions/workflows/python_ci.yml)
 # README
 ## Flask application that shows time.
 This is Python-written application, Flask framework was used. It shows time and that's it.
