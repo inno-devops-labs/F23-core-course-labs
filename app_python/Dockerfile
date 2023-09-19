@@ -7,7 +7,7 @@ RUN adduser app --system -S /bin/nologin -D -H
 USER app
 WORKDIR /app
 
-COPY main.py .
+COPY src/ .
 
 ENV PORT="8000"
 EXPOSE $PORT

@@ -22,6 +22,11 @@ http://127.0.0.1:8080/?d=20
 ktlint
 ```
 
+### Run the tests
+```bash
+gradle allTest
+```
+
 ## Requirements
 - Linux or MacOS on your PC. Windows ~~must die~~ not supported
 - Gradle 8.2.1
@@ -42,3 +47,9 @@ docker pull kinjalik/devops-course-app:kotlin-native
 docker run -p 8080:8080 -it kinjalik/devops-course-app:kotlin-native
 ```
 Application will be available on port 8080
+
+## CI/CD
+1. Build test binary, run it, collect it, report to GitHub
+2. Lint it, report to GitHub
+3. Run Snyk, report to GitHub
+4. Build docker image, push to Docker Hub

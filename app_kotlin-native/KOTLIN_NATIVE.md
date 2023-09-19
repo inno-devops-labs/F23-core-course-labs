@@ -12,3 +12,6 @@ I would like to follow first way because it's primary method of dealing with Kot
 
 ## Ktor as a Server Framework
 Unfortunately, Kotlin Native is not so popular thing to use, so Ktor with CIO engine is the only actively-maintained server framework
+
+## Tests
+Test framework is provided by Kotlin Multiplatform standard library. No need to reinvent bycicle. There is essential test for one and only incorrect case.

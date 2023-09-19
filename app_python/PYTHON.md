@@ -14,3 +14,6 @@ For this particular project there is no any limitations in choose of ASGI, just 
 
 ## Pylint as a linter
 Pylint is one of the oldest tools for Python and proven by the time. We need it to check if our code is PEP8-complaint
+
+## Pytest as a unit test runne
+Pytest is standart de-facto for unit testing in python. In my unit test I covered the ability of `get_time` function to produce correct output for different time zones

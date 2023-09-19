@@ -1,0 +1,109 @@
+name: KOTLIN_NATIVE_APP
+
+on:
+  push:
+    paths:
+      - '.github/workflows/kotlin-native-app.yaml'
+      - 'app_kotlin-native/**'
+      - '!app_kotlin-native/**.md'
+
+defaults:
+  run:
+    shell: bash
+    working-directory: app_kotlin-native
+
+env:
+  CI: true
+
+jobs:
+  checks:
+    runs-on: ubuntu-22.04
+    permissions:
+      security-events: write
+      checks: write
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 17  
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+
+      - uses: actions/cache@v1
+        id: cache-konan
+        with:
+          path: /home/runner/.konan
+          key: ${{ runner.os }}-konan-${{ hashFiles('**/build.gradle.kts') }}
+          restore-keys: |
+            ${{ runner.os }}--
+
+      - uses: actions/cache@v1
+        id: cache-gradle
+        with:
+          path: ./app_kotlin-native/.gradle
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/build.gradle.kts') }}
+          restore-keys: |
+            ${{ runner.os }}--
+
+      - name: Install dependencies
+        run: |
+          ./gradlew dependencies
+
+      - name: Run build with Gradle Wrapper
+        run: ./gradlew nativeTestBinaries
+
+      - name: ktlint
+        uses: ScaCap/action-ktlint@master
+        with:
+          github_token: ${{ secrets.github_token }}
+          reporter: github-check
+
+      - name: Unit tests
+        if: always()
+        run: ./gradlew allTest
+          
+
+      - uses: snyk/actions/setup@master
+      - name: Snyk test for vulnerabilities
+        continue-on-error: true
+        run: | 
+          snyk test --sarif-file-output=snyk.sarif
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      - name: Upload SARIF file
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          # Path to SARIF file relative to the root of the repository
+          sarif_file: app_kotlin-native/snyk.sarif
+          category: snyk-kotlin
+
+      - name: Publish Test Report
+        uses: mikepenz/action-junit-report@v4
+        if: always()
+        with:
+          report_paths: 'app_kotlin-native/build/test-results/nativeTest/TEST-*.xml'
+  build_deploy:
+    needs: checks
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      - name: check ls
+        run: pwd
+      - name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          context: app_kotlin-native
+          file: app_kotlin-native/Dockerfile
+          builder: ${{ steps.buildx.outputs.name }}
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/devops-course-app:kotlin-native
+          cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/devops-course-app:kotlin-native-buildcache
+          cache-to: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/devops-course-app:kotlin-native-buildcache,mode=max
