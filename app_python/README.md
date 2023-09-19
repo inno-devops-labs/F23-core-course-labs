@@ -109,6 +109,8 @@ These instructions will help you set up and run the project on your local machin
 
 ## Continuous Integration (CI) with GitHub Actions
 
+[![CI](https://github.com/PlutoEx/DevOps-course-labs/actions/workflows/python.yml/badge.svg?branch=lab3)](https://github.com/PlutoEx/DevOps-course-labs/actions/workflows/python.yml)
+
 This project uses GitHub Actions for continuous integration (CI). The CI workflow includes the following steps:
 
 - **Dependencies**: Install project dependencies.
@@ -126,12 +128,11 @@ The Docker image built during CI is available on Docker Hub at:
 
 - Image: `expluto/app_python:latest`
 
-You can pull and run the Docker image using standard Docker commands.
+### Workflow
 
-#### How to Build Locally:
+#### My workflow has 3 jobs:
 
-1. Clone this repository.
-2. Build the Docker image:
+* build: for building, linting, testing my project
+* docker: to build and push to docker
+* security: to secure)
 
-   ```bash
-   docker build -t app_python:latest .
