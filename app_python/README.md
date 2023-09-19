@@ -46,6 +46,18 @@ To build the container was used the following command:
 docker build -t elatypovinno/devops_inno:latest .
 ```
 
+#### CI Workflow
+
+Currently CI workflow contains following stages:
+
+1. Set up python version
+2. Install dependencies (primary and development)
+3. Run linter (`pylint`) on source code
+4. Run unit tests
+5. Login to Dockerhub using credentials stored as secrets
+6. Set up docker build environment (Docker Buildx)
+7. Build and push docker container to Dockerhub
+
 #### Contact
 
 Emil Latypov, e.latypov@innopolis.university
