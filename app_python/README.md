@@ -208,7 +208,7 @@ flask test
 
 ### Overview
 
-This project uses GitHub Actions for Continuous Integration (CI) to automate various tasks such as code linting, testing, and building Docker images. The CI workflow ensures that the project maintains code quality and is always ready for deployment.
+This project utilizes GitHub Actions for Continuous Integration (CI) to automate various tasks such as code linting, testing, vulnerability scanning, and Docker image building. The CI workflow ensures code quality, security, and smooth deployments.
 
 ### Workflow Details
 
@@ -216,16 +216,21 @@ The CI workflow is defined in the [.github/workflows/python-ci.yml](.github/work
 
 Here's what the workflow does:
 
-1. **Python Build Job**
-   - It runs on an Ubuntu-based environment.
+1. **Python Build Job**:
+   - Runs on Ubuntu-Latest.
    - Sets up Python 3.10.
    - Installs project dependencies from `requirements.txt`.
-   - Performs linting using Flake8 and Black.
+   - Performs code linting using Flake8 and Black.
    - Executes Python unit tests with pytest.
 
-2. **Docker Job**
-   - It runs on Ubuntu as well and depends on the Python Build Job.
-   - Logs in to Docker Hub using Docker secrets for secure access.
-   - Sets up Docker Buildx for multi-platform image building.
-   - Builds a Docker image using the `Dockerfile` in the `app_python` directory.
-   - Pushes the built Docker image to Docker Hub.
+2. **Snyk Security Scan**:
+   - Ensures security by checking for vulnerabilities in your project's dependencies.
+   - Uses Snyk to perform security scans on your Python codebase.
+   - The results are uploaded to GitHub Code Scanning for review.
+
+3. **Docker Build & Push Job**:
+   - Runs on Ubuntu-Latest and depends on the Python Build and Snyk Security Scan jobs.
+   - Logs in to Docker Hub using Docker secrets.
+   - Sets up Docker Buildx for efficient multi-platform image building.
+   - Builds and pushes a Docker image based on the `Dockerfile` in the `app_python` directory.
+
