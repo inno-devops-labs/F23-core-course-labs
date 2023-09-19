@@ -1,4 +1,3 @@
-# tests/test_integration.py
 import pytest
 from httpx import AsyncClient
 from src.main import app
