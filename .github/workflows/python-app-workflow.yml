@@ -5,10 +5,12 @@ run-name: Python app build, lint, and test
 on: 
   push:
     paths: 
+      - '.github/**'
       - 'app_python/**'
       - '!**.md'
   pull_request:
     paths: 
+      - '.github/**'
       - 'app_python/**'
       - '!**.md'
 
