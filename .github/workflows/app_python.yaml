@@ -59,4 +59,4 @@ jobs:
     - name: Run tests
       run: |
         cd app_python
-        pytest
+        python tests.py
