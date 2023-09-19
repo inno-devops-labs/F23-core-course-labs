@@ -1,7 +1,7 @@
-[![Python Workflow](https://github.com/DamirNabiull/devops-course/actions/workflows/app_python.yml/badge.svg)]
-[![C# Workflow](https://github.com/DamirNabiull/devops-course/actions/workflows/app_c#.yml/badge.svg)]
-
 # DevOps Engineering Labs
+
+![Python Workflow](https://github.com/DamirNabiull/devops-course/actions/workflows/app_python.yml/badge.svg)
+![C# Workflow](https://github.com/DamirNabiull/devops-course/actions/workflows/app_c#.yml/badge.svg)
 
 ## Introduction
 
