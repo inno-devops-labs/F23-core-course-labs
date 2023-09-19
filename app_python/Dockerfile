@@ -9,6 +9,7 @@ WORKDIR /app
 
 # Copy application files into the container
 COPY entrypoint.sh /entrypoint.sh
+
 COPY . .
 
 # Open port 5000
