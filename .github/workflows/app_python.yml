@@ -47,7 +47,7 @@ jobs:
         with:
           args: 
             --sarif-file-output=python_snyk.sarif
-            --file=poetry.lock
+            --file=app_python/pyproject.toml
             --package-manager=poetry
             --skip-unresolved
       - name: Vulnerability report
