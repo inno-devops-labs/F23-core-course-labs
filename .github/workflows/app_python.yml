@@ -35,7 +35,7 @@ jobs:
           pylint ./app_python/tests
 
       - name: Run tests
-        run: python -m unittest discover -s tests -p '*_tests.py'
+        run: python -m unittest discover -s app_python/tests -p '*_tests.py'
 
   snyk:
     runs-on: ubuntu-latest
