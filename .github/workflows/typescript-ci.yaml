@@ -3,7 +3,7 @@ name: Typescript CI
 on:
   pull_request:
     paths:
-      - 'app_typescript/**'
+      - "app_typescript/**"
     branches:
       - main
 
@@ -37,6 +37,22 @@ jobs:
       #   with:
       #     name: nextjs-app
       #     path: .next
+
+  snyk:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/node@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --file=app_typescript/package-lock.json
+            --package-manager=npm
+            --skip-unresolved
 
   docker:
     runs-on: ubuntu-latest
