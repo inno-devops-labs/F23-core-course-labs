@@ -28,7 +28,7 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
           command: test
-          targetFile: app_python/requirements.txt
+          args: --file=app_python/requirements.txt
 
       - name: Run linter
         run: pylint app
