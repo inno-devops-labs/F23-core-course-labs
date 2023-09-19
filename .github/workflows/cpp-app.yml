@@ -58,6 +58,7 @@ jobs:
         with:
           path: /usr/local/
           key: ${{ runner.os }}-boost-${{ env.BOOST_VERSION }}
+          restore-keys: ${{ runner.os }}-boost-
       
       - name: Set boost lib
         if: steps.cache-boost-${{ env.BOOST_VERSION }}.outputs.cache-hit != 'true'
