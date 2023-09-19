@@ -1,7 +1,7 @@
 name: App go
 
 on:
-  pull_request:
+  push:
     paths:
       - app_go/**
       - .github/workflows/app_go.yml
@@ -50,7 +50,7 @@ jobs:
         run: |
           touch .env
           echo SERVER_HOST=0.0.0.0 >> .env
-          echo SERVER_PORT=8080 >> .env
+          echo SERVER_PORT=8081 >> .env
           cat .env
       - name: Login to Docker
         uses: docker/login-action@v1
@@ -82,7 +82,7 @@ jobs:
       run: |
         touch .env
         echo SERVER_HOST=0.0.0.0 >> .env
-        echo SERVER_PORT=8080 >> .env
+        echo SERVER_PORT=8081 >> .env
         cat .env
         
     - name: Install dependencies
