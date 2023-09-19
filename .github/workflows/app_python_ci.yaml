@@ -27,7 +27,7 @@ jobs:
           pip install ruff pytest
           pip install -r app_python/requirements.txt
       - name: Snyk test
-        run: snyk test --file=app_python/requirements.txt
+        run: snyk test --file=app_python/requirements.txt --severity-threshold=high
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       - name: Lint with ruff

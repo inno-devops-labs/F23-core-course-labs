@@ -47,3 +47,4 @@ Crucial steps triggered on push:
 - Run test
 - Build test docker, test image and push
 - Build production docker and push
+```
