@@ -1,5 +1,7 @@
 # Simple current time web application
 
+[![CI](https://github.com/run4w4y/core-course-labs/actions/workflows/app_python.yml/badge.svg?branch=lab3)](https://github.com/run4w4y/core-course-labs/actions/workflows/app_python.yml)
+
 ## Description
 This web application simply returns current UTC+3 (Moscow) time
 ![screenshots/screen1.png](screenshots/screen1.png)
@@ -44,6 +46,20 @@ docker run -p 8080:8080 devops-python-app
 docker pull run4w4y/devops-course-python-app:latest
 docker run -p 8080:8080 run4w4y/devops-course-python-app
 ```
+
+### CI
+There are two CI stages present: `pre-build` and `build`
+The `pre-build` stage has the following steps:
+- Checkout
+- Python and poetry installation
+- Project dependencies installation (with test dependencies)
+- Snyk scan
+- Run tests
+
+The `build` stage depends on the `pre-build` stage and has the following steps:
+- Checkout
+- Docker login
+- Docker build and push=
 
 ## If you have any further questions
 You can reach out to me via [email](mailto:add4che@gmail.com)
