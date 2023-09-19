@@ -18,7 +18,7 @@ uvicorn main:app --reload
 Default running on `http://127.0.0.1:8000`
 Note: run this command from the `app` directory
 
-### Testing
+### Unit Tests
 Run `pytest` command from the `app_python` directory
 
 ## Docker
