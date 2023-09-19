@@ -38,7 +38,7 @@ func TestServer(t *testing.T) {
 	ts := httptest.NewServer(http.HandlerFunc(mainHandler))
 	defer ts.Close()
 
-	// Send a GET request to the test server
+	// Send a 'GET' request to the test server
 	resp, err := http.Get(ts.URL)
 	if err != nil {
 		t.Fatal(err)
