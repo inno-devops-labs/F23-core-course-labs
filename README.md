@@ -1,4 +1,5 @@
 [![Go](https://github.com/IlyaMirzazhanov/core-course-labs/actions/workflows/python_ci.yml/badge.svg)](https://github.com/IlyaMirzazhanov/core-course-labs/actions/workflows/python_ci.yml)
+
 [![Go](https://github.com/IlyaMirzazhanov/core-course-labs/actions/workflows/go_ci.yml/badge.svg)](https://github.com/IlyaMirzazhanov/core-course-labs/actions/workflows/go_ci.yml)
 # DevOps Engineering Labs
 
