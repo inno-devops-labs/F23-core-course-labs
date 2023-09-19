@@ -1,5 +1,4 @@
 name: C# CI
-author: DamirNabiull
 
 on:
   push:

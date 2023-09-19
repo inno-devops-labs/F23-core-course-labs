@@ -1,5 +1,4 @@
 name: PYTHON CI
-author: DamirNabiull
 
 on:
   push:
