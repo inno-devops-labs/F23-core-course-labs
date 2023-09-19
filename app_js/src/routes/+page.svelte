@@ -13,7 +13,7 @@
 
 	onMount(() => {
 		interval = setInterval(() => {
-			currentTime = moment().tz('Europe/Moscow').format('HH:mm:ss');
+			currentTime = moment().utc().tz('Europe/Moscow').format('HH:mm:ss');
 		}, 1000);
 	});
 
