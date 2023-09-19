@@ -1,3 +1,4 @@
+[![Go](https://github.com/IlyaMirzazhanov/core-course-labs/actions/workflows/go_ci.yml/badge.svg)](https://github.com/IlyaMirzazhanov/core-course-labs/actions/workflows/go_ci.yml)
 # Go Web App
 
 This web application is written on Go programming language. 
@@ -26,3 +27,8 @@ My simple application will not gain much using this technology.
 
 ##### Docker image with this app is pushed into my DockerHub repository:
 https://hub.docker.com/repository/docker/ilyamirzazhanov/lab2/general
+
+# Unit Tests
+* Testing web app on validity
+* Code simple and fast
+* Uses standart Go testing module
