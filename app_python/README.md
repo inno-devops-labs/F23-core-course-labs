@@ -23,7 +23,7 @@ You can run unit tests by running the ```testing.py``` file.
 
 [![Python package](https://github.com/tnechepurencko/core-course-labs/actions/workflows/ci.yaml/badge.svg)](https://github.com/tnechepurencko/core-course-labs/actions/workflows/ci.yaml)
 
-The workflow supports python versions 3.7-3.11.
+The workflow supports python versions 3.7-3.11. It also uses snyk for checking for vulnerabilities.
 
 Steps:
 
