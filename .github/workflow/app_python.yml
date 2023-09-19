@@ -1,0 +1,79 @@
+name: APP PYTHON CI
+
+on:
+  push:
+    paths:
+      - 'app_python/**'
+      - '.github/workflows/app_python.yml'
+
+permissions:
+  security-events: write
+
+defaults:
+  run:
+    working-directory: ./app_python
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Python Setup
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.9
+
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: ${{ runner.os }}-pip-
+
+      - name: Dependencies install
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Vulnerability check
+        uses: snyk/actions/python@master
+        continue-on-error: true
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args:
+            --sarif-file-output=python_snyk.sarif
+            --file=app_python/requirements.txt
+            --package-manager=pip
+            --skip-unresolved
+
+      - name: Vulnerability report
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: python_snyk.sarif
+
+      - name: Linter
+        run: |
+          pylint app.py --fail-under=8 --disable=missing-module-docstring --disable=missing-class-docstring --disable=missing-function-docstring
+          pylint ./tests --fail-under=8 --disable=missing-module-docstring --disable=missing-class-docstring --disable=missing-function-docstring
+      - name: Tests
+        run: |
+          python -m unittest discover -s tests -p '*_tests.py'
+  
+  docker:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Login
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_TOKEN }}
+
+      - name: Build and Push
+        run: |
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/python-moscow-time:latest .
+          docker push ${{ secrets.DOCKER_USERNAME }}/python-moscow-time:latest
