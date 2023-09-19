@@ -1,10 +1,9 @@
-name: Dependencies, Linter, Tests and Docker (Login, Build & Push)
+name: python app ci
 
-on: [push]
-
-defaults:
-  run:
-    working-directory: ./app_python
+on:
+  pull_request:
+    paths:
+      - 'app_python/**'
 
 jobs:
   build:
@@ -51,11 +50,12 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      -
+      
+      - 
         name: Build and push
         uses: docker/build-push-action@v5
         with:
-          context: ./app_python
-          file: ./app_python/Dockerfile
+          context: ./app_python/
+          file: app_python/Dockerfile
           push: true
-          tags: user/app:latest
+          tags: kolbaster2/random-stuff:latest
