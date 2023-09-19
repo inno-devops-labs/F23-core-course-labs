@@ -61,7 +61,13 @@ The application will then be accessible at 127.0.0.1:5000
 
 ## CI
 
-CI is done using GitHub Actions. The workflow is defined in `.github/workflows/python-app.yml`. It runs on every push to the repository. It runs the following steps:
+CI is done using GitHub Actions. The workflow is defined in `.github/workflows/python-app.yml`. It runs on every push to the repository to python folder. It runs the following steps:
+
+- Install dependencies
+- Lint the code using `Flake8`
+- Run unit tests from `tests.py`
+- Build the Docker image
+- Push the Docker image to Docker Hub
 
 ## Contributing
 

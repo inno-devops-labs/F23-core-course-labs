@@ -60,3 +60,37 @@ jobs:
       run: |
         cd app_python
         python tests.py
+
+  docker:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Login to DockerHub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+    - name: Build Docker image
+      run: |
+        docker build ./app_python -t relisqu/relisqu/python-app:latest
+    - name: Push Docker image to DockerHub
+      run: |
+        docker push relisqu/python-app:latest
+
+  snyk:
+    needs: docker
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Run Snyk to check for vulnerabilities
+      uses: snyk/actions/python-3.9@master
+      with:
+        args: test --file=app_python/requirements.txt --severity-threshold=high
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
