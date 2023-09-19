@@ -1,3 +1,5 @@
+[![Python CI](https://github.com/Q-Tify/core-course-labs-devops/actions/workflows/python-ci.yml/badge.svg?branch=lab3&event=push)](https://github.com/Q-Tify/core-course-labs-devops/actions/workflows/python-ci.yml)
+
 # Python Web Application Project: Moscow Time Display
 
 ## Description
@@ -199,3 +201,31 @@ Or you can run test separately with command:
 ```
 flask test
 ```
+
+<br>
+
+# CI Workflow
+
+### Overview
+
+This project uses GitHub Actions for Continuous Integration (CI) to automate various tasks such as code linting, testing, and building Docker images. The CI workflow ensures that the project maintains code quality and is always ready for deployment.
+
+### Workflow Details
+
+The CI workflow is defined in the [.github/workflows/python-ci.yml](.github/workflows/python-ci.yml) file. It is triggered automatically on every push or pull to the `app_python` directory or changes to the workflow file itself.
+
+Here's what the workflow does:
+
+1. **Python Build Job**
+   - It runs on an Ubuntu-based environment.
+   - Sets up Python 3.10.
+   - Installs project dependencies from `requirements.txt`.
+   - Performs linting using Flake8 and Black.
+   - Executes Python unit tests with pytest.
+
+2. **Docker Job**
+   - It runs on Ubuntu as well and depends on the Python Build Job.
+   - Logs in to Docker Hub using Docker secrets for secure access.
+   - Sets up Docker Buildx for multi-platform image building.
+   - Builds a Docker image using the `Dockerfile` in the `app_python` directory.
+   - Pushes the built Docker image to Docker Hub.
