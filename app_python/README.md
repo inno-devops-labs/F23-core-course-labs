@@ -50,10 +50,12 @@ You can run the application using the following command:
 
 The application will be accessible via the following link: `http://localhost:5000/`
 
+
 ## Unit Tests
 
 To test the application use the following command which will invoke pytest:  
 `python -m pytest`
+
 
 ## Author
 Vladimir Kalabukhov, v.kalabukhov@innopolis.university
