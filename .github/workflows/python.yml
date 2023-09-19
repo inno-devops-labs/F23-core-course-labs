@@ -1,13 +1,6 @@
 name: DevOps Python App CI
 
-on:
-  push:
-    paths:
-      - "app_python/**"
-  pull_request:
-    paths:
-      - "app_python/**"
-  workflow_dispatch:
+on: [push]
 
 defaults:
   run:
