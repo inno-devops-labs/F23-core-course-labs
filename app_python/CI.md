@@ -13,13 +13,6 @@ In this document, I'll outline the best practices applied in our CI (Continuous 
     - I am using matrix builds to test my application across different Python versions. This practice ensures that our application remains compatible with various Python environments and configurations.
 4. **Docker Image Building:**
 
-- **Implementation**: Build Docker images in our workflow.
-- **Optimization**: We could optimize Docker image building by using Docker's build cache, multi-stage builds, and triggering image builds only when necessary.
-
-### Caching Docker Layers
-
-- **Implementation**: Consider caching Docker layers to save time and reduce the need to rebuild unchanged layers.
-- **Explanation**: Caching Docker layers can speed up the image-building process, particularly for complex images with many layers.
 
 ### Dependency Management
 
