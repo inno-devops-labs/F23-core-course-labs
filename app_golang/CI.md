@@ -13,7 +13,7 @@ Used the cache action for better effeciency and shortining of processing time.
 Specified the path of the workflow for the `app_golang` aside from markdown files directory to only run when changes happen to code within that directory.
 
 #### Status badge
-Included a status badge within the python app readme for better visibility 
+Included a status badge within the golang app readme for better visibility 
 
 #### Testing
 Included testing within the CI pipeline to avoid mistakes and to always have an objective check for each push/pull_request

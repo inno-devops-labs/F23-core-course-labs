@@ -39,6 +39,7 @@ docker run --rm -p 8080:8080 iviosab/moscow_time_go
 ```
 ## CI/CD
 ![golang app workflow](https://github.com/IVIosab/core-course-labs/actions/workflows/golang-app-workflow.yml/badge.svg)
+
 Github actions has been used as CI tool. 
 The workflow will trigger upon modifying anything in the `app_golang` directory within a push or a pull_request.
 

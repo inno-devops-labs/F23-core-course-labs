@@ -58,6 +58,7 @@ docker run --rm -p 5000:5000 iviosab/moscow_time
 
 ## CI/CD
 ![python app workflow](https://github.com/IVIosab/core-course-labs/actions/workflows/python-app-workflow.yml/badge.svg)
+
 Github actions has been used as CI tool. 
 The workflow will trigger upon modifying anything in the `app_python` directory within a push or a pull_request.
 
