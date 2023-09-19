@@ -3,7 +3,7 @@ name: Python CI
 on:
   push:
     paths:
-      - '.github/workflows/python_ci.yaml'
+      - '.github/workflows/python_ci.yml'
       - 'app_python/**'
 
 defaults:
