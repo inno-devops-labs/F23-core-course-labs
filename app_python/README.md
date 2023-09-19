@@ -1,4 +1,4 @@
-![Python CI](https://github.com/MaximInnopolis/devops-lab/workflows/Python%20CI/badge.svg)
+![Python CI](https://github.com/MaximInnopolis/devops-labs/workflows/Python%20CI/badge.svg)
 
 # Python Web Application: Display Moscow Time
 
