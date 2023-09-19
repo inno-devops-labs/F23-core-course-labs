@@ -1,5 +1,7 @@
 # App_python
 
+![python-app workflow badge](https://github.com/yesliesnayder/devops-course-labs/actions/workflows/python-app.yaml/badge.svg)
+
 This is application to show current time in specified region (timezone).
 Initially, it shows Moscow time.
 
@@ -69,3 +71,11 @@ command: `docker run --network host -p 8000:8000 app_python`
     ```shell
     pytest
     ```
+
+## CI
+CI workflow is on *python_ci.yml* contains:
+
+- Linter step that uses `pylint`
+- Unit Tests that uses `pytest` to check correctness of the application
+- Snyk vulnerability check
+- Deploy that logins to DockerHub, build the project and push it to DockerHub
