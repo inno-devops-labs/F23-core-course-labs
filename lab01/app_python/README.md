@@ -97,4 +97,4 @@ For each commit there is a pipeline with:
 - lint job
 - Snyk vulnerability scanner
 - test job
-- build and push job
+- build and push docker image job
