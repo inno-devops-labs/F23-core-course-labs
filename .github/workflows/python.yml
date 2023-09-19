@@ -7,7 +7,7 @@ name: Python CI
 on: [push]
 
 jobs:
-  build:
+  build-and-cache:
     defaults:
       run:
         working-directory: ./app_python
@@ -16,6 +16,14 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: Cache Python dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -27,23 +35,47 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+  lint:
+    defaults:
+      run:
+        working-directory: ./app_python
+    runs-on: ubuntu-latest
+
+    steps:
       - name: Lint
         run: flake8 . --per-file-ignores="test/conftest.py:E402"
 
       - name: Run Tests
         run: pytest
 
-      # - name: Run Snyk to check for vulnerabilities
-      #   uses: snyk/actions/python-3.10@master
-      #   env:
-      #     SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-      #   with:
-      #     args: --sarif-file-output=snyk.sarif --file=requirements.txt
+  snyk-security:
+    defaults:
+      run:
+        working-directory: ./app_python
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Snyk CLI
+        run: npm install -g snyk
 
-      # - name: Upload result to GitHub Code Scanning
-      #   uses: github/codeql-action/upload-sarif@v2
-      #   with:
-      #     sarif_file: snyk.sarif
+      - name: Scan for Vulnerabilities
+        run: snyk test --all-projects
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+  docker-build-and-push:
+    defaults:
+      run:
+        working-directory: ./app_python
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Cache Docker layers
+        uses: actions/cache@v2
+        with:
+          path: ~/.docker
+          key: ${{ runner.os }}-docker-${{ hashFiles('app_python/Dockerfile') }}
+          restore-keys: |
+            ${{ runner.os }}-docker-
 
       - name: Login to Docker Hub
         uses: docker/login-action@v3
@@ -55,11 +87,3 @@ jobs:
         run: |
           docker build -t nikitosing/app_python:latest .
           docker push nikitosing/app_python:latest
-
-      - name: Install Snyk CLI
-        run: npm install -g snyk
-
-      - name: Scan for Vulnerabilities
-        run: snyk test --all-projects
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
