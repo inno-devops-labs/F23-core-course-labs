@@ -14,6 +14,11 @@ This web app is playing in guessing game! It takes numbers you say and gives you
     5. Run 'checkServer' target to test application
 
 
+# Unit tests
+To run unit testing you can run
+
+    ./build/server_unit_tests 
+
 # Docker
 For this app we need to establish environment and compile boost library, then we need to compile application and copy binary file to a next stage image where we can start application
 

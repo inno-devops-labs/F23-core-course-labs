@@ -2,11 +2,16 @@ name: Cpp application
 
 on:
   push:
+    paths:
+      - app_cplusplus/**
+      - .github/workflows/cplusplus.yml
+      - '!app_cplusplus/*.md'
     branches: [ "main" ]
   pull_request:
     paths:
       - app_cplusplus/**
       - .github/workflows/cplusplus.yml
+      - '!app_cplusplus/*.md'
     branches: [ "main" ]
 
 permissions:
@@ -15,7 +20,7 @@ permissions:
 defaults:
   run:
     working-directory: ./app_cplusplus
-
+    shell: bash
 jobs:
   test:
     name: Test application cpp
