@@ -1,3 +1,6 @@
+![workflow](https://github.com/ShohKhan-dev/core-course-labs/actions/workflows/app_typescript-ci.yml/badge.svg)
+
+
 # Portfolio and Comics Viewer
 
 
@@ -25,6 +28,3 @@ $ cd app_typescript
    ```
 
 The application will be accessible at http://localhost:5173 in your web browser.
-
-
-[![CI Workflow](https://img.shields.io/github/workflow/status/ShohKhan-dev/core-course-labs/app_typescript)](https://github.com/ShohKhan-dev/core-course-labs/app_typescript-ci.yml)

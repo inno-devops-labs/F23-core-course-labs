@@ -1,3 +1,6 @@
+![workflow](https://github.com/ShohKhan-dev/core-course-labs/actions/workflows/app_python-ci.yml/badge.svg)
+
+
 # Python Web Application
 
 Simple Web application that displays Current Moscow time and date that is made using Django on DevOps course
@@ -40,5 +43,3 @@ Testing application by checking response status code and checking time differenc
 ```
 $ python manage.py test
 ```
-
-[![CI Workflow](https://img.shields.io/github/workflow/status/ShohKhan-dev/core-course-labs/app_python)](https://github.com/ShohKhan-dev/core-course-labs/blob/lab3/.github/workflows/app_python-ci.yml)
