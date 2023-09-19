@@ -1,38 +1,4 @@
-FROM ubuntu:22.04 as build
-
-# Install Boost
-ARG CMAKE_VERSION=3.1
-ARG BOOST_VERSION=1.83.0
-
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-        build-essential \
-        autoconf \
-        automake \
-        libtool \
-        pkg-config \
-        ca-certificates \
-        libssl-dev \
-        wget \
-        git \
-        curl \
-        language-pack-en \
-        locales \
-        locales-all \
-        vim \
-        gdb \
-        valgrind \
-        cmake && \
-    apt-get clean \
-
-RUN cd /tmp && \
-    BOOST_VERSION_MOD=$(echo $BOOST_VERSION | tr . _) && \
-    wget https://boostorg.jfrog.io/artifactory/main/release/${BOOST_VERSION}/source/boost_${BOOST_VERSION_MOD}.tar.bz2 && \
-    tar --bzip2 -xf boost_${BOOST_VERSION_MOD}.tar.bz2 && \
-    cd boost_${BOOST_VERSION_MOD} && \
-    ./bootstrap.sh --prefix=/usr/local && \
-    ./b2 install && \
-    rm -rf /tmp/*
+FROM muurrk/boost:1.83.0 as build
 
 WORKDIR /app
 COPY src/main.cpp ./src/CMakeLists.txt ./
