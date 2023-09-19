@@ -41,4 +41,4 @@ Testing application by checking response status code and checking time differenc
 $ python manage.py test
 ```
 
-[![CI Workflow](https://img.shields.io/github/workflow/status/ShohKhan-dev/core-course-labs/app_python)](https://github.com/ShohKhan-dev/core-course-labs/app_python-ci.yml)
+[![CI Workflow](https://img.shields.io/github/workflow/status/ShohKhan-dev/core-course-labs/app_python)](https://github.com/ShohKhan-dev/core-course-labs/blob/lab3/.github/workflows/app_python-ci.yml)
