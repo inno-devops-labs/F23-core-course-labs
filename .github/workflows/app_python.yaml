@@ -47,8 +47,8 @@ jobs:
         working-directory: app_python
   
       
-
   docker-release:
+    needs: build-test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -70,4 +70,3 @@ jobs:
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
             ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:latest
-
