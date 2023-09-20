@@ -11,6 +11,7 @@ This is a simple Flask web application that displays the current Moscow time. Th
 - [Usage](#usage)
 - [Tests](#tests)
 - [Linting](#linting)
+- [Docker](#docker)
 
 ## Features
 
@@ -67,3 +68,42 @@ These instructions will help you set up and run the project on your local machin
 
     ```shell
   flake8
+  
+
+### Docker
+
+* Build dockerfile:
+
+    ```shell
+    docker build -t app_python:latest .
+
+ that build docker images with name 'app_python' and tag 'latest'
+
+
+* Then check image with
+    ```shell
+    docker images
+
+* Run it:
+    ```shell
+    docker run -it --rm app_python:latest
+  
+-it: Enables interactive mode for seeing output and interacting with the container.
+
+--rm: Automatically removes the container when it exits.
+  
+
+* If everything OK, push it into Docker Hub, authorize first
+    ```shell
+    docker login -u <username>
+    <password>
+    docker tag app_python:latest <username>/app_python:v1
+    docker push <username>/app_python:v1
+
+* To get image from Docker Hub
+    ```shell
+    docker pull <username>/app_python:v1
+  
+* And run it:
+    ```shell
+    docker run -it --rm <username>/app_python:v1
