@@ -12,3 +12,7 @@ Application was written in python using [falcon framework](https://falconframewo
 ### Running from a docker container
 `$ docker pull midnoon/devops-lab:latest`
 `$ docker run -p 8000:8000 midnoon/devops-lab:latest`
+
+### Unit Tests
+To run tests:
+`$ python3 -m unittest app_test.Test`
