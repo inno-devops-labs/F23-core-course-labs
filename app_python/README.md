@@ -8,6 +8,7 @@
   </p>
 </p>
 
+![app_python](https://github.com/JustSomeDude2001/core-course-labs/actions/workflows/app_python.yml/badge.svg)
 
 ## Table of contents
 
