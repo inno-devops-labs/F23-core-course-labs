@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - 'app_go/**'
+      - '.github/workflows/go_app.yml'
 
 env:
   IMAGE_NAME: app_go
