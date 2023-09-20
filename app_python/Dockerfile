@@ -31,4 +31,4 @@ EXPOSE 5000
 
 ENV NAME app_python
 
-CMD ["python", "app.py"]
+ENTRYPOINT ["python", "app.py"]
