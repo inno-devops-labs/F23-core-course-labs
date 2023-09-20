@@ -56,14 +56,16 @@ jobs:
 
     - name: Check out code
       uses: actions/checkout@v2
-      
+
+    - name: Change Working Directory
+      run: cd app_python
+
     - name: Run Snyk to check Python dependencies for issues
       uses: snyk/actions/python@master
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       with:
-        command: test app_python/requirements.txt --severity-threshold=high
-
+        args: --severity-threshold=high
           
     - name: Run Snyk to check Docker image for issues
       uses: snyk/actions/docker@master
