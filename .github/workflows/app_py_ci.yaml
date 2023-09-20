@@ -2,8 +2,8 @@ name: App PY CI
 on:
   pull_request:
     paths:
-      - app_python/**
-      - .github/workflows/app_py_ci.yaml
+      - 'app_python/**'
+      - '.github/workflows/app_py_ci.yaml'
 env:
   WORKING_DIR: app_python
   DOCKER_IMAGE_NAME: pyapp

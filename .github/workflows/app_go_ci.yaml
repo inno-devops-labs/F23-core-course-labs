@@ -2,8 +2,8 @@ name: App Go CI
 on:
   pull_request:
     paths:
-      - app_go/**
-      - .github/workflows/app_go_ci.yaml
+      - 'app_go/**'
+      - '.github/workflows/app_go_ci.yaml'
 env:
   WORKING_DIR: app_go
   DOCKER_IMAGE_NAME: goapp
@@ -41,8 +41,8 @@ jobs:
         uses: actions/setup-go@v4
         with:
           go-version: 1.20
-      - name: Build
-        run: go build -v ./...
+      - name: Install dependencies
+        run: go mod download
       - name: Lint
         uses: golangci/golangci-lint-action@v3
         with:
