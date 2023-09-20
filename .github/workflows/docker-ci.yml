@@ -1,0 +1,46 @@
+name: Python CI with Docker
+
+on:
+  push:
+    branches:
+      - main  # Change this to your main branch name
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8  # Change to your desired Python version
+
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt  # Replace with your dependency installation command
+
+    - name: Linter
+      run: |
+        pip install flake8
+        flake8 .  # Replace with your linter command
+
+    - name: Tests
+      run: |
+        python -m unittest discover  # Replace with your test command
+
+    - name: Login to Docker Hub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Build and Push Docker Image
+      run: |
+        docker build -t your-docker-username/your-image-name:latest .
+        docker push your-docker-username/your-image-name:latest
+      env:
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
