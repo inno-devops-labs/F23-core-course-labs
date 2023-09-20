@@ -1,9 +1,11 @@
-from logic import get_moscow_time
-from config import LOG_LEVEL, LOG_FILENAME, LOG_MAX_BYTES, LOG_BACKUP_COUNT, LOG_FORMAT
-from flask import Flask, render_template, jsonify
-import pytz
 import logging
 from logging.handlers import RotatingFileHandler
+
+import pytz
+from flask import Flask, render_template, jsonify
+
+from config import LOG_LEVEL, LOG_FILENAME, LOG_MAX_BYTES, LOG_BACKUP_COUNT, LOG_FORMAT
+from logic import get_moscow_time
 
 logger = logging.getLogger()
 logger.setLevel(LOG_LEVEL)
@@ -24,7 +26,6 @@ console_handler.setFormatter(formatter)
 
 logger.addHandler(file_handler)
 logger.addHandler(console_handler)
-
 
 flask_app = Flask(__name__)
 
