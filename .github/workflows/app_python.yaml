@@ -4,7 +4,7 @@ on:
   push:
     paths:
     - 'app_pyton/myproject/**'
-  commit:
+  pull_request:
     paths:
     - 'app_pyton/myproject/**'
   workflow_dispatch:
