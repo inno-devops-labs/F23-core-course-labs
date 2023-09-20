@@ -1,6 +1,6 @@
 import unittest
-from flask import Flask
 from main import app
+
 
 class TestApp(unittest.TestCase):
     def setUp(self):
@@ -11,6 +11,7 @@ class TestApp(unittest.TestCase):
         response = self.app.get('/')
         self.assertEqual(response.status_code, 200)
         self.assertIn(b"The current time in Moscow is:", response.data)
+
 
 if __name__ == '__main__':
     unittest.main()
