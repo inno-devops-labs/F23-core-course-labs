@@ -1,6 +1,9 @@
 name: Python App
 
-on: [push]
+on:
+  push:
+    paths:
+      - 'app_python/**'
 
 env:
   IMAGE_NAME: app_python
