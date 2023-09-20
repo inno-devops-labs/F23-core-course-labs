@@ -11,3 +11,8 @@ In the development of the web application, several Python best practices were ap
 4. **Error Handling**: The code is written in a way that avoids common Python errors. For example, it uses the `if __name__ == '__main__':` guard to ensure that the server only runs if the script is run directly, and not if it's imported as a module.
 
 5. **Testing**: The application can be tested by running the script and visiting the appropriate URLs in a web browser.
+ 
+    1. ***Unit Tests***: I have created unit tests for the `home` and `time` endpoints of my Flask application using `pytest`. These tests ensure that the endpoints return the expected outputs when they receive GET requests.
+    The tests use a `pytest` fixture to create a test client that can send requests to the application. This fixture is then used in the tests to send GET requests to the endpoints and make assertions on the response status codes and data.
+     These practices help to ensure that my application works correctly and as expected.
+
