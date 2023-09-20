@@ -3,7 +3,7 @@ ame: Python package
 on:
   push:
     paths:
-    - 'app_pyton/myproject/**'
+    - 'app_python/myproject/**'
   workflow_dispatch:
 
 jobs:
