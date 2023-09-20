@@ -4,3 +4,4 @@ uvicorn
 jinja2
 pytest
 beautifulsoup4
+httpx
