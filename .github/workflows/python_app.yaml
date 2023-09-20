@@ -1,10 +1,10 @@
 name: Python package
 
 on: push
-#    paths:
-#      - '.github/workflows/python-app.yaml'
-#      - 'app_python/**'
-#      - '!app_python/**.md'
+    paths:
+      - '.github/workflows/python_app.yaml'
+      - 'app_python/**'
+      - '!app_python/**.md'
 
 defaults:
   run:
