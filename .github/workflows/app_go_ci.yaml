@@ -5,7 +5,7 @@ on:
       - app_go/**
       - .github/workflows/app_go_ci.yaml
 env:
-  WORKING_DIR: app_python
+  WORKING_DIR: app_go
   DOCKER_IMAGE_NAME: goapp
   DOCKER_IMAGE_TAG: latest
 jobs:
@@ -22,7 +22,7 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          args: --sarif-file-output=snyk.sarif
+          args: --sarif-file-output=snyk.sarif ${{ env.WORKING_DIR }}
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v2
         with:
