@@ -1,3 +1,5 @@
+![elixir workflow](https://github.com/sl1depengwyn/core-course-labs/actions/workflows/elixir_ci.yml/badge.svg)
+
 # Watch.ex
 
 Watch.ex is a [phoenix](https://www.phoenixframework.org/) web application that displays the current time in arbitrary timezone.
