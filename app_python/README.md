@@ -13,7 +13,7 @@ This is a web application which displays current time in moscow time zone. It is
 
 Go to http://localhost:8000/display_time/ to see current time
 
-### To test
+### Unit Tests
 1. Run tests using the following command:
 
 `python manage.py test myproject.tests.CurrentMskTimeTest`
