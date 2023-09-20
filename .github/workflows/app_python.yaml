@@ -51,6 +51,19 @@ jobs:
         run: |
           cd app_python/myproject
           python manage.py test
+  snyk:
+    needs: tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run Snyk
+        uses: snyk/actions/python-3.10@master
+        with:
+          args: test --file=app_python/myproject/requirements.txt --severity-threshold=high
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
   dockerupload:
     needs: tests
@@ -67,7 +80,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build ./app_python -t rentacat45/app_python:latest
+          docker build ./app_python/myproject -t rentacat45/app_python:latest
       - name: Push Docker image to DockerHub
         run: |
           docker push rentacat45/app_python:latest
