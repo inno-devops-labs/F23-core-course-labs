@@ -27,7 +27,7 @@ jobs:
     - name: Lint code
       run: |
         pip3 install pylint
-        pylint my_project
+        pylint app_python/myapp
 
     - name: Run tests
       run: |
