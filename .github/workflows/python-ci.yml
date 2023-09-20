@@ -44,7 +44,7 @@ jobs:
     - name: Build and Push Docker Image
       run: |
         docker build app_python/ -t eukuz/devops_course_python_app:latest
-        docker push eukuz/devops_course_python_app-name:latest
+        docker push eukuz/devops_course_python_app:latest
 
     - name: Cache pip
       uses: actions/cache@v2
