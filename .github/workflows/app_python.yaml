@@ -24,7 +24,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install ruff
           pip install -r ./app_python/requirements.txt
-      working-directory: app_python/myproject
+        working-directory: app_python/myproject
 
       - name: Lint using ruff
         run: |
@@ -32,4 +32,4 @@ jobs:
           ruff --format=github --select=E9,F63,F7,F82 --target-version=py37 .
           # default set of ruff rules with GitHub Annotations
           ruff --format=github --target-version=py37 .
-      working-directory: app_python/myproject
+        working-directory: app_python/myproject
