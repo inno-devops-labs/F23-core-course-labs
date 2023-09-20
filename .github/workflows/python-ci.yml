@@ -54,13 +54,17 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-pip-
 
-    - name: Run Snyk to check the whole app for issues
+    - name: Run Snyk to check the Python app for issues
       uses: snyk/actions/python@master
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       with:
         command: test
-        args: app_python/ --file=requirements.txt --severity-threshold=high
+        args: |
+          app_python/
+          --file=requirements.txt 
+          --severity-threshold=high
+          --command=python -m pip install -r requirements.txt && snyk test
 
     - name: Run Snyk to check Docker image for issues
       uses: snyk/actions/docker@master
