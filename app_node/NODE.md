@@ -1,4 +1,5 @@
 # Node.js Web Application
+![Node-CI workflow](https://github.com/github/docs/actions/workflows/node-ci.yml/badge.svg)
 
 > This is a Node.js application that showcases the current time in Moscow, adhering to best practices and coding standards. It has been thoroughly tested, ensuring that the time updates seamlessly upon page refresh.
 
