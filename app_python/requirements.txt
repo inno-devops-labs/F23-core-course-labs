@@ -1,3 +1,5 @@
 flask
 pytest
 gunicorn
+pre-commit
+PyYAML

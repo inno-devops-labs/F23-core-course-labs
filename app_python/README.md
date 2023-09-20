@@ -50,3 +50,26 @@ To pull the image from the dockerhub:
 ```
 docker pull vladimirzelenokor/devops-lab2:<TAG>
 ```
+## Running the Unit Tests
+
+To run the unit tests, follow these steps:
+
+Move to the project directory:
+
+```
+cd core-course-labs
+cd app_python
+```
+
+Run the unit tests with the following command:
+
+```
+python test.py
+```
+
+## CI
+
+Need to specife these secrets to run:
+
+***DOCKERHUB_USERNAME*** - DockerHub username.
+***DOCKERHUB_PASSWORD*** - DockerHub password.
