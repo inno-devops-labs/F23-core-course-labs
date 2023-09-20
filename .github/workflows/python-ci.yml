@@ -34,16 +34,3 @@ jobs:
     - name: Run Django tests
       run: |
         python3 app_python/manage.py test myapp.tests.CurrentTimeTestCase
-
-  services:
-    - docker:dind
-  docker-build:
-  script:
-    - docker build -t app_python .
-    - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-    - docker tag app_python $DOCKER_USERNAME/app_python
-    - docker push $DOCKER_USERNAME/app_python
-
-  deploy:
-  script:
-    - ssh user@server "docker pull $DOCKER_USERNAME/app_python && docker-compose up -d"
