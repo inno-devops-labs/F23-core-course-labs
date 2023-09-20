@@ -50,7 +50,7 @@ jobs:
       - name: Run tests
         run: |
           cd app_python/myproject
-          python manage.py tests
+          python manage.py test
 
   dockerupload:
     needs: tests
