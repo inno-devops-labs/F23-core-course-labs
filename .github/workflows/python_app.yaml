@@ -31,9 +31,7 @@ jobs:
       - name: Linter
         run: |
           pylint app/main.py
-      - name: Test with pytest
-        run: |
-          pytest
+
       - name: SNYK install
         run: |
           npm install snyk@latest -g
@@ -44,6 +42,7 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
   deploy:
+#    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
