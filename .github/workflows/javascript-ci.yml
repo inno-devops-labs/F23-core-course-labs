@@ -73,7 +73,7 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Snyk Test
+      - name: Run Snyk to Check for Vulnerabilities
         continue-on-error: true
         run: snyk test --sarif-file-output=snyk.sarif
         env:
