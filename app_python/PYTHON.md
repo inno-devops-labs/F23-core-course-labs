@@ -29,3 +29,4 @@ There are 2 testing modules in `tests` directory for this application:
 ## Linter
 
 - Used [flake8](https://pypi.org/project/flake8/) as linter for the project.
+- Same linter is also used in CI
