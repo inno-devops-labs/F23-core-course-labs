@@ -4,9 +4,6 @@ on:
   push:
     paths:
     - 'app_pyton/myproject/**'
-  pull_request:
-    paths:
-    - 'app_pyton/myproject/**'
   workflow_dispatch:
 
 jobs:
