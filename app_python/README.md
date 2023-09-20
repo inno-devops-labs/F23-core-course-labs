@@ -16,6 +16,7 @@
 - [Quick start](#quick-start)
 - [Testing](#testing)
 - [Docker](#docker)
+- [Unit Tests](#unit-tests)
 
 
 ## Description
@@ -105,3 +106,19 @@ docker pull justsomedude22/app_python:<tag>
 ```
 
 If no tag provided, will pull latest
+
+## Unit Tests
+
+Within `tests` directory, packages for testing are contained. You can run them one by one as follows:
+
+```
+python3 -m pytest tests/test_testname.py
+```
+
+Where `test_testname.py` is the unit test module you chose to test.
+
+Alternatively, run all tests from `app_python` directory:
+
+```
+python3 -m pytest
+```
