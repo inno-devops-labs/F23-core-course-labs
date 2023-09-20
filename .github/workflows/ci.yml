@@ -31,7 +31,7 @@ jobs:
         continue-on-error: true
       - name: Test code
         run: |
-          pytest
+          python test.py
   production:
     needs: [ "build" ]
     name: Push Image to Docker Hub
