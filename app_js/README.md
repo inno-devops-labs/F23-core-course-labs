@@ -33,7 +33,35 @@ npm install
 npm start
 ```
 
-The application will now run on `http://localhost:3000`.
+The application will now run on `http://127.0.0.1:3000`.
+
+## Docker Usage
+
+### How to Build?
+
+To build the Docker image, navigate to the directory containing the `Dockerfile` and execute the following command:
+
+```bash
+docker build -t app_js .
+```
+
+### How to Pull?
+
+You can pull the image using the following command:
+
+```bash
+pull eukuz/devops_course_js_app
+```
+
+### How to Run?
+
+To run the Docker container from the image:
+
+```bash
+docker run -p 3000:3000 eukuz/devops_course_js_app 
+```
+
+After executing this command, you can access the application via `http://127.0.0.1:3000` in your browser.
 
 ## Usage
 
