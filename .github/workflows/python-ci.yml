@@ -1,0 +1,106 @@
+name: Python CI
+
+on:
+  push:
+    paths:
+      - 'app_python/**'
+      - '.github/workflows/python-ci.yml'
+  pull_request:
+    paths:
+      - 'app_python/**'
+      - '.github/workflows/python-ci.yml'
+
+defaults:
+  run: 
+    working-directory: ./app_python # We set the default directory of python project
+
+jobs:
+
+  lint-and-test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10"]
+
+    steps:
+      - name: Checkout code repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: 'pip'
+          cache-dependency-path: |
+            ./app_python/requirements.txt
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt  
+
+      - name: Lint with flake8
+        run: |
+          pip install flake8
+          flake8 .
+
+      - name: Run unit tests
+        run: |
+          python test_app.py
+  
+  security-check:
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+    
+    steps:
+      - name: Checkout code repository.
+        uses: actions/checkout@v3
+  
+      - name: Check for vulnerabilities using Snyk
+        uses: snyk/actions/python-3.10@master
+        continue-on-error: true # To make sure that SARIF upload gets called
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: 
+                --package-manager=pip
+                --skip-unresolved
+                --file=app_python/requirements.txt
+
+  build-and-push:
+      needs: [lint-and-test, security-check]
+      runs-on: ubuntu-latest
+
+      steps:
+
+        - name: Checkout code repository
+          uses: actions/checkout@v2
+      
+        - name: Set up Docker Buildx
+          uses: docker/setup-buildx-action@v3
+
+        - name: Login to Docker Hub
+          id: login
+          uses: docker/login-action@v1
+          with:
+            registry: docker.io
+            username: ${{ secrets.DOCKER_USERNAME }}
+            password: ${{ secrets.DOCKER_PASSWORD }}
+
+        - name: Build Docker image
+          run: |
+            docker buildx build -t m4k4rich/time-python-app:latest .
+            docker buildx build --push -t m4k4rich/time-python-app:latest .
+          working-directory: ./app_python  # Change to your project directory
+
+        - name: Check Docker Hub Login Status
+          run: echo "Logged in to Docker Hub successfully."
+
+        - name: Logout from Docker Hub
+          run: docker logout
+
+
+
