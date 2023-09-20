@@ -93,7 +93,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build ./app_python/myapp -t $DOCKERHUB_USERNAME/app_python
+          docker build ./app_python -t current_time
       - name: Push Docker image to DockerHub
         run: |
-          docker push $DOCKERHUB_USERNAME/app_python
+          docker push $DOCKERHUB_USERNAME/current_time
