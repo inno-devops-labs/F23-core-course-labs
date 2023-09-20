@@ -43,10 +43,6 @@ jobs:
     needs: test
     # if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
 
-    defaults:
-      run:
-        working-directory: ./app_python
-
     steps:
       - name: Check out code
         uses: actions/checkout@v3
@@ -63,8 +59,8 @@ jobs:
       - name: Build & Push
         uses: docker/build-push-action@v5
         with:
-          context: .
-          dockerfile: ./Dockerfile
+          context: app_python
+          dockerfile: ./app_python/Dockerfile
           push: true
           tags:  ${{ secrets.DOCKER_USERNAME }}/whataretime:latest
         
