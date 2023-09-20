@@ -20,6 +20,19 @@ jobs:
     - name: Check out code
       uses: actions/checkout@v4
 
+    # Try to take items out of cache, otherwise cache them.
+
+    - name: Cache dependencies
+      uses: actions/cache@v2
+      with:
+        path: |
+          ~/.cache/pip
+          ~/.cache/flake8
+          ~/.cache/pytest
+        key: ${{ runner.os }}-pip-flake8-pytest-${{ hashFiles('requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-flake8-pytest-
+
     # Setting up the environment, installing all requirements.
 
     - name: Setup Python
