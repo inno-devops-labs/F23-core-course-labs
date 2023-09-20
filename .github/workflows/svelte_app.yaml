@@ -3,7 +3,7 @@ name: Build and Deploy
 on:
   push:
     paths:
-      - '.github/workflows/svelte-app.yaml'
+      - '.github/workflows/svelte_app.yaml'
       - 'app_javascript/**'
       - '!app_javascript/**.md'
 
