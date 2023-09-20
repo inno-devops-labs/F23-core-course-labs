@@ -38,7 +38,7 @@ jobs:
     - name: Setup Python
       uses: actions/setup-python@v4
       with:
-        python-version: "3.9"
+        python-version: "3.8"
         cache: "pip"
     
     - name: Install dependencies
@@ -60,6 +60,23 @@ jobs:
     
     - name: Tests
       run: python -m pytest
+
+  # Set up snyk
+
+  snyk:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Check for vulnerabilities
+        uses: snyk/actions/python-3.8@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --file=app_python/requirements.txt
+            --package-manager=pip
+            --skip-unresolved
 
   # Pushing to docker once all is done.
 
