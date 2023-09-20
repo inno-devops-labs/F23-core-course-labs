@@ -1,34 +1,99 @@
-name: Django CI
+name: Python package
 
 on:
   push:
-    branches: [ main, lab3 ]
-  pull_request:
-    branches: [ main, lab3 ]
+    paths:
+    - 'app_python/myapp/**'
+    - '.github/workflows/**'
+  workflow_dispatch:
 
 jobs:
-  build:
-
+  lint:
     runs-on: ubuntu-latest
-
+    timeout-minutes: 10
     steps:
-    - uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.x'
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.9
 
-    - name: Install dependencies
-      run: |
-        python3 -m pip install --upgrade pip
-        pip3 install -r app_python/requirements.txt
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install ruff
+          pip install -r app_python/myapp/requirements.txt
 
-    - name: Lint code
-      run: |
-        pip3 install pylint
-        pylint app_python/myapp
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
 
-    - name: Run Django tests
-      run: |
-        python3 app_python/manage.py test myapp.tests.CurrentTimeTestCase
+      - name: Lint using ruff
+        run: |
+          cd app_python/myapp
+          # stop the build if there are Python syntax errors or undefined names
+          ruff --format=github --select=E9,F63,F7,F82 --target-version=py37 .
+          # default set of ruff rules with GitHub Annotations
+          ruff --format=github --target-version=py37 .
+
+  tests:
+    needs: lint
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.9
+          cache: 'pip'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r app_python/myapp/requirements.txt
+      - name: Run tests
+        run: |
+          cd app_python/myapp
+          python manage.py test
+  snyk:
+    needs: tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run Snyk
+        uses: snyk/actions/python-3.10@master
+        with:
+          args: test --file=app_python/myapp/requirements.txt --severity-threshold=high
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+  dockerupload:
+    needs: tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+      - name: Build Docker image
+        run: |
+          docker build ./app_python/myapp -t DOCKERHUB_USERNAME/app_python:latest
+      - name: Push Docker image to DockerHub
+        run: |
+          docker push DOCKERHUB_USERNAME/app_python:latest
