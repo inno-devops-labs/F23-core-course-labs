@@ -49,7 +49,7 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          args: --workdir=./app_python/
+          args: --file=app_python/requirements.txt
             --package-manager=pip
             --skip-unresolved
 

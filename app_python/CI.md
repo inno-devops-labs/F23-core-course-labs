@@ -18,7 +18,7 @@ In the testing stage of my workflow, I employ caching to speed up the installati
 
 ## Security Scanning with Snyk
 
-I use the Snyk GitHub Actions integration to scan my Python code for security vulnerabilities.
+I use the Snyk GitHub Actions integration to scan my Python packages for security vulnerabilities.
 
 ## Secrets Usage
 
