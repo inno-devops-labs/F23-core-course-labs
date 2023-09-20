@@ -1,9 +1,6 @@
 name: Python CI Workflow
 
 on:
-  pull_request:
-      branches:
-        - main
   push:
     paths:
     - 'app_python/**'
