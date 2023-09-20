@@ -8,7 +8,7 @@ on:
       - "!app_python/**.md"
 
 jobs:
-  build:
+  dependencies:
     runs-on: ubuntu-latest
 
     steps:
