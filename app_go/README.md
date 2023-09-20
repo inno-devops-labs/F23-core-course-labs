@@ -1,3 +1,5 @@
+![go workflow](https://github.com/art22m/F23-DevOps/actions/workflows/app_go_ci.yaml/badge.svg)
+
 # Go Web Application
 
 ## Overview

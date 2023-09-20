@@ -1,12 +1,12 @@
-name: App PY CI
+name: App Go CI
 on:
   pull_request:
     paths:
-      - app_python/**
-      - .github/workflows/app_py_ci.yaml
+      - app_go/**
+      - .github/workflows/app_go_ci.yaml
 env:
   WORKING_DIR: app_python
-  DOCKER_IMAGE_NAME: pyapp
+  DOCKER_IMAGE_NAME: goapp
   DOCKER_IMAGE_TAG: latest
 jobs:
   security:
@@ -17,13 +17,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/python-3.10@master
+        uses: snyk/actions/golang@master
         continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          args: --sarif-file-output=snyk.sarif --file=${{ env.WORKING_DIR
-            }}/requirements.txt --package-manager=pip --skip-unresolved
+          args: --sarif-file-output=snyk.sarif
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v2
         with:
@@ -38,18 +37,18 @@ jobs:
         working-directory: ./${{ env.WORKING_DIR }}
     steps:
       - uses: actions/checkout@v4
-      - name: Set up Python
-        uses: actions/setup-python@v4
+      - name: Set up Go
+        uses: actions/setup-go@v4
         with:
-          python-version: 3.9
+          go-version: 1.20
       - name: Install deps
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
+        run: go get .
       - name: Lint
-        run: flake8 .
+        uses: golangci/golangci-lint-action@v3
+        with:
+          version: v1.54
       - name: Test
-        run: python main_test.py
+        run: go test
   dockerhub-push:
     timeout-minutes: 30
     permissions:
@@ -77,3 +76,4 @@ jobs:
             env.DOCKER_IMAGE_TAG }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
