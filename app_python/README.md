@@ -38,3 +38,29 @@ To get started with the Django web application, follow these steps:
 
 `python3 manage.py test myapp.tests.CurrentTimeTestCase`
 
+## CI Workflow
+
+ Jobs:
+
+ 1. **Build**
+
+     - Python Setup - setup python 3.11
+
+     - Cache dependencies - use cache to store dependencies
+
+     - Dependencies install
+
+     - Vulnerability check - using Snyk to check for vulnerabilities
+
+     - Vulnerability report - generate report of vulnerabilities
+
+     - Linter
+
+     - Tests
+
+ 2. **Docker**
+
+     - Login - login to docker hub
+
+     - Build and Push - build docker image and push it to docker hub
+
