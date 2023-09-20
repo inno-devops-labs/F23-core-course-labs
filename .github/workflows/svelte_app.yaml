@@ -32,11 +32,10 @@ jobs:
         run: npm run build
 
       - name: SNYK install
-          run: |
-            npm install snyk@latest -g
+        run: npm install snyk@latest -g
+
       - name: Snyk Test
-        run: |
-          snyk test
+        run: snyk test
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
