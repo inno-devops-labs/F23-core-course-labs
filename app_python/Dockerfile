@@ -7,12 +7,12 @@ USER python_runner
 ENV PATH="/home/python_runner/.local/bin:${PATH}"
 WORKDIR /home/python_runner/python/src/app
 
-RUN /opt/venv/bin/python -m venv /opt/venv
+RUN python -m venv ~/opt/venv
 
 COPY requirements/requirements.txt ./
 
-RUN /opt/venv/bin/pip install --user --no-cache-dir -r requirements.txt
+RUN ~/opt/venv/bin/pip install --no-cache-dir -r requirements.txt
 
 COPY . ./app_python
 
-CMD ["/opt/venv/bin/python", "-m",  "app_python.src.main"]
+CMD . ~/opt/venv/bin/activate && exec python app_python/src/main.py
