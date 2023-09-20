@@ -60,7 +60,6 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: app_python
-          dockerfile: ./app_python/Dockerfile
           push: true
           tags:  ${{ secrets.DOCKER_USERNAME }}/whataretime:latest
         
