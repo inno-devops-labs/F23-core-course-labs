@@ -20,9 +20,9 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install ruff
-          pip install -r app_python/myptoject/requirements.txt
+          pip install -r app_python/myproject/requirements.txt
       - name: Lint using ruff
-        run: |
+        run: |**/requirements.txt
           cd app_python/myptoject
           # stop the build if there are Python syntax errors or undefined names
           ruff --format=github --select=E9,F63,F7,F82 --target-version=py37 .
