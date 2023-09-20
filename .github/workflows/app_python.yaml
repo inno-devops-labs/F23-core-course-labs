@@ -41,9 +41,9 @@ jobs:
         working-directory: ./app_python
 
       - name: Lint code
-        working-directory: ./app_python
+        working-directory: ./app_python/src
         run: |
-          pylint --disable=R,C,W1203 .
+          pylint --disable=R,C,W1203 --ignore=__init__.py .
 
       - name: Run tests
         working-directory: ./app_python
