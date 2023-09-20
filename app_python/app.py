@@ -4,7 +4,8 @@ from logging.handlers import RotatingFileHandler
 import pytz
 from flask import Flask, render_template, jsonify
 
-from config import LOG_LEVEL, LOG_FILENAME, LOG_MAX_BYTES, LOG_BACKUP_COUNT, LOG_FORMAT
+from config import LOG_LEVEL, LOG_FILENAME, \
+    LOG_MAX_BYTES, LOG_BACKUP_COUNT, LOG_FORMAT
 from logic import get_moscow_time
 
 logger = logging.getLogger()

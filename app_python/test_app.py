@@ -12,15 +12,18 @@ class FlaskAppTestCase(unittest.TestCase):
         self.app.testing = True
 
     def test_moscow_time_format(self):
-        """Test the get_moscow_time function for returning Moscow time in the correct format."""
+        """Test the get_moscow_time function for returning
+        Moscow time in the correct format."""
         time_format = "%Y-%m-%d %H:%M:%S"
         moscow_time = get_moscow_time()
 
         try:
-            # Try to convert the returned time into a datetime object. If it fails, it's not in the expected format.
+            # Try to convert the returned time into a datetime object.
+            # If it fails, it's not in the expected format.
             datetime.datetime.strptime(moscow_time, time_format)
         except ValueError:
-            assert False, "The returned Moscow time is not in the expected format."
+            assert False, \
+                "The returned Moscow time is not in the expected format."
 
     def test_moscow_time_endpoint(self):
         """Test the main endpoint for Moscow time."""
