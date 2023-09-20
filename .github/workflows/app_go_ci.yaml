@@ -30,8 +30,6 @@ jobs:
   build-and-test:
     timeout-minutes: 30
     runs-on: ubuntu-latest
-    permissions:
-      security-events: write
     defaults:
       run:
         working-directory: ./${{ env.WORKING_DIR }}
@@ -40,7 +38,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
-          go-version: 1.20
+          go-version: '1.20'
       - name: Install dependencies
         run: go mod download
       - name: Lint
