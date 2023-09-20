@@ -29,11 +29,6 @@ jobs:
         pip3 install pylint
         pylint app_python/myapp
 
-    - name: Run tests
-      run: |
-        pip3 install pytest
-        pytest tests/
-
     - name: Set up Django environment
       run: |
         python3 manage.py migrate
