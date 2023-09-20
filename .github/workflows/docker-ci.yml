@@ -16,20 +16,20 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: 3.8  # Change to your desired Python version
+        python-version: 3.7
 
     - name: Install dependencies
       run: |
-        pip install -r requirements.txt  # Replace with your dependency installation command
+        pip install -r requirements.txt
 
     - name: Linter
       run: |
         pip install flake8
-        flake8 .  # Replace with your linter command
+        flake8 .
 
     - name: Tests
       run: |
-        python -m unittest discover  # Replace with your test command
+        python -m pytest test.py
 
     - name: Login to Docker Hub
       uses: docker/login-action@v1
@@ -39,8 +39,8 @@ jobs:
 
     - name: Build and Push Docker Image
       run: |
-        docker build -t your-docker-username/your-image-name:latest .
-        docker push your-docker-username/your-image-name:latest
+        docker build -t realpxkn/app_python:latest .
+        docker push realpxkn/app_python:latest
       env:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
