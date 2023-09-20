@@ -58,7 +58,7 @@ Please refer to [PYTHON.md](PYTHON.md) for an explanation of the best practices 
 ## Docker
 * In order to build docker image manually, get app_python directory run there: 
   ```
-  docker build -t your-app-image .
+  docker build -t app_python.
   ``` 
 * If you wish to get image from Docker Hub, run: 
   ```
