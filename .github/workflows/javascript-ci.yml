@@ -47,28 +47,31 @@ jobs:
 
   snyk-security:
     runs-on: ubuntu-latest
-    permissions:
-      security-events: write
-      actions: read
-      contents: read
     steps:
       - uses: actions/checkout@v3
+      - uses: snyk/actions/setup@master
 
-      - name: Run Snyk to check for Vulnerabilities
-        uses: snyk/actions/node@master
-        continue-on-error: true 
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: "npm"
+          cache-dependency-path: app_javascript/package-lock.json
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Snyk test
+        continue-on-error: true
+        working-directory: ./app_javascript
+        run: snyk test --sarif-file-output=snyk.sarif
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        with:
-          args: --sarif-file-output=snyk.sarif
-                --package-manager=npm
-                --file=app_javascript/package.json
-                --skip-unresolved
 
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v2
         with:
-          sarif_file: snyk.sarif
+          sarif_file: ./app_javascript/snyk.sarif
 
   docker:
     runs-on: ubuntu-latest
