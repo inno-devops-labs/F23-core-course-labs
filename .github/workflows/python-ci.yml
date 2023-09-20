@@ -45,6 +45,5 @@ jobs:
     - docker push $DOCKER_USERNAME/app_python
 
   deploy:
-  stage: deploy
   script:
     - ssh user@server "docker pull $DOCKER_USERNAME/app_python && docker-compose up -d"   
