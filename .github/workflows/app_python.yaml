@@ -43,12 +43,12 @@ jobs:
       - name: Lint code
         working-directory: ./app_python
         run: |
-          pylint --disable=R,C,W1203 app.py
+          pylint --disable=R,C,W1203 .
 
       - name: Run tests
+        working-directory: ./app_python
         run: |
-          pytest -v
-        working-directory: ./app_python/tests
+          pytest -v /tests
 
   docker:
     runs-on: ubuntu-latest
