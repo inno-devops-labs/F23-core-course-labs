@@ -1,8 +1,6 @@
-import time
+from fastapi import APIRouter
 
-from fastapi import FastAPI, APIRouter
-
-from app_python.src.timer import service
+import service
 
 
 class TimeRouter:

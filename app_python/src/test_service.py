@@ -1,13 +1,11 @@
 import datetime
 import time
 import unittest
-import sys
-sys.path.insert(0, "../")
 
 
 class TimerTest(unittest.TestCase):
     def testTimer(self):
-        from app_python.src.timer import service
+        from app_python.src import service
 
         timer = service.Timer()
 

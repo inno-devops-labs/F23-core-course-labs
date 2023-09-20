@@ -23,9 +23,12 @@ during next labs
 I've opened this link https://github.com/zhanymkanov/fastapi-best-practices#1-project-structure-consistent--predictable
 and used some of best practices in my project.
  
-1) Project structure
-   - It is convenient. I will have an opportunity to quickly add new functionality
-   - It is well-known between programmers. Any programmer, that will open my code will see familiar code
+1) ~~Project structure~~
+   - ~~It is convenient. I will have an opportunity to quickly add new functionality~~
+   - ~~It is well-known between programmers. Any programmer, that will open my code will see familiar code~~
+   
+   - No, I am not able to make python run, when source codes are divided into different modules 
+
 
 2) My routines only with I/O blocking operations are not asynchronous.
     - When such functions are called in sync, they don't block the eventloop
@@ -33,8 +36,9 @@ and used some of best practices in my project.
 Moreover, I've used some more practices to make my code reliable. Most valuable is unit testing:
 
 1) My code has high coverage. So I can do changes to it without scare, that i will break some functionality
-2) Tests are in different package. I am sure, that tests are using my packages as external users - they are not changing 
-internal fields and use only public interfaces 
+2) ~~Tests are in different package. I am sure, that tests are using my packages as external users - they are not changing 
+internal fields and use only public interfaces~~
+   - No, I am not able to make python run, when source codes are divided into different modules
 
 One more, I have a package, called `requirements`, where I am placing all required external libraries to make my project work.
 
