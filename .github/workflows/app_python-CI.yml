@@ -49,13 +49,16 @@ jobs:
            SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
       - name: Login to Docker Hub
-        env:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-        run: docker login -u $DOCKER_USERNAME -p "${DOCKER_PASSWORD}"
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build Docker image
-        run: docker build -t rinnatova/docker_lab:latest .
+        run: docker build -t rinnatova/docker_lab .
+
+      - name: Tag Docker image
+        run: docker tag rinnatova/docker_lab:latest rinnatova/docker_lab:latest
 
       - name: Push Docker image
         run: docker push rinnatova/docker_lab:latest
