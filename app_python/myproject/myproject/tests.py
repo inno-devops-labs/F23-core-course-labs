@@ -11,6 +11,7 @@ class CurrentMskTimeTest(TestCase):
 
         response = self.client.get(url)
 
+        # Get the datetime
         moscow_tz = timezone(timedelta(hours=3))
         now = datetime.now(moscow_tz)
         expected = f"Current time is: {now.strftime('%Y-%m-%d %H:%M:%S')}"
