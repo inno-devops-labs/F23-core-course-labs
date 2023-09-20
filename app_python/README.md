@@ -1,3 +1,6 @@
+
+![example workflow](https://github.com/sl1depengwyn/core-course-labs/actions/workflows/python_ci.yml/badge.svg)
+
 # Pywatch
 
 Pywatch is a simple python web application that displays the current time in Moscow.
