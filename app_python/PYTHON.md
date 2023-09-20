@@ -1,5 +1,5 @@
 # Python Web Application 
-![Python-CI workflow](https://github.com/github/docs/actions/workflows/python-ci.yml/badge.svg)
+![Python-CI workflow](https://github.com/m4k4rich/core-course-labs/actions/workflows/python-ci.yml/badge.svg)
 
 > This is a python app that displays a current time in Moscow, it implements best practices and follows coding standarts. It was tested and the time updates upon page refreshing.
 
