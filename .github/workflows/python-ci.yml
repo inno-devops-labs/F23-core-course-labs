@@ -60,7 +60,7 @@ jobs:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       with:
         command: test
-        args: app_python/ --file=app_python/requirements.txt --severity-threshold=high
+        args: app_python/ --file=requirements.txt --severity-threshold=high
 
     - name: Run Snyk to check Docker image for issues
       uses: snyk/actions/docker@master
