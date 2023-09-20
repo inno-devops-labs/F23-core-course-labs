@@ -33,3 +33,5 @@ To run tests:
 ```
 pytest test.py
 ```
+
+[![Python CI with Docker](https://github.com/beleet/core-course-labs/actions/workflows/docker-ci.yml/badge.svg)](https://github.com/beleet/core-course-labs/actions/workflows/docker-ci.yml)
