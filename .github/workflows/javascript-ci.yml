@@ -59,6 +59,7 @@ jobs:
           cache-dependency-path: app_javascript/package-lock.json
 
       - name: Install dependencies
+        working-directory: ./app_javascript
         run: npm install
 
       - name: Snyk test
