@@ -47,7 +47,7 @@ jobs:
           pip install -r ./app_python/requirements.txt
 
       - name: Test with pytest
-        run: python test_main.py
+        run: python app_python/test_main.py
 
 
   docker:
