@@ -3,7 +3,7 @@ This file defines the routes for the root URL ("/") and the static files
 """
 from fastapi import APIRouter
 from fastapi.responses import FileResponse, HTMLResponse
-from fastapi.staticfiles import StaticFiles
+from starlette.staticfiles import StaticFiles
 
 router = APIRouter()
 
