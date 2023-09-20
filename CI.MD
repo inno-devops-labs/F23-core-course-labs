@@ -34,16 +34,10 @@
     - name: Run Tests
     ```
 
-### **Security Scans**
-- Tools like Snyk can scan  dependencies for known vulnerabilities, ensuring that the software doesn't have known security issues.
-    ```yaml
-    - name: Run Snyk to check for vulnerabilities
-    ```
-
 ### **Visibility with Status Badges**
 - A status badge in README provides a quick overview of the health of project.
     ```markdown
-    ![Python CI Workflow](![Python CI Workflow](https://github.com/eukuz/devops-course-labs/actions/workflows/Python%20CI%20Workflow/badge.svg)
+    ![Python CI Workflow](![Python CI Workflow](https://github.com/eukuz/devops-course-labs/workflows/Python%20CI%20Workflow/badge.svg)
     ```
 
 ### **Fail-fast Strategy**

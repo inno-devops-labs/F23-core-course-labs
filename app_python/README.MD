@@ -1,6 +1,6 @@
 # Moscow Time Flask Web App
 
-![Python CI Workflow](https://github.com/eukuz/devops-course-labs/actions/workflows/Python%20CI%20Workflow/badge.svg)
+![Python CI Workflow](https://github.com/eukuz/devops-course-labs/workflows/Python%20CI%20Workflow/badge.svg)
 
 A simple Flask-based web application that displays the current Moscow time upon page refresh.
 
