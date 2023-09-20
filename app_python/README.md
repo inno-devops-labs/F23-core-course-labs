@@ -1,5 +1,5 @@
 ## Python web app
-![example workflow](https://github.com/p50000/core-course-labs/actions/workflows/app_python.yml/badge.svg)
+![workflow badge](https://github.com/p50000/core-course-labs/actions/workflows/app_python.yaml/badge.svg)
 
 This is a web application which displays current time in moscow time zone. It is written using Django as a framework.
 
