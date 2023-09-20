@@ -33,6 +33,16 @@
     ```yaml
     - name: Run Tests
     ```
+  
+### Docker Integration
+- Building and pushing Docker images as part of CI ensures the latest code changes are always available as Docker images.
+```yaml
+    - name: Login to Docker Hub
+    - name: Build and Push Docker Image
+```
+    
+### Secrets Management
+- Sensitive information, like login credentials, should be stored securely using platform features like [GitHub Secrets](https://docs.github.com/en/actions/reference/encrypted-secrets).
 
 ### **Visibility with Status Badges**
 - A status badge in README provides a quick overview of the health of project.
