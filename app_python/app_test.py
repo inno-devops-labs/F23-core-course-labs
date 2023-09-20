@@ -18,7 +18,8 @@ class Test(TestCase):
         res_datetime = datetime.strptime(res.text, TIME_FORMAT)
 
         tz = timezone(timedelta(hours=3))
-        current_datetime = datetime.strptime(datetime.now(tz).strftime(TIME_FORMAT), TIME_FORMAT)
+        current_datetime = datetime.strptime(datetime.now(tz)
+                                             .strftime(TIME_FORMAT), TIME_FORMAT)
         self.assertLessEqual(
             abs(current_datetime.timestamp() - res_datetime.timestamp()),
             2)
