@@ -22,7 +22,7 @@ jobs:
           pip install ruff
           pip install -r app_python/myproject/requirements.txt
       - name: Lint using ruff
-        run: |**/requirements.txt
+        run: |
           cd app_python/myptoject
           # stop the build if there are Python syntax errors or undefined names
           ruff --format=github --select=E9,F63,F7,F82 --target-version=py37 .
