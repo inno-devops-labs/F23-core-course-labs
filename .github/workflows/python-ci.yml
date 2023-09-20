@@ -96,4 +96,4 @@ jobs:
           docker build ./app_python -t current_time
       - name: Push Docker image to DockerHub
         run: |
-          docker push $DOCKERHUB_USERNAME/current_time
+          docker push tcarinaa/current_time:latest
