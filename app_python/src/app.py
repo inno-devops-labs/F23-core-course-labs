@@ -3,7 +3,7 @@ from time_provider import TimeProvider
 from html_wrapper import HtmlWrapper
 
 
-async def get_current_datetime(request):
+async def get_current_datetime(_):
     time = str(TimeProvider.get_current_datetime())
     html = HtmlWrapper.align_content_to_center(time)
 
