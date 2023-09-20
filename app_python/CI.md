@@ -22,4 +22,9 @@ I named all stages and their actions in a way that it will always be clear what 
 of CI pipeline.
 
 ## Testing Job
+
 There is a testing job which runs test using `pytest`. It allows us avoiding any bugs in released product.
+
+## Security Check
+
+I use Snyk GitHub Action to check the application for security vulnerabilities.

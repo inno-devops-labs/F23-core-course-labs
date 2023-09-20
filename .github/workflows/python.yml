@@ -1,13 +1,19 @@
 name: DevOps Python App CI
 
-on: [push]
+on:
+  push:
+    paths:
+      - "app_python/**"
+  pull_request:
+    paths:
+      - "app_python/**"
 
 jobs:
   lint:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
@@ -27,7 +33,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
@@ -43,12 +49,27 @@ jobs:
       - name: Test with pytest
         run: python -m pytest
 
-  docker:
-    needs: [lint, test]
+  snyk:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/python-3.10@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --file=./app_python/requirements.txt
+            --package-manager=pip
+            --skip-unresolved
+
+  docker:
+    needs: [lint, test, snyk]
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
 
       - name: Login to DockerHub
         uses: docker/login-action@v3

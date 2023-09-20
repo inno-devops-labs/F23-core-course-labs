@@ -1,5 +1,7 @@
 # Web application - Moscow time
 
+[![DevOps Python App CI](https://github.com/vladimirKa002/devops-course-labs/actions/workflows/python.yml/badge.svg?branch=Lab3)](https://github.com/vladimirKa002/devops-course-labs/actions/workflows/python.yml)
+
 ## Motivation
 The goal of the project is to allow users see current Moscow time in a browser page.
 
