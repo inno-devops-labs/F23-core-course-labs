@@ -1,6 +1,16 @@
 # Moscow Time Web Application
 This is a simple Python web application that displays the current time in Moscow.
 
+## Unit Tests
+
+Before deploying check that tests is ok. These tests ensure that the application functions correctly.
+
+### Test Cases
+
+**test_current_time** - Checks if the index ('/') route returns the current time in Moscow, Russia.
+
+Expected Outcome: The response status code should be 200, and the response data should contain "The current time in Moscow is:".
+
 
 ## Docker  containerization and imaging
 To build the image type the following in the root of the project:

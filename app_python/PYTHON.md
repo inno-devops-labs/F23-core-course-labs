@@ -21,5 +21,24 @@ To build the app and deploy to the remote server please follow the instructions 
 
 Flask is perfect production-ready framework to develop simple web applications in Python.
 
+## Unit Tests
+
+There are unit tests for this application with `unittest` framework. These tests ensure that the application functions correctly.
+
+### Test Cases
+
+**test_current_time** - Checks if the index ('/') route returns the current time in Moscow, Russia.
+
+Expected Outcome: The response status code should be 200, and the response data should contain "The current time in Moscow is:".
+
+### Running Tests
+
+You can run the unit tests using the following command:
+
+```bash
+python test_main.py
+
+
 ## License
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more information.
+
