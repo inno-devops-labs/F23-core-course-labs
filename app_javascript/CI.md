@@ -4,13 +4,13 @@ In this document, I'll outline the best practices applied in our CI (Continuous 
 
 ### Best practices:
 1. **Parallelization:**
-   - I parallelized snyk-security and python-build in my project. This practice allows me to take advantage of my CI provider's capabilities to run multiple tests at the same time, making my workflow faster.
+   - I parallelized snyk-security and javascript-build in my project. This practice allows me to take advantage of my CI provider's capabilities to run multiple tests at the same time, making my workflow faster.
 
 2. **Caching:**
-    - I implemented caching for python and other dependencies. Caching helps optimize builds by reusing previously built dependencies, which reduces the need for time-consuming installations.
+    - I implemented caching for javascript and other dependencies. Caching helps optimize builds by reusing previously built dependencies, which reduces the need for time-consuming installations.
 
 3. **Matrix Builds:**
-    - I am using matrix builds to test my application across different Python versions. This practice ensures that our application remains compatible with various Python environments and configurations.
+    - I am using matrix builds to test my application across different Node versions. This practice ensures that our application remains compatible with various Python environments and configurations.
 
 4. **Clean Up Resources:**
     - Cleaning up resources prevents resource leaks and maintains a clean development environment.

@@ -1,3 +1,5 @@
+[![Javascript CI](https://github.com/Q-Tify/core-course-labs-devops/actions/workflows/javascript-ci.yml/badge.svg?branch=lab3&event=push)](https://github.com/Q-Tify/core-course-labs-devops/actions/workflows/javascript-ci.yml)
+
 # Node.js Web Application Project: Random Quote Generator
 
 ## Description
@@ -185,3 +187,38 @@ Or you can run test separately with command:
 ```
 npm run test
 ```
+
+<br>
+
+# CI Workflow
+
+### Overview
+
+This project utilizes GitHub Actions for Continuous Integration (CI) to automate various tasks such as code linting, testing, vulnerability scanning, and Docker image building. The CI workflow ensures code quality, security, and smooth deployments.
+
+### Workflow Details
+
+The CI workflow is defined in the [.github/workflows/javascript-ci.yml](.github/workflows/javascript-ci.yml) file. It is triggered automatically on every push or pull to the `app_javascript` directory or changes to the workflow file itself.
+
+Here's what the workflow does:
+
+1. **JavaScript Build Job**:
+   - Runs on Ubuntu-Latest.
+   - Tests the project with Node.js versions 14 and 16.
+   - Checks out the code from the repository.
+   - Sets up Node.js with the specified versions and caches npm dependencies.
+   - Displays the Node.js version.
+   - Installs Node.js dependencies.
+   - Lints the JavaScript code using ESLint and fixes issues.
+   - Runs JavaScript tests.
+
+2. **Snyk Security Scan**:
+   - Ensures security by checking for vulnerabilities in our project's dependencies.
+   - Uses Snyk to perform security scans on our JavaScript codebase.
+   - The results are uploaded to GitHub Code Scanning for review.
+
+3. **Docker Build & Push Job**:
+   - Runs on Ubuntu-Latest and depends on the JavaScript Build and Snyk Security Scan jobs.
+   - Logs in to Docker Hub using Docker secrets.
+   - Sets up Docker Buildx for efficient multi-platform image building.
+   - Builds and pushes a Docker image based on the `Dockerfile` in the `app_javascript` directory. The image is tagged as `latest`.
