@@ -37,3 +37,12 @@ Moreover, I've used some more practices to make my code reliable. Most valuable 
 internal fields and use only public interfaces 
 
 One more, I have a package, called `requirements`, where I am placing all required external libraries to make my project work.
+
+#### Testing
+
+I've already wrote tests. There are unit and component tests between them.
+I am checking the time difference between start and finish points.
+Moreover, I am checking, that timezone is Moscow (+03:00).
+In component tests I am checking, that time changes between each request
+and that all responses have status 200.
+

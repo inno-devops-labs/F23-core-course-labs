@@ -1,12 +1,12 @@
 import datetime
 import time
 import unittest
-
-import pytz
+import sys
+sys.path.insert(0, "../")
 
 
 class TimerTest(unittest.TestCase):
-    def test_timer(self):
+    def testTimer(self):
         from app_python.src.timer import service
 
         timer = service.Timer()
@@ -21,7 +21,3 @@ class TimerTest(unittest.TestCase):
 
         self.assertEqual(str(first.utcoffset()), "3:00:00")
         self.assertEqual(str(second.utcoffset()), "3:00:00")
-
-
-if __name__ == '__main__':
-    unittest.main()

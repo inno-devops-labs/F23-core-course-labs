@@ -1,7 +1,10 @@
 import uvicorn
 from fastapi import FastAPI
+import sys
 
-import timer.router as timer
+sys.path.insert(0, "../")
+
+import src.timer.router as timer
 
 app = FastAPI()
 

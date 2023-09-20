@@ -1,5 +1,7 @@
 import time
 import unittest
+import sys
+sys.path.insert(0, "../")
 
 from fastapi.testclient import TestClient
 
@@ -7,7 +9,7 @@ from app_python.src.main import app
 
 
 class ClientTest(unittest.TestCase):
-    def test_client(self):
+    def testClient(self):
         client = TestClient(app)
 
         first = client.get("/")
