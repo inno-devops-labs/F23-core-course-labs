@@ -1,5 +1,8 @@
 # Python Web Application - Moscow Time Display
 
+![Python CI](https://github.com/Ahmad-mtos/core-course-labs/actions/workflows/main/badge.svg)
+
+
 ## Description
 
 This Python web application displays the current time in Moscow. It's a simple yet useful tool for users who want to know the time in the Moscow time zone.
@@ -94,3 +97,13 @@ http://localhost:8080/time
 ```
 
 You should now see the current time in Moscow, which will automatically update upon page refreshing.
+
+## Unit Tests
+
+The project incorporates a suite of unit tests to ensure the accuracy and reliability of the codebase. These unit tests comprehensively validate various components and functionalities within the application. Below is a summary of the primary test cases and best practices applied:
+
+- **Test Display Moscow Time Endpoint**: This test checks the `/time` endpoint of the Flask application to ensure it provides valid Moscow time information.
+
+- **Test Get Moscow Time Function**: This test directly evaluates the `get_moscow_time()` function, which retrieves Moscow time.
+
+For a more detailed description of the unit tests and the best practices followed in testing, consult the [PYTHON.md](./PYTHON.md) file.
