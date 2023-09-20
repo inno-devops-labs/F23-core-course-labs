@@ -55,6 +55,14 @@ flake8 *.py
 
 To see the result of the work, open a browser and go to http://localhost:5000/ - you will see current time in Moscow timezone
 
+## Unit Tests
+
+You can check application by testing, to do this, run in terminal command:
+
+```bash
+python -m pytest
+```
+
 ## Contact
 
 email: v.khalilov@innopolis.university
