@@ -41,14 +41,14 @@ jobs:
         working-directory: ./app_python
 
       - name: Lint code
-        working-directory: ./app_python/src
-        run: |
-          pylint --disable=R,C,W1203 --ignore=__init__.py .
-
-      - name: Run tests
         working-directory: ./app_python
         run: |
-          pytest -v /tests
+          pylint src tests
+
+      - name: Run tests
+        working-directory: ./app_python/tests
+        run: |
+          pytest -v .
 
   docker:
     runs-on: ubuntu-latest
