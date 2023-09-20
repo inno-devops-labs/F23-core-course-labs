@@ -54,25 +54,21 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-pip-
 
-    - name: Check out code
-      uses: actions/checkout@v2
-
-    - name: Change Working Directory
-      run: cd app_python
-
     - name: Run Snyk to check the whole app for issues
       uses: snyk/actions/python@master
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       with:
-        args: --file=app_python/requirements.txt --severity-threshold=high
-          
+        command: test
+        args: app_python/ --file=app_python/requirements.txt --severity-threshold=high
+
     - name: Run Snyk to check Docker image for issues
       uses: snyk/actions/docker@master
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       with:
-        args: --severity-threshold=high
+        args: --docker eukuz/devops_course_python_app:latest --severity-threshold=high
+
         
 
 
