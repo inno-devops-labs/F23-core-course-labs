@@ -127,7 +127,8 @@ python3 -m pytest
 
 ## CI Workflow
 
-CI workflow consists of 2 jobs:
+CI workflow consists of 3 stages:
 
 - `test_and_lint` - includes setting up the environment, running the linter, and then running unit tests. Note that tests will not be executed if linter sees fault.
+- `snyk` - runs security analysis using snyk. Happens in parallel to other steps.
 - `push_docker` - logins into docker hub using credentials from secrets, builds the image, and pushes it. It is required for `test_and_lint` to not fail, before it runs.
