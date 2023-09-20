@@ -1,6 +1,9 @@
 name: Python CI Workflow
 
 on:
+  pull_request:
+      branches:
+        - main
   push:
     paths:
     - 'app_python/**'
@@ -50,5 +53,23 @@ jobs:
         key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
         restore-keys: |
           ${{ runner.os }}-pip-
+
+    - name: Check out code
+      uses: actions/checkout@v2
+      
+    - name: Run Snyk to check Python dependencies for issues
+      uses: snyk/actions/python@master
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      with:
+        args: --severity-threshold=high
+          
+    - name: Run Snyk to check Docker image for issues
+      uses: snyk/actions/docker@master
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      with:
+        args: --severity-threshold=high
+
 
 
