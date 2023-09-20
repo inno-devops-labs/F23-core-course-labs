@@ -5,3 +5,8 @@
 3. If user tries to enter some url which is different from '/', he gets 404 HTTP status and application redirects user to '/'
 4. For creating the html document application uses Jinja2 templating engine
 3. Moscow time is calculated based on fact that time offset in Moscow is UTC+3
+
+## Docker usage
+    - build image locally: `cd app_python` then `docker build --tag app_python .`
+    - run: `docker run -p 5555:5555 app_python` if you built image locally. In order to run image loaded from dockerhub use `docker run -p 5555:5555 linkstaple/app_python`. The application is available on 127.0.0.1:5555
+    - pull image: `docker image pull linkstaple/app_python`
