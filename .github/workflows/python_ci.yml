@@ -52,7 +52,7 @@ jobs:
       with:
         context: .
         push: true
-        tags: your-dockerhub-username/your-repo:latest
+        tags: AisenBeast/inno-devops:latest
 
     - name: Run Snyk to check for vulnerabilities
       uses: snyk/actions/python@master
