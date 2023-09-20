@@ -29,6 +29,6 @@ jobs:
           ruff --format=github --target-version=py37 .
       - name: Test with pytest
         run: |
-          python -m unittest |
-          app_python.tests.timer.test_service.TimerTest |
+          python -m unittest \
+          app_python.tests.timer.test_service.TimerTest \
           app_python.tests.main.test_main.ClientTest
