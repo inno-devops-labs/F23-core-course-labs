@@ -30,25 +30,16 @@ jobs:
         run: |
           cd app_python
           pip install -r requirements.txt
-
       - name: Linter
         run: |
           pylint app/main.py
-
       - name: Test with pytest
         run: |
           cd app_python
           pytest
-
-  snyk:
-    runs-on: ubuntu-latest
-    steps:
-        uses: actions/checkout@v4
-
       - name: SNYK install
         run: |
-         npm install snyk@latest -g
-
+          npm install snyk@latest -g
       - name: Snyk Test
         run: |
           snyk test --all-projects --severity-threshold=high
