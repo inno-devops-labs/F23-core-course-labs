@@ -17,7 +17,7 @@ permissions:
 
 jobs:
   build-and-deploy:
-    name: Build and Deploy to GH Pages
+    name: Build and Deploy
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -30,7 +30,9 @@ jobs:
         run: npm ci
       - name: Build website
         run: npm run build
-      - name: Deploy to GitHub Page
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          folder: build
+
+      - name: Snyk Test
+        run: |
+          snyk test --all-projects --severity-threshold=high
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
