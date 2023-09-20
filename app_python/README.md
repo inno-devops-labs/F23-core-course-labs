@@ -14,15 +14,23 @@ Hi :wave:, this is a simple app's repository that displays the current time in M
 
 ## About
 
+---------------------------------------------------------------
+
+
 This app displays the current time in Moscow. It was created for educational purposes upon request during a DevOps course.
 
 ## Features
+
+---------------------------------------------------------------
+
 
 List the key features of your app.
 
 - Display Time in Moscow
 
 ## Getting Started
+
+---------------------------------------------------------------
 
 ### Installation
 
@@ -56,6 +64,9 @@ pip install -r requirements.txt
 
 ## Usage
 
+---------------------------------------------------------------
+
+
 To run the app use the following command:
 ```Bash
 python3 app.py
@@ -64,13 +75,45 @@ python3 app.py
 It should run on localhost: http://127.0.0.1:5000/
 
 ## Tests
+
+---------------------------------------------------------------
+
 To run tests, execute the following command: 
 ```Bash
 python3 -m pytest
 ```
 
 ## Linter, Auto Formatter
+
+---------------------------------------------------------------
+
 To run linter and auto formatter execute the following command: 
 ```Bash
 pre-commit run --all-files
 ```
+
+## Docker 
+
+---------------------------------------------------------------
+
+To build the image run the following command: 
+```Bash
+sudo docker build -t flaskapp:1.0 .
+```
+
+To run it, use the following command:
+```Bash
+docker run -d -p 5000:5000 flaskapp:1.0
+```
+
+To pull it from Docker Registry:
+```Bash
+docker pull aibekbakirov/devops_lab2:1.0
+```
+
+To run it, use the following command:
+```Bash
+docker run -d -p 5000:5000 aibekbakirov/devops_lab2:1.0
+```
+
+link: http://localhost:5000/
