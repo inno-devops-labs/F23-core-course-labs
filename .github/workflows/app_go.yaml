@@ -9,7 +9,7 @@ env:
   IMAGE_NAME: app_go
 
 jobs:
-  build-test:
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -36,7 +36,7 @@ jobs:
         working-directory: app_go
 
   release:
-    needs: build-test
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
