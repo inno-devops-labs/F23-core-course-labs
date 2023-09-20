@@ -46,4 +46,4 @@ jobs:
 
   deploy:
   script:
-    - ssh user@server "docker pull $DOCKER_USERNAME/app_python && docker-compose up -d"   
+    - ssh user@server "docker pull $DOCKER_USERNAME/app_python && docker-compose up -d"
