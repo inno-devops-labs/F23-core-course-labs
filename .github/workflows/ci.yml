@@ -35,3 +35,7 @@ jobs:
       - name: Unit Testing with pytest
         working-directory: ./app_python
         run: pytest
+      - name: Snyk
+        uses: snyk/actions/python-3.8@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
