@@ -3,12 +3,12 @@ set -m
 
 test_base() {
     ./main.sh "$1" 7001 &
-    sleep 2
+    sleep 1
     curl http://localhost:7001 --http0.9 | grep "$2"
 }
 
 test_yes () {
-    test_base localhost YES
+    test_base google.com YES
 }
 
 test_no () {
