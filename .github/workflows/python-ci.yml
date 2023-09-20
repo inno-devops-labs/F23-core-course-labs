@@ -31,4 +31,4 @@ jobs:
 
     - name: Run Django tests
       run: |
-        python3 manage.py test myapp.tests.CurrentTimeTestCase
+        python3 app_python/manage.py test myapp.tests.CurrentTimeTestCase
