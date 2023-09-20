@@ -7,7 +7,7 @@ USER python_runner
 ENV PATH="/home/python_runner/.local/bin:${PATH}"
 WORKDIR /home/python_runner/python/src/app
 
-RUN python -m venv /opt/venv
+RUN /opt/venv/bin/python -m venv /opt/venv
 
 COPY requirements/requirements.txt ./
 
