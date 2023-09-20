@@ -13,7 +13,7 @@ jobs:
   security:
     timeout-minutes: 30
     permissions:
-      contents: write
+      contents: read
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
