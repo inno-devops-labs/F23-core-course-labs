@@ -1,0 +1,21 @@
+image: docker:latest
+
+services:
+  - docker:dind
+
+stages:
+  - build
+  - deploy
+
+build:
+  stage: build
+  script:
+    - docker build -t app_python .
+    - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+    - docker tag app_python $DOCKER_USERNAME/app_python
+    - docker push $DOCKER_USERNAME/app_python
+
+deploy:
+  stage: deploy
+  script:
+    - ssh user@server "docker pull $DOCKER_USERNAME/app_python && docker-compose up -d"
