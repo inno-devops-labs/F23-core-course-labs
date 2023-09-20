@@ -23,21 +23,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-
-      - name: Cache Node.js dependencies
-        uses: actions/cache@v3
-        with:
-          path: ~/.npm
-          key: npm-${{ runner.os }}-${{ matrix.node-version }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            npm-${{ runner.os }}-${{ matrix.node-version }}-
       
       - name: Set up Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
-          cache-dependency-path: subdirapp_javascript/package-lock.json
+          cache-dependency-path: app_javascript/package-lock.json
 
       - name: Display Node.js version
         run: node --version
