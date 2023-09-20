@@ -1,4 +1,5 @@
 # Lab1
+![workflow](https://github.com/nikitosing/core-course-labs/actions/workflows/python.yml/badge.svg)
 
 Lab1 DevOps course [F23]
 
