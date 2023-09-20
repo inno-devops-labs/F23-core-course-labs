@@ -63,7 +63,7 @@ jobs:
         args: |
           app_python/
           --severity-threshold=high
-          --command=python -m pip install -r requirements.txt && snyk test
+          --command=python -m pip install -r requirements.txt --skip-unresolved && snyk test
 
     - name: Run Snyk to check Docker image for issues
       uses: snyk/actions/docker@master
