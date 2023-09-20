@@ -17,3 +17,8 @@ Cons:
 Used golangci-lint linter.
 
 Added make file, gitignore and documented my code.
+
+### Unit Tests
+
+I have written unit test for root handler.
+Since this service is simple, it is okay to check 200 status code and time format.
