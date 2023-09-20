@@ -67,4 +67,6 @@ jobs:
           context: app_python
           file: app_python/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/clockbox:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/devops:app-python
+          cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/devops:app-python-buildcache
+          cache-to: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/devops:app-python-buildcache,mode=max
