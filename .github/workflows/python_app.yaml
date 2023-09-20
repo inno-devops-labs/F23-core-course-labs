@@ -32,13 +32,6 @@ jobs:
         run: |
           pylint app/main.py
 
-      - name: Test with pytest
-         run: |
-           cd app
-           uvicorn main:app --reload
-           pytest
-           cd ..
-
       - name: SNYK install
         run: |
           npm install snyk@latest -g
@@ -47,6 +40,11 @@ jobs:
           snyk test --all-projects --severity-threshold=high
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+      - name: Test with pytest
+        run: |
+          bash -c "(cd app && uvicorn main:app &)
+          pytest
 
   deploy:
     needs: build
