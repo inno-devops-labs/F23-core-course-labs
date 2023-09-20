@@ -45,6 +45,7 @@ jobs:
         uses: golangci/golangci-lint-action@v3
         with:
           version: v1.54
+          working-directory: app_go
       - name: Test
         run: go test -v ./...
   dockerhub-push:
