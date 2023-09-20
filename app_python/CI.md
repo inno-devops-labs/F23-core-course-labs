@@ -1,5 +1,7 @@
 # Python Web Application CI
 
+[![Python App](https://github.com/NodirBobiev/devops-labs/actions/workflows/app_python.yaml/badge.svg)](https://github.com/NodirBobiev/devops-labs/actions/workflows/app_python.yaml)
+
 This file summarizes the best practices used in our GitHub Workflow, Python App.
 
 ## Overview
