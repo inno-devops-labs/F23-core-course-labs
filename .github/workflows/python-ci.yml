@@ -93,7 +93,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build ./app_python/myapp -t $DOCKERHUB_USERNAME/app_python:latest
+          docker build ./app_python/myapp -t $DOCKERHUB_USERNAME/app_python
       - name: Push Docker image to DockerHub
         run: |
-          docker push $DOCKERHUB_USERNAME/app_python:latest
+          docker push $DOCKERHUB_USERNAME/app_python
