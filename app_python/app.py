@@ -9,7 +9,6 @@ import os
 
 app = FastAPI()
 
-
 def get_test_client():
     return TestClient(app)
 
