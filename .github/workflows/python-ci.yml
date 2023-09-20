@@ -63,6 +63,7 @@ jobs:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       with:
         args: --severity-threshold=high
+        working-directory: app_python
           
     - name: Run Snyk to check Docker image for issues
       uses: snyk/actions/docker@master
@@ -70,6 +71,8 @@ jobs:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       with:
         args: --severity-threshold=high
+        working-directory: app_python
+
 
 
 
