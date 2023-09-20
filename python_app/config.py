@@ -1,2 +1,6 @@
-time_zone = 'Europe/Moscow'
-time_format = '%d %b %Y %I:%M:%S'
+"""
+Config data for the Web App.
+"""
+
+TIME_ZONE = 'Europe/Moscow'
+TIME_FORMAT = '%d %b %Y %I:%M:%S'

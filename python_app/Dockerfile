@@ -13,9 +13,6 @@ RUN pip install --upgrade pip \
 # Copy the main content of the project to the working directory
 COPY . /python_app
 
-# Run the tests to check for functionality correctness
-RUN . venv/bin/activate && python -m unittest /python_app/tests/test.py
-
 # Create a non-root user to run the application
 RUN groupadd -r limiteduser && useradd -r -g limiteduser limiteduser
 

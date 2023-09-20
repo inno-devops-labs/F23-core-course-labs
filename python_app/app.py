@@ -1,3 +1,6 @@
+"""
+Web App main logic.
+"""
 from datetime import datetime
 
 import pytz
@@ -10,6 +13,9 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
+    """
+    Get rendered HTML template with filled data.
+    """
     current_time = get_current_time()
     print(current_time)
 
@@ -19,10 +25,10 @@ def index():
 def get_current_time():
     """ Getting formatted time in Moscow time-zone """
 
-    moscow_timezone = pytz.timezone(config.time_zone)
+    moscow_timezone = pytz.timezone(config.TIME_ZONE)
     time = datetime.now(moscow_timezone)
 
-    return time.strftime(config.time_format)
+    return time.strftime(config.TIME_FORMAT)
 
 
 if __name__ == '__main__':

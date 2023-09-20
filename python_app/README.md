@@ -37,7 +37,19 @@ docker pull evalekalek/devops:latest
 docker run -it --rm evalekalek/devops:latest
 ```
 
+## Testing
+There are several tests to provide the correct functionality in `tests/test.py`. </br>
+To run the tests use `python -m unittest tests/test.py`.
+
+## CI/CD
+![python-app workflow badge](https://github.com/quhaaST/core-course-labs/actions/workflows/python-app-workflow.yaml/badge.svg) 
+
+As a CI tool a GitHub Actions were used. </br>
+The workflow, which includes linting, testing, pushing the updated Docker image to DockerHub, will be triggered upon
+any change in `python_app` folder.
+
 ## Dependencies
 
 - Flask==2.0.1
 - pytz==2021.3
+- pylint==2.17.5
