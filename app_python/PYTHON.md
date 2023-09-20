@@ -26,4 +26,10 @@ This project adheres to several best practices to ensure code quality, maintaina
 
 4. **Gunicorn for Production**: In a production environment, Gunicorn is utilized to run the Flask application. Gunicorn is a production-ready WSGI server that enhances application performance and reliability, making it suitable for deployment.
 
-5. **Test Cases**: The project includes test cases to verify the functionality and correctness of the code. Testing is essential for catching issues early in the development process and maintaining the project's stability.
+5. **Test Cases**: The project includes test cases to verify the functionality and correctness of the code. Testing is essential for catching issues early in the development process and maintaining the project's stability. 
+
+## Tests
+
+I used `flask_testing` package for testing. The tests are:
+
+1. **test_current_time_moscow**: Checks if the `MoscowTime/` endpoint is working by testing the returned status code and searching for the string "Time in Moscow:" in the response.

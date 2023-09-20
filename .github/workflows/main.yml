@@ -24,6 +24,7 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: "3.10"
+          cache: "pip"
       
       - name: Dependencies
         run: |
@@ -37,6 +38,20 @@ jobs:
       - name: Tests
         run: python -m unittest main/tests.py
 
+  snyk:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Check for vulnerabilities
+        uses: snyk/actions/python-3.10@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --workdir=./app_python/
+            --package-manager=pip
+            --skip-unresolved
 
   push_docker:
     runs-on: ubuntu-latest

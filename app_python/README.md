@@ -1,5 +1,7 @@
 # Flask App README
 
+[![PR Testing and Building](https://github.com/thecarrot123/core-course-labs/actions/workflows/main.yml/badge.svg)](https://github.com/thecarrot123/core-course-labs/actions/workflows/main.yml)
+
 ## Project Overview
 
 This Flask app displays the current time in Moscow's time zone (MSK).
@@ -36,7 +38,7 @@ Or with gunicorn:
 
 The app will be available at <http://localhost:5050/>.
 
-## Testing the App
+## Unit Test
 
 To test the Flask app run:
 
