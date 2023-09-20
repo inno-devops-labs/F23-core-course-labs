@@ -63,6 +63,14 @@ You can check application by testing, to do this, run in terminal command:
 python -m pytest
 ```
 
+## CI
+
+    Workflow:
+
+- Security check
+- Lint, Build and Run tests
+- Release: Dockerhub image push
+
 ## Contact
 
 email: v.khalilov@innopolis.university
