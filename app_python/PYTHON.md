@@ -7,3 +7,7 @@ I used Flask as the backbone for this application. It is lightweight and straigh
 ## pytz
 
 I used pytz for time utils for its easy interface and helpful formatting.
+
+## tests
+
+I used pytest to test the landing page, whether it renders the local time string or not. No extra packages were added for this step.

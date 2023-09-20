@@ -21,4 +21,10 @@ This is a simple Flask application that shows the current time in Moscow time.
 2. Run the application:
     `docker run hadisaleh1/time-app`
 
+## Unit tests
+
+1. Run tests:
+   `python -m pytest`
+
+
  
