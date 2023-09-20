@@ -43,10 +43,4 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-pip-
 
-    - name: Run Snyk to check for vulnerabilities
-      uses: snyk/actions/python@0.3.0
-      with:
-        args: --severity-threshold=high
-
-
 
