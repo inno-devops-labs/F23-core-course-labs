@@ -9,8 +9,9 @@ import os
 
 app = FastAPI()
 
+
 def get_test_client():
-    return TestClient(app)
+ return TestClient(app)
 
 
 TEMPLATES_PATH = os.path.join(
