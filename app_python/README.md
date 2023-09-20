@@ -54,13 +54,13 @@ Afterwards, the date and time can be seen on `127.0.0.1:5000`
 
 ## Testing
 
-After installing the application, go to the directory and run tests package using `pytest`
+After installing the application, go to the directory and run unit tests package using `pytest`
 
 ```
 python3 -m pytest
 ```
 
-Note that if your ping is higher than 2 minutes (which is highly unlikely) tests will always fail.
+Note that if your ping is higher than 2 minutes (which is highly unlikely) test for date and time will most likely fail.
 
 ## Docker
 
