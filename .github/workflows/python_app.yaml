@@ -43,7 +43,7 @@ jobs:
 
       - name: Test with pytest
         run: |
-          bash -c "(cd app && uvicorn main:app &)
+          bash -c "(cd app && uvicorn main:app &)"
           pytest
 
   deploy:
