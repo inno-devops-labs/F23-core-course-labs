@@ -14,6 +14,7 @@ uvicorn main:app
 ```
 python3 -m pytest test.py
 ```
+
 ## Docker
 You can run app in docker to have an isolated container.
 ### Build
