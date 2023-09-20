@@ -56,7 +56,11 @@ docker run -p 80:80 sl1depengwyn/python_devops
 Pull requests are welcome. For major changes, please open an issue first
 to discuss what you would like to change.
 
+### Unit tests
+
 Please make sure to update tests as appropriate.
+
+Tests are ran using [pytest](https://docs.pytest.org/en/7.4.x/).
 
 To run the tests:
 
