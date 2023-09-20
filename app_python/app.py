@@ -5,7 +5,6 @@ import pytz
 import logging
 from logging.handlers import RotatingFileHandler
 
-# Set up file and console logging
 logger = logging.getLogger()
 logger.setLevel(LOG_LEVEL)
 
