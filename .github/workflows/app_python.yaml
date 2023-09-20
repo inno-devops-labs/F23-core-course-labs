@@ -46,9 +46,9 @@ jobs:
           pylint src tests
 
       - name: Run tests
-        working-directory: ./app_python/tests
+        working-directory: ./app_python
         run: |
-          pytest -v .
+          pytest -v tests
 
   docker:
     runs-on: ubuntu-latest
