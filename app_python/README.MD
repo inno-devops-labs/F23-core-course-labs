@@ -8,11 +8,12 @@ A simple Flask-based web application that displays the current Moscow time upon 
 2. [Prerequisites](#prerequisites)
 3. [Installation](#installation)
 4. [Usage](#usage)
-5. [Logging](#logging)
-6. [Docker Usage](#docker-usage)
-7. [Contributing](#contributing)
-8. [License](#license)
-9. [Acknowledgments](#acknowledgments)
+5. [Test](#test)
+6. [Logging](#logging)
+7. [Docker Usage](#docker-usage)
+8. [Contributing](#contributing)
+9. [License](#license)
+10. [Acknowledgments](#acknowledgments)
 
 ## Getting Started
 
@@ -48,7 +49,7 @@ These instructions will guide you through the process of setting up the Moscow T
     ```bash
     pip install -r requirements.txt
     ```
-
+   
 ## Usage
 
 To run the Moscow Time Flask web app:
@@ -65,7 +66,16 @@ To run the Moscow Time Flask web app:
     http://127.0.0.1:5000/
     ```
 
-### Logging
+## Test
+1. Activate the virtual environment if not already active.
+
+2. Run the tests:
+
+```bash
+python test_app.py
+```
+
+## Logging
 
 Logs are written both to the console and to `app.log` in the root directory. The logs contain information about app events, any encountered issues, and their timestamps.
 

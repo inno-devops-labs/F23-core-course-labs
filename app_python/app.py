@@ -1,6 +1,6 @@
+from logic import get_moscow_time
 from config import LOG_LEVEL, LOG_FILENAME, LOG_MAX_BYTES, LOG_BACKUP_COUNT, LOG_FORMAT
 from flask import Flask, render_template, jsonify
-from datetime import datetime
 import pytz
 import logging
 from logging.handlers import RotatingFileHandler
@@ -27,30 +27,28 @@ logger.addHandler(file_handler)
 logger.addHandler(console_handler)
 
 
-app = Flask(__name__)
+flask_app = Flask(__name__)
 
 
-@app.route('/')
+@flask_app.route('/')
 def moscow_time():
     try:
-        # Fetch Moscow time
-        moscow_tz = pytz.timezone('Europe/Moscow')
-        current_time = datetime.now(moscow_tz).strftime('%Y-%m-%d %H:%M:%S')
-        app.logger.info('Moscow time fetched successfully.')
-
-        # Render HTML
+        current_time = get_moscow_time()
+        flask_app.logger.info('Moscow time fetched successfully.')
         return render_template("time.html", current_time=current_time)
-
+    except pytz.UnknownTimeZoneError:
+        flask_app.logger.error("Unknown TimeZone specified.")
+        return "Error: Unknown TimeZone", 500
     except Exception as e:
-        app.logger.error(f"Error fetching Moscow time: {e}")
-        return "Error fetching Moscow time", 500
+        flask_app.logger.error(f"Unexpected error: {e}")
+        return f"Unexpected error: {e}", 500
 
 
-@app.route('/health')
+@flask_app.route('/health')
 def health_check():
     """Health check endpoint"""
     return jsonify(status="healthy"), 200
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', debug=True)
+    flask_app.run(host='0.0.0.0', debug=False)
