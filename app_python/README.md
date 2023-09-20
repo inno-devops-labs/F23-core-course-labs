@@ -33,3 +33,7 @@ python src/app.py
 # Check the result
 Open URL in browser
 `http://localhost:8080/`
+
+# Unit tests
+`/test` - unit tests
+`pytest` - use for testing

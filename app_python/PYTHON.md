@@ -16,3 +16,6 @@ cons: too difficult to develop big web applications with it, but for our task it
 
 ## Linters for Python and Markdown
 For Python I use `black`, for Markdown VScode extension `Markdown All in One`
+
+## Unit tests
+For Unit testing I use PyTest, tests covered `time_provider.py` service

@@ -4,7 +4,7 @@ from html_wrapper import HtmlWrapper
 
 
 async def get_current_datetime(request):
-    time = str(await TimeProvider.get_current_datetime())
+    time = str(TimeProvider.get_current_datetime())
     html = HtmlWrapper.align_content_to_center(time)
 
     return web.Response(text=html, content_type='text/html')
