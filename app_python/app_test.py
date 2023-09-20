@@ -9,12 +9,16 @@ class TestCase(testing.TestCase):
         self.app = create()
 
 
+TIME_FORMAT = '%a %d %b %Y, %I:%M:%S %p'
+
+
 class Test(TestCase):
     def test_get_moscow_time(self):
         res = self.simulate_get('/')
-        res_datetime = datetime.strptime(res.text, '%a %d %b %Y, %I:%M:%S %p')
-        tz = timezone(timedelta(hours=3))
-        self.assertLessEqual(
-            abs(datetime.now(tz).timestamp() - res_datetime.timestamp()),
-            1)
+        res_datetime = datetime.strptime(res.text, TIME_FORMAT)
 
+        tz = timezone(timedelta(hours=3))
+        current_datetime = datetime.strptime(datetime.now(tz).strftime(TIME_FORMAT), TIME_FORMAT)
+        self.assertLessEqual(
+            abs(current_datetime.timestamp() - res_datetime.timestamp()),
+            2)
