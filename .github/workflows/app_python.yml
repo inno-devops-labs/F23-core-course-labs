@@ -3,10 +3,10 @@ name: Linter, Tests, Build, and Push
 on:
   push:
     paths:
-      '***.yml'
-      '***.py'
-      'Dockerfile'
-      'requirements.txt'
+      - '***.yml'
+      - '***.py'
+      - 'Dockerfile'
+      - 'requirements.txt'
   pull_request:
     branches: [ main ]
 
