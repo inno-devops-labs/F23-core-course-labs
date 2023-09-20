@@ -1,5 +1,6 @@
 ## Continuous Integration (CI) Best Practices
 
+
 ### **Fine-tuned Triggers**
 - Limiting the CI to run only when changes occur in specific folders or files, rather than on every single commit or push. This conserves resources.
     ```yaml
