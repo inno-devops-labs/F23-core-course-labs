@@ -71,12 +71,10 @@ jobs:
           cache-dependency-path: app_javascript/package-lock.json
 
       - name: Install dependencies
-        working-directory: ./app_javascript
         run: npm install
 
-      - name: Snyk test
+      - name: Snyk Test
         continue-on-error: true
-        working-directory: ./app_javascript
         run: snyk test --sarif-file-output=snyk.sarif
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
