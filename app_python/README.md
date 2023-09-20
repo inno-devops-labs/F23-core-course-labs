@@ -17,6 +17,7 @@
 - [Testing](#testing)
 - [Docker](#docker)
 - [Unit Tests](#unit-tests)
+- [CI Workflow](#ci-workflow)
 
 
 ## Description
@@ -122,3 +123,10 @@ Alternatively, run all tests from `app_python` directory:
 ```
 python3 -m pytest
 ```
+
+## CI Workflow
+
+CI workflow consists of 2 jobs:
+
+- `test_and_lint` - includes setting up the environment, running the linter, and then running unit tests. Note that tests will not be executed if linter sees fault.
+- `push_docker` - logins into docker hub using credentials from secrets, builds the image, and pushes it. It is required for `test_and_lint` to not fail, before it runs.
