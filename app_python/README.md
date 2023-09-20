@@ -1,6 +1,6 @@
 # Python Web Application - Moscow Time Display
 
-![Python CI](https://github.com/Ahmad-mtos/core-course-labs/actions/actions/workflows/main/badge.svg)
+![Python CI](https://github.com/Ahmad-mtos/core-course-labs/actions/workflows/main.yml/badge.svg)
 
 
 ## Description
