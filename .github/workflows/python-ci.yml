@@ -29,11 +29,6 @@ jobs:
         pip3 install pylint
         pylint app_python/myapp
 
-    - name: Set up Django environment
-      run: |
-        python3 manage.py migrate
-        python3 manage.py collectstatic --noinput
-
     - name: Run Django tests
       run: |
         python3 manage.py test myapp.tests.CurrentTimeTestCase
