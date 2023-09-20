@@ -93,7 +93,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build ./app_python -t current_time
+          docker build ./app_python -t tcarinaa/current_time:latest
       - name: Push Docker image to DockerHub
         run: |
           docker push tcarinaa/current_time:latest
