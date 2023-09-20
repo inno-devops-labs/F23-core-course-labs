@@ -12,3 +12,8 @@ I used current time on server with specified timezone as an information about cu
 I tried my best in code style, I don't know if I need to clarify something about it.
 
 I created a config file temporary, for containing some useful data. It will be removed on stage of containerization.
+
+Unit tests:
+I created a mock test client for my application and implemented two unit tests.
+First one checks for a  success response for current time request.
+Second one validates current time, compare it to current time on system within a 5 seconds range.
