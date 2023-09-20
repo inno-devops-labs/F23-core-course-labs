@@ -30,6 +30,7 @@ jobs:
           sarif_file: snyk.sarif
 
   build-test:
+    timeout-minutes: 30
     runs-on: ubuntu-latest
     permissions:
       security-events: write
