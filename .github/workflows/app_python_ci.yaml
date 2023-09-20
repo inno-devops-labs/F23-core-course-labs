@@ -3,7 +3,7 @@ on:
   push:
     paths:
       - 'app_python/**'
-      - '.github/workflows/app_python_ci.yml'
+      - '.github/workflows/app_python_ci.yaml'
 env:
   WORKING_DIR: app_python
   DOCKER_IMAGE_NAME: app-python
