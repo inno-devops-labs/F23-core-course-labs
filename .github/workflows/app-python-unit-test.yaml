@@ -39,8 +39,9 @@ jobs:
           restore-keys: ${{ runner.os }}-poetry-
 
       - name: Install dependencies
-        run: poetry install
-        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+        run: |
+          poetry config virtualenvs.in-project true
+          poetry install --no-interaction --no-ansi
 
       - name: Unit tests
         if: always()
