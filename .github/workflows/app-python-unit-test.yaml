@@ -25,6 +25,9 @@ jobs:
         with:
           python-version: 3.11
 
+      - name: Install and configure Poetry
+        uses: snok/install-poetry@v1
+
       - name: Cache dependencies
         uses: actions/cache@v2
         with:
