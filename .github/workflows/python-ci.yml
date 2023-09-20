@@ -60,10 +60,12 @@ jobs:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       with:
         command: test
-        args: |
-          app_python/
-          --file=${{ env.WORKING_DIR}}/requirements.txt --package-manager=pip --skip-unresolved
-          --severity-threshold=high
+        args: 
+          --file=app_python/requirements.txt
+          --package-manager=pip
+          --skip-unresolved
+
+
 
     - name: Run Snyk to check Docker image for issues
       uses: snyk/actions/docker@master
