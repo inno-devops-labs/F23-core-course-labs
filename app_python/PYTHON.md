@@ -14,3 +14,9 @@
 
 3. Use a linter: A linter is a tool that analyzes code for potential errors and stylistic inconsistencies. It helps to ensure that the codebase follows coding standards and best practices.
 
+## Unit Tests
+
+This test verifies that the /current_time/ page returns the current time in Moscow. To run this test, you need to run the command:
+
+`python manage.py test myapp.tests.CurrentTimeTestCase`
+
