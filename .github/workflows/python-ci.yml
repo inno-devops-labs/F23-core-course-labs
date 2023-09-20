@@ -62,7 +62,6 @@ jobs:
         command: test
         args: |
           app_python/
-          --file=requirements.txt 
           --severity-threshold=high
           --command=python -m pip install -r requirements.txt && snyk test
 
