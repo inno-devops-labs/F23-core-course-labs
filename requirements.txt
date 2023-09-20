@@ -2,3 +2,5 @@ pytz~=2023.3
 fastapi~=0.103.0
 uvicorn
 jinja2
+pytest
+beautifulsoup4
