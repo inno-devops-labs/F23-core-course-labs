@@ -5,7 +5,7 @@ USER appuser
 
 WORKDIR /app
 
-COPY app_python/requirements.txt /app/
+COPY app_python/my_app/requirements.txt /app/
 
 RUN pip install --no-cache-dir -r requirements.txt
 
