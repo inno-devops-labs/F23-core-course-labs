@@ -67,5 +67,5 @@ jobs:
       - name: Linter
         run: |
           . ./.venv/bin/activate
-          pylint app.py --fail-under=8 --disable=missing-module-docstring --disable=missing-class-docstring --disable=missing-function-docstring
+          pylint ./src/app.py --fail-under=8 --disable=missing-module-docstring --disable=missing-class-docstring --disable=missing-function-docstring
           pylint ./tests --fail-under=8 --disable=missing-module-docstring --disable=missing-class-docstring --disable=missing-function-docstring
