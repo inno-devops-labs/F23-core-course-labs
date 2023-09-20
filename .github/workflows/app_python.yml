@@ -16,6 +16,10 @@ jobs:
   setup:
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        working-directory: ./app_python
+
     steps:
     - name: Check out code
       uses: actions/checkout@v4
@@ -40,10 +44,6 @@ jobs:
 
     needs: setup
 
-    defaults:
-      run:
-        working-directory: ./app_python
-
     steps:
     - name: Linter
       run: |
@@ -58,10 +58,6 @@ jobs:
     runs-on: ubuntu-latest
 
     needs: linting
-
-    defaults:
-      run:
-        working-directory: ./app_python
     
     steps:
     - name: Tests
@@ -73,10 +69,6 @@ jobs:
     runs-on: ubuntu-latest
 
     needs: test
-
-    defaults:
-      run:
-        working-directory: ./app_python
 
     steps:
       - name: Check out code
