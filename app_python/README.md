@@ -41,7 +41,7 @@ The app will be available at <http://localhost:5050/>.
 To test the Flask app run:
 
 ```bash
-    python -m unittest tests.py
+    python -m unittest main/tests.py
 ```
 
 ## Docker
