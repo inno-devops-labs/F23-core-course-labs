@@ -23,8 +23,14 @@ app_python
 │   ├── views/
 │   │   ├── __init__.py
 |   |   └── time_view.py
+|   |
+│   ├── utils/
+│   │   ├── __init__.py
+|   |   └── time.py
+|   |
 |   └── templates/
 │       └── current_time.html
+|
 ├── tests/
 │   ├── __init__.py
 |   └── test_app.py
@@ -41,5 +47,3 @@ app_python
 - `tests/`: Contains test files for the application 
 - `run.py`: Entry point for starting the application.
 - `requirements.txt`: Contains the Python package dependencies of the project.
-
-

@@ -4,6 +4,7 @@ import re
 import pytest
 from bs4 import BeautifulSoup
 from app import create_app
+from app.utils.time import moscow_time, moscow_timezone
 
 
 
@@ -21,11 +22,11 @@ def test_date_time(client):
     """This functions tests that time returned by server matches the current time"""
     time_format = "%Y-%m-%d %H:%M:%S"
 
-    before_time = datetime.now().replace(microsecond=0)
+    before_time = moscow_time().replace(microsecond=0)
 
     response = client.get('/')
 
-    after_time = datetime.now()
+    after_time = moscow_time()
 
     assert response.status_code == 200, f"Expected ok but got status code = {response.status_code}"
 
@@ -37,6 +38,10 @@ def test_date_time(client):
     result = pattern.search(str(soup))
 
     assert result is not None, "date and time not found"
+
+    before_time = datetime.combine(before_time.date(), before_time.time())
+
+    after_time = datetime.combine(after_time.date(), after_time.time())
 
     server_time = datetime.strptime(result.group(), time_format)
 
