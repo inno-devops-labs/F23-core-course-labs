@@ -16,4 +16,4 @@ def time_in_msk():  # put application's code here
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, host="0.0.0.0", port=5000)

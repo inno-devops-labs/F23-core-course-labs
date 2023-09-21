@@ -1,0 +1,17 @@
+*.md
+requirements.txt
+
+node_modules/
+static/
+tests/
+venv/
+
+.pytest_cache
+.coverage
+.gitignore
+.pre-commit-config.yaml
+.dockerignore
+
+package.json
+package-lock.json
+Dockerfile
