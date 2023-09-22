@@ -63,7 +63,8 @@ try:
     )
 except ImportError:
     raise AnsibleError(
-        'The yacloud dynamic inventory plugin requires yandexcloud')
+        'The yacloud dynamic inventory plugin requires yandexcloud',
+    )
 
 display = Display()
 
@@ -106,7 +107,8 @@ class InventoryModule(BaseInventoryPlugin, Constructable, Cacheable):
         for cloud in self.clouds:
             all_folders += MessageToDict(
                 self.folder_service.List(
-                    ListFoldersRequest(cloud_id=cloud['id'])),
+                    ListFoldersRequest(cloud_id=cloud['id']),
+                ),
             )['folders']
 
         if self.get_option('yacloud_folders'):
