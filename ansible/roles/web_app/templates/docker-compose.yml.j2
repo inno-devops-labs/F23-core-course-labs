@@ -1,0 +1,26 @@
+version: '3.7'
+
+x-logging: &x-logging
+  logging:
+    driver: 'json-file'
+    options:
+      max-size: '100m'
+      max-file: '2'
+      tag: {% raw %}'{{.ImageName}}|{{.Name}}|{{.ImageFullID}}|{{.FullID}}'{% endraw %}
+
+services:
+  '{{ web_app_name }}':
+    <<: *x-logging
+    image: '{{ web_app_image }}'
+    container_name: '{{ web_app_name }}'
+    restart: always
+    ports:
+      - '{{ web_app_port }}:{{ web_container_port }}'
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - wget --no-verbose --tries=1 -O /dev/null http://localhost:{{ web_container_port }}/healthcheck || exit 1
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
