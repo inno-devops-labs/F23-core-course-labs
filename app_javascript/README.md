@@ -70,3 +70,15 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+## Docker
+
+Using Docker to run the React application can provide an alternative approach. Before running the application, Docker must be installed on the system. Once installed, the following command can be used to build the Docker image:
+
+docker pull marufasatullaev/app_javascript
+
+After building the image, a container can be started using the following command:
+
+docker run -p 80:80 marufasatullaev/app_javascript
+
+The application will then be accessible at http://localhost:80. If port 80 is already in use, an unused port can be used instead by replacing 80:80 with xxxx:80, where xxxx represents the unused port.

@@ -49,3 +49,17 @@ app_python/
 - README.md: contains the documentation for this project.
 - PYTHON.md: contains the documentation of best practices for this project.
 - templates/base.html: contains the HTML code for the home page of the web application.
+
+// dckr_pat_ONn3YuBqtgKlISOoEGF3AMIZqHA
+
+## Docker
+
+Using Docker to run the application can provide an alternative approach. Before running the application, Docker must be installed on the system. Once installed, the following command can be used to pull the Docker image from Docker Hub:
+
+docker pull marufasatullaev/app_python
+
+After pulling the image, a container can be started using the following command:
+
+docker run -p 5000:5000 marufasatullaev/app_python
+
+The application will then be accessible at either 127.0.0.1:5000
