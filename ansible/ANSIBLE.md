@@ -1,31 +1,115 @@
 # Lab 5
 
-## 
+## Docker role
 
-## ansible-inventory -i inventory/yacloud_compute.yml --list -vvvvv
+### ansible-playbook -i inventory/yacloud_compute.yml playbooks/dev/docker.yml
 
 ```yaml
-ansible-inventory [core 2.15.4]
-  config file = /home/user/core-course-labs/ansible/ansible.cfg
-  configured module search path = ['/home/user/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
-  ansible python module location = /home/user/.local/lib/python3.11/site-packages/ansible
-  ansible collection location = /home/user/.ansible/collections:/usr/share/ansible/collections
-  executable location = /home/user/.local/bin/ansible-inventory
-  python version = 3.11.5 (main, Aug 28 2023, 00:00:00) [GCC 13.2.1 20230728 (Red Hat 13.2.1-1)] (/usr/bin/python3)
-  jinja version = 3.1.2
-  libyaml = True
-Using /home/user/core-course-labs/ansible/ansible.cfg as config file
-setting up inventory plugins
-Loading collection ansible.builtin from 
-host_list declined parsing /home/user/core-course-labs/ansible/inventory/yacloud_compute.yml as it did not pass its verify_file() method
-script declined parsing /home/user/core-course-labs/ansible/inventory/yacloud_compute.yml as it did not pass its verify_file() method
-Using inventory plugin 'yacloud_compute' to process inventory source '/home/user/core-course-labs/ansible/inventory/yacloud_compute.yml'
-Parsed /home/user/core-course-labs/ansible/inventory/yacloud_compute.yml inventory source with auto plugin
+PLAY [lab5] **********************************************************************************************************************************************
+skipping: no hosts matched
+
+PLAY RECAP ***********************************************************************************************************************************************
+
+[user@fedora ansible]$ ansible-playbook -i inventory/yacloud_compute.yml playbooks/dev/docker.yml
+
+PLAY [lab5] **********************************************************************************************************************************************
+
+TASK [Gathering Facts] ***********************************************************************************************************************************
+ok: [test]
+
+TASK [docker : Execute apt update] ***********************************************************************************************************************
+changed: [test]
+
+TASK [geerlingguy.pip : Ensure Pip is installed.] ********************************************************************************************************
+changed: [test]
+
+TASK [geerlingguy.pip : Ensure pip_install_packages are installed.] **************************************************************************************
+changed: [test] => (item={'name': 'docker'})
+changed: [test] => (item={'name': 'docker-compose'})
+
+TASK [geerlingguy.docker : Load OS-specific vars.] *******************************************************************************************************
+ok: [test]
+
+TASK [geerlingguy.docker : include_tasks] ****************************************************************************************************************
+skipping: [test]
+
+TASK [geerlingguy.docker : include_tasks] ****************************************************************************************************************
+included: /home/user/.ansible/roles/geerlingguy.docker/tasks/setup-Debian.yml for test
+
+TASK [geerlingguy.docker : Ensure old versions of Docker are not installed.] *****************************************************************************
+ok: [test]
+
+TASK [geerlingguy.docker : Ensure dependencies are installed.] *******************************************************************************************
+changed: [test]
+
+TASK [geerlingguy.docker : Ensure additional dependencies are installed (on Ubuntu < 20.04 and any other systems).] **************************************
+skipping: [test]
+
+TASK [geerlingguy.docker : Ensure additional dependencies are installed (on Ubuntu >= 20.04).] ***********************************************************
+ok: [test]
+
+TASK [geerlingguy.docker : Add Docker apt key.] **********************************************************************************************************
+changed: [test]
+
+TASK [geerlingguy.docker : Ensure curl is present (on older systems without SNI).] ***********************************************************************
+skipping: [test]
+
+TASK [geerlingguy.docker : Add Docker apt key (alternative for older systems without SNI).] **************************************************************
+skipping: [test]
+
+TASK [geerlingguy.docker : Add Docker repository.] *******************************************************************************************************
+changed: [test]
+
+TASK [geerlingguy.docker : Install Docker packages.] *****************************************************************************************************
+skipping: [test]
+
+TASK [geerlingguy.docker : Install Docker packages (with downgrade option).] *****************************************************************************
+changed: [test]
+
+TASK [geerlingguy.docker : Install docker-compose plugin.] ***********************************************************************************************
+skipping: [test]
+
+TASK [geerlingguy.docker : Install docker-compose-plugin (with downgrade option).] ***********************************************************************
+skipping: [test]
+
+TASK [geerlingguy.docker : Ensure /etc/docker/ directory exists.] ****************************************************************************************
+skipping: [test]
+
+TASK [geerlingguy.docker : Configure Docker daemon options.] *********************************************************************************************
+skipping: [test]
+
+TASK [geerlingguy.docker : Ensure Docker is started and enabled at boot.] ********************************************************************************
+ok: [test]
+
+TASK [geerlingguy.docker : Ensure handlers are notified now to avoid firewall conflicts.] ****************************************************************
+
+RUNNING HANDLER [geerlingguy.docker : restart docker] ****************************************************************************************************
+changed: [test]
+
+TASK [geerlingguy.docker : include_tasks] ****************************************************************************************************************
+skipping: [test]
+
+TASK [geerlingguy.docker : Get docker group info using getent.] ******************************************************************************************
+skipping: [test]
+
+TASK [geerlingguy.docker : Check if there are any users to add to the docker group.] *********************************************************************
+skipping: [test]
+
+TASK [geerlingguy.docker : include_tasks] ****************************************************************************************************************
+skipping: [test]
+
+PLAY RECAP ***********************************************************************************************************************************************
+test                       : ok=14   changed=8    unreachable=0    failed=0    skipped=13   rescued=0    ignored=0
+```
+
+### ansible-inventory -i inventory/yacloud_compute.yml --list
+
+```yaml
 {
     "_meta": {
         "hostvars": {
             "test": {
-                "ansible_host": "130.193.50.170",
+                "ansible_host": "158.160.35.199",
                 "ansible_ssh_private_key_file": "~/.ssh/id_ed25519",
                 "ansible_user": "ubuntu"
             }
