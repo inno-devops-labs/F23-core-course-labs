@@ -3,4 +3,4 @@ cache: true
 cache_plugin: ansible.builtin.jsonfile
 cache_timeout: 7200
 cache_connection: tmp/yacloud_compute_inventory
-yacloud_token_file: yacloud
+yacloud_token_file: key/yacloud
