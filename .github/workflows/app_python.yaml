@@ -35,6 +35,13 @@ jobs:
           pip install -r requirements.txt
         working-directory: ./app_python
 
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/python@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --file=requirements.txt
+
       - name: Install pylint
         run: |
           pip install pylint
@@ -49,13 +56,6 @@ jobs:
         working-directory: ./app_python
         run: |
           pytest -v tests
-
-      - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/python@master
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        with:
-          args: --file=app_python/requirements.txt
 
   docker:
     runs-on: ubuntu-latest
