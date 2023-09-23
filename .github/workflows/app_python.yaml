@@ -50,6 +50,11 @@ jobs:
         run: |
           pytest -v tests
 
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/python@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
   docker:
     runs-on: ubuntu-latest
     needs: dependencies
