@@ -68,7 +68,7 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          INPUT_ARGS: "test --file=app_python/requirements.txt"
+          args: --file=app_python/requirements.txt
 
   docker:
     runs-on: ubuntu-latest
