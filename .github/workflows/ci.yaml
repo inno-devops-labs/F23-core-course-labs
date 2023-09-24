@@ -64,6 +64,7 @@ jobs:
     
     - name: Snyk Vulnerability Check
       run: |
+        npm install -g snyk
         echo "Running Snyk vulnerability check..."
         curl -sSL https://install.snyk.io/unix | bash
         export SNYK_TOKEN=${{ secrets.SNYK_TOKEN }}
