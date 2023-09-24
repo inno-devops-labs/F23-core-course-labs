@@ -23,9 +23,9 @@ jobs:
 
     - name: Navigete to project 
       run: cd app_python/ 
-      
+
     - name: Install dependencies
-      run: pip install -r requirements.txt
+      run: pip install -r app_python/requirements.txt
       # This step installs project dependencies
 
     - name: Lint code
