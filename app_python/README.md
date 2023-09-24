@@ -41,6 +41,18 @@ if __name__ == '__main__':
 2. Run the application using `python app.py`.
 3. Open your web browser and visit `http://localhost:5000` to see the current time in Moscow.
 
+## Unit Tests
+
+Unit tests have been implemented to ensure the correctness of the application's functionality. These tests focus on individual components and their behavior. The following unit tests have been created:
+
+1. Test Home Route: This test verifies that the home route ('/') returns a valid response containing the current time in Moscow.
+
+To run the unit tests, use the following command:
+
+`python -m pytest`
+
+Ensure that the required testing dependencies are installed.
+
 ## Docker Containerization
 
 This Docker container runs the Python web application and displays the current time in Moscow. The application is packaged and isolated within a Docker container.
@@ -66,6 +78,18 @@ Once you have the Docker image built or pulled, you can run the Docker container
 `docker run -p 5000:5000 khays-python-app`
 
 This command maps port 5000 on your local machine to port 5000 within the Docker container. You can access the application by opening a web browser and navigating to `http://localhost:5000`.
+
+## Continuous Integration (CI) Workflowusername
+
+[![CI Status](https://github.com/KhaysK/core-course-labs/workflows/CI/badge.svg)](https://github.com/KhaysK/core-course-labs/actions)
+
+This project includes a Continuous Integration (CI) workflow to ensure code quality and consistency. The CI workflow performs the following steps:
+
+1. Dependencies: Checks and installs project dependencies, ensuring all required packages are available.
+2. Linting: Lints the codebase using Flake8 to maintain code quality and consistency.
+3. Unit Tests: Runs unit tests to verify the correctness of the application's functionality.
+4. Docker Build: Builds a Docker container image for the application.
+5. Docker Push: Pushes the Docker image to the Docker Hub registry.
 
 ## Author
 
