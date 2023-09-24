@@ -51,7 +51,9 @@ jobs:
       # This step logs in to Docker Hub using provided secrets
 
     - name: Build Docker image
-      run: docker build -t khays-python-app:latest .
+      run: |
+      cd app_python/
+      docker build -t khays-python-app:latest .
       # This step builds the Docker image for your application
 
     - name: Push Docker image
