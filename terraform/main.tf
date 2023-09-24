@@ -1,25 +1,18 @@
-terraform {
-  required_providers {
-    docker = {
-      source  = "kreuzwerker/docker"
-      version = "~> 3.0.1"
-    }
-  }
+module "app-python" {
+  source = "./docker"
+  image_name = "kurohata7/devops_msk_time"
+  container_name = "devops_msk_time"
 }
 
-provider "docker" {}
-
-resource "docker_image" "app_python_image" {
-  name         = var.image_name
-  keep_locally = false
+module "yandex-cloud" {
+  source = "./yandex"
+  zone = "ru-central1-a"
 }
 
-resource "docker_container" "app_python" {
-  image = docker_image.app_python_image.image_id
-  name  = var.container_name
+module "github" {
+  source = "./github"
+}
 
-  ports {
-    internal = 5000
-    external = var.container_ports_external
-  }
+module "github-teams" {
+  source = "./github-teams"
 }
