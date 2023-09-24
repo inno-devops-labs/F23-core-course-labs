@@ -16,17 +16,20 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
+    - name: Navigete to project 
+      run: cd app_python/ 
+
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
         python-version: 3.x
 
-    - name: Navigete to project 
-      run: cd app_python/ 
-
     - name: Install dependencies
       run: pip install -r app_python/requirements.txt
       # This step installs project dependencies
+    
+    - name: Install flake8
+      run: pip install flake8
 
     - name: Lint code
       run: flake8
