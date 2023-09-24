@@ -1,5 +1,7 @@
 ## Terraform
 
+> Note: Docker infrastructure is stored in ./docker/ subfolder as there will be several instances.
+
 Following the turorial I built inftastructure for my `app_python` using docker container, and here are the outputs of requested commands:
 
 ---
