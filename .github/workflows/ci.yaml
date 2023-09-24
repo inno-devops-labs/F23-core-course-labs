@@ -57,5 +57,5 @@ jobs:
       # This step builds the Docker image for your application
 
     - name: Push Docker image
-      run: docker push khays-python-app:latest
+      run: docker push ${{ secrets.DOCKER_USERNAME }}.khays-python-app:latest
       # This step pushes the Docker image to your Docker Hub repository
