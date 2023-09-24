@@ -45,5 +45,5 @@ jobs:
         run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
       - name: build and push
         run: |
-          docker build -f Dockerfile -t {{ secrets.DOCKERHUB_USERNAME }}/moscow-time:latest .
-          docker push {{ secrets.DOCKERHUB_USERNAME }}/moscow-time:latest
+          docker build -t bizuki/moscow-time:latest .
+          docker push bizuki/moscow-time:latest
