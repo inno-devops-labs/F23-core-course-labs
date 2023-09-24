@@ -1,5 +1,7 @@
 ## Terraform
 
+### Docker infrastructure
+
 > Note: Docker infrastructure is stored in ./docker/ subfolder as there will be several instances.
 
 Following the turorial I built inftastructure for my `app_python` using docker container, and here are the outputs of requested commands:
@@ -191,4 +193,160 @@ docker_image.app_python
 ```
 container_id = "fc9045d89fa91daf4f7cf4b059a52b3c7566198ce5fe7c0f17d55a30c0f60da3"
 image_id = "sha256:0c585da953ad654d26bc1d0a3a08c58e1563e956134ccfd8594bbbc070e77e3felatypovinno/devops_inno:latest"
+```
+
+---
+
+### Yandex Cloud infrastructure
+
+We prepared terraform infrastructure on Yandex Cloud which created virtual machine and adds our ssh key on `ubuntu` user, so we can access it via ssh.
+
+Here is the outputs of requested commands:
+
+---
+
+`terraform show` (I removed sensitive data from the response)
+
+```
+# yandex_compute_instance.yandex-1:
+resource "yandex_compute_instance" "yandex-1" {
+    created_at                = "2023-09-24T13:52:52Z"
+    folder_id                 = "<SENSITIVE>"
+    fqdn                      = "<SENSITIVE>"
+    id                        = "fhmj671sfaqpnqsq9348"
+    metadata                  = {
+        "ssh-keys" = <<-EOT
+            ubuntu:<SENSITIVE>
+        EOT
+    }
+    name                      = "yc-terraform"
+    network_acceleration_type = "standard"
+    platform_id               = "standard-v1"
+    status                    = "running"
+    zone                      = "ru-central1-a"
+
+    boot_disk {
+        auto_delete = true
+        device_name = "fhm3m7mr34u3cdp74cd2"
+        disk_id     = "fhm3m7mr34u3cdp74cd2"
+        mode        = "READ_WRITE"
+
+        initialize_params {
+            block_size = 4096
+            image_id   = "fd8djv1vmpfdkn5eporh"
+            size       = 30
+            type       = "network-hdd"
+        }
+    }
+
+    metadata_options {
+        aws_v1_http_endpoint = 1
+        aws_v1_http_token    = 2
+        gce_http_endpoint    = 1
+        gce_http_token       = 1
+    }
+
+    network_interface {
+        index              = 0
+        ip_address         = "192.168.10.22"
+        ipv4               = true
+        ipv6               = false
+        mac_address        = "d0:0d:13:31:c3:c7"
+        nat                = true
+        nat_ip_address     = "62.84.112.228"
+        nat_ip_version     = "IPV4"
+        security_group_ids = []
+        subnet_id          = "<SENSITIVE>"
+    }
+
+    placement_policy {
+        host_affinity_rules = []
+    }
+
+    resources {
+        core_fraction = 100
+        cores         = 2
+        gpus          = 0
+        memory        = 2
+    }
+
+    scheduling_policy {
+        preemptible = false
+    }
+}
+
+# yandex_vpc_network.network-1:
+resource "yandex_vpc_network" "network-1" {
+    created_at                = "2023-09-24T13:45:43Z"
+    default_security_group_id = "<SENSITIVE>"
+    folder_id                 = "<SENSITIVE>"
+    id                        = "<SENSITIVE>"
+    labels                    = {}
+    name                      = "network1"
+    subnet_ids                = [
+        "<SENSITIVE>",
+    ]
+}
+
+# yandex_vpc_subnet.subnet-1:
+resource "yandex_vpc_subnet" "subnet-1" {
+    created_at     = "2023-09-24T13:45:45Z"
+    folder_id      = "<SENSITIVE>"
+    id             = "<SENSITIVE>"
+    labels         = {}
+    name           = "subnet1"
+    network_id     = "enp1tse56cmo1nfg02h2"
+    v4_cidr_blocks = [
+        "192.168.10.0/24",
+    ]
+    v6_cidr_blocks = []
+    zone           = "ru-central1-a"
+}
+
+
+Outputs:
+
+external_ip_address = "62.84.112.228"
+internal_ip_address = "192.168.10.22"
+```
+
+---
+
+`terraform state list`
+
+```
+yandex_compute_instance.yandex-1
+yandex_vpc_network.network-1
+yandex_vpc_subnet.subnet-1
+```
+
+---
+
+`terraform output`
+
+```
+external_ip_address = "62.84.112.228"
+internal_ip_address = "192.168.10.22"
+```
+
+---
+
+By the external IP we can try to connect to created virtual machine by ssh:
+
+```bash
+ssh ubuntu@62.84.112.228 -i ~/.ssh/id_ed25519
+Welcome to Ubuntu 20.04.4 LTS (GNU/Linux 5.13.0-39-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+New release '22.04.3 LTS' available.
+Run 'do-release-upgrade' to upgrade to it.
+
+Last login: Sun Sep 24 13:54:34 2023 from 207.154.237.246
+To run a command as administrator (user "root"), use "sudo <command>".
+See "man sudo_root" for details.
+
+ubuntu@fhmj671sfaqpnqsq9348:~$ whoami
+ubuntu
 ```
