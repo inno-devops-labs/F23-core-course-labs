@@ -56,5 +56,3 @@ jobs:
         context: ./app_python
         push: true
         tags: ${{ secrets.DOCKERHUB_USERNAME }}/khays-python-app:latest 
-        cache-from: type=gha
-        cache-to: type=gha,mode=max
