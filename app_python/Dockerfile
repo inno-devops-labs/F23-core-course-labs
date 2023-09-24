@@ -7,8 +7,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY app/__init__.py ./
 
-RUN adduser app --system -S /bin/nologin -D -H
-USER user_start
+RUN adduser no_root_user --system -S /bin/nologin -D -H
+USER no_root_user
 
 ENV PYTHONPATH .
-ENTRYPOINT ["python3", "main.py"]
+ENTRYPOINT ["python3", "__init__.py"]
