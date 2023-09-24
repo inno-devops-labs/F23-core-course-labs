@@ -61,3 +61,10 @@ jobs:
         cd app_python/
         echo "Attempting to push Docker image..."
         docker push khays-python-app:latest || echo "Docker push failed!"
+    
+    - name: Snyk Vulnerability Check
+      run: |
+        echo "Running Snyk vulnerability check..."
+        curl -sSL https://install.snyk.io/unix | bash
+        export SNYK_TOKEN=${{ secrets.SNYK_TOKEN }}
+        snyk test --all-projects
