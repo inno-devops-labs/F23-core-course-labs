@@ -52,8 +52,8 @@ jobs:
 
     - name: Build Docker image
       run: |
-      cd app_python/
-      docker build -t khays-python-app:latest .
+        cd app_python/
+        docker build -t khays-python-app:latest .
       # This step builds the Docker image for your application
 
     - name: Push Docker image
