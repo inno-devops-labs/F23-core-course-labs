@@ -50,11 +50,11 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
       # This step logs in to Docker Hub using provided secrets
 
-      - name: Build and push
-        uses: docker/build-push-action@v5
-        with:
-          context: ./app_python
-          push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/khays-python-app:latest 
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+    - name: Build and push
+      uses: docker/build-push-action@v5
+      with:
+        context: ./app_python
+        push: true
+        tags: ${{ secrets.DOCKERHUB_USERNAME }}/khays-python-app:latest 
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
