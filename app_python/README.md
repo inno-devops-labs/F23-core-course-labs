@@ -27,7 +27,7 @@ where `{port}` is your desired port for app. After this the app will be accessbi
 In order to get time in MSK you need to go to `localhost:{port}/time`
 ![image](doc/screen.jpg)
 
-## Testing
+## Unit tests
 In order to run tests. Run in `app_python` directory
 ```bash
 poetry install --with test
