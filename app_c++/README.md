@@ -7,10 +7,10 @@ This C++ application calculates and displays the time left until the start of su
 - Calculates and displays the time left until the summer season.
 
 ## Installation
-1. Clone the repository to your local machine: \n
-   git clone https://github.com/RobertGabdullin/core-course-labs.git \n
-   cd app_c++
-   g++ -o app app.cpp
+1. Clone the repository to your local machine:
+-  git clone https://github.com/RobertGabdullin/core-course-labs.git 
+-  cd app_c++
+-  g++ -o app app.cpp
 2. Install dependicies:
    git clone https://github.com/yhirose/cpp-httplib.git (in app_c++)
    
