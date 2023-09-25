@@ -10,7 +10,7 @@ This is a simple Flask web application that displays the current Moscow time. Th
 - [Installation](#installation)
 - [Usage](#usage)
 - [Tests](#tests)
-- [Linting](#linting)
+- [Linting](#lint)
 - [Docker](#docker)
 
 ## Features
@@ -22,12 +22,12 @@ This is a simple Flask web application that displays the current Moscow time. Th
 
 These instructions will help you set up and run the project on your local machine.
 
-### Prerequisites
+## Prerequisites
 
 - Python (3.6 or higher)
 - Flask (`pip install flask`)
 
-### Installation
+## Installation
 
 1. Clone the repository:
 
@@ -40,7 +40,7 @@ These instructions will help you set up and run the project on your local machin
    ```sh 
    pip install -r requirements.txt
    
-### Usage
+## Usage
 
 1. Run the flask app:
    
@@ -51,16 +51,16 @@ These instructions will help you set up and run the project on your local machin
 
 2. Enter the app in browser at: http://127.0.0.1:5000/
 
-### Tests
+## Tests
 
-* I add test to check moscow time
+* I add some tests to check moscow time, using **pytest** library
 
 * To run it:
 
    ```sh
-  python -m unittest tests.py
+  pytest tests.py
   
-### Lint
+## Lint
 
 * I add flake8 lint to locate grammatical and styling errors
 
@@ -68,9 +68,8 @@ These instructions will help you set up and run the project on your local machin
 
     ```shell
   flake8
-  
 
-### Docker
+## Docker
 
 * Build dockerfile:
 
@@ -107,3 +106,33 @@ These instructions will help you set up and run the project on your local machin
 * And run it:
     ```shell
     docker run -it --rm <username>/app_python:v1
+
+## Continuous Integration (CI) with GitHub Actions
+
+[![CI](https://github.com/PlutoEx/DevOps-course-labs/actions/workflows/python.yml/badge.svg?branch=lab3)](https://github.com/PlutoEx/DevOps-course-labs/actions/workflows/python.yml)
+
+This project uses GitHub Actions for continuous integration (CI). The CI workflow includes the following steps:
+
+- **Dependencies**: Install project dependencies.
+- **Linting**: Run linting to check code quality.
+- **Tests**: Execute tests to ensure code correctness.
+- **Docker Build & Push**: Build a Docker image and push it to Docker Hub.
+
+### How to Run CI Workflow
+
+The CI workflow runs automatically on every push to the repository. You can also trigger it manually if needed.
+
+### Docker Hub Image
+
+The Docker image built during CI is available on Docker Hub at:
+
+- Image: `expluto/app_python:latest`
+
+### Workflow
+
+#### My workflow has 3 jobs:
+
+* build: for building, linting, testing my project
+* docker: to build and push to docker
+* security: to secure)
+

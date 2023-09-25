@@ -1,7 +1,3 @@
-RUN useradd -m -r -u 1001 myuser
-
-USER myuser
-
 FROM python:3.11-alpine
 
 WORKDIR /app_python
@@ -11,7 +7,7 @@ COPY . /app_python
 # Install needed packages from requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
-RUN chmod 755 /app
+RUN chmod 755 /app_python
 
 EXPOSE 8000
 

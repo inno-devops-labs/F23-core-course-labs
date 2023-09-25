@@ -2,3 +2,4 @@
 /app_js/node_modules
 /app_js/.next
 /app_js/.gitignore
+/app_python/.pytest_cache/

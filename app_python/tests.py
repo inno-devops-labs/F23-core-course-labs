@@ -1,31 +1,35 @@
-import datetime
-import unittest
+import time
+
 import pytz
+import pytest
+from datetime import datetime
 from app import app
-from bs4 import BeautifulSoup
 
 
-class TestApp(unittest.TestCase):
-    def setUp(self):
-        self.app = app.test_client()
+@pytest.fixture
+def client():
+    with app.test_client() as client:
+        yield client
 
-    def test_time(self):
-        response = self.app.get('/')
-        self.assertEqual(response.status_code, 200)
 
-        soup = BeautifulSoup(response.data, 'html.parser')
-        time_element = soup.find('p', id='moscow-time')
+def test_current_time(client):
+    response = client.get('/')
+    assert response.status_code == 200
+    moscow_tz = pytz.timezone("Europe/Moscow")
+    current_time = datetime.now(moscow_tz)
+    formatted_time = f"{current_time.strftime('%H:%M:%S')}"
+    assert formatted_time in str(response.data)
 
-        time_str = time_element.get_text().strip()
-        time_format = '%H:%M:%S'
-        response_time = (pytz.timezone('Europe/Moscow')
-                         .localize(datetime.datetime
-                                   .strptime(time_str, time_format)))
-        current_time = datetime.datetime.now(pytz.timezone('Europe/Moscow'))
 
-        response_hms = \
-            (response_time.hour, response_time.minute, response_time.second)
-        current_hms = \
-            (current_time.hour, current_time.minute, current_time.second)
+def test_refresh(client):
+    response1 = client.get('/')
+    assert response1.status_code == 200
+    time.sleep(2)
+    response2 = client.get('/')
+    assert response2.status_code == 200
+    assert response2.data != response1.data
 
-        self.assertEqual(response_hms, current_hms)
+
+def test_wrong_url(client):
+    response = client.get('/test')
+    assert response.status_code == 404
