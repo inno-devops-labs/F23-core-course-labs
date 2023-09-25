@@ -10,5 +10,5 @@ COPY ./src ./src
 RUN addgroup --system user && adduser --system --group user
 USER user
 
-EXPOSE 5000
+EXPOSE 8080
 ENTRYPOINT [ "python3", "src/app.py" ]
