@@ -1,0 +1,7 @@
+/Users/aisen/Desktop/devOpsCourse/core-course-labs/lab1/app_csharp/bin/Release/net7.0/publish/app_csharp
+/Users/aisen/Desktop/devOpsCourse/core-course-labs/lab1/app_csharp/bin/Release/net7.0/publish/appsettings.Development.json
+/Users/aisen/Desktop/devOpsCourse/core-course-labs/lab1/app_csharp/bin/Release/net7.0/publish/appsettings.json
+/Users/aisen/Desktop/devOpsCourse/core-course-labs/lab1/app_csharp/bin/Release/net7.0/publish/app_csharp.dll
+/Users/aisen/Desktop/devOpsCourse/core-course-labs/lab1/app_csharp/bin/Release/net7.0/publish/app_csharp.deps.json
+/Users/aisen/Desktop/devOpsCourse/core-course-labs/lab1/app_csharp/bin/Release/net7.0/publish/app_csharp.runtimeconfig.json
+/Users/aisen/Desktop/devOpsCourse/core-course-labs/lab1/app_csharp/bin/Release/net7.0/publish/app_csharp.pdb

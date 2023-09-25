@@ -1,11 +1,28 @@
 # C# Web Application
 
-This is a simple C# web application that displays the current time in Moscow. It's built using the ASP.ned web application framework.
+This is a simple ASP.net web application that shows the current time in Moscow. Run in port 5001
 
-## Features
+## Dockerized Application
 
-- Displays the current time in Moscow, updating every second without needing to refresh the page.
+This application has been Dockerized for easy deployment. Here are the instructions to build, pull, and run the Docker image
 
-## Running the Application
+### Building the Docker Image
 
-To run this app make sure you have installed dotnet. Run by command `dotnet run`
+Run the following command to build the Docker image:
+
+    docker build -t aisenbeast/dotnet-docker .
+
+### Pulling the Docker Image
+
+Run the following command to pull the Docker image:
+
+    docker pull aisenbeast/dotnet-docker:latest
+
+### Running the Docker Image
+
+After building or pulling the image, you can run it with the following command:
+
+    docker run -p 4000:5001 aisenbeast/dotnet-docker:latest
+
+
+This will start the application and map port 4000 of your machine to port 5001 in the Docker container. You can then access the application in your web browser at `http://localhost:4000`.
