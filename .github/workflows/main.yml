@@ -1,0 +1,59 @@
+name: CI
+
+on:
+  push:
+    branches: [ "lab1", "lab2", "lab3", "lab4"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Install dependencies
+        run: |
+          pip install -r app_python/requirements.txt
+          
+      - name: Lint code
+        run: |
+          pip install flake8
+          flake8 app_python
+
+      - name: Run tests
+        run: |
+          pip install pytest
+          cd ./app_python
+          pytest unit_tests.py
+      
+      - name: Login to Docker Hub
+        run: |
+          echo "${{ secrets.DOCKERPW }}" | docker login -u "${{ secrets.DOCKERUSER }}" --password-stdin
+
+      - name: Build and push
+        uses: docker/build-push-action@v4
+        with:
+            context: ./app_python
+            push: true
+            tags: ${{ secrets.DOCKERUSER }}/clock:latest
+
+      - name: Install Snyk CLI
+        run: npm install -g snyk
+
+      - name: Run Snyk to fix and check for vulnerabilities
+        run: |
+          cd app_python
+          snyk test --file=main.py
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+          with:
+          args: --severity-threshold=high"
