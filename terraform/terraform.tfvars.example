@@ -1,0 +1,20 @@
+docker_apps = {
+  app_python = {
+    image_name     = "vladspigin/timeapp:latest"
+    container_name = "TIMEAPP-NEW"
+    internal_port  = 8080
+    external_port  = 5001
+  },
+  app_go = {
+    image_name     = "vladspigin/timeapp-go:latest"
+    container_name = "timeapp-go"
+    internal_port  = 8080
+    external_port  = 5002
+  }
+}
+
+yc_token     = "abc123"
+yc_cloud_id  = "abc123"
+yc_folder_id = "abc123"
+yc_zone      = "ru-central1-a"
+ssh_pubkey   = "~/.ssh/id_rsa.pub"
