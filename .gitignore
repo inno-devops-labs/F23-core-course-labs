@@ -38,3 +38,4 @@ out/
 
 ### Python testing ###
 .pytest_cache
+/app_python/.idea/

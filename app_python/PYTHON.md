@@ -29,3 +29,17 @@ For this app I decided to choose FastAPI due to its performance and conciseness
 * Virtual environment to isolate all dependencies
 * Use PEP 8 integrated into PyCharm
 * Use pre-hook for formatting code. I use [black](https://pypi.org/project/black/)
+
+### Unit tests
+I have 2 unit tests that checks:
+* Success response from server
+* Date increase if two requests are called sequentially with some delay
+
+Best practices:
+* Make test code short and readable
+* Isolate components
+* Test one thing at a time
+* Meaningfully naming
+* Use assertions
+* Make docstring for each test
+* Make set up before each test and assertions
