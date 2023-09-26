@@ -8,6 +8,31 @@ This is a simple web application that shows the current exchange rate of cryptoc
 
 To run the application, you need a Golang version of 1.20. [How to install Golang](https://go.dev/doc/install)
 
+
+## Docker
+
+You can run this application in docker container.
+
+Build image inside app_go directory:
+
+```bash
+docker build -t rakavaqaflow/app-go:v1 .
+```
+
+Or
+
+Pull image from DockerHub:
+```bash
+docker pull rakavaqaflow/app-go:v1
+```
+
+And run docker image:
+
+```bash
+docker run -p 9000:9000 rakavaqaflow/app-go:v1
+```
+
+
 ## Run
 
 To run app you need run the command inside app_go folder:

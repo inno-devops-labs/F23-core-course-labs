@@ -4,6 +4,30 @@
 
 This is a simple python web application that shows the current time in Moscow timezone.
 
+## Docker
+
+You can run this application in docker container.
+
+Build image inside app_python directory:
+
+```bash
+docker build -t rakavaqaflow/app-python:v1 .
+```
+
+Or
+
+Pull image from DockerHub:
+```bash
+docker pull rakavaqaflow/app-python:v1
+```
+
+And run docker image:
+
+```bash
+docker run -p 5000:5000 rakavaqaflow/app-python:v1
+```
+
+
 ## Requirements
 
 To run the application, you need a python version of at least 3.12. [How to install Python](https://www.tutorialspoint.com/how-to-install-python-in-windows)
@@ -11,7 +35,7 @@ To run the application, you need a python version of at least 3.12. [How to inst
 You can install all the necessary dependencies for correct operation by running the command:
 
 ```bash
-pip3 install -r requirements.txt
+pip install -r requirements.txt
 ```
 
 ## Run
@@ -19,6 +43,12 @@ pip3 install -r requirements.txt
 To run app you need run the command inside app_python folder:
 ```bash
 python main.py
+```
+
+To check app with linter run the command inside app_python folder:
+
+```bash
+flake8 *.py
 ```
 
 ## Usage
