@@ -1,4 +1,14 @@
-# Terraform logs
+## Best Practices
+
+Applied several practices for this project:
+
+- Modularity: code is broken down in main, output, and variables sections for convenience
+- Extensive use of variables: used for modularity and security (for example in case of github token)
+- Planning before applying: `terraform plan` was used whenever possible before acting.
+- Validation: `terraform validate` was used to validate current configs.
+- Sensitive data removal: no sensitive data, such as keys or tokens, is in the configs.
+
+## Terraform logs
 
 This `.md` file provides logs of `terraform` commands for docker section.
 
