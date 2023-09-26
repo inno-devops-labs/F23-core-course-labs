@@ -1,19 +1,22 @@
+
+
 resource "github_repository" "repo" {
-  name        = "Devops"
+  name        = "devops-terraform-labs"
   description = "Assigments for DevOps course"
   visibility  = "public"
   has_issues  = false
   has_wiki    = true
+  auto_init = true
 }
 
-resource "github_branch_default" "master" {
+resource "github_branch_default" "main" {
   repository = github_repository.repo.name
-  branch     = "master"
+  branch     = "main"
 }
 
 resource "github_branch_protection" "default" {
   repository_id                   = github_repository.repo.id
-  pattern                         = github_branch_default.master.branch
+  pattern                         = github_branch_default.main.branch
   require_conversation_resolution = true
   enforce_admins                  = true
 
@@ -32,7 +35,7 @@ resource "github_team" "team-b" {
   description = "Some team B"
 }
 
-resource "github_team_repository" "team_b_to_repo" {
+resource "github_team_repository" "team_a_to_repo" {
     team_id = github_team.team-a.id
     repository = github_repository.repo.name
     permission = "pull"
@@ -41,5 +44,5 @@ resource "github_team_repository" "team_b_to_repo" {
 resource "github_team_repository" "team_b_to_repo" {
     team_id = github_team.team-b.id
     repository = github_repository.repo.name
-    permission = "addmin"
+    permission = "admin"
 }

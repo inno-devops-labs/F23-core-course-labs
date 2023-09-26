@@ -163,3 +163,44 @@ resource "vkcs_compute_instance" "compute" {
 ```
 instance_fip = "84.23.53.144"
 ```
+
+## Github results
+
+For github-org I used this envieroment variable in windows:
+`GITHUB_OWNER=relisqu-org`
+
+
+`terraform apply`
+
+```
+github_repository.repo: Creating...
+github_repository.repo: Creation complete after 5s [id=devops-terraform-labs]
+github_team_repository.team_a_to_repo: Creating...
+github_branch_default.main: Creating...
+github_team_repository.team_b_to_repo: Creating...
+github_team_repository.team_a_to_repo: Creation complete after 5s [id=8646745:devops-terraform-labs]
+github_branch_default.main: Creation complete after 5s [id=devops-terraform-labs]
+github_branch_protection.default: Creating...
+github_team_repository.team_b_to_repo: Creation complete after 6s [id=8646744:devops-terraform-labs]
+github_branch_protection.default: Creation complete after 5s [id=BPR_kwDOKYtacM4CgWLx]
+```
+
+`terraform state list`
+
+```
+github_branch_default.main
+github_branch_protection.default
+github_repository.repo
+github_team.team-a
+github_team.team-b
+github_team_repository.team_a_to_repo
+github_team_repository.team_b_to_repo
+```
+
+
+## Best practices for Terraform
+
+1. Small scope of each fileset- one for each task: GitHub, VK Cloud management, Docker
+2. Used `terraform fmt` and `terraform validate` to keep style consistent and to check if config is correct.
+3. `snake_case` name convention preserved
+4. I separated terraform files into responsibility areas, like variables, network, providers, outputs.
