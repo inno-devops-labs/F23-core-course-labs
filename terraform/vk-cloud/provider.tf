@@ -12,7 +12,7 @@ provider "vkcs" {
     username = "shvarts.a.s@mail.ru"
 
     # The password of the account
-    password = "YOUR_PASSWORD"
+    password = var.vk_cloud_access_key
 
     # The tenant token can be taken from the project Settings tab - > API keys.
     # Project ID will be our token.
