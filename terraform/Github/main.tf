@@ -8,17 +8,18 @@ terraform {
 }
 
 provider "github" {
+  owner = "lnsfna-organization"
   token = var.token
 }
 
 resource "github_repository" "terraform" {
-  name               = "core-course-labs"
-  description        = "DevOps course labs"
-  visibility         = "public"
-  has_issues         = true
-  has_wiki           = true
-  auto_init          = true
-  license_template   = "mit"
+  name             = "DevOpsCourse"
+  description      = "DevOps course labs"
+  visibility       = "public"
+  has_issues       = true
+  has_wiki         = true
+  auto_init        = true
+  license_template = "mit"
 }
 
 resource "github_branch_default" "main" {
@@ -35,4 +36,26 @@ resource "github_branch_protection" "default" {
   required_pull_request_reviews {
     required_approving_review_count = 1
   }
+}
+
+resource "github_team" "team1" {
+  name        = "team1"
+  description = "test team 1"
+}
+
+resource "github_team" "team2" {
+  name        = "team2"
+  description = "test team 2"
+}
+
+resource "github_team_repository" "team_1_to_repo" {
+    team_id = github_team.team1.id
+    repository = github_repository.terraform.name
+    permission = "pull"
+}
+
+resource "github_team_repository" "team_2_to_repo" {
+    team_id = github_team.team2.id
+    repository = github_repository.terraform.name
+    permission = "admin"
 }

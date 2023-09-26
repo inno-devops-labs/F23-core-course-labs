@@ -6,10 +6,10 @@ terraform {
   }
   required_version = ">= 0.13"
   backend "s3" {
-    endpoint   = "storage.yandexcloud.net"
-    bucket     = "devopslab"
-    region     = "ru-central1"
-    key        = "terraform.tfstate"
+    endpoint = "storage.yandexcloud.net"
+    bucket   = "devopslab"
+    region   = "ru-central1"
+    key      = "terraform.tfstate"
 
     skip_region_validation      = true
     skip_credentials_validation = true
@@ -20,7 +20,7 @@ provider "yandex" {
   cloud_id                 = var.cloud_id
   folder_id                = var.folder_id
   service_account_key_file = var.service_account_key_file
-  zone = "ru-central1-a"
+  zone                     = "ru-central1-a"
 }
 
 resource "yandex_compute_image" "ubuntu_2004" {

@@ -1,8 +1,7 @@
 # Terraform
 ## Docker 
-```
-terraform state list
-```
+
+### terraform state list
 Output:
 ```
 docker_container.app_go
@@ -10,10 +9,7 @@ docker_container.app_python
 docker_image.app_go
 docker_image.app_python
 ```
-
-```
-terraform show
-```
+### terraform show
 Output:
 ```
 # docker_container.app_go:
@@ -159,9 +155,8 @@ resource "docker_image" "app_python" {
 }
 ```
 
-```
-terraform output
-```
+### terraform output
+
 Output:
 ```
 go_container_id = "6ee09781e519edf0a5f54bd9f2072fd46ef457ab606da827e58af52b3a0e726a"
@@ -170,14 +165,20 @@ python_container_id = "157201ada544d4ee73bfa4eea34fb13af43b5d5adb57192922890e198
 python_image_id = "sha256:79e0c4cf2910efa126a902c54eafd91cdbe494bd3008e9fd82c0212d75314088lnsfna/app_python"
 ```
 
-## Yandex
+## YandexCloud
+As russian credit cards are restricted in AWS, i decided to use YandexCLoud. 
 
+### Init terraform:
+```
 terraform init -backend-config="access_key=$ACCESS_KEY"-backend-config="secret_key=$SECRET_KEY"
+```
+### Apply terraform:
+```
+terraform apply -var="cloud_id=$YC_CLOUD_ID" -var="folder_id=$YC_CATALOG_ID" -var="service_account_key_file=$YC_KEY_PATH"
+```
 
-terraform apply -var="cloud_id=1234" -var="folder_id=5678" -var="service_account_key_file=.../authorized_key.json"
-```
-terraform state list
-```
+### terraform state list
+
 Output:
 ```
 yandex_compute_image.ubuntu_2004
@@ -186,9 +187,8 @@ yandex_vpc_network.network-1
 yandex_vpc_subnet.subnet-1
 ```
 
-```
-terraform show
-```
+### terraform show
+
 Output:
 ```
 # yandex_compute_image.ubuntu_2004:
@@ -302,9 +302,8 @@ resource "yandex_vpc_subnet" "subnet-1" {
 }
 ```
 
-```
-terraform output 
-```
+### terraform output 
+
 Output:
 ```
 external_ip_address_vm_1 = "158.160.60.155"
@@ -312,3 +311,168 @@ internal_ip_address_vm_1 = "192.168.10.33"
 
 ```
 
+## GitHub (with bonus task)
+To add teams i've created an organization lnsfna-organization.
+
+Import existing repo:
+```
+terraform import "github_repository.terraform" "DevOpsCourse"
+```
+Link to repository: https://github.com/lnsfna-organization/DevOpsCourse
+### terraform state list
+
+Output:
+```
+github_branch_default.main
+github_branch_protection.default
+github_repository.terraform
+github_team.team1
+github_team.team2
+github_team_repository.team_1_to_repo
+github_team_repository.team_2_to_repo
+
+```
+
+### terraform show
+
+Output:
+```
+## github_branch_default.main:
+resource "github_branch_default" "main" {
+    branch     = "main"
+    id         = "DevOpsCourse"
+    rename     = false
+    repository = "DevOpsCourse"
+}
+
+# github_branch_protection.default:
+resource "github_branch_protection" "default" {
+    allows_deletions                = false
+    allows_force_pushes             = false
+    blocks_creations                = false
+    enforce_admins                  = true
+    id                              = "BPR_kwDOKYnc-M4CgTu9"
+    lock_branch                     = false
+    pattern                         = "main"
+    repository_id                   = "DevOpsCourse"
+    require_conversation_resolution = true
+    require_signed_commits          = false
+    required_linear_history         = false
+
+    required_pull_request_reviews {
+        dismiss_stale_reviews           = false
+        require_code_owner_reviews      = false
+        require_last_push_approval      = false
+        required_approving_review_count = 1
+        restrict_dismissals             = false
+    }
+}
+
+# github_repository.terraform:
+resource "github_repository" "terraform" {
+    allow_auto_merge            = false
+    allow_merge_commit          = true
+    allow_rebase_merge          = true
+    allow_squash_merge          = true
+    allow_update_branch         = false
+    archived                    = false
+    auto_init                   = true
+    default_branch              = "main"
+    delete_branch_on_merge      = false
+    description                 = "DevOps course labs"
+    etag                        = "W/\"7fae50dd74c3402dfccf624ef4d78ae105f5902a2d3362264567572197d6615b\""
+    full_name                   = "lnsfna-organization/DevOpsCourse"
+    git_clone_url               = "git://github.com/lnsfna-organization/DevOpsCourse.git"
+    has_discussions             = false
+    has_downloads               = false
+    has_issues                  = true
+    has_projects                = false
+    has_wiki                    = true
+    html_url                    = "https://github.com/lnsfna-organization/DevOpsCourse"
+    http_clone_url              = "https://github.com/lnsfna-organization/DevOpsCourse.git"
+    id                          = "DevOpsCourse"
+    is_template                 = false
+    license_template            = "mit"
+    merge_commit_message        = "PR_TITLE"
+    merge_commit_title          = "MERGE_MESSAGE"
+    name                        = "DevOpsCourse"
+    node_id                     = "R_kgDOKYnc-A"
+    private                     = false
+    repo_id                     = 696900856
+    squash_merge_commit_message = "COMMIT_MESSAGES"
+    squash_merge_commit_title   = "COMMIT_OR_PR_TITLE"
+    ssh_clone_url               = "git@github.com:lnsfna-organization/DevOpsCourse.git"
+    svn_url                     = "https://github.com/lnsfna-organization/DevOpsCourse"
+    topics                      = []
+    visibility                  = "public"
+    vulnerability_alerts        = false
+
+    security_and_analysis {
+        secret_scanning {
+            status = "disabled"
+        }
+        secret_scanning_push_protection {
+            status = "disabled"
+        }
+    }
+}
+
+# github_team.team1:
+resource "github_team" "team1" {
+    create_default_maintainer = false
+    description               = "test team 1"
+    etag                      = "W/\"9dc300f5a96be1b00286c0f97d21bbd760672f9cad0ed51bd83894a912bb9c47\""
+    id                        = "8645474"
+    members_count             = 0
+    name                      = "team1"
+    node_id                   = "T_kwDOCLVnYc4Ag-ti"
+    privacy                   = "secret"
+    slug                      = "team1"
+}
+
+# github_team.team2:
+resource "github_team" "team2" {
+    create_default_maintainer = false
+    description               = "test team 2"
+    etag                      = "W/\"360b096ff89bda944b6cb437e07b8fac257a45cec3532d505a47a52754be7f9a\""
+    id                        = "8645473"
+    members_count             = 0
+    name                      = "team2"
+    node_id                   = "T_kwDOCLVnYc4Ag-th"
+    privacy                   = "secret"
+    slug                      = "team2"
+}
+
+# github_team_repository.team_1_to_repo:
+resource "github_team_repository" "team_1_to_repo" {
+    etag       = "W/\"45a68088e4f808844cd3aa54b1454a2341a84d864ba1f4e00eadeed3d24d9560\""
+    id         = "8645474:DevOpsCourse"
+    permission = "pull"
+    repository = "DevOpsCourse"
+    team_id    = "8645474"
+}
+
+# github_team_repository.team_2_to_repo:
+resource "github_team_repository" "team_2_to_repo" {
+    etag       = "W/\"684fa43306b1220e4b8e959324979ba35b0984f17adb9bc2ae69e941e0ad2b9b\""
+    id         = "8645473:DevOpsCourse"
+    permission = "admin"
+    repository = "DevOpsCourse"
+    team_id    = "8645473"
+}
+```
+### terraform output
+Output:
+```
+team1_id = "8645474"
+team2_id = "8645473"
+```
+### Added teams:
+![Alt text](img.png)
+
+## Terraform best practices that i've used
+
+* Separate terraform files by area of usage: variables, outputs
+* Separate files for management (Docker, YandexCLoud and GitHub are separated)
+* Use identical variable naming (snake_case)
+* Use terraform fmt and terraform validate commands to keep config consistent and correct
