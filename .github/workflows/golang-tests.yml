@@ -56,6 +56,6 @@
           - name: Build and Push Docker image
             uses: docker/build-push-action@v3
             with:
-              context: .
+              context: app_golang/
               push: true
               tags: wildqueue/devops-hw-golang:tagname

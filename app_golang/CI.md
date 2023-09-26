@@ -1,21 +1,15 @@
 ## Best Practices for CI golang Workflow:
 
-1. Code Repository: The CI process is triggered when changes are pushed to the "main" or "lab4" branches or when a pull request is made against the "main" branch.
+1. Version control: The code is checked out from the repository using the "actions/checkout" action. 
 
-2. Workflow Configuration: The CI process is configured using a YAML file. The "on" section defines the events that trigger the workflow, and the "jobs" section defines the steps that need to be executed.
+2. Dependency management: The Go dependencies are managed using Go modules. 
 
-3. Code Checkout: The workflow starts by checking out the code from the repository using the "actions/checkout" action. 
+3. Security testing: The Snyk CLI is installed using the "npm install -g snyk" command. The Snyk API is authenticated using the "snyk config set api=${{ secrets.SNYK_TOKEN }}" command. The "snyk test" command is used to run security tests on the code and check for vulnerabilities.
 
-4. Environment Setup: The "actions/setup-go" action sets up the Go programming language environment.
+4. Linting: The "go fmt" command is used to run the linter and ensure code formatting is consistent.
 
-5. Dependency Management: The "go mod download" command is used to install project dependencies. 
+5. Unit tests: The "go test" command is used to run unit tests on the code.
 
-6. Security Testing: The Snyk CLI is installed using the "npm install -g snyk" command. 
+6. Fixing vulnerabilities: The "snyk wizard" command is used to fix any Snyk vulnerabilities found during testing.
 
-7. Code Linting: The "golangci-lint run" command is used to run a linter on the Go code.
-
-8. Unit Testing: The "go test" command is executed in the "./../app_golang" directory to run the unit tests for the Go application. 
-
-9. Vulnerability Fixing: The "snyk wizard" command is used to fix Snyk vulnerabilities across all projects. 
-
-10. Containerization: The Docker Hub login details are stored in secrets. The "docker/login-action" action is used to authenticate with Docker Hub. 
+7. Docker image building and pushing: The Docker image is built using the "docker/build-push-action" action. 
