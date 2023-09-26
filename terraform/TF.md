@@ -1,5 +1,5 @@
 
-## Terrafrom Docker Tutorial
+## Terraform Docker Tutorial
 
 ### Resource states
 
