@@ -3,6 +3,7 @@
 * Use `terraform validate` to validate current configurations
 * Use `terraform plan` before each apply
 * Use terraform variables
+* Do not put sensitive data into configuration
 
 # Docker
 ## Command outputs
@@ -286,4 +287,415 @@ edikgoose@edikgoose-NBLB-WAX9N:~/iu-devops/terraform/yandex_cloud$ terraform out
 default_instance_public_ip = "158.160.33.18"
 last_ubuntu = "fd80bm0rh4rkepi5ksdi"
 subnet_id = "e9b72g6d4u511tmovhe2"
+```
+
+
+# GitHub 
+#### `terraform state list`:
+```
+edikgoose@edikgoose-NBLB-WAX9N:~/iu-devops/terraform/github$ terraform state list
+github_branch_default.imported_main
+github_branch_default.main
+github_branch_protection.default
+github_repository.iu-devops-test-imported-repo
+github_repository.repo
+```
+
+
+#### terraform state show github_repository.iu-devops-test-imported-repo
+```
+edikgoose@edikgoose-NBLB-WAX9N:~/iu-devops/terraform/github$ terraform state show github_repository.iu-devops-test-imported-repo
+# github_repository.iu-devops-test-imported-repo:
+resource "github_repository" "iu-devops-test-imported-repo" {
+    allow_auto_merge            = false
+    allow_merge_commit          = true
+    allow_rebase_merge          = true
+    allow_squash_merge          = true
+    allow_update_branch         = false
+    archived                    = false
+    auto_init                   = false
+    default_branch              = "main"
+    delete_branch_on_merge      = false
+    description                 = "Imported repo"
+    etag                        = "W/\"1818683ee6ad7c98c7270648d99913434594a4cb7bcbcebfc75aa5de04759263\""
+    full_name                   = "edikgoose/iu-devops-test-imported-repository"
+    git_clone_url               = "git://github.com/edikgoose/iu-devops-test-imported-repository.git"
+    has_discussions             = false
+    has_downloads               = false
+    has_issues                  = false
+    has_projects                = false
+    has_wiki                    = false
+    html_url                    = "https://github.com/edikgoose/iu-devops-test-imported-repository"
+    http_clone_url              = "https://github.com/edikgoose/iu-devops-test-imported-repository.git"
+    id                          = "iu-devops-test-imported-repository"
+    is_template                 = false
+    merge_commit_message        = "PR_TITLE"
+    merge_commit_title          = "MERGE_MESSAGE"
+    name                        = "iu-devops-test-imported-repository"
+    node_id                     = "R_kgDOKYngEA"
+    private                     = false
+    repo_id                     = 696901648
+    squash_merge_commit_message = "COMMIT_MESSAGES"
+    squash_merge_commit_title   = "COMMIT_OR_PR_TITLE"
+    ssh_clone_url               = "git@github.com:edikgoose/iu-devops-test-imported-repository.git"
+    svn_url                     = "https://github.com/edikgoose/iu-devops-test-imported-repository"
+    topics                      = []
+    visibility                  = "public"
+    vulnerability_alerts        = false
+
+    security_and_analysis {
+        secret_scanning {
+            status = "disabled"
+        }
+        secret_scanning_push_protection {
+            status = "disabled"
+        }
+    }
+}
+```
+
+
+#### `terraform state show github_repository.repo`
+```
+edikgoose@edikgoose-NBLB-WAX9N:~/iu-devops/terraform/github$ terraform state show github_repository.repo
+# github_repository.repo:
+resource "github_repository" "repo" {
+    allow_auto_merge            = false
+    allow_merge_commit          = true
+    allow_rebase_merge          = true
+    allow_squash_merge          = true
+    allow_update_branch         = false
+    archived                    = false
+    auto_init                   = true
+    default_branch              = "main"
+    delete_branch_on_merge      = false
+    description                 = "Test repository created by terraform"
+    etag                        = "W/\"b91a35541abb5d2a6c40047f95100393df04d9793897c07eb049b178a379f3be\""
+    full_name                   = "edikgoose/iu-devops-test"
+    git_clone_url               = "git://github.com/edikgoose/iu-devops-test.git"
+    gitignore_template          = "Terraform"
+    has_discussions             = false
+    has_downloads               = false
+    has_issues                  = true
+    has_projects                = false
+    has_wiki                    = true
+    html_url                    = "https://github.com/edikgoose/iu-devops-test"
+    http_clone_url              = "https://github.com/edikgoose/iu-devops-test.git"
+    id                          = "iu-devops-test"
+    is_template                 = false
+    license_template            = "mit"
+    merge_commit_message        = "PR_TITLE"
+    merge_commit_title          = "MERGE_MESSAGE"
+    name                        = "iu-devops-test"
+    node_id                     = "R_kgDOKYnT7A"
+    private                     = false
+    repo_id                     = 696898540
+    squash_merge_commit_message = "COMMIT_MESSAGES"
+    squash_merge_commit_title   = "COMMIT_OR_PR_TITLE"
+    ssh_clone_url               = "git@github.com:edikgoose/iu-devops-test.git"
+    svn_url                     = "https://github.com/edikgoose/iu-devops-test"
+    topics                      = []
+    visibility                  = "public"
+    vulnerability_alerts        = false
+
+    security_and_analysis {
+        secret_scanning {
+            status = "disabled"
+        }
+        secret_scanning_push_protection {
+            status = "disabled"
+        }
+    }
+}
+```
+
+#### `terraform output`
+```
+edikgoose@edikgoose-NBLB-WAX9N:~/iu-devops/terraform/github$ terraform output
+repository_default_branch_name = "main"
+repository_full_name = "edikgoose/iu-devops-test"
+```
+
+
+
+# GitHub Teams
+
+#### `terraform apply`
+```
+edikgoose@edikgoose-NBLB-WAX9N:~/iu-devops/terraform/github_teams$ terraform apply
+github_repository.example_repo: Refreshing state... [id=iu-devops-teams-test]
+
+Note: Objects have changed outside of Terraform
+
+Terraform detected the following changes made outside of Terraform since the last "terraform apply" which may have affected
+this plan:
+
+  # github_repository.example_repo has been deleted
+  - resource "github_repository" "example_repo" {
+        id                          = "iu-devops-teams-test"
+      - name                        = "iu-devops-teams-test" -> null
+        # (32 unchanged attributes hidden)
+
+        # (1 unchanged block hidden)
+    }
+
+
+Unless you have made equivalent changes to your configuration, or ignored the relevant attributes using ignore_changes, the
+following plan may include actions to undo or respond to these changes.
+
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the
+following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # github_repository.example_repo will be created
+  + resource "github_repository" "example_repo" {
+      + allow_auto_merge            = false
+      + allow_merge_commit          = true
+      + allow_rebase_merge          = true
+      + allow_squash_merge          = true
+      + archived                    = false
+      + default_branch              = (known after apply)
+      + delete_branch_on_merge      = false
+      + description                 = "Test repository for teams created by terraform"
+      + etag                        = (known after apply)
+      + full_name                   = (known after apply)
+      + git_clone_url               = (known after apply)
+      + html_url                    = (known after apply)
+      + http_clone_url              = (known after apply)
+      + id                          = (known after apply)
+      + merge_commit_message        = "PR_TITLE"
+      + merge_commit_title          = "MERGE_MESSAGE"
+      + name                        = "iu-devops-teams-test"
+      + node_id                     = (known after apply)
+      + primary_language            = (known after apply)
+      + private                     = (known after apply)
+      + repo_id                     = (known after apply)
+      + squash_merge_commit_message = "COMMIT_MESSAGES"
+      + squash_merge_commit_title   = "COMMIT_OR_PR_TITLE"
+      + ssh_clone_url               = (known after apply)
+      + svn_url                     = (known after apply)
+      + topics                      = (known after apply)
+      + visibility                  = "public"
+    }
+
+  # github_team.team_admins will be created
+  + resource "github_team" "team_admins" {
+      + create_default_maintainer = false
+      + description               = "Team with admin permissions"
+      + etag                      = (known after apply)
+      + id                        = (known after apply)
+      + members_count             = (known after apply)
+      + name                      = "team-admins"
+      + node_id                   = (known after apply)
+      + parent_team_read_id       = (known after apply)
+      + parent_team_read_slug     = (known after apply)
+      + privacy                   = "secret"
+      + slug                      = (known after apply)
+    }
+
+  # github_team.team_maintainers will be created
+  + resource "github_team" "team_maintainers" {
+      + create_default_maintainer = false
+      + description               = "Team for maintaining"
+      + etag                      = (known after apply)
+      + id                        = (known after apply)
+      + members_count             = (known after apply)
+      + name                      = "team-maintainers"
+      + node_id                   = (known after apply)
+      + parent_team_read_id       = (known after apply)
+      + parent_team_read_slug     = (known after apply)
+      + privacy                   = "secret"
+      + slug                      = (known after apply)
+    }
+
+  # github_team.team_readers will be created
+  + resource "github_team" "team_readers" {
+      + create_default_maintainer = false
+      + description               = "Team only for pushing"
+      + etag                      = (known after apply)
+      + id                        = (known after apply)
+      + members_count             = (known after apply)
+      + name                      = "team-readers"
+      + node_id                   = (known after apply)
+      + parent_team_read_id       = (known after apply)
+      + parent_team_read_slug     = (known after apply)
+      + privacy                   = "secret"
+      + slug                      = (known after apply)
+    }
+
+  # github_team.team_writers will be created
+  + resource "github_team" "team_writers" {
+      + create_default_maintainer = false
+      + description               = "Team only for pushing/pulling"
+      + etag                      = (known after apply)
+      + id                        = (known after apply)
+      + members_count             = (known after apply)
+      + name                      = "team-writers"
+      + node_id                   = (known after apply)
+      + parent_team_read_id       = (known after apply)
+      + parent_team_read_slug     = (known after apply)
+      + privacy                   = "secret"
+      + slug                      = (known after apply)
+    }
+
+  # github_team_repository.team_admins_access will be created
+  + resource "github_team_repository" "team_admins_access" {
+      + etag       = (known after apply)
+      + id         = (known after apply)
+      + permission = "admin"
+      + repository = "iu-devops-teams-test"
+      + team_id    = (known after apply)
+    }
+
+  # github_team_repository.team_maintainers_access will be created
+  + resource "github_team_repository" "team_maintainers_access" {
+      + etag       = (known after apply)
+      + id         = (known after apply)
+      + permission = "maintain"
+      + repository = "iu-devops-teams-test"
+      + team_id    = (known after apply)
+    }
+
+  # github_team_repository.team_readers_access will be created
+  + resource "github_team_repository" "team_readers_access" {
+      + etag       = (known after apply)
+      + id         = (known after apply)
+      + permission = "pull"
+      + repository = "iu-devops-teams-test"
+      + team_id    = (known after apply)
+    }
+
+  # github_team_repository.team_writers_access will be created
+  + resource "github_team_repository" "team_writers_access" {
+      + etag       = (known after apply)
+      + id         = (known after apply)
+      + permission = "push"
+      + repository = "iu-devops-teams-test"
+      + team_id    = (known after apply)
+    }
+
+Plan: 9 to add, 0 to change, 0 to destroy.
+
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+github_team.team_readers: Creating...
+github_team.team_admins: Creating...
+github_team.team_writers: Creating...
+github_team.team_maintainers: Creating...
+github_repository.example_repo: Creating...
+github_team.team_readers: Still creating... [10s elapsed]
+github_team.team_admins: Still creating... [10s elapsed]
+github_team.team_writers: Still creating... [10s elapsed]
+github_team.team_maintainers: Still creating... [10s elapsed]
+github_repository.example_repo: Still creating... [10s elapsed]
+github_team.team_readers: Creation complete after 18s [id=8645633]
+github_team.team_writers: Still creating... [20s elapsed]
+github_team.team_admins: Still creating... [20s elapsed]
+github_team.team_maintainers: Still creating... [20s elapsed]
+github_repository.example_repo: Still creating... [20s elapsed]
+github_team.team_admins: Creation complete after 25s [id=8645635]
+github_team.team_maintainers: Creation complete after 26s [id=8645636]
+github_team.team_writers: Creation complete after 26s [id=8645638]
+github_repository.example_repo: Creation complete after 27s [id=iu-devops-teams-test]
+github_team_repository.team_writers_access: Creating...
+github_team_repository.team_maintainers_access: Creating...
+github_team_repository.team_readers_access: Creating...
+github_team_repository.team_admins_access: Creating...
+github_team_repository.team_writers_access: Creation complete after 6s [id=8645638:iu-devops-teams-test]
+github_team_repository.team_admins_access: Creation complete after 7s [id=8645635:iu-devops-teams-test]
+github_team_repository.team_maintainers_access: Creation complete after 7s [id=8645636:iu-devops-teams-test]
+github_team_repository.team_readers_access: Creation complete after 8s [id=8645633:iu-devops-teams-test]
+
+Apply complete! Resources: 9 added, 0 changed, 0 destroyed.
+```
+
+#### `terraform state list`
+
+```
+edikgoose@edikgoose-NBLB-WAX9N:~/iu-devops/terraform/github_teams$ terraform state list
+github_repository.example_repo
+github_team.team_admins
+github_team.team_maintainers
+github_team.team_readers
+github_team.team_writers
+github_team_repository.team_admins_access
+github_team_repository.team_maintainers_access
+github_team_repository.team_readers_access
+github_team_repository.team_writers_access
+```
+
+#### `terraform state show github_team.team_admins`
+```
+edikgoose@edikgoose-NBLB-WAX9N:~/iu-devops/terraform/github_teams$ terraform state show github_team.team_admins
+# github_team.team_admins:
+resource "github_team" "team_admins" {
+    create_default_maintainer = false
+    description               = "Team with admin permissions"
+    etag                      = "W/\"4e46ac8c282722606239945460eb99726e16b4e5d3de277ec366bc0e76d704b1\""
+    id                        = "8645635"
+    members_count             = 0
+    name                      = "team-admins"
+    node_id                   = "T_kwDOCLWkT84Ag-wD"
+    privacy                   = "secret"
+    slug                      = "team-admins"
+}
+```
+
+#### `terraform state show github_team.team_readers`
+```
+edikgoose@edikgoose-NBLB-WAX9N:~/iu-devops/terraform/github_teams$ terraform state show github_team.team_readers
+# github_team.team_readers:
+resource "github_team" "team_readers" {
+    create_default_maintainer = false
+    description               = "Team only for pushing"
+    etag                      = "W/\"cea20932faf1713d97b67163d07e76a3d3418940d0c6ae4bd3d8bbaa981851dc\""
+    id                        = "8645633"
+    members_count             = 0
+    name                      = "team-readers"
+    node_id                   = "T_kwDOCLWkT84Ag-wB"
+    privacy                   = "secret"
+    slug                      = "team-readers"
+}
+```
+
+#### `terraform state show github_team.team_writers`
+```
+edikgoose@edikgoose-NBLB-WAX9N:~/iu-devops/terraform/github_teams$ terraform state show github_team.team_writers
+# github_team.team_writers:
+resource "github_team" "team_writers" {
+    create_default_maintainer = false
+    description               = "Team only for pushing/pulling"
+    etag                      = "W/\"bd4c8b2bf11658d19ce5ba74c676de5435851e6a60b17967097768b940fe8bf3\""
+    id                        = "8645638"
+    members_count             = 0
+    name                      = "team-writers"
+    node_id                   = "T_kwDOCLWkT84Ag-wG"
+    privacy                   = "secret"
+    slug                      = "team-writers"
+}
+```
+
+#### `terraform state show github_team.team_maintainers`
+```
+edikgoose@edikgoose-NBLB-WAX9N:~/iu-devops/terraform/github_teams$ terraform state show github_team.team_maintainers
+# github_team.team_maintainers:
+resource "github_team" "team_maintainers" {
+    create_default_maintainer = false
+    description               = "Team for maintaining"
+    etag                      = "W/\"279bf081efa93749e1c2398bb5fb922f117463ef285953477686099f0a7ccb0d\""
+    id                        = "8645636"
+    members_count             = 0
+    name                      = "team-maintainers"
+    node_id                   = "T_kwDOCLWkT84Ag-wE"
+    privacy                   = "secret"
+    slug                      = "team-maintainers"
+}
 ```
