@@ -1,0 +1,70 @@
+# docker_container.container:
+resource "docker_container" "container" {
+    attach                                      = false
+    command                                     = []
+    container_read_refresh_timeout_milliseconds = 15000
+    cpu_shares                                  = 0
+    entrypoint                                  = [
+        "python3",
+        "app.py",
+    ]
+    env                                         = []
+    hostname                                    = "610d4683bd3d"
+    id                                          = "610d4683bd3d68399ebd66f6a6df7d0d49cba2ec695541a2fbe1573bbef8e5ea"
+    image                                       = "sha256:a42244c58860684bfe70e956e5257fa6ef11d8c4b9c7809c7b44466e0ef59d20"
+    init                                        = false
+    ipc_mode                                    = "private"
+    log_driver                                  = "json-file"
+    logs                                        = false
+    max_retry_count                             = 0
+    memory                                      = 0
+    memory_swap                                 = 0
+    must_run                                    = true
+    name                                        = "my-container"
+    network_data                                = [
+        {
+            gateway                   = "172.17.0.1"
+            global_ipv6_address       = ""
+            global_ipv6_prefix_length = 0
+            ip_address                = "172.17.0.2"
+            ip_prefix_length          = 16
+            ipv6_gateway              = ""
+            mac_address               = "02:42:ac:11:00:02"
+            network_name              = "bridge"
+        },
+    ]
+    network_mode                                = "default"
+    privileged                                  = false
+    publish_all_ports                           = false
+    read_only                                   = false
+    remove_volumes                              = true
+    restart                                     = "no"
+    rm                                          = false
+    runtime                                     = "runc"
+    security_opts                               = []
+    shm_size                                    = 64
+    start                                       = true
+    stdin_open                                  = false
+    stop_timeout                                = 0
+    tty                                         = false
+    user                                        = "simpleuser"
+    wait                                        = false
+    wait_timeout                                = 60
+    working_dir                                 = "/app"
+
+    ports {
+        external = 8090
+        internal = 8090
+        ip       = "0.0.0.0"
+        protocol = "tcp"
+    }
+}
+
+# docker_image.image:
+resource "docker_image" "image" {
+    id           = "sha256:a42244c58860684bfe70e956e5257fa6ef11d8c4b9c7809c7b44466e0ef59d20dshamik/dshamik_msk_time:latest"
+    image_id     = "sha256:a42244c58860684bfe70e956e5257fa6ef11d8c4b9c7809c7b44466e0ef59d20"
+    keep_locally = false
+    name         = "dshamik/dshamik_msk_time:latest"
+    repo_digest  = "dshamik/dshamik_msk_time@sha256:7259161e6e0cdc6c69fc38a2f2d7d44f9b6d3174175ac1c0c28fd9a707359854"
+}

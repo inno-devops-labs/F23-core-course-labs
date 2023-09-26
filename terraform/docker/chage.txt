@@ -1,0 +1,81 @@
+docker_image.image: Refreshing state... [id=sha256:a42244c58860684bfe70e956e5257fa6ef11d8c4b9c7809c7b44466e0ef59d20dshamik/dshamik_msk_time:latest]
+docker_container.container: Refreshing state... [id=610d4683bd3d68399ebd66f6a6df7d0d49cba2ec695541a2fbe1573bbef8e5ea]
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+-/+ destroy and then create replacement
+
+Terraform will perform the following actions:
+
+  # docker_container.container must be replaced
+-/+ resource "docker_container" "container" {
+      + bridge                                      = (known after apply)
+      ~ command                                     = [] -> (known after apply)
+      + container_logs                              = (known after apply)
+      - cpu_shares                                  = 0 -> null
+      - dns                                         = [] -> null
+      - dns_opts                                    = [] -> null
+      - dns_search                                  = [] -> null
+      ~ entrypoint                                  = [
+          - "python3",
+          - "app.py",
+        ] -> (known after apply)
+      ~ env                                         = [] -> (known after apply)
+      + exit_code                                   = (known after apply)
+      - group_add                                   = [] -> null
+      ~ hostname                                    = "610d4683bd3d" -> (known after apply)
+      ~ id                                          = "610d4683bd3d68399ebd66f6a6df7d0d49cba2ec695541a2fbe1573bbef8e5ea" -> (known after apply)
+      ~ init                                        = false -> (known after apply)
+      ~ ipc_mode                                    = "private" -> (known after apply)
+      ~ log_driver                                  = "json-file" -> (known after apply)
+      - log_opts                                    = {} -> null
+      - max_retry_count                             = 0 -> null
+      - memory                                      = 0 -> null
+      - memory_swap                                 = 0 -> null
+      ~ name                                        = "my-container" -> "new-container" # forces replacement
+      ~ network_data                                = [
+          - {
+              - gateway                   = "172.17.0.1"
+              - global_ipv6_address       = ""
+              - global_ipv6_prefix_length = 0
+              - ip_address                = "172.17.0.2"
+              - ip_prefix_length          = 16
+              - ipv6_gateway              = ""
+              - mac_address               = "02:42:ac:11:00:02"
+              - network_name              = "bridge"
+            },
+        ] -> (known after apply)
+      - network_mode                                = "default" -> null
+      - privileged                                  = false -> null
+      - publish_all_ports                           = false -> null
+      ~ runtime                                     = "runc" -> (known after apply)
+      ~ security_opts                               = [] -> (known after apply)
+      ~ shm_size                                    = 64 -> (known after apply)
+      + stop_signal                                 = (known after apply)
+      ~ stop_timeout                                = 0 -> (known after apply)
+      - storage_opts                                = {} -> null
+      - sysctls                                     = {} -> null
+      - tmpfs                                       = {} -> null
+      - user                                        = "simpleuser" -> null
+      - working_dir                                 = "/app" -> null
+        # (14 unchanged attributes hidden)
+
+      ~ ports {
+          ~ external = 8090 -> 80 # forces replacement
+            # (3 unchanged attributes hidden)
+        }
+    }
+
+Plan: 1 to add, 0 to change, 1 to destroy.
+
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+docker_container.container: Destroying... [id=610d4683bd3d68399ebd66f6a6df7d0d49cba2ec695541a2fbe1573bbef8e5ea]
+docker_container.container: Destruction complete after 1s
+docker_container.container: Creating...
+docker_container.container: Creation complete after 0s [id=e76d47299f2cf502d66c07b8a0a55acce71cfd35b73e0cf13d6af2c5815c35a9]
+
+Apply complete! Resources: 1 added, 0 changed, 1 destroyed.

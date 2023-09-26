@@ -1,0 +1,72 @@
+# aws_instance.app_server:
+resource "aws_instance" "app_server" {
+    ami                                  = "ami-830c94e3"
+    arn                                  = "arn:aws:ec2:us-west-2:682849823866:instance/i-0d180bd03a049cfb5"
+    associate_public_ip_address          = true
+    availability_zone                    = "us-west-2a"
+    cpu_core_count                       = 1
+    cpu_threads_per_core                 = 1
+    disable_api_termination              = false
+    ebs_optimized                        = false
+    get_password_data                    = false
+    hibernation                          = false
+    id                                   = "i-0d180bd03a049cfb5"
+    instance_initiated_shutdown_behavior = "stop"
+    instance_state                       = "running"
+    instance_type                        = "t2.micro"
+    ipv6_address_count                   = 0
+    ipv6_addresses                       = []
+    monitoring                           = false
+    primary_network_interface_id         = "eni-0d1ff137f88c502d9"
+    private_dns                          = "ip-172-31-18-47.us-west-2.compute.internal"
+    private_ip                           = "172.31.18.47"
+    public_dns                           = "ec2-54-245-162-196.us-west-2.compute.amazonaws.com"
+    public_ip                            = "54.245.162.196"
+    secondary_private_ips                = []
+    security_groups                      = [
+        "default",
+    ]
+    source_dest_check                    = true
+    subnet_id                            = "subnet-0aab25821e22bed79"
+    tags                                 = {
+        "Name" = "dshamikServer"
+    }
+    tags_all                             = {
+        "Name" = "dshamikServer"
+    }
+    tenancy                              = "default"
+    vpc_security_group_ids               = [
+        "sg-0ba46fa84cd286e3e",
+    ]
+
+    capacity_reservation_specification {
+        capacity_reservation_preference = "open"
+    }
+
+    credit_specification {
+        cpu_credits = "standard"
+    }
+
+    enclave_options {
+        enabled = false
+    }
+
+    metadata_options {
+        http_endpoint               = "enabled"
+        http_put_response_hop_limit = 1
+        http_tokens                 = "optional"
+        instance_metadata_tags      = "disabled"
+    }
+
+    root_block_device {
+        delete_on_termination = true
+        device_name           = "/dev/sda1"
+        encrypted             = false
+        iops                  = 0
+        tags                  = {}
+        throughput            = 0
+        volume_id             = "vol-08549bb2cb1fdf18f"
+        volume_size           = 8
+        volume_type           = "standard"
+    }
+}

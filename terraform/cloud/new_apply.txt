@@ -1,0 +1,154 @@
+aws_instance.app_server: Refreshing state... [id=i-0d180bd03a049cfb5]
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  + create
+  - destroy
+
+Terraform will perform the following actions:
+
+  # aws_instance.app_server will be destroyed
+  # (because aws_instance.app_server is not in configuration)
+  - resource "aws_instance" "app_server" {
+      - ami                                  = "ami-830c94e3" -> null
+      - arn                                  = "arn:aws:ec2:us-west-2:682849823866:instance/i-0d180bd03a049cfb5" -> null
+      - associate_public_ip_address          = true -> null
+      - availability_zone                    = "us-west-2a" -> null
+      - cpu_core_count                       = 1 -> null
+      - cpu_threads_per_core                 = 1 -> null
+      - disable_api_termination              = false -> null
+      - ebs_optimized                        = false -> null
+      - get_password_data                    = false -> null
+      - hibernation                          = false -> null
+      - id                                   = "i-0d180bd03a049cfb5" -> null
+      - instance_initiated_shutdown_behavior = "stop" -> null
+      - instance_state                       = "running" -> null
+      - instance_type                        = "t2.micro" -> null
+      - ipv6_address_count                   = 0 -> null
+      - ipv6_addresses                       = [] -> null
+      - monitoring                           = false -> null
+      - primary_network_interface_id         = "eni-0d1ff137f88c502d9" -> null
+      - private_dns                          = "ip-172-31-18-47.us-west-2.compute.internal" -> null
+      - private_ip                           = "172.31.18.47" -> null
+      - public_dns                           = "ec2-54-245-162-196.us-west-2.compute.amazonaws.com" -> null
+      - public_ip                            = "54.245.162.196" -> null
+      - secondary_private_ips                = [] -> null
+      - security_groups                      = [
+          - "default",
+        ] -> null
+      - source_dest_check                    = true -> null
+      - subnet_id                            = "subnet-0aab25821e22bed79" -> null
+      - tags                                 = {
+          - "Name" = "dshamikServer"
+        } -> null
+      - tags_all                             = {
+          - "Name" = "dshamikServer"
+        } -> null
+      - tenancy                              = "default" -> null
+      - vpc_security_group_ids               = [
+          - "sg-0ba46fa84cd286e3e",
+        ] -> null
+
+      - capacity_reservation_specification {
+          - capacity_reservation_preference = "open" -> null
+        }
+
+      - credit_specification {
+          - cpu_credits = "standard" -> null
+        }
+
+      - enclave_options {
+          - enabled = false -> null
+        }
+
+      - metadata_options {
+          - http_endpoint               = "enabled" -> null
+          - http_put_response_hop_limit = 1 -> null
+          - http_tokens                 = "optional" -> null
+          - instance_metadata_tags      = "disabled" -> null
+        }
+
+      - root_block_device {
+          - delete_on_termination = true -> null
+          - device_name           = "/dev/sda1" -> null
+          - encrypted             = false -> null
+          - iops                  = 0 -> null
+          - tags                  = {} -> null
+          - throughput            = 0 -> null
+          - volume_id             = "vol-08549bb2cb1fdf18f" -> null
+          - volume_size           = 8 -> null
+          - volume_type           = "standard" -> null
+        }
+    }
+
+  # aws_instance.server will be created
+  + resource "aws_instance" "server" {
+      + ami                                  = "ami-830c94e3"
+      + arn                                  = (known after apply)
+      + associate_public_ip_address          = (known after apply)
+      + availability_zone                    = (known after apply)
+      + cpu_core_count                       = (known after apply)
+      + cpu_threads_per_core                 = (known after apply)
+      + disable_api_termination              = (known after apply)
+      + ebs_optimized                        = (known after apply)
+      + get_password_data                    = false
+      + host_id                              = (known after apply)
+      + id                                   = (known after apply)
+      + instance_initiated_shutdown_behavior = (known after apply)
+      + instance_state                       = (known after apply)
+      + instance_type                        = "t2.micro"
+      + ipv6_address_count                   = (known after apply)
+      + ipv6_addresses                       = (known after apply)
+      + key_name                             = (known after apply)
+      + monitoring                           = (known after apply)
+      + outpost_arn                          = (known after apply)
+      + password_data                        = (known after apply)
+      + placement_group                      = (known after apply)
+      + placement_partition_number           = (known after apply)
+      + primary_network_interface_id         = (known after apply)
+      + private_dns                          = (known after apply)
+      + private_ip                           = (known after apply)
+      + public_dns                           = (known after apply)
+      + public_ip                            = (known after apply)
+      + secondary_private_ips                = (known after apply)
+      + security_groups                      = (known after apply)
+      + source_dest_check                    = true
+      + subnet_id                            = (known after apply)
+      + tags                                 = {
+          + "Name" = "dshamikNewServer"
+        }
+      + tags_all                             = {
+          + "Name" = "dshamikNewServer"
+        }
+      + tenancy                              = (known after apply)
+      + user_data                            = (known after apply)
+      + user_data_base64                     = (known after apply)
+      + vpc_security_group_ids               = (known after apply)
+    }
+
+Plan: 1 to add, 0 to change, 1 to destroy.
+
+Changes to Outputs:
+  + public_ip = (known after apply)
+
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+aws_instance.app_server: Destroying... [id=i-0d180bd03a049cfb5]
+aws_instance.server: Creating...
+aws_instance.app_server: Still destroying... [id=i-0d180bd03a049cfb5, 10s elapsed]
+aws_instance.server: Still creating... [10s elapsed]
+aws_instance.app_server: Still destroying... [id=i-0d180bd03a049cfb5, 20s elapsed]
+aws_instance.server: Still creating... [20s elapsed]
+aws_instance.app_server: Destruction complete after 26s
+aws_instance.server: Still creating... [30s elapsed]
+aws_instance.server: Still creating... [40s elapsed]
+aws_instance.server: Creation complete after 47s [id=i-0a8a2ea81d5978751]
+
+Apply complete! Resources: 1 added, 0 changed, 1 destroyed.
+
+Outputs:
+
+public_ip = "35.93.139.154"
