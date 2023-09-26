@@ -2,11 +2,11 @@
 ## Docker infrastructure 
 
 ```
-$terraform state list
+> terraform state list
 docker_container.nginx
 docker_image.nginx
 
-$terraform state show docker_container.nginx
+> terraform state show docker_container.nginx
 # docker_container.nginx:
 resource "docker_container" "nginx" {
     attach                                      = false
@@ -73,12 +73,19 @@ resource "docker_container" "nginx" {
 
 ```
 
+``` 
+> terraform output
+container_id = "22a93d3c31e0ce33724dc4383647d8f2361a4fd53eb57b5e395c91fab93be251"
+image_id = "sha256:88736fe827391462a4db99252117f136b2b25d1d31719006326a437bb40cb12dnginx:latest"
+
+```
+
 
 
 ## VK cloud 
 
 ````
-$terraform state list
+> terraform state list
 data.vkcs_compute_flavor.compute
 data.vkcs_images_image.compute
 data.vkcs_networking_network.extnet
@@ -97,7 +104,7 @@ vkcs_networking_subnet.subnetwork
 ````
 
 ```
-$terraform state show vkcs_compute_instance.compute
+> terraform state show vkcs_compute_instance.compute
 # vkcs_compute_instance.compute:
 resource "vkcs_compute_instance" "compute" {
     access_ip_v4        = "192.168.199.18"
@@ -143,6 +150,18 @@ resource "vkcs_compute_instance" "compute" {
 
 
 ```
-$terraform output
+>terraform output
 instance_fip = "212.233.95.2"
 ```
+
+## Github 
+
+```
+ > terraform apply
+ 
+ url: https://github.com/rkBekzat/Pwd9000-Demo-Repo-2022 
+ ```
+
+## Best practices
+
++ Separated by folder 
