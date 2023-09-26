@@ -1,4 +1,4 @@
-## Task 1
+## Task 1: Introduction to Terraform
 
 - `terraform state list`
 
@@ -8,6 +8,8 @@ data.twc_os.os
 twc_server.cygnus
 twc_ssh_key.timeweb-0xf
 ```
+![[Pasted image 20230926224421.png]]
+
 
 - `terraform state show data.twc_configurator.configurator`
 
@@ -138,11 +140,11 @@ resource "twc_server" "cygnus" {
 }
 ```
 
-
+![[Pasted image 20230926224541.png]]
 
 ---
 
-## Task 2
+## Task 2: Terraform for GitHub
 
 - `terraform output`
 
@@ -164,21 +166,35 @@ repositories = [
 ]
 ```
 
-
 - In order to import the repository the following command was used:	
 	- `terraform import "github_repository.course" "core-course-labs"`
+![[Pasted image 20230926224707.png]]
+
+
 
 
 ## Implemented best practices
 
-- [ ] WIP
 
-- Naming conventions - underscore (snake) case was used for naming the variables [according to](https://www.terraform-best-practices.com/naming) 
-- Terraform formatting conventions are ensured via use of `terraform fmt`
-	command
-- Input variables are moved to the `variables.tf`
-- Output variables are moved to the `outputs.tf`
-- Interchangeble inputs such as name of the server and path of the SSH 
-public key are parametrized via variables. 
-- Values for secrets are default initialized in the `terraform.tfvars`. This
-	file is added to the `.gitignore`
+- **Naming Conventions**: Follow consistent naming conventions for Terraform resources and variables. Use underscore (snake_case) as recommended in the [Terraform best practices guide](https://www.terraform-best-practices.com/naming).
+    
+- **Terraform Formatting**: Enforce Terraform code formatting using `terraform fmt` to maintain consistent code style throughout your configuration.
+    
+- **Modularization**: Organize Terraform code in different folders based on the provider.
+    
+- **Variable Separation**: Move input variables to a dedicated `variables.tf` file to provide a clear overview of all configurable parameters.
+    
+- **Output Separation**: Similarly, move output variables to an `outputs.tf` file to centralize the definition of what data your modules or configurations expose.
+    
+- **Parameterization**: Parameterize any interchangeable inputs, such as server names or SSH public key paths, by defining them as variables in your configuration files.
+    
+    
+## Bonus task
+
+- GitHub includes teams only in the context of organizations. However, our projects are already managed within the context of the current user. Additionally, the Terraform GitHub module can be used only for either user or organization. Therefore, the entire Terraform infrastructure needs to be replicated for the organization.
+- When transferring a large project with a significant number of issues, artifacts, etc., from the user to the organization, we first need to transfer the project on GitHub and then import it into Terraform using `terraform import`. However, in our case, a simple empty project is used for testing team permissions. Therefore, it will be sufficient to create a new project in the organization.
+
+![[Pasted image 20230926224207.png]]
+
+![[Pasted image 20230926223928.png]]
+![[Pasted image 20230926224020.png]]
