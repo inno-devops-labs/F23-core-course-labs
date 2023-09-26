@@ -1,4 +1,3 @@
-
 ## Docker
 
 ```sh
@@ -435,3 +434,154 @@ data "vkcs_compute_flavor" "compute" {
 ❯ terraform output
 instance_fip = "212.233.95.132"
 ```
+
+## GitHub
+
+```sh
+❯ terraform import "github_repository.repo" "core-course-labs"
+var.GITHUB_TOKEN
+  Github auth token
+
+  Enter a value:
+
+github_repository.repo: Importing from ID "core-course-labs"...
+github_repository.repo: Import prepared!
+  Prepared github_repository for import
+github_repository.repo: Refreshing state... [id=core-course-labs]
+
+Import successful!
+
+The resources that were imported are shown above. These resources are now in
+your Terraform state and will henceforth be managed by Terraform.
+
+```
+
+```sh
+❯ terraform apply
+var.GITHUB_TOKEN
+  Github auth token
+
+  Enter a value:
+
+github_repository.repo: Refreshing state... [id=core-course-labs]
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  + create
+  ~ update in-place
+
+Terraform will perform the following actions:
+
+  # github_branch_default.main will be created
+  + resource "github_branch_default" "main" {
+      + branch     = "main"
+      + id         = (known after apply)
+      + rename     = false
+      + repository = "core-course-labs"
+    }
+
+  # github_branch_protection.default will be created
+  + resource "github_branch_protection" "default" {
+      + allows_deletions                = false
+      + allows_force_pushes             = false
+      + blocks_creations                = false
+      + enforce_admins                  = true
+      + id                              = (known after apply)
+      + lock_branch                     = false
+      + pattern                         = "main"
+      + repository_id                   = "core-course-labs"
+      + require_conversation_resolution = true
+      + require_signed_commits          = false
+      + required_linear_history         = false
+
+      + required_pull_request_reviews {
+          + require_last_push_approval      = false
+          + required_approving_review_count = 1
+        }
+    }
+
+  # github_repository.repo will be updated in-place
+  ~ resource "github_repository" "repo" {
+      + description                 = "DevOps [F23]"
+      - has_downloads               = true -> null
+      ~ has_issues                  = false -> true
+      - has_projects                = true -> null
+        id                          = "core-course-labs"
+        name                        = "core-course-labs"
+        # (30 unchanged attributes hidden)
+
+        # (1 unchanged block hidden)
+    }
+
+  # github_team.admins will be created
+  + resource "github_team" "admins" {
+      + create_default_maintainer = true
+      + description               = "Admins Team"
+      + etag                      = (known after apply)
+      + id                        = (known after apply)
+      + members_count             = (known after apply)
+      + name                      = "admins"
+      + node_id                   = (known after apply)
+      + parent_team_read_id       = (known after apply)
+      + parent_team_read_slug     = (known after apply)
+      + privacy                   = "secret"
+      + slug                      = (known after apply)
+    }
+
+  # github_team.devs will be created
+  + resource "github_team" "devs" {
+      + create_default_maintainer = true
+      + description               = "Developers Team"
+      + etag                      = (known after apply)
+      + id                        = (known after apply)
+      + members_count             = (known after apply)
+      + name                      = "devs"
+      + node_id                   = (known after apply)
+      + parent_team_read_id       = (known after apply)
+      + parent_team_read_slug     = (known after apply)
+      + privacy                   = "secret"
+      + slug                      = (known after apply)
+    }
+
+  # github_team_repository.admins_repo will be created
+  + resource "github_team_repository" "admins_repo" {
+      + etag       = (known after apply)
+      + id         = (known after apply)
+      + permission = "admin"
+      + repository = "core-course-labs"
+      + team_id    = (known after apply)
+    }
+
+  # github_team_repository.devs_repo will be created
+  + resource "github_team_repository" "devs_repo" {
+      + etag       = (known after apply)
+      + id         = (known after apply)
+      + permission = "push"
+      + repository = "core-course-labs"
+      + team_id    = (known after apply)
+    }
+
+Plan: 6 to add, 1 to change, 0 to destroy.
+
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+github_team.devs: Creating...
+github_team.admins: Creating...
+github_repository.repo: Modifying... [id=core-course-labs]
+github_repository.repo: Modifications complete after 2s [id=core-course-labs]
+github_branch_default.main: Creating...
+github_branch_default.main: Creation complete after 2s [id=core-course-labs]
+github_branch_protection.default: Creating...
+github_branch_protection.default: Creation complete after 4s [id=BPR_kwDOKPqOHs4CgWVb]
+```
+
+## Best practices
+
+- Env variables for everything
+- Format files
+- Use git
+- Env variable for all the secrets
+- Use proper `.tf` files hierarchy
