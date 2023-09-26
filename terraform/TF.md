@@ -1,4 +1,14 @@
 
+# Terraform used best practices
+- Did not store tokens explicitly as code
+- For sensitive variables I have used "sensitive" option
+- Each variable has its description
+- Avoided hardcoded variable values
+- "import"s collected in a separate file "imports.tf"
+- Existing infrastructure is imported instead of hardcode
+- Formatted and validated .tf files after updates
+- Used "terraform plans" to verify the changes
+
 # Terraform Docker Tutorial
 
 ### Resource states
