@@ -66,6 +66,7 @@ Upon accessing the application in your web browser, you will see the current dat
 - Flask: A lightweight and flexible web framework for building web applications in Python.
 - HTML/CSS: Frontend design and structure using HTML and CSS.
 - Datetime Module: Python's datetime module for handling date and time-related operations.
+- Docker: Containerization technology used to package and deploy the application in a consistent and isolated environment, ensuring portability and ease of deployment across various platforms and environments.
 
 ## Project Structure
 
@@ -84,9 +85,104 @@ The project structure is organized as follows:
 - README.md: Project documentation file.
 - PYTHON.md: Best practices documentation file.
 - requirements.txt: List of Python packages required for the project.
+- .dockerignore: File specifying which files and directories should be ignored when creating a Docker image, ensuring only necessary files are included.
+- Dockerfile: The Dockerfile that defines how the Docker image for the application should be built.
+- Docker.md: Documentation file providing instructions and best practices for using Docker in the project.
 
 ## License
 This project is licensed under the MIT License.
 
 ## Author
 Arseniy Rubtsov
+
+<br>
+
+# Docker section
+This project includes a Dockerfile that allows you to containerize the Python.
+## This particular case
+```
+git clone https://github.com/Q-Tify/core-course-labs-devops/tree/lab2
+cd app_python
+docker build -t arseniy5443/moscowtime:latest .
+docker run -p 80:5000 --rm arseniy5443/moscowtime:latest
+
+docker login
+docker push arseniy5443/moscowtime:latest
+
+docker pull arseniy5443/moscowtime
+```
+
+## How to build docker image?
+```
+docker build -t [image name]:[image tag] [path to dockerfile]
+```
+
+## How to run docker container?
+```
+docker run -p [local port]:[docker port] --rm [image name]:[image tag]
+
+docker run -d -p [local port]:[docker port] --rm --name [container name] [image name]:[image tag]
+
+docker start [container name]
+docker stop [container name]
+```
+
+Possible to add ENV:
+```
+docker run -p [local port]:[docker port] -e PORT=80 [image name]:[image tag]
+```
+Or to take it from file, create dir config and there .env file, put there all variables and use command:
+```
+docker run -p [local port]:[docker port] --env-file ./config/.env [image name]:[image tag]
+```
+
+## How to upload to docker hub?
+
+```
+docker login
+```
+It is important that the name of the image should contain docker username + / + image name:
+```
+docker push [docker username]/[image name]:[image tag]
+```
+
+To rename image:
+```
+docker tag [old image] [docker username]/[new image]
+```
+
+## How to download image from docker hub?
+```
+docker pull [image name]
+```
+
+<br><br>
+
+## How to delete all stopped containers?
+```
+docker container prune
+```
+
+## How to delete all images?
+```
+docker image prune -a
+```
+
+## How to see all containers?
+```
+docker ps -a
+```
+
+## How to see all images?
+```
+docker images
+```
+
+## How to delete:
+- all stopped containers
+- all networks not used by at least one container
+- all dangling images
+- all dangling build cache
+```
+docker system prune
+```
