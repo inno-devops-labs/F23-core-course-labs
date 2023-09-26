@@ -197,7 +197,6 @@ github_team_repository.team_a_to_repo
 github_team_repository.team_b_to_repo
 ```
 
-
 ## Best practices for Terraform
 
 1. Small scope of each fileset- one for each task: GitHub, VK Cloud management, Docker
