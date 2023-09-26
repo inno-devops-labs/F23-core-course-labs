@@ -1,3 +1,5 @@
+![py workflow](https://github.com/art22m/F23-DevOps/actions/workflows/app_py_ci.yaml/badge.svg)
+
 # Python Web Application
 
 ## Overview
@@ -49,6 +51,15 @@ To run docker image:
  ```
 docker run -p 8000:8000 art22m/pyapp:v1
  ```
+
+## Unit Tests
+To run tests use `make test`
+
+## CI
+Workflow:
+-  Security check
+-  Lint, Build and Run tests
+-  Dockerhub image push
 
 ## Contact
 
