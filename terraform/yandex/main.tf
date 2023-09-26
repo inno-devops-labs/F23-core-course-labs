@@ -8,6 +8,9 @@ terraform {
 }
 
 provider "yandex" {
+  service_account_key_file = "/home/jaffart/codes/devops-course-labs/terraform/yandex/authorized_key.json"
+  cloud_id = "b1g5ltf518ub13g9v269"
+  folder_id = "b1g1aqrohbot4fl3e1vb"
   zone = var.zone
 }
 
@@ -21,7 +24,7 @@ resource "yandex_compute_instance" "vm-1" {
 
   boot_disk {
     initialize_params {
-      image_id = "fd87va5cc00gaq2f5qfb"
+      image_id = "fd82sqrj4uk9j7vlki3q"
     }
   }
 
@@ -45,7 +48,7 @@ resource "yandex_compute_instance" "vm-2" {
 
   boot_disk {
     initialize_params {
-      image_id = "fd87va5cc00gaq2f5qfb"
+      image_id = "fd82sqrj4uk9j7vlki3q"
     }
   }
 

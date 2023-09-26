@@ -2,17 +2,21 @@ terraform {
   required_providers {
     github = {
       source  = "integrations/github"
-      version = "~> 5.0"
+      version = "~> 4.0"
     }
   }
 }
 
 provider "github" {
   owner = var.github_organization
+  token = var.github_token
 }
 
 
-resource "github_repository" "devops_course_labs" {
+resource "github_repository" "gh_teams_terraform" {
+  name = "gh-teams-terraform"
+  description = "gh teams using terraform"
+  visibility = "public"
 }
 
 resource "github_team" "team_pull" {
@@ -28,19 +32,19 @@ resource "github_team" "team_admins" {
 }
 
 resource "github_team_repository" "team_a_access" {
-  repository = github_repository.devops_course_labs.name
+  repository = github_repository.gh_teams_terraform.name
   team_id    = github_team.team_pull.id
   permission = "pull"
 }
 
 resource "github_team_repository" "team_b_access" {
-  repository = github_repository.devops_course_labs.name
+  repository = github_repository.gh_teams_terraform.name
   team_id    = github_team.team_maintain.id
   permission = "maintain"
 }
 
 resource "github_team_repository" "team_c_access" {
-  repository = github_repository.devops_course_labs.name
+  repository = github_repository.gh_teams_terraform.name
   team_id    = github_team.team_admins.id
   permission = "admin"
 }

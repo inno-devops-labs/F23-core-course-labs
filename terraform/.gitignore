@@ -18,3 +18,5 @@
 **/.terraformrc
 **/terraform.rc
 **/*.tfvars
+
+**/authorized_key.json
