@@ -15,5 +15,9 @@ Since the task is quite simple, it is difficult to demonstrate the use of all th
 
 2. Modules and packages - modules allow you to organize code into logically related blocks, and packages allow you to group modules by topic. This simplifies the maintenance and expansion of the program.
 
-3. Tests - testing helps to identify errors and defects in the program. Writing tests is a good practice to make sure the program works correctly.
 
+## Tests
+
+ Tests - testing helps to identify errors and defects in the program. Writing tests is a good practice to make sure the program works correctly.
+
+ In `tests/test_main.py` I wrote a test to check the correctness of the code status and the content of the response from the server.
