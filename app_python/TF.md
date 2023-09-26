@@ -199,3 +199,150 @@ terraform output
 public_ip = "18.212.49.89"
 ```
 
+### Github
+
+```
+terraform state show github_branch_default.main
+
+# github_branch_default.main:
+resource "github_branch_default" "main" {
+    branch     = "main"
+    id         = "core-course-labs-test"
+    rename     = false
+    repository = "core-course-labs-test"
+}
+```
+
+```
+terraform state show github_branch_protection.default
+# github_branch_protection.default:
+resource "github_branch_protection" "default" {
+    allows_deletions                = false
+    allows_force_pushes             = false
+    blocks_creations                = false
+    enforce_admins                  = true
+    id                              = "BPR_kwDOKYsrLM4CgV0J"
+    lock_branch                     = false
+    pattern                         = "main"
+    repository_id                   = "core-course-labs-test"
+    require_conversation_resolution = true
+    require_signed_commits          = false
+    required_linear_history         = false
+
+    required_pull_request_reviews {
+        dismiss_stale_reviews           = false
+        require_code_owner_reviews      = false
+        require_last_push_approval      = false
+        required_approving_review_count = 1
+        restrict_dismissals             = false
+    }
+}
+```
+
+```
+terraform state show github_repository.core-course-labs-test
+# github_repository.core-course-labs-test:
+resource "github_repository" "core-course-labs-test" {
+    allow_auto_merge            = false
+    allow_merge_commit          = true
+    allow_rebase_merge          = true
+    allow_squash_merge          = true
+    allow_update_branch         = false
+    archived                    = false
+    auto_init                   = true
+    default_branch              = "main"
+    delete_branch_on_merge      = false
+    description                 = "Test repository created by terraform"
+    etag                        = "W/\"b545e166054005b5152b3e16031379da2b92960544cc1194304d2856d7e2b640\""
+    full_name                   = "JustSomeDude2001/core-course-labs-test"
+    git_clone_url               = "git://github.com/JustSomeDude2001/core-course-labs-test.git"
+    gitignore_template          = "Terraform"
+    has_discussions             = false
+    has_downloads               = false
+    has_issues                  = true
+    has_projects                = false
+    has_wiki                    = true
+    html_url                    = "https://github.com/JustSomeDude2001/core-course-labs-test"
+    http_clone_url              = "https://github.com/JustSomeDude2001/core-course-labs-test.git"
+    id                          = "core-course-labs-test"
+    is_template                 = false
+    license_template            = "mit"
+    merge_commit_message        = "PR_TITLE"
+    merge_commit_title          = "MERGE_MESSAGE"
+    name                        = "core-course-labs-test"
+    node_id                     = "R_kgDOKYsrLA"
+    private                     = false
+    repo_id                     = 696986412
+    squash_merge_commit_message = "COMMIT_MESSAGES"
+    squash_merge_commit_title   = "COMMIT_OR_PR_TITLE"
+    ssh_clone_url               = "git@github.com:JustSomeDude2001/core-course-labs-test.git"
+    svn_url                     = "https://github.com/JustSomeDude2001/core-course-labs-test"
+    topics                      = []
+    visibility                  = "public"
+    vulnerability_alerts        = false
+
+    security_and_analysis {
+        secret_scanning {
+            status = "disabled"
+        }
+        secret_scanning_push_protection {
+            status = "disabled"
+        }
+    }
+}
+```
+
+Importing
+
+```
+sudo terraform import "github_repository.core-course-lab
+s-deploy" "core-course-labs"
+github_repository.core-course-labs-deploy: Importing from ID "core-course-labs"...
+github_repository.core-course-labs-deploy: Import prepared!
+  Prepared github_repository for import
+github_repository.core-course-labs-deploy: Refreshing state... [id=core-course-labs]
+
+Import successful!
+
+The resources that were imported are shown above. These resources are now in
+your Terraform state and will henceforth be managed by Terraform.
+```
+
+Importing from core repo to deploy repo.
+
+```
+sudo terraform apply
+github_repository.core-course-labs-test: Refreshing state... [id=core-course-labs-test]
+github_repository.core-course-labs-deploy: Refreshing state... [id=core-course-labs]
+github_branch_default.main: Refreshing state... [id=core-course-labs-test]
+github_branch_protection.default: Refreshing state... [id=BPR_kwDOKYsrLM4CgV0J]
+
+Terraform used the selected providers to generate the following execution plan.
+Resource actions are indicated with the following symbols:
+  ~ update in-place
+
+Terraform will perform the following actions:
+
+  # github_repository.core-course-labs-deploy will be updated in-place
+  ~ resource "github_repository" "core-course-labs-deploy" {
+      ~ full_name                   = "JustSomeDude2001/core-course-labs-deploy" -> (known after apply)
+        id                          = "core-course-labs"
+      ~ name                        = "core-course-labs" -> "core-course-labs-deploy"
+        # (32 unchanged attributes hidden)
+
+        # (1 unchanged block hidden)
+    }
+
+Plan: 0 to add, 1 to change, 0 to destroy.
+
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+github_repository.core-course-labs-deploy: Modifying... [id=core-course-labs]
+github_repository.core-course-labs-deploy: Modifications complete after 3s [id=core-course-labs-deploy]
+
+Apply complete! Resources: 0 added, 1 changed, 0 destroyed.
+```
