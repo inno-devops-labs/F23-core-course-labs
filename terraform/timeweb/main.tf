@@ -13,7 +13,7 @@ provider "twc" {
 
 
 data "twc_configurator" "configurator" {
-  location  = "nl-1"
+  location  = "pl-1"
   disk_type = "nvme"
 }
 
@@ -23,6 +23,13 @@ data "twc_configurator" "configurator" {
 resource "twc_ssh_key" "timeweb-0xf" {
   name = "timeweb-0xf"
   body = file(var.timeweb_ssh_pubkey)
+}
+
+resource "twc_vpc" "internal" {
+  name = "Internal VPC"
+  description = "Internal VPC"
+  subnet_v4 = "192.168.0.0/24"
+  location = "pl-1"
 }
 
 
@@ -47,5 +54,9 @@ resource "twc_server" "cygnus" {
 
   ssh_keys_ids = [twc_ssh_key.timeweb-0xf.id]
 
+  local_network {
+    id = twc_vpc.internal.id
+    ip = "192.168.0.15"
+  }
 
 }
