@@ -1944,6 +1944,166 @@ Outputs:
 repo_name = "Elestrias/Devops_repo"
 ```
 
+## terraform state list
+```
+github_branch_default.core_main
+github_branch_default.main
+github_branch_protection.default
+github_repository.core
+github_repository.repo
+```
+
+## terraform state show 
+Resource: github_branch_default.core_main
+```
+# github_branch_default.core_main:
+resource "github_branch_default" "core_main" {
+    branch     = "main"
+    id         = "devopsTest"
+    rename     = false
+    repository = "devopsTest"
+}
+
+```
+------------------------------------------------------------
+Resource: github_branch_default.main
+```
+# github_branch_default.main:
+resource "github_branch_default" "main" {
+    branch     = "main"
+    id         = "Devops_repo"
+    rename     = false
+    repository = "Devops_repo"
+}
+
+```
+------------------------------------------------------------
+Resource: github_branch_protection.default
+```
+# github_branch_protection.default:
+resource "github_branch_protection" "default" {
+    allows_deletions                = false
+    allows_force_pushes             = false
+    blocks_creations                = false
+    enforce_admins                  = true
+    id                              = "BPR_kwDOKYuiKc4CgWts"
+    lock_branch                     = false
+    pattern                         = "main"
+    repository_id                   = "Devops_repo"
+    require_conversation_resolution = true
+    require_signed_commits          = false
+    required_linear_history         = false
+}
+
+```
+------------------------------------------------------------
+Resource: github_repository.core
+```
+# github_repository.core:
+resource "github_repository" "core" {
+    allow_auto_merge            = false
+    allow_merge_commit          = true
+    allow_rebase_merge          = true
+    allow_squash_merge          = true
+    allow_update_branch         = false
+    archived                    = false
+    auto_init                   = true
+    default_branch              = "main"
+    delete_branch_on_merge      = false
+    description                 = "Innopolis DevOps 2023 core repository"
+    etag                        = "W/\"2fc008142f4618fce692083f2b58c0692cc7bbdf3d54f6f7984aa045a1e86281\""
+    full_name                   = "Elestrias/devopsTest"
+    git_clone_url               = "git://github.com/Elestrias/devopsTest.git"
+    has_discussions             = false
+    has_downloads               = false
+    has_issues                  = false
+    has_projects                = false
+    has_wiki                    = false
+    html_url                    = "https://github.com/Elestrias/devopsTest"
+    http_clone_url              = "https://github.com/Elestrias/devopsTest.git"
+    id                          = "devopsTest"
+    is_template                 = false
+    merge_commit_message        = "PR_TITLE"
+    merge_commit_title          = "MERGE_MESSAGE"
+    name                        = "devopsTest"
+    node_id                     = "R_kgDOKYuhcg"
+    private                     = false
+    repo_id                     = 697016690
+    squash_merge_commit_message = "COMMIT_MESSAGES"
+    squash_merge_commit_title   = "COMMIT_OR_PR_TITLE"
+    ssh_clone_url               = "git@github.com:Elestrias/devopsTest.git"
+    svn_url                     = "https://github.com/Elestrias/devopsTest"
+    topics                      = []
+    visibility                  = "public"
+    vulnerability_alerts        = false
+
+    security_and_analysis {
+        secret_scanning {
+            status = "disabled"
+        }
+        secret_scanning_push_protection {
+            status = "disabled"
+        }
+    }
+}
+
+```
+------------------------------------------------------------
+Resource: github_repository.repo
+```
+# github_repository.repo:
+resource "github_repository" "repo" {
+    allow_auto_merge            = false
+    allow_merge_commit          = true
+    allow_rebase_merge          = false
+    allow_squash_merge          = false
+    allow_update_branch         = false
+    archived                    = false
+    auto_init                   = true
+    default_branch              = "main"
+    delete_branch_on_merge      = false
+    description                 = "Devops_repo"
+    etag                        = "W/\"a73c19bbc5b230e72a1f836a2c1ba03d6ba1f690e391dd2e061ce08a5a00f967\""
+    full_name                   = "Elestrias/Devops_repo"
+    git_clone_url               = "git://github.com/Elestrias/Devops_repo.git"
+    has_discussions             = false
+    has_downloads               = false
+    has_issues                  = true
+    has_projects                = false
+    has_wiki                    = true
+    html_url                    = "https://github.com/Elestrias/Devops_repo"
+    http_clone_url              = "https://github.com/Elestrias/Devops_repo.git"
+    id                          = "Devops_repo"
+    is_template                 = false
+    merge_commit_message        = "PR_TITLE"
+    merge_commit_title          = "MERGE_MESSAGE"
+    name                        = "Devops_repo"
+    node_id                     = "R_kgDOKYuiKQ"
+    private                     = false
+    repo_id                     = 697016873
+    squash_merge_commit_message = "COMMIT_MESSAGES"
+    squash_merge_commit_title   = "COMMIT_OR_PR_TITLE"
+    ssh_clone_url               = "git@github.com:Elestrias/Devops_repo.git"
+    svn_url                     = "https://github.com/Elestrias/Devops_repo"
+    topics                      = []
+    visibility                  = "public"
+    vulnerability_alerts        = false
+
+    security_and_analysis {
+        secret_scanning {
+            status = "disabled"
+        }
+        secret_scanning_push_protection {
+            status = "disabled"
+        }
+    }
+}
+
+```
+------------------------------------------------------------
+
+
+
 # Best practices
 1. Use reusable modules to not duplicate code
 2. Separate terraform project on different levels - directories for each module to keep all structure clear
@@ -2193,6 +2353,18 @@ resource "github_team_repository" "team_push_access" {
     team_id    = "8646899"
 }
 ```
+
+## terraform state list
+```
+github_repository.example_repo
+github_team.team_admin
+github_team.team_pull
+github_team.team_push
+github_team_repository.team_admin_access
+github_team_repository.team_pull_access
+github_team_repository.team_push_access
+```
+
 ## terraform state show for each 
 Resource: github_repository.example_repo
 ```
