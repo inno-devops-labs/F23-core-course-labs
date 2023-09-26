@@ -9,7 +9,7 @@ Hi :wave:, this is a simple app's repository that displays the current time in M
 - [Getting Started](#getting-started)
   - [Installation](#installation)
 - [Usage](#usage)
-- [Tests](#tests)
+- [Unit Tests](#unit-tests)
 - [Linter, Auto Formatter](#linter-auto-formatter)
 
 ## About
@@ -74,7 +74,7 @@ python3 app.py
 
 It should run on localhost: http://127.0.0.1:5000/
 
-## Tests
+## Unit Tests
 
 ---------------------------------------------------------------
 
