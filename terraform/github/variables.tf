@@ -1,12 +1,12 @@
 variable "github_token" {
-  description = "My Github token"
+  description = "github token"
   type        = string
   sensitive   = true
 }
 
 
 variable "github_owner" {
-  description = "My Github owner"
+  description = "github owner"
   type        = string
   default     = "devops-organizational"
 }

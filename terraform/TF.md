@@ -1,7 +1,7 @@
 # Terraform Best Practices 
 1. Directory Structure: Describes the recommended directory structure for my Terraform project. I've organized my code, variables, and modules in a clear and consistent manner.
-2. Using built-in formatting. Terraform files must conform to the standards of terraform fmt.
-
+2. Using built-in formatting. Terraform files conform to the standards of terraform fmt.
+3. Reviewing and plan:
 
 # Docker
 
@@ -182,6 +182,162 @@ resource "aws_instance" "app_server" {
 aws_instance.app_server
 
 # GitHub
+
+## terraform apply
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # github_branch_default.main will be created
+  + resource "github_branch_default" "main" {
+      + branch     = "main"
+      + id         = (known after apply)
+      + rename     = false
+      + repository = "devops"
+    }
+
+  # github_branch_protection.default will be created
+  + resource "github_branch_protection" "default" {
+      + allows_deletions                = false
+      + allows_force_pushes             = false
+      + blocks_creations                = false
+      + enforce_admins                  = true
+      + id                              = (known after apply)
+      + lock_branch                     = false
+      + pattern                         = "main"
+      + repository_id                   = (known after apply)
+      + require_conversation_resolution = true
+      + require_signed_commits          = false
+      + required_linear_history         = false
+
+      + required_pull_request_reviews {
+          + require_last_push_approval      = false
+          + required_approving_review_count = 1
+        }
+    }
+
+  # github_repository.devops will be created
+  + resource "github_repository" "devops" {
+      + allow_auto_merge            = false
+      + allow_merge_commit          = true
+      + allow_rebase_merge          = true
+      + allow_squash_merge          = true
+      + archived                    = false
+      + auto_init                   = true
+      + default_branch              = (known after apply)
+      + delete_branch_on_merge      = false
+      + description                 = "Lab work"
+      + etag                        = (known after apply)
+      + full_name                   = (known after apply)
+      + git_clone_url               = (known after apply)
+      + has_issues                  = true
+      + has_wiki                    = true
+      + html_url                    = (known after apply)
+      + http_clone_url              = (known after apply)
+      + id                          = (known after apply)
+      + license_template            = "mit"
+      + merge_commit_message        = "PR_TITLE"
+      + merge_commit_title          = "MERGE_MESSAGE"
+      + name                        = "devops"
+      + node_id                     = (known after apply)
+      + primary_language            = (known after apply)
+      + private                     = (known after apply)
+      + repo_id                     = (known after apply)
+      + squash_merge_commit_message = "COMMIT_MESSAGES"
+      + squash_merge_commit_title   = "COMMIT_OR_PR_TITLE"
+      + ssh_clone_url               = (known after apply)
+      + svn_url                     = (known after apply)
+      + topics                      = (known after apply)
+      + visibility                  = "public"
+    }
+
+## terraform show
+# github_branch_default.main:
+resource "github_branch_default" "main" {
+    branch     = "main"
+    id         = "devops"
+    rename     = false
+    repository = "devops"
+}
+
+# github_branch_protection.default:
+resource "github_branch_protection" "default" {
+    allows_deletions                = false
+    allows_force_pushes             = false
+    blocks_creations                = false
+    enforce_admins                  = true
+    id                              = "BPR_kwDOKYt-m84CgWh9"
+    lock_branch                     = false
+    pattern                         = "main"
+    repository_id                   = "devops"
+    require_conversation_resolution = true
+    require_signed_commits          = false
+    required_linear_history         = false
+
+    required_pull_request_reviews {
+        dismiss_stale_reviews           = false
+        require_code_owner_reviews      = false
+        require_last_push_approval      = false
+        required_approving_review_count = 1
+        restrict_dismissals             = false
+    }
+}
+
+# github_repository.devops:
+resource "github_repository" "devops" {
+    allow_auto_merge            = false
+    allow_merge_commit          = true
+    allow_rebase_merge          = true
+    allow_squash_merge          = true
+    allow_update_branch         = false
+    archived                    = false
+    auto_init                   = true
+    default_branch              = "main"
+    delete_branch_on_merge      = false
+    description                 = "Lab work"
+    etag                        = "W/\"37830e429ddf93b2d66eccac1072dbda3aeceb56c9ef13024252f698ee031668\""
+    full_name                   = "girllwhocodes/devops"
+    git_clone_url               = "git://github.com/girllwhocodes/devops.git"
+    has_discussions             = false
+    has_downloads               = false
+    has_issues                  = true
+    has_projects                = false
+    has_wiki                    = true
+    html_url                    = "https://github.com/girllwhocodes/devops"
+    http_clone_url              = "https://github.com/girllwhocodes/devops.git"
+    id                          = "devops"
+    is_template                 = false
+    license_template            = "mit"
+    merge_commit_message        = "PR_TITLE"
+    merge_commit_title          = "MERGE_MESSAGE"
+    name                        = "devops"
+    node_id                     = "R_kgDOKYt-mw"
+    private                     = false
+    repo_id                     = 697007771
+    squash_merge_commit_message = "COMMIT_MESSAGES"
+    squash_merge_commit_title   = "COMMIT_OR_PR_TITLE"
+    ssh_clone_url               = "git@github.com:girllwhocodes/devops.git"
+    svn_url                     = "https://github.com/girllwhocodes/devops"
+    topics                      = []
+    visibility                  = "public"
+    vulnerability_alerts        = false
+
+    security_and_analysis {
+        secret_scanning {
+            status = "disabled"
+        }
+        secret_scanning_push_protection {
+            status = "disabled"
+        }
+    }
+}
+
+## terraform state list 
+github_branch_default.main
+github_branch_protection.default
+github_repository.devops
 
 
 
