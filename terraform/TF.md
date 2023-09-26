@@ -4,6 +4,8 @@
 
 > Note: Docker infrastructure is stored in ./docker/ subfolder as there will be several instances.
 
+> Note: Best practices are at the very bottom of this file
+
 Following the turorial I built inftastructure for my `app_python` using docker container, and here are the outputs of requested commands:
 
 ---
@@ -848,3 +850,15 @@ repository_require_conversation_resolution = true
 repository_required_approving_review_count = 0
 repository_visibility = "public"
 ```
+
+---
+
+### Terraform best practices
+
+There are several best practices in terraform usage, which may improve experience of using terraform, and especially helped me to build this project in the best way:
+
+- Use modules for code reuse: Modules allow you to encapsulate related resources and to reuse your code across different environments, reducing the possibility of errors and increasing maintainability.
+
+- Plan before apply: Always run terraform plan before terraform apply to understand what changes will be made. This can help prevent unintended modifications.
+
+- Sensitive data handling: Never hard-code sensitive data like passwords or API keys. Use input variables.
