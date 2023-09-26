@@ -1,3 +1,4 @@
 pytest==6.2.5
 werkzeug==2.0.3
 beautifulsoup4==4.9.3
+pylint==2.17.5

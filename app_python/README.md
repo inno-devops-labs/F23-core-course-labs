@@ -1,5 +1,7 @@
 ### MoscowTimeWebApplication
 
+![Build](https://github.com/Sl1va/core-course-labs/actions/workflows/app-build.yaml/badge.svg)
+
 #### Overview
 
 This web application shows the current time in Moscow. The application is built using Flask, a popular web framework in Python.
@@ -12,6 +14,20 @@ In order to prepare project to run, it is necessary to install dependencies:
 
 ```bash
 pip3 install -r requirements.txt
+```
+
+#### Unit Testing
+
+On order to run unit tests on application it is neccessary to intall dev-requirements:
+
+```bash
+pip3 install -r dev-requirements.txt
+```
+
+And run tests using pytest
+
+```bash
+pytest app.py
 ```
 
 #### Usage (Docker)
@@ -31,6 +47,19 @@ To build the container was used the following command:
 ```bash
 docker build -t elatypovinno/devops_inno:latest .
 ```
+
+#### CI Workflow
+
+Currently CI workflow contains following stages:
+
+- Set up python version
+- Install dependencies (primary and development)
+- Run linter (`pylint`) on source code
+- Run unit tests
+- Run Snyk vulnerabilities check
+- Login to Dockerhub using credentials stored as secrets
+- Set up docker build environment (Docker Buildx)
+- Build and push docker container to Dockerhub
 
 #### Contact
 
