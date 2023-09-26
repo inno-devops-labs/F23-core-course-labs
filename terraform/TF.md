@@ -2,17 +2,17 @@
 
 ## Best Practises
 
-- **Leverage Variables.tf**:
+- **Leverage _variables.tf_**:
 Embrace the use of variables.tf to centralize and parameterize your configuration. This approach streamlines code modification, encourages flexibility, and supports scalability by allowing you to adjust settings without altering the underlying code.
 - **Naming Conventions**:
 Maintain a standardized naming convention across your Terraform codebase.
-- **Secure Sensitive Data**:
+- **Secure Sensitive Data with _terraform.tfvars_**:
 Safeguard sensitive information, such as passwords or API keys, by securely storing them in variables.tf or using Terraform-specific mechanisms like environment variables or secret management systems.
-- **Utilize Output.tf**:
+- **Utilize _output.tf_**:
 Employ output.tf files to expose specific values or metadata from your infrastructure code after it has been applied.
 
 
-## Docker infrastructure
+## Docker
 
 Check terraform state
 ```shell
@@ -117,4 +117,80 @@ Output:
 ```text
 container_id = "99ea9eb8ee2f7bcec45dc0665286b708d5e8f1eda6cb179d3a5297639851a2d0"
 image_id = "sha256:cde5604b9030bcdf2be26fd64460dc07dd7b24acd84c3916feabf29b6bbfccb7yesliesnayder/app_python:1.0.3"
+```
+
+## GitHub
+
+```shell
+terraform plan
+```
+
+Output:
+```text
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # github_branch_default.main will be created
+  + resource "github_branch_default" "main" {
+      + branch     = "main"
+      + id         = (known after apply)
+      + rename     = false
+      + repository = "test-repo-yesliesnayder"
+    }
+
+  # github_branch_protection.default will be created
+  + resource "github_branch_protection" "default" {
+      + allows_deletions                = false
+      + allows_force_pushes             = false
+      + blocks_creations                = false
+      + enforce_admins                  = true
+      + id                              = (known after apply)
+      + lock_branch                     = false
+      + pattern                         = "main"
+      + repository_id                   = (known after apply)
+      + require_conversation_resolution = true
+      + require_signed_commits          = false
+      + required_linear_history         = false
+
+      + required_pull_request_reviews {
+          + require_last_push_approval      = false
+          + required_approving_review_count = 1
+        }
+    }
+
+  # github_repository.repo will be created
+  + resource "github_repository" "repo" {
+      + allow_auto_merge            = false
+      + allow_merge_commit          = true
+      + allow_rebase_merge          = true
+      + allow_squash_merge          = true
+      + archived                    = false
+      + auto_init                   = true
+      + default_branch              = (known after apply)
+      + delete_branch_on_merge      = false
+      + description                 = "Test repository which was created on GitHub by Terraform"
+      + etag                        = (known after apply)
+      + full_name                   = (known after apply)
+      + git_clone_url               = (known after apply)
+      + has_issues                  = true
+      + has_wiki                    = true
+      + html_url                    = (known after apply)
+      + http_clone_url              = (known after apply)
+      + id                          = (known after apply)
+      + merge_commit_message        = "PR_TITLE"
+      + merge_commit_title          = "MERGE_MESSAGE"
+      + name                        = "test-repo-yesliesnayder"
+      + node_id                     = (known after apply)
+      + primary_language            = (known after apply)
+      + private                     = (known after apply)
+      + repo_id                     = (known after apply)
+      + squash_merge_commit_message = "COMMIT_MESSAGES"
+      + squash_merge_commit_title   = "COMMIT_OR_PR_TITLE"
+      + ssh_clone_url               = (known after apply)
+      + svn_url                     = (known after apply)
+      + topics                      = (known after apply)
+      + visibility                  = "public"
+    }
 ```
