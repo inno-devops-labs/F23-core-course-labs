@@ -189,3 +189,23 @@ Terraform will perform the following actions:
         }
     }
 ```
+
+## Docker Terraform
+
+Following the [Manage and maintain Github with Terraform](https://dev.to/pwd9000/manage-and-maintain-github-with-terraform-2k86) tutorial, new [repository](https://github.com/Max3kkk/devops-f23-terraform) was created and added to the terraform configuration. In the original configuration from tutorial I changed the name of the repository, added a description, changed default branch to `main`. Terraform import was run to import the existing repository to the configuration. Then `terraform apply` was run to apply the changes to the repository.
+
+## Best practices
+
+- Use environment variables for sensitive data
+
+- Use `terraform fmt` to format the code
+
+- Use `terraform validate` to validate the code
+
+- Use `terraform plan` to see the changes before applying them
+
+- Add unwanted files to `.gitignore`
+
+- Use `terraform import` to import existing infrastructure to the configuration
+
+- Break configuration into modules
