@@ -27,4 +27,4 @@ As a linter was used `pylint` as a standard linter for python.
 
 - **Arrange, Act, Assert testing** refers to useful tactic in application testing. It is ueful to follow this scheme. It implies that there are three stages exist in single test. First - Arrange - environment setup is performed, all neccessary objects are created. Second - Act - tested functionality is invoked. And the last one - Assert - the expected results are compared with actual ones. In most languages there are special construction `assert` which syntactically simplifies performing this stage.
 
-- **Tests should not depend on each other** and on execution order
+- **Tests should not depend on each other** and on execution order.
