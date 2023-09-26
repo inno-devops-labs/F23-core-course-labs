@@ -350,3 +350,315 @@ See "man sudo_root" for details.
 ubuntu@fhmj671sfaqpnqsq9348:~$ whoami
 ubuntu
 ```
+
+---
+
+### Github infrastructure
+
+We prepared github repo as terraform infrastructure and here are the requested commands outputs:
+
+`terraform apply`
+
+```bash
+github_repository.repo: Refreshing state... [id=core-course-labs]
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  + create
+  ~ update in-place
+
+Terraform will perform the following actions:
+
+  # github_branch_default.main will be created
+  + resource "github_branch_default" "main" {
+      + branch     = "main"
+      + id         = (known after apply)
+      + repository = "core-course-labs"
+    }
+
+  # github_branch_protection.default will be created
+  + resource "github_branch_protection" "default" {
+      + allows_deletions                = false
+      + allows_force_pushes             = false
+      + blocks_creations                = false
+      + enforce_admins                  = true
+      + id                              = (known after apply)
+      + pattern                         = "main"
+      + repository_id                   = "core-course-labs"
+      + require_conversation_resolution = true
+      + require_signed_commits          = false
+      + required_linear_history         = false
+
+      + required_pull_request_reviews {
+          + required_approving_review_count = 1
+        }
+    }
+
+  # github_repository.repo will be updated in-place
+  ~ resource "github_repository" "repo" {
+      ~ auto_init                   = false -> true
+      + description                 = "Terraform breaks hearts... and repos :("
+      + gitignore_template          = "VisualStudio"
+      - has_downloads               = true -> null
+      ~ has_issues                  = false -> true
+      - has_projects                = true -> null
+        id                          = "core-course-labs"
+      + license_template            = "mit"
+        name                        = "core-course-labs"
+        # (27 unchanged attributes hidden)
+    }
+
+Plan: 2 to add, 1 to change, 0 to destroy.
+
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+github_repository.repo: Modifying... [id=core-course-labs]
+github_repository.repo: Modifications complete after 2s [id=core-course-labs]
+github_branch_default.main: Creating...
+github_branch_default.main: Creation complete after 2s [id=core-course-labs]
+github_branch_protection.default: Creating...
+github_branch_protection.default: Creation complete after 4s [id=BPR_kwDOKYpYKs4CgUgT]
+
+Apply complete! Resources: 2 added, 1 changed, 0 destroyed
+```
+
+---
+
+`terraform show`
+
+```bash
+# github_branch_default.main:
+resource "github_branch_default" "main" {
+    branch     = "main"
+    id         = "core-course-labs"
+    repository = "core-course-labs"
+}
+
+# github_branch_protection.default:
+resource "github_branch_protection" "default" {
+    allows_deletions                = false
+    allows_force_pushes             = false
+    blocks_creations                = false
+    enforce_admins                  = true
+    id                              = "BPR_kwDOKYpYKs4CgUgT"
+    pattern                         = "main"
+    push_restrictions               = []
+    repository_id                   = "core-course-labs"
+    require_conversation_resolution = true
+    require_signed_commits          = false
+    required_linear_history         = false
+
+    required_pull_request_reviews {
+        dismiss_stale_reviews           = false
+        dismissal_restrictions          = []
+        pull_request_bypassers          = []
+        require_code_owner_reviews      = false
+        required_approving_review_count = 0
+        restrict_dismissals             = false
+    }
+}
+
+# github_repository.repo:
+resource "github_repository" "repo" {
+    allow_auto_merge            = false
+    allow_merge_commit          = true
+    allow_rebase_merge          = true
+    allow_squash_merge          = true
+    archived                    = false
+    auto_init                   = true
+    branches                    = [
+        {
+            name      = "lab1"
+            protected = false
+        },
+        {
+            name      = "lab2"
+            protected = false
+        },
+        {
+            name      = "lab3"
+            protected = false
+        },
+        {
+            name      = "lab4"
+            protected = false
+        },
+        {
+            name      = "main"
+            protected = true
+        },
+    ]
+    default_branch              = "main"
+    delete_branch_on_merge      = false
+    description                 = "Terraform breaks hearts... and repos :("
+    etag                        = "W/\"fc3f81a0356b37f8a41e4cc2f9e4c55c636d18ed7e33b83f99560e902024a19a\""
+    full_name                   = "Sl1va/core-course-labs"
+    git_clone_url               = "git://github.com/Sl1va/core-course-labs.git"
+    gitignore_template          = "VisualStudio"
+    has_downloads               = false
+    has_issues                  = true
+    has_projects                = false
+    has_wiki                    = true
+    html_url                    = "https://github.com/Sl1va/core-course-labs"
+    http_clone_url              = "https://github.com/Sl1va/core-course-labs.git"
+    id                          = "core-course-labs"
+    is_template                 = false
+    license_template            = "mit"
+    merge_commit_message        = "PR_TITLE"
+    merge_commit_title          = "MERGE_MESSAGE"
+    name                        = "core-course-labs"
+    node_id                     = "R_kgDOKYpYKg"
+    private                     = false
+    repo_id                     = 696932394
+    squash_merge_commit_message = "COMMIT_MESSAGES"
+    squash_merge_commit_title   = "COMMIT_OR_PR_TITLE"
+    ssh_clone_url               = "git@github.com:Sl1va/core-course-labs.git"
+    svn_url                     = "https://github.com/Sl1va/core-course-labs"
+    topics                      = []
+    visibility                  = "public"
+    vulnerability_alerts        = false
+}
+
+
+Outputs:
+
+default_branch = "main"
+repository_description = "Terraform breaks hearts... and repos :("
+repository_enforce_admins = true
+repository_name = "core-course-labs"
+repository_require_conversation_resolution = true
+repository_required_approving_review_count = 0
+repository_visibility = "public"
+```
+
+---
+
+`terraform state list`
+
+```bash
+github_branch_default.main
+github_branch_protection.default
+github_repository.repo
+```
+
+---
+
+`terraform state show`
+
+```bash
+terraform state show github_branch_default.main
+# github_branch_default.main:
+resource "github_branch_default" "main" {
+    branch     = "main"
+    id         = "core-course-labs"
+    repository = "core-course-labs"
+}
+```
+
+```bash
+terraform state show github_branch_protection.default
+# github_branch_protection.default:
+resource "github_branch_protection" "default" {
+    allows_deletions                = false
+    allows_force_pushes             = false
+    blocks_creations                = false
+    enforce_admins                  = true
+    id                              = "BPR_kwDOKYpYKs4CgUgT"
+    pattern                         = "main"
+    push_restrictions               = []
+    repository_id                   = "core-course-labs"
+    require_conversation_resolution = true
+    require_signed_commits          = false
+    required_linear_history         = false
+
+    required_pull_request_reviews {
+        dismiss_stale_reviews           = false
+        dismissal_restrictions          = []
+        pull_request_bypassers          = []
+        require_code_owner_reviews      = false
+        required_approving_review_count = 0
+        restrict_dismissals             = false
+    }
+}
+```
+
+```bash
+terraform state show github_repository.repo
+# github_repository.repo:
+resource "github_repository" "repo" {
+    allow_auto_merge            = false
+    allow_merge_commit          = true
+    allow_rebase_merge          = true
+    allow_squash_merge          = true
+    archived                    = false
+    auto_init                   = true
+    branches                    = [
+        {
+            name      = "lab1"
+            protected = false
+        },
+        {
+            name      = "lab2"
+            protected = false
+        },
+        {
+            name      = "lab3"
+            protected = false
+        },
+        {
+            name      = "lab4"
+            protected = false
+        },
+        {
+            name      = "main"
+            protected = true
+        },
+    ]
+    default_branch              = "main"
+    delete_branch_on_merge      = false
+    description                 = "Terraform breaks hearts... and repos :("
+    etag                        = "W/\"fc3f81a0356b37f8a41e4cc2f9e4c55c636d18ed7e33b83f99560e902024a19a\""
+    full_name                   = "Sl1va/core-course-labs"
+    git_clone_url               = "git://github.com/Sl1va/core-course-labs.git"
+    gitignore_template          = "VisualStudio"
+    has_downloads               = false
+    has_issues                  = true
+    has_projects                = false
+    has_wiki                    = true
+    html_url                    = "https://github.com/Sl1va/core-course-labs"
+    http_clone_url              = "https://github.com/Sl1va/core-course-labs.git"
+    id                          = "core-course-labs"
+    is_template                 = false
+    license_template            = "mit"
+    merge_commit_message        = "PR_TITLE"
+    merge_commit_title          = "MERGE_MESSAGE"
+    name                        = "core-course-labs"
+    node_id                     = "R_kgDOKYpYKg"
+    private                     = false
+    repo_id                     = 696932394
+    squash_merge_commit_message = "COMMIT_MESSAGES"
+    squash_merge_commit_title   = "COMMIT_OR_PR_TITLE"
+    ssh_clone_url               = "git@github.com:Sl1va/core-course-labs.git"
+    svn_url                     = "https://github.com/Sl1va/core-course-labs"
+    topics                      = []
+    visibility                  = "public"
+    vulnerability_alerts        = false
+}
+```
+
+---
+
+`terraform output`
+
+```
+default_branch = "main"
+repository_description = "Terraform breaks hearts... and repos :("
+repository_enforce_admins = true
+repository_name = "core-course-labs"
+repository_require_conversation_resolution = true
+repository_required_approving_review_count = 0
+repository_visibility = "public"
+```
