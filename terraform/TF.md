@@ -8,6 +8,7 @@
 - The use of variables to increase flexibility.
 - Sensitive information as environment variables.
 - `.gitignore` for terraform-specific files.
+- `import` blocks to automate imports.
 
 ## list
     terraform state list
