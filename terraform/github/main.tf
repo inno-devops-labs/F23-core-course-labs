@@ -1,5 +1,5 @@
 terraform {
-  required_providers { 
+  required_providers {
     github = {
       source  = "integrations/github"
       version = "~> 5.3"
@@ -44,9 +44,9 @@ resource "github_branch_protection" "repo_main" {
 }
 
 resource "github_repository" "course" {
-	name = "core-course-labs"
-	auto_init = true
-	#allow_update_branch = true
+  name      = "core-course-labs"
+  auto_init = true
+  #allow_update_branch = true
 }
 
 resource "github_branch_default" "course_default" {
