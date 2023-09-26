@@ -1,0 +1,60 @@
+    name: GoLang
+    
+    on:
+      push:
+        branches:
+          - main
+          - lab4
+      pull_request:
+        branches:
+          - main
+    
+    jobs:
+      build:
+        runs-on: ubuntu-latest
+    
+        steps:
+          - name: Checkout code
+            uses: actions/checkout@v4
+          
+          - name: Set up Go
+            uses: actions/setup-go@v4
+            with:
+              go-version: 1.21
+    
+          - name: Install dependencies
+            run: go mod download
+          
+          - name: Install Snyk CLI
+            run: npm install -g snyk  
+          
+          - name: Authenticate Snyk
+            run: snyk config set api=${{ secrets.SNYK_TOKEN }}
+          
+          - name: Run Snyk
+            run: snyk test --all-projects --severity-threshold=high 
+    
+          - name: Run linter
+            run: golangci-lint run
+    
+          
+          - name: Tests
+            run:
+                cd ./../app_golang 
+                go test 
+          
+          - name: Fix Snyk vulnerabilities
+            run: snyk wizard --all-projects
+    
+          - name: Login to Docker Hub
+            uses: docker/login-action@v3
+            with:
+              username: ${{ secrets.DOCKER_USERNAME }}
+              password: ${{ secrets.DOCKER_PASSWORD }}
+    
+          - name: Build and Push Docker image
+            uses: docker/build-push-action@v3
+            with:
+              context: .
+              push: true
+              tags: wildqueue/devops-hw-golang:tagname

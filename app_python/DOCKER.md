@@ -1,4 +1,4 @@
-## Here are best practices that I employed within the provided Dockerfile:
+## Here are best practices that I employed within the Dockerfile:
 
 1. Using an appropriate base image: In the given Dockerfile, the base image "python:3.10.12" is used, which is a good practice as it provides the necessary environment for running a Python application.
 
