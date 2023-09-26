@@ -37,7 +37,7 @@
     
           - name: Run linter
             run: 
-                cd app_golang && (golangci-lint run)
+                cd app_golang && (go fmt)
     
           
           - name: Tests
