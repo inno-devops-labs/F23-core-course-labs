@@ -24,7 +24,7 @@ resource "yandex_serverless_container" "nginx_container" {
   core_fraction      = 100
   service_account_id = var.service_account_id
   image {
-    url    = "cr.yandex/crpsmrhh2qi32dnr42gk/nginx:1.25.2-alpine3.18"
-    digest = "sha256:433dbc17191a7830a9db6454bcc23414ad36caecedab39d1e51d41083ab1d629"
+    url    = var.image_url
+    digest = var.image_digest
   }
 }
