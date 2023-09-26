@@ -254,3 +254,77 @@ github_branch_default.main
 github_branch_protection.default
 github_repository.repo
 ```
+
+## Yandex Cloud
+
+```shell
+terraform plan
+```
+
+Output:
+```text
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # yandex_compute_instance.vm_1 will be created
+  + resource "yandex_compute_instance" "vm_1" {
+      + created_at                = (known after apply)
+      + folder_id                 = (known after apply)
+      + fqdn                      = (known after apply)
+      + gpu_cluster_id            = (known after apply)
+      + hostname                  = (known after apply)
+      + id                        = (known after apply)
+      + name                      = "my-vm-1"
+      + network_acceleration_type = "standard"
+      + platform_id               = "standard-v1"
+      + service_account_id        = (known after apply)
+      + status                    = (known after apply)
+      + zone                      = (known after apply)
+
+      + boot_disk {
+          + auto_delete = true
+          + device_name = (known after apply)
+          + disk_id     = (known after apply)
+          + mode        = (known after apply)
+
+          + initialize_params {
+              + block_size  = (known after apply)
+              + description = (known after apply)
+              + image_id    = "fd80bm0rh4rkepi5ksdi"
+              + name        = (known after apply)
+              + size        = (known after apply)
+              + snapshot_id = (known after apply)
+              + type        = "network-hdd"
+            }
+        }
+
+      + network_interface {
+          + index              = (known after apply)
+          + ip_address         = (known after apply)
+          + ipv4               = true
+          + ipv6               = (known after apply)
+          + ipv6_address       = (known after apply)
+          + mac_address        = (known after apply)
+          + nat                = true
+          + nat_ip_address     = (known after apply)
+          + nat_ip_version     = (known after apply)
+          + security_group_ids = (known after apply)
+          + subnet_id          = "e9bdavfejkdr6h3r6ath"
+        }
+
+      + resources {
+          + core_fraction = 5
+          + cores         = 2
+          + memory        = 1
+        }
+    }
+
+Plan: 1 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + default_instance_public_ip = (known after apply)
+  + last_ubuntu                = "fd80bm0rh4rkepi5ksdi"
+  + subnet_id                  = "e9bdavfejkdr6h3r6ath"
+```
