@@ -41,7 +41,8 @@ func TestIndexHandler_ResponseBody(t *testing.T) {
 
 	handler.ServeHTTP(rr, req)
 
-	now := time.Now().Round(0)
+	now := time.Now().Round(3)
+
     expectedBodySubstring := string(now.Format("2006-01-02T15:04"))
 	
 	if !strings.Contains(rr.Body.String(), expectedBodySubstring) {
