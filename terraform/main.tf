@@ -4,10 +4,6 @@ terraform {
     twc = {
       source = "tf.timeweb.cloud/timeweb-cloud/timeweb-cloud"
     }
-    github = {
-      source  = "integrations/github"
-      version = "~> 4.0"
-    }
   }
 }
 
