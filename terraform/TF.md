@@ -1,11 +1,42 @@
+# Terraform 
 
-docker:
+## Best practices
 
+- Decompose configuration file into `main.tf`, `variables.tf`, `outputs.tf`, `versions.tf`
+- Use `terraform validate`
+- Use `terraform fmt` 
+- Using of .tfvars to keep secrets
+
+## Outputs
+
+__Outputs of command `terraform state list`:__
+
+- docker:
 
 ```
 docker_container.app_python
 docker_image.app_python
 ```
+
+- yandex.cloud:
+
+```
+yandex_compute_instance.my_vm
+yandex_vpc_network.my_network
+yandex_vpc_subnet.my_subnetwork
+```
+
+- github:
+
+```
+github_branch_default.main
+github_branch_protection.default
+github_repository.repo
+```
+
+__Outputs of command `terraform show`:__
+
+- docker:
 
 ```
 # docker_container.app_python:
@@ -87,17 +118,8 @@ image_id = "sha256:990bd7a3cf69714ed95832b30f32992d3c647e94f9643c78dc93b0feab1d0
 
 ```
 
-yandex:
 
-terraform state list:
-
-```
-yandex_compute_instance.my_vm
-yandex_vpc_network.my_network
-yandex_vpc_subnet.my_subnetwork
-```
-
-terraform show
+- yandex.cloud:
 
 ```
 # yandex_compute_instance.my_vm:
@@ -197,11 +219,8 @@ instance_id = "epdi2ggisto571h7jm1o"
 
 ```
 
-```
-github_branch_default.main
-github_branch_protection.default
-github_repository.repo
-```
+
+- github:
 
 ```
 # github_branch_default.main:
