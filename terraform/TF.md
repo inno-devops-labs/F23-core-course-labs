@@ -14,11 +14,9 @@
 
    3.2. [Docker Provider](#32-Docker-Provider)
 
-   3.3. [Vagrant Provider](#33-Vagrant-Provider)
+   3.3. [GitHub Provider](#34-GitHub-Provider)
 
-   3.4. [GitHub Provider](#34-GitHub-Provider)
-
-   3.5. [AWS Provider](#35-AWS-Provider)
+   3.4. [AWS Provider](#35-AWS-Provider)
 
 4. [Best Practices](#4-Best-Practices)
 
@@ -82,7 +80,7 @@ Getting familiar with terraform by:
 
   ![terraform-state](./images/terraform-state.png)
 
-### 3.4. GitHub Provider
+### 3.3. GitHub Provider
 
 - Write [main.tf](../terraform/github/main.tf) that uses `integrations/github` provider.
 
@@ -102,7 +100,7 @@ Getting familiar with terraform by:
 
   ![terraform-github](images/terraform-github.png)
 
-### 3.5. AWS Provider
+### 3.4. AWS Provider
 
 - Download AWS CLI and configure AWS secret key and id
 - Write [main.tf](../terraform/aws/main.tf) that uses `hashicorp/aws` provider to provision an EC2 instance by creating an `aws_instance` resource.
