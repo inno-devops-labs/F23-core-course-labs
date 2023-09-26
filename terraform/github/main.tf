@@ -2,7 +2,7 @@ terraform {
   required_providers { 
     github = {
       source  = "integrations/github"
-      version = "~> 4.0"
+      version = "~> 5.3"
     }
   }
 }
@@ -53,3 +53,10 @@ resource "github_branch_default" "course_default" {
   repository = github_repository.course.name
   branch     = "main"
 }
+
+
+# Retrieve information about the currently authenticated user.
+data "github_user" "current" {
+  username = ""
+}
+
