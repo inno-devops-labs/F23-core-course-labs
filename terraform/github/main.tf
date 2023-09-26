@@ -35,3 +35,25 @@ resource "github_branch_protection" "default" {
     required_approving_review_count = 1
   }
 }
+
+resource "github_team" "my_team_1" {
+  name        = "my_team_1"
+  description = "Team 1"
+}
+
+resource "github_team" "my_team_2" {
+  name        = "my_team_2"
+  description = "Team 2"
+}
+
+resource "github_team_repository" "team_1_repo" {
+  team_id = github_team.my_team_1.id
+  repository = github_repository.repo.name
+  permission = "admin"
+}
+
+resource "github_team_repository" "team_2_repo" {
+  team_id = github_team.my_team_2.id
+  repository = github_repository.repo.name
+  permission = "push"
+}

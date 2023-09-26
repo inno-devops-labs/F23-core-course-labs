@@ -193,4 +193,64 @@ Terraform will perform the following actions:
       + topics                      = (known after apply)
       + visibility                  = "public"
     }
+
+  # github_team.my_team_1 will be created
+  + resource "github_team" "my_team_1" {
+      + create_default_maintainer = false
+      + description               = "Team 1"
+      + etag                      = (known after apply)
+      + id                        = (known after apply)
+      + members_count             = (known after apply)
+      + name                      = "my_team_1"
+      + node_id                   = (known after apply)
+      + parent_team_read_id       = (known after apply)
+      + parent_team_read_slug     = (known after apply)
+      + privacy                   = "secret"
+      + slug                      = (known after apply)
+    }
+
+  # github_team.my_team_2 will be created
+  + resource "github_team" "my_team_2" {
+      + create_default_maintainer = false
+      + description               = "Team 2"
+      + etag                      = (known after apply)
+      + id                        = (known after apply)
+      + members_count             = (known after apply)
+      + name                      = "my_team_2"
+      + node_id                   = (known after apply)
+      + parent_team_read_id       = (known after apply)
+      + parent_team_read_slug     = (known after apply)
+      + privacy                   = "secret"
+      + slug                      = (known after apply)
+    }
+
+  # github_team_repository.team_1_repo will be created
+  + resource "github_team_repository" "team_1_repo" {
+      + etag       = (known after apply)
+      + id         = (known after apply)
+      + permission = "admin"
+      + repository = "test-repo-yesliesnayder"
+      + team_id    = (known after apply)
+    }
+
+  # github_team_repository.team_2_repo will be created
+  + resource "github_team_repository" "team_2_repo" {
+      + etag       = (known after apply)
+      + id         = (known after apply)
+      + permission = "push"
+      + repository = "test-repo-yesliesnayder"
+      + team_id    = (known after apply)
+    }
+```
+
+Check state list:
+```shell
+terraform state list
+```
+
+Output:
+```text
+github_branch_default.main
+github_branch_protection.default
+github_repository.repo
 ```
