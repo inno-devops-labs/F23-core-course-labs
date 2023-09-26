@@ -711,3 +711,161 @@ Outputs:
 ```sh
 instance_fip = "212.233.95.12"
 ```
+
+## Github
+### Github Infrastructure
+```sh
+terraform apply
+```
+
+Outputs:
+```sh
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # github_branch_default.master will be created
+  + resource "github_branch_default" "master" {
+      + branch     = "main"
+      + id         = (known after apply)
+      + repository = "terraform-inno-devops-course"
+    }
+
+  # github_branch_protection.default will be created
+  + resource "github_branch_protection" "default" {
+      + allows_deletions                = false
+      + allows_force_pushes             = false
+      + blocks_creations                = false
+      + enforce_admins                  = true
+      + id                              = (known after apply)
+      + pattern                         = "main"
+      + repository_id                   = (known after apply)
+      + require_conversation_resolution = true
+      + require_signed_commits          = false
+      + required_linear_history         = false
+
+      + required_pull_request_reviews {
+          + required_approving_review_count = 1
+        }
+    }
+
+  # github_repository.repo will be created
+  + resource "github_repository" "repo" {
+      + allow_auto_merge            = false
+      + allow_merge_commit          = true
+      + allow_rebase_merge          = true
+      + allow_squash_merge          = true
+      + archived                    = false
+      + auto_init                   = true
+      + branches                    = (known after apply)
+      + default_branch              = (known after apply)
+      + delete_branch_on_merge      = false
+      + description                 = "Created with Terraform for devops course"
+      + etag                        = (known after apply)
+      + full_name                   = (known after apply)
+      + git_clone_url               = (known after apply)
+      + gitignore_template          = "VisualStudio"
+      + has_issues                  = true
+      + has_wiki                    = true
+      + html_url                    = (known after apply)
+      + http_clone_url              = (known after apply)
+      + id                          = (known after apply)
+      + license_template            = "mit"
+      + merge_commit_message        = "PR_TITLE"
+      + merge_commit_title          = "MERGE_MESSAGE"
+      + name                        = "terraform-inno-devops-course"
+      + node_id                     = (known after apply)
+      + private                     = (known after apply)
+      + repo_id                     = (known after apply)
+      + squash_merge_commit_message = "COMMIT_MESSAGES"
+      + squash_merge_commit_title   = "COMMIT_OR_PR_TITLE"
+      + ssh_clone_url               = (known after apply)
+      + svn_url                     = (known after apply)
+      + visibility                  = "public"
+    }
+
+Plan: 3 to add, 0 to change, 0 to destroy.
+
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+github_repository.repo: Creating...
+github_repository.repo: Creation complete after 6s [id=terraform-inno-devops-course]
+github_branch_default.master: Creating...
+github_branch_default.master: Creation complete after 2s [id=terraform-inno-devops-course]
+github_branch_protection.default: Creating...
+github_branch_protection.default: Creation complete after 4s [id=BPR_kwDOKYoT5M4CgT-D]
+
+Apply complete! Resources: 3 added, 0 changed, 0 destroyed.
+```
+
+### Import existing repo and apply changes
+```sh
+terrafrom apply
+```
+
+Outputs:
+```sh
+github_repository.repo: Refreshing state... [id=terraform-inno-devops-course-1]
+github_branch_default.master: Refreshing state... [id=terraform-inno-devops-course-1]
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  + create
+  ~ update in-place
+
+Terraform will perform the following actions:
+
+  # github_branch_protection.default will be created
+  + resource "github_branch_protection" "default" {
+      + allows_deletions                = false
+      + allows_force_pushes             = false
+      + blocks_creations                = false
+      + enforce_admins                  = false
+      + id                              = (known after apply)
+      + pattern                         = "main"
+      + repository_id                   = "terraform-inno-devops-course-1"
+      + require_conversation_resolution = false
+      + require_signed_commits          = false
+      + required_linear_history         = false
+
+      + required_pull_request_reviews {
+          + required_approving_review_count = 1
+        }
+    }
+
+  # github_repository.repo will be updated in-place
+  ~ resource "github_repository" "repo" {
+        id                          = "terraform-inno-devops-course-1"
+        name                        = "terraform-inno-devops-course-1"
+        # (34 unchanged attributes hidden)
+
+      - template {
+          - owner      = "DaniilOkrug" -> null
+          - repository = "gulp4-project-sample" -> null
+        }
+    }
+
+Plan: 1 to add, 1 to change, 0 to destroy.
+
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+github_repository.repo: Modifying... [id=terraform-inno-devops-course-1]
+github_repository.repo: Modifications complete after 2s [id=terraform-inno-devops-course-1]
+github_branch_protection.default: Creating...
+github_branch_protection.default: Creation complete after 4s [id=BPR_kwDOKYocGM4CgUJg]
+
+Apply complete! Resources: 1 added, 1 changed, 0 destroyed.
+```
+
+## Best Practices
+- Remote Backend. I'm store Terraform state in a remote backend VK Cloud. This ensures collaboration and state safety.
+- Secure Token Management. I'm kepping Github token secure by using enviroment variables. TF_VAR_github_token.
+- Input Variables and Outputs. I'm define input variables for your GitHub token and other configurable settings. Also I'm using outputs to get direct link Github repository after appling changes
