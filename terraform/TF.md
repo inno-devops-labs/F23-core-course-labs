@@ -512,44 +512,6 @@ typescript_container_id = "272f97e1e1ad3192d379be407238961d01b185fb8bb280f17df1e
 
 # AWS
 
-## terraform plan
-
-```
-Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
-  + create
-
-Terraform will perform the following actions:
-
-  # aws_instance.app_server will be created
-  + resource "aws_instance" "app_server" {
-      + ami                                  = "ami-830c94e3"
-      + arn                                  = (known after apply)
-      + associate_public_ip_address          = (known after apply)
-      + availability_zone                    = (known after apply)
-      + cpu_core_count                       = (known after apply)
-      + cpu_threads_per_core                 = (known after apply)
-      + disable_api_stop                     = (known after apply)
-      + disable_api_termination              = (known after apply)
-      + ebs_optimized                        = (known after apply)
-      + get_password_data                    = false
-      + host_id                              = (known after apply)
-      + host_resource_group_arn              = (known after apply)
-      + iam_instance_profile                 = (known after apply)
-      + id                                   = (known after apply)
-      + instance_initiated_shutdown_behavior = (known after apply)
-      + instance_state                       = (known after apply)
-      + instance_type                        = "t2.micro"
-      + ipv6_address_count                   = (known after apply)
-      + ipv6_addresses                       = (known after apply)
-      + key_name                             = (known after apply)
-      + monitoring                           = (known after apply)
-      + user_data_replace_on_change          = false
-      + vpc_security_group_ids               = (known after apply)
-    }
-
-Plan: 1 to add, 0 to change, 0 to destroy.
-```
-
 ## terraform show
 ```
 # aws_instance.app_server:
@@ -1129,4 +1091,15 @@ resource "github_team_repository" "team2_repo" {
 Outputs:
 
 repo_full_name = "devops-organizational/test_devops"
+```
+
+## terraform state list
+```
+github_branch_default.main
+github_branch_protection.default
+github_repository.test_devops
+github_team.team2
+github_team.team1
+github_team_repository.team2_repo
+github_team_repository.team1_repo
 ```
