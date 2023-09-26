@@ -1,7 +1,10 @@
 # Terraform Best Practices 
 1. Directory Structure: Describes the recommended directory structure for my Terraform project. I've organized my code, variables, and modules in a clear and consistent manner.
 2. Using built-in formatting. Terraform files conform to the standards of terraform fmt.
-3. Reviewing and plan:
+3. Reviewing and planning: I used terraform plan to see a preview of the changes.
+4. Testing: Using tool terraform validate for testing. 
+5. Using variables: I've utilized Terraform variables to parameterize. 
+6. Documentation: Documentation includes for code descriptions of variables, resources. 
 
 # Docker
 
@@ -189,7 +192,7 @@ Terraform used the selected providers to generate the following execution plan. 
   + create
 
 Terraform will perform the following actions:
-
+```
   # github_branch_default.main will be created
   + resource "github_branch_default" "main" {
       + branch     = "main"
@@ -333,11 +336,231 @@ resource "github_repository" "devops" {
         }
     }
 }
+```
 
 ## terraform state list 
+```
 github_branch_default.main
 github_branch_protection.default
 github_repository.devops
+```
 
+# Github Teams
 
+## terraform plan
+```
+ithub_repository.devlabs: Refreshing state... [id=devlabs]
+github_branch_default.main: Refreshing state... [id=devlabs]
+github_branch_protection.default: Refreshing state... [id=BPR_kwDOKYu2Pc4CgW0u]
 
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  + create
+  ~ update in-place
+
+Terraform will perform the following actions:
+
+  # github_repository.devlabs will be updated in-place
+  ~ resource "github_repository" "devlabs" {
+      + description                 = "Lab work"
+      - has_downloads               = true -> null
+      - has_projects                = true -> null
+        id                          = "devlabs"
+        name                        = "devlabs"
+        # (31 unchanged attributes hidden)
+
+        # (1 unchanged block hidden)
+    }
+
+  # github_team.first will be created
+  + resource "github_team" "first" {
+      + create_default_maintainer = false
+      + description               = "Team first"
+      + etag                      = (known after apply)
+      + id                        = (known after apply)
+      + members_count             = (known after apply)
+      + name                      = "first"
+      + node_id                   = (known after apply)
+      + parent_team_read_id       = (known after apply)
+      + parent_team_read_slug     = (known after apply)
+      + privacy                   = "secret"
+      + slug                      = (known after apply)
+    }
+
+  # github_team.second will be created
+  + resource "github_team" "second" {
+      + create_default_maintainer = false
+      + description               = "Team second"
+      + etag                      = (known after apply)
+      + id                        = (known after apply)
+      + members_count             = (known after apply)
+      + name                      = "second"
+      + node_id                   = (known after apply)
+      + parent_team_read_id       = (known after apply)
+      + parent_team_read_slug     = (known after apply)
+      + privacy                   = "secret"
+      + slug                      = (known after apply)
+    }
+
+  # github_team_repository.first_repo will be created
+  + resource "github_team_repository" "first_repo" {
+      + etag       = (known after apply)
+      + id         = (known after apply)
+      + permission = "push"
+      + repository = "devlabs"
+      + team_id    = (known after apply)
+    }
+
+  # github_team_repository.second_repo will be created
+  + resource "github_team_repository" "second_repo" {
+      + etag       = (known after apply)
+      + id         = (known after apply)
+      + permission = "admin"
+      + repository = "devlabs"
+      + team_id    = (known after apply)
+    }
+
+Plan: 4 to add, 1 to change, 0 to destroy.
+```
+
+## terraaform show
+
+```
+# github_branch_default.main:
+resource "github_branch_default" "main" {
+    branch     = "main"
+    id         = "devlabs"
+    rename     = false
+    repository = "devlabs"
+}
+
+# github_branch_protection.default:
+resource "github_branch_protection" "default" {
+    allows_deletions                = false
+    allows_force_pushes             = false
+    blocks_creations                = false
+    enforce_admins                  = true
+    force_push_bypassers            = []
+    id                              = "BPR_kwDOKYu2Pc4CgW0u"
+    lock_branch                     = false
+    pattern                         = "main"
+    push_restrictions               = []
+    repository_id                   = "devlabs"
+    require_conversation_resolution = true
+    require_signed_commits          = false
+    required_linear_history         = false
+
+    required_pull_request_reviews {
+        dismiss_stale_reviews           = false
+        dismissal_restrictions          = []
+        pull_request_bypassers          = []
+        require_code_owner_reviews      = false
+        require_last_push_approval      = false
+        required_approving_review_count = 1
+        restrict_dismissals             = false
+    }
+}
+
+# github_repository.devlabs:
+resource "github_repository" "devlabs" {
+    allow_auto_merge            = false
+    allow_merge_commit          = true
+    allow_rebase_merge          = true
+    allow_squash_merge          = true
+    allow_update_branch         = false
+    archived                    = false
+    auto_init                   = true
+    default_branch              = "main"
+    delete_branch_on_merge      = false
+    description                 = "Lab work"
+    etag                        = "W/\"c88f7809f955e738e610ad817d3af63abb2df74bb5ca4f059564e89b7b0934de\""
+    full_name                   = "my-dev-organization/devlabs"
+    git_clone_url               = "git://github.com/my-dev-organization/devlabs.git"
+    has_discussions             = false
+    has_downloads               = false
+    has_issues                  = true
+    has_projects                = false
+    has_wiki                    = true
+    html_url                    = "https://github.com/my-dev-organization/devlabs"
+    http_clone_url              = "https://github.com/my-dev-organization/devlabs.git"
+    id                          = "devlabs"
+    is_template                 = false
+    license_template            = "mit"
+    merge_commit_message        = "PR_TITLE"
+    merge_commit_title          = "MERGE_MESSAGE"
+    name                        = "devlabs"
+    node_id                     = "R_kgDOKYuptg"
+    private                     = false
+    repo_id                     = 697018806
+    squash_merge_commit_message = "COMMIT_MESSAGES"
+    squash_merge_commit_title   = "COMMIT_OR_PR_TITLE"
+    ssh_clone_url               = "git@github.com:my-dev-organization/devlabs.git"
+    svn_url                     = "https://github.com/my-dev-organization/devlabs"
+    topics                      = []
+    visibility                  = "public"
+    vulnerability_alerts        = false
+
+    security_and_analysis {
+        secret_scanning {
+            status = "disabled"
+        }
+        secret_scanning_push_protection {
+            status = "disabled"
+        }
+    }
+}
+
+# github_team.first:
+resource "github_team" "first" {
+    create_default_maintainer = false
+    description               = "Team first"
+    etag                      = "W/\"68b1775160950aac8275ab56fa7557c488f8dbd7c64c94100620dc8727bf78d8\""
+    id                        = "8647154"
+    members_count             = 0
+    name                      = "first"
+    node_id                   = "T_kwDOCLXuW84Ag_Hy"
+    privacy                   = "secret"
+    slug                      = "first"
+}
+
+# github_team.second:
+resource "github_team" "second" {
+    create_default_maintainer = false
+    description               = "Team second"
+    etag                      = "W/\"601dcf115cc83b79a797bf49ae6ca63551a0fe94e28f31bca537836e7f726da8\""
+    id                        = "8647153"
+    members_count             = 0
+    name                      = "second"
+    node_id                   = "T_kwDOCLXuW84Ag_Hx"
+    privacy                   = "secret"
+    slug                      = "second"
+}
+
+# github_team_repository.first_repo:
+resource "github_team_repository" "first_repo" {
+    etag       = "W/\"18edd7d9720cdd5f7b9efbfe8d536c43072d222be03d25e951af57ec61485304\""
+    id         = "8647154:devlabs"
+    permission = "push"
+    repository = "devlabs"
+    team_id    = "8647154"
+}
+
+# github_team_repository.second_repo:
+resource "github_team_repository" "second_repo" {
+    etag       = "W/\"0f2a04ddeff7f7969aa20c8f0179966fe787b49d8eaa5240a15f3e4ec6f43c9d\""
+    id         = "8647153:devlabs"
+    permission = "admin"
+    repository = "devlabs"
+    team_id    = "8647153"
+}
+```
+## terraform state list 
+
+```
+github_branch_default.main
+github_branch_protection.default
+github_repository.devlabs
+github_team.first
+github_team.second
+github_team_repository.first_repo
+github_team_repository.second_repo
+```
