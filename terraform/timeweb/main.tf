@@ -13,7 +13,7 @@ provider "twc" {
 
 
 data "twc_configurator" "configurator" {
-  location = "nl-1"
+  location  = "nl-1"
   disk_type = "nvme"
 }
 
@@ -27,7 +27,7 @@ resource "twc_ssh_key" "timeweb-0xf" {
 
 
 data "twc_os" "os" {
-  name = "ubuntu"
+  name    = "ubuntu"
   version = "22.04"
 }
 
@@ -35,14 +35,14 @@ data "twc_os" "os" {
 # Server can be imported by specifying the numeric identifier (from URL)
 # terraform import twc_server.example 42 
 resource "twc_server" "cygnus" {
-  name = var.instance_name
+  name  = var.instance_name
   os_id = data.twc_os.os.id
 
   configuration {
     configurator_id = data.twc_configurator.configurator.id
-    disk = 1024 * 50
-    cpu = 2
-    ram = 1024 * 4
+    disk            = 1024 * 50
+    cpu             = 2
+    ram             = 1024 * 4
   }
 
   ssh_keys_ids = [twc_ssh_key.timeweb-0xf.id]
