@@ -152,3 +152,67 @@ resource "vkcs_compute_instance" "compute" {
 ❯ terraform output
 instance_fip = "212.233.95.3"
 ```
+
+# GitHub
+```
+❯ terraform state list
+github_branch_default.repo_default
+github_branch_protection.default
+github_repository.repo
+❯ terraform state show github_repository.repo
+# github_repository.repo:
+resource "github_repository" "repo" {
+    allow_auto_merge            = false
+    allow_merge_commit          = true
+    allow_rebase_merge          = true
+    allow_squash_merge          = true
+    allow_update_branch         = false
+    archived                    = false
+    auto_init                   = true
+    default_branch              = "main"
+    delete_branch_on_merge      = false
+    description                 = "demo repo"
+    etag                        = "W/\"8d7ca6144f56165c3e956fb96764dc9f16415b029b5ce452d4389a2889f7564f\""
+    full_name                   = "vlasov-egor/IU-Devops-demo-repo"
+    git_clone_url               = "git://github.com/vlasov-egor/IU-Devops-demo-repo.git"
+    gitignore_template          = "VisualStudio"
+    has_discussions             = false
+    has_downloads               = false
+    has_issues                  = true
+    has_projects                = false
+    has_wiki                    = true
+    html_url                    = "https://github.com/vlasov-egor/IU-Devops-demo-repo"
+    http_clone_url              = "https://github.com/vlasov-egor/IU-Devops-demo-repo.git"
+    id                          = "IU-Devops-demo-repo"
+    is_template                 = false
+    license_template            = "mit"
+    merge_commit_message        = "PR_TITLE"
+    merge_commit_title          = "MERGE_MESSAGE"
+    name                        = "IU-Devops-demo-repo"
+    node_id                     = "R_kgDOKYuolg"
+    private                     = false
+    repo_id                     = 697018518
+    squash_merge_commit_message = "COMMIT_MESSAGES"
+    squash_merge_commit_title   = "COMMIT_OR_PR_TITLE"
+    ssh_clone_url               = "git@github.com:vlasov-egor/IU-Devops-demo-repo.git"
+    svn_url                     = "https://github.com/vlasov-egor/IU-Devops-demo-repo"
+    topics                      = []
+    visibility                  = "public"
+    vulnerability_alerts        = false
+
+    security_and_analysis {
+        secret_scanning {
+            status = "disabled"
+        }
+        secret_scanning_push_protection {
+            status = "disabled"
+        }
+    }
+}
+```
+
+# Terraform best practices
+* Create separate files for providers, resources, etc.
+* Create separate directories for different tasks (for Docker, GH, and etc.)
+* Use Terraform formatter `terraform fmt`
+* Use Terraform cofig validation `terraform validate`
