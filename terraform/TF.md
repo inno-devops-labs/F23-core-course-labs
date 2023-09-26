@@ -1,10 +1,8 @@
-# Results of tutorial
+# Results of terrorm demo
 
-## Command Outputs
+## Terraform tutorial
 
 `terraform state list`
-
-Result:
 
 ```sh
     docker_container.nginx
@@ -12,8 +10,6 @@ Result:
 ```
 
 `terraform state show docker_container.nginx`
-
-Result:
 
 ```sh
 # docker_container.nginx:
@@ -83,8 +79,6 @@ resource "docker_container" "nginx" {
 
 `terraform state show docker_image.nginx`
 
-Resutl:
-
 ```sh
     # docker_image.nginx:
 resource "docker_image" "nginx" {
@@ -116,4 +110,82 @@ Result:
 ```sh
 container_id = "c367fc2ea39c406b563a2921bc0baf69105bed3df62e584530ddce362e441bf6"
 image_id = "sha256:61395b4c586da2b9b3b7ca903ea6a448e6783dfdd7f768ff2c1a0f3360aaba99nginx"
+```
+
+## Yandex-cloud terraform
+
+### Create a service account
+
+Create an Yandex Cloud account, create a service account and download the key file. Then follow a provider documentation from Terraform to configure the Yandex provider.
+
+### Results
+
+`terraform state list`
+
+```sh
+    yandex_iam_service_account.sa
+    yandex_iam_service_account_static_access_key.sa-static-key
+    yandex_resourcemanager_folder_iam_member.sa-editor
+    yandex_storage_bucket.inno-devops-bucket
+```
+
+Output of terraform apply:
+
+``` sh
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+
++ create
+
+Terraform will perform the following actions:
+
+# yandex_iam_service_account.sa will be created
+
++ resource "yandex_iam_service_account" "sa" {
++ created_at = (known after apply)
++ folder_id  = "secret_value"
++ id         = (known after apply)
++ name       = "tf-test-sa"
+    }
+
+# yandex_iam_service_account_static_access_key.sa-static-key will be created
+
++ resource "yandex_iam_service_account_static_access_key" "sa-static-key" {
++ access_key           = (known after apply)
++ created_at           = (known after apply)
++ description          = "static access key for object storage"
++ encrypted_secret_key = (known after apply)
++ id                   = (known after apply)
++ key_fingerprint      = (known after apply)
++ secret_key           = (sensitive value)
++ service_account_id   = (known after apply)
+    }
+
+# yandex_resourcemanager_folder_iam_member.sa-editor will be created
+
++ resource "yandex_resourcemanager_folder_iam_member" "sa-editor" {
++ folder_id = "secret_value"
++ id        = (known after apply)
++ member    = (known after apply)
++ role      = "storage.admin"
+    }
+
+# yandex_storage_bucket.inno-devops-bucket will be created
+
++ resource "yandex_storage_bucket" "inno-devops-bucket" {
++ access_key            = (known after apply)
++ acl                   = "public-read"
++ bucket                = "tf-infro-site-bucket"
++ bucket_domain_name    = (known after apply)
++ default_storage_class = (known after apply)
++ folder_id             = (known after apply)
++ force_destroy         = false
++ id                    = (known after apply)
++ secret_key            = (sensitive value)
++ website_domain        = (known after apply)
++ website_endpoint      = (known after apply)
+
++ website {
+    + index_document = "index.html"
+        }
+    }
 ```
