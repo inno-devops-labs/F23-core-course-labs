@@ -1,4 +1,22 @@
 
+<!-- TOC -->
+
+- [Markdown Navigation](#markdown-navigation)
+    - [Applied Best Practices](#applied-best-practices)
+    - [Docker](#docker)
+    - [AWS](#aws)
+    - [Github](#github)
+    - [GithubTeams](#githubteams)
+<!-- /TOC -->
+
+# Applied Best Practices
+- Dividing main.tf into main.tf, variables.tf, outputs.tf for efficiency
+- Use terraform validate
+- Use terraform fmt
+- Include description on all variables even if you think it is obvious
+- Keep secrets in environment variables instead of putting them in code
+
+
 # Docker
 
 ## terraform state list
@@ -489,4 +507,626 @@ typescript_container_id = "895943a470d3614559693837baca96fd3d4333c1ebb2a06e0d203
 ```
 python_container_id = "0fa450e2677645f00c1ef4532c1b02d3d1addeb56910f1131b06b4ef21377632"
 typescript_container_id = "272f97e1e1ad3192d379be407238961d01b185fb8bb280f17df1e60ddd3a2874"
+```
+
+
+# AWS
+
+## terraform plan
+
+```
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_instance.app_server will be created
+  + resource "aws_instance" "app_server" {
+      + ami                                  = "ami-830c94e3"
+      + arn                                  = (known after apply)
+      + associate_public_ip_address          = (known after apply)
+      + availability_zone                    = (known after apply)
+      + cpu_core_count                       = (known after apply)
+      + cpu_threads_per_core                 = (known after apply)
+      + disable_api_stop                     = (known after apply)
+      + disable_api_termination              = (known after apply)
+      + ebs_optimized                        = (known after apply)
+      + get_password_data                    = false
+      + host_id                              = (known after apply)
+      + host_resource_group_arn              = (known after apply)
+      + iam_instance_profile                 = (known after apply)
+      + id                                   = (known after apply)
+      + instance_initiated_shutdown_behavior = (known after apply)
+      + instance_state                       = (known after apply)
+      + instance_type                        = "t2.micro"
+      + ipv6_address_count                   = (known after apply)
+      + ipv6_addresses                       = (known after apply)
+      + key_name                             = (known after apply)
+      + monitoring                           = (known after apply)
+      + user_data_replace_on_change          = false
+      + vpc_security_group_ids               = (known after apply)
+    }
+
+Plan: 1 to add, 0 to change, 0 to destroy.
+```
+
+## terraform show
+```
+# aws_instance.app_server:
+resource "aws_instance" "app_server" {
+    ami                                  = "ami-830c94e3"
+    arn                                  = "arn:aws:ec2:us-west-2:150479635815:instance/i-08a2c715f5eafee4d"
+    associate_public_ip_address          = true
+    availability_zone                    = "us-west-2b"
+    cpu_core_count                       = 1
+    cpu_threads_per_core                 = 1
+    disable_api_stop                     = false
+    disable_api_termination              = false
+    ebs_optimized                        = false
+    get_password_data                    = false
+    hibernation                          = false
+    id                                   = "i-08a2c715f5eafee4d"
+    instance_initiated_shutdown_behavior = "stop"
+    instance_state                       = "running"
+    instance_type                        = "t2.micro"
+    ipv6_address_count                   = 0
+    ipv6_addresses                       = []
+    monitoring                           = false
+    placement_partition_number           = 0
+    primary_network_interface_id         = "eni-01cd7a832f31db149"
+    private_dns                          = "ip-172-31-28-36.us-west-2.compute.internal"
+    private_ip                           = "172.31.28.36"
+    public_dns                           = "ec2-18-237-90-230.us-west-2.compute.amazonaws.com"
+    public_ip                            = "18.237.90.230"
+    secondary_private_ips                = []
+    security_groups                      = [
+        "default",
+    ]
+    source_dest_check                    = true
+    subnet_id                            = "subnet-0fffe2b4595171c0b"
+    tags                                 = {
+        "Name" = "ExampleAppServerInstance"
+    }
+    tags_all                             = {
+        "Name" = "ExampleAppServerInstance"
+    }
+    tenancy                              = "default"
+    user_data_replace_on_change          = false
+    vpc_security_group_ids               = [
+        "sg-073bb22849dea28f7",
+    ]
+
+    capacity_reservation_specification {
+        capacity_reservation_preference = "open"
+    }
+
+    cpu_options {
+        core_count       = 1
+        threads_per_core = 1
+        http_put_response_hop_limit = 1
+        http_tokens                 = "optional"
+        instance_metadata_tags      = "disabled"
+    }
+
+    private_dns_name_options {
+        enable_resource_name_dns_a_record    = false
+        enable_resource_name_dns_aaaa_record = false
+        hostname_type                        = "ip-name"
+    }
+
+    root_block_device {
+        delete_on_termination = true
+        device_name           = "/dev/sda1"
+        encrypted             = false
+        iops                  = 0
+        tags                  = {}
+        throughput            = 0
+        volume_id             = "vol-0a6a4321b94cbf104"
+        volume_size           = 8
+        volume_type           = "standard"
+    }
+}
+```
+## terraform state list
+```
+aws_instance.app_server
+```
+
+## terraform plan
+
+```
+aws_instance.app_server: Refreshing state... [id=i-0d5db481d0819006a]
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+-/+ destroy and then create replacement
+
+Terraform will perform the following actions:
+
+  # aws_instance.app_server must be replaced
+-/+ resource "aws_instance" "app_server" {
+      ~ ami                                  = "ami-08d70e59c07c61a3a" -> "ami-830c94e3" # forces replacement
+      ~ arn                                  = "arn:aws:ec2:us-west-2:150479635815:instance/i-0d5db481d0819006a" -> (known after apply)
+      ~ associate_public_ip_address          = true -> (known after apply)
+      ~ availability_zone                    = "us-west-2b" -> (known after apply)
+      ~ cpu_core_count                       = 1 -> (known after apply)
+      ~ cpu_threads_per_core                 = 1 -> (known after apply)
+      ~ disable_api_stop                     = false -> (known after apply)
+      ~ disable_api_termination              = false -> (known after apply)
+      ~ ebs_optimized                        = false -> (known after apply)
+      - hibernation                          = false -> null
+      + host_id                              = (known after apply)
+      + host_resource_group_arn              = (known after apply)
+      + iam_instance_profile                 = (known after apply)
+      ~ id                                   = "i-0d5db481d0819006a" -> (known after apply)
+      ~ instance_initiated_shutdown_behavior = "stop" -> (known after apply)
+      ~ instance_state                       = "running" -> (known after apply)
+      ~ ipv6_address_count                   = 0 -> (known after apply)
+      ~ ipv6_addresses                       = [] -> (known after apply)
+      + key_name                             = (known after apply)
+      ~ monitoring                           = false -> (known after apply)
+      + outpost_arn                          = (known after apply)
+      + password_data                        = (known after apply)
+      + placement_group                      = (known after apply)
+      ~ placement_partition_number           = 0 -> (known after apply)
+      ~ primary_network_interface_id         = "eni-0dc0a2440a1a50e62" -> (known after apply)
+      ~ private_dns                          = "ip-172-31-27-167.us-west-2.compute.internal" -> (known after apply)
+      ~ private_ip                           = "172.31.27.167" -> (known after apply)
+      ~ public_dns                           = "ec2-54-202-119-68.us-west-2.compute.amazonaws.com" -> (known after apply)
+      ~ public_ip                            = "54.202.119.68" -> (known after apply)
+      ~ secondary_private_ips                = [] -> (known after apply)
+      ~ security_groups                      = [
+          - "default",
+        ] -> (known after apply)
+      ~ subnet_id                            = "subnet-0fffe2b4595171c0b" -> (known after apply)
+        tags                                 = {
+            "Name" = "ExampleAppServerInstance"
+        }
+      ~ tenancy                              = "default" -> (known after apply)
+      + user_data                            = (known after apply)
+      + user_data_base64                     = (known after apply)
+      ~ vpc_security_group_ids               = [
+          - "sg-073bb22849dea28f7",
+        ] -> (known after apply)
+        # (5 unchanged attributes hidden)
+
+      - capacity_reservation_specification {
+          - capacity_reservation_preference = "open" -> null
+        }
+
+      - cpu_options {
+          - core_count       = 1 -> null
+          - threads_per_core = 1 -> null
+        }
+
+      - credit_specification {
+          - cpu_credits = "standard" -> null
+        }
+
+      - enclave_options {
+          - enabled = false -> null
+        }
+
+      - maintenance_options {
+          - auto_recovery = "default" -> null
+        }
+
+      - metadata_options {
+          - http_endpoint               = "enabled" -> null
+          - http_put_response_hop_limit = 1 -> null
+          - http_tokens                 = "optional" -> null
+          - instance_metadata_tags      = "disabled" -> null
+        }
+
+      - private_dns_name_options {
+          - enable_resource_name_dns_a_record    = false -> null
+          - enable_resource_name_dns_aaaa_record = false -> null
+          - hostname_type                        = "ip-name" -> null
+        }
+
+      - root_block_device {
+          - delete_on_termination = true -> null
+          - device_name           = "/dev/sda1" -> null
+          - encrypted             = false -> null
+          - iops                  = 100 -> null
+          - tags                  = {} -> null
+          - throughput            = 0 -> null
+          - volume_id             = "vol-08fa99877bc2cfb28" -> null
+          - volume_size           = 8 -> null
+          - volume_type           = "gp2" -> null
+        }
+    }
+
+Plan: 1 to add, 0 to change, 1 to destroy.
+```
+
+## Outputs
+
+```
+Outputs:
+
+instance_id = "i-0b404948e8227d7e6"
+instance_public_ip = "35.86.141.140"
+```
+
+# Github
+
+## Terraform show
+
+
+```
+
+# module.github.github_branch_default.core_main:
+resource "github_branch_default" "core_main" {
+    branch     = "main"
+    id         = "test_devops"
+    rename     = false
+    repository = "test_devops"
+}
+
+# module.github.github_branch_default.main:
+resource "github_branch_default" "main" {
+    branch     = "main"
+    id         = "test_repo"
+    rename     = false
+    repository = "test_repo"
+}
+
+# module.github.github_branch_protection.default:
+resource "github_branch_protection" "default" {
+    allows_deletions                = false
+    allows_force_pushes             = false
+    blocks_creations                = false
+    enforce_admins                  = true
+    id                              = "BPR_kwDOKYOSOM4CgLu8"
+    lock_branch                     = false
+    pattern                         = "main"
+    repository_id                   = "test_repo"
+    require_conversation_resolution = true
+    require_signed_commits          = false
+    required_linear_history         = false
+}
+
+# module.github.github_repository.core:
+resource "github_repository" "core" {
+    allow_auto_merge            = false
+    allow_merge_commit          = true
+    allow_rebase_merge          = true
+    allow_squash_merge          = true
+    allow_update_branch         = false
+    archived                    = false
+    auto_init                   = true
+    default_branch              = "main"
+    delete_branch_on_merge      = false
+    description                 = "Innopolis DevOps 2023 core repository"
+    etag                        = "W/\"e29b1fb9cec5a137d658a521dcd0401d1b128d67d0d0c18ca9d289f5f0eb2ac6\""
+    full_name                   = "ShohKhan-dev/test_devops"
+    git_clone_url               = "git://github.com/ShohKhan-dev/test_devops.git"
+    has_discussions             = false
+    has_downloads               = false
+    has_issues                  = false
+    has_projects                = false
+    has_wiki                    = false
+    html_url                    = "https://github.com/ShohKhan-dev/test_devops"
+    http_clone_url              = "https://github.com/ShohKhan-dev/test_devops.git"
+    id                          = "test_devops"
+    is_template                 = false
+    merge_commit_message        = "PR_TITLE"
+    merge_commit_title          = "MERGE_MESSAGE"
+    name                        = "test_devops"
+    node_id                     = "R_kgDOKYOSSA"
+    private                     = false
+    repo_id                     = 696488520
+    squash_merge_commit_message = "COMMIT_MESSAGES"
+    squash_merge_commit_title   = "COMMIT_OR_PR_TITLE"
+    ssh_clone_url               = "git@github.com:ShohKhan-dev/test_devops.git"
+    svn_url                     = "https://github.com/ShohKhan-dev/test_devops"
+    topics                      = []
+    visibility                  = "public"
+    vulnerability_alerts        = false
+
+    security_and_analysis {
+        secret_scanning {
+            status = "disabled"
+        }
+        secret_scanning_push_protection {
+            status = "disabled"
+        }
+    }
+}
+
+# module.github.github_repository.repo:
+resource "github_repository" "repo" {
+    allow_auto_merge            = false
+    allow_merge_commit          = true
+    allow_rebase_merge          = false
+    allow_squash_merge          = false
+    allow_update_branch         = false
+    archived                    = false
+    auto_init                   = true
+    default_branch              = "main"
+    delete_branch_on_merge      = false
+    description                 = "test_repo"
+    etag                        = "W/\"38f35bc1721d76df7c84a0d3cc6f9ac1c2503a6f4ac1b105cf1a3bb15ba72b5f\""
+    full_name                   = "ShohKhan-dev/test_repo"
+    git_clone_url               = "git://github.com/ShohKhan-dev/test_repo.git"
+    has_discussions             = false
+    has_downloads               = false
+    has_issues                  = true
+    has_projects                = false
+    has_wiki                    = true
+    html_url                    = "https://github.com/ShohKhan-dev/test_repo"
+    http_clone_url              = "https://github.com/ShohKhan-dev/test_repo.git"
+    id                          = "test_repo"
+    is_template                 = false
+    merge_commit_message        = "PR_TITLE"
+    merge_commit_title          = "MERGE_MESSAGE"
+    name                        = "test_repo"
+    node_id                     = "R_kgDOKYOSOA"
+    private                     = false
+    repo_id                     = 696488504
+    squash_merge_commit_message = "COMMIT_MESSAGES"
+    squash_merge_commit_title   = "COMMIT_OR_PR_TITLE"
+    ssh_clone_url               = "git@github.com:ShohKhan-dev/test_repo.git"
+    svn_url                     = "https://github.com/ShohKhan-dev/test_repo"
+    topics                      = []
+    visibility                  = "public"
+    vulnerability_alerts        = false
+
+    security_and_analysis {
+        secret_scanning {
+            status = "disabled"
+        }
+        secret_scanning_push_protection {
+            status = "disabled"
+        }
+    }
+}
+
+
+Outputs:
+
+github_repo_full_name = "ShohKhan-dev/test_repo"
+```
+
+## Terraform output
+
+```
+github_repo_full_name = "ShohKhan-dev/test_repo"
+```
+
+## Terraform state list
+
+```
+module.github.github_branch_default.core_main
+module.github.github_branch_default.main
+module.github.github_branch_protection.default
+module.github.github_repository.core
+module.github.github_repository.repo
+```
+
+
+# GithubTeams
+
+## terrform apply
+```
+github_repository.test_devops: Refreshing state... [id=test_devops]
+github_branch_default.main: Refreshing state... [id=test_devops]
+github_branch_protection.default: Refreshing state... [id=BPR_kwDOKYe_vs4CgRRd]
+
+Note: Objects have changed outside of Terraform
+
+Terraform detected the following changes made outside of Terraform since the last "terraform apply" which may have affected this plan:
+
+  # github_repository.test_devops has changed
+  ~ resource "github_repository" "test_devops" {
+      ~ full_name                   = "ShohKhan-dev/test_devops" -> "devops-organizational/test_devops"
+        id                          = "test_devops"
+        name                        = "test_devops"
+        # (33 unchanged attributes hidden)
+
+        # (1 unchanged block hidden)
+    }
+
+
+Unless you have made equivalent changes to your configuration, or ignored the relevant attributes using ignore_changes, the following plan may include actions to undo or
+respond to these changes.
+
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  + create
+  ~ update in-place
+
+Terraform will perform the following actions:
+
+  # github_repository.test_devops will be updated in-place
+  ~ resource "github_repository" "test_devops" {
+      + description                 = "Assignments for DevOps Course at Innopolis University"
+      - has_downloads               = true -> null
+      - has_projects                = true -> null
+        id                          = "test_devops"
+        name                        = "test_devops"
+        # (31 unchanged attributes hidden)
+
+        # (1 unchanged block hidden)
+    }
+
+  # github_team.team1 will be created
+  + resource "github_team" "team1" {
+      + create_default_maintainer = false
+      + description               = "Team 1"
+      + etag                      = (known after apply)
+      + id                        = (known after apply)
+      + members_count             = (known after apply)
+      + name                      = "team1"
+      + node_id                   = (known after apply)
+      + parent_team_read_id       = (known after apply)
+      + parent_team_read_slug     = (known after apply)
+      + privacy                   = "secret"
+      + slug                      = (known after apply)
+    }
+
+  # github_team.team2 will be created
+  + resource "github_team" "team2" {
+      + create_default_maintainer = false
+      + description               = "Team 2"
+      + etag                      = (known after apply)
+      + id                        = (known after apply)
+      + members_count             = (known after apply)
+      + name                      = "team2"
+      + node_id                   = (known after apply)
+      + parent_team_read_id       = (known after apply)
+      + parent_team_read_slug     = (known after apply)
+      + privacy                   = "secret"
+      + slug                      = (known after apply)
+    }
+
+  # github_team_repository.team1_repo will be created
+  + resource "github_team_repository" "team1_repo" {
+      + etag       = (known after apply)
+      + id         = (known after apply)
+      + permission = "push"
+      + repository = "test_devops"
+      + team_id    = (known after apply)
+    }
+
+  # github_team_repository.team2_repo will be created
+  + resource "github_team_repository" "team2_repo" {
+      + etag       = (known after apply)
+      + id         = (known after apply)
+      + permission = "admin"
+      + repository = "test_devops"
+      + team_id    = (known after apply)
+    }
+
+Plan: 4 to add, 1 to change, 0 to destroy.
+
+Changes to Outputs:
+  ~ repo_full_name = "ShohKhan-dev/test_devops" -> "devops-organizational/test_devops"
+
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+github_team.team2: Creating...
+github_team.team1: Creating...
+github_repository.test_devops: Modifying... [id=test_devops]
+github_team.team1: Still creating... [10s elapsed]
+github_team.team2: Still creating... [10s elapsed]
+github_repository.test_devops: Still modifying... [id=test_devops, 10s elapsed]
+github_repository.test_devops: Modifications complete after 10s [id=test_devops]
+github_team.team1: Creation complete after 10s [id=8643636]
+github_team_repository.team1_repo: Creating...
+github_team.team2: Creation complete after 11s [id=8643637]
+github_team_repository.team2_repo: Creating...
+github_team_repository.team1_repo: Creation complete after 4s [id=8643636:test_devops]
+github_team_repository.team2_repo: Creation complete after 3s [id=8643637:test_devops]
+
+Apply complete! Resources: 4 added, 1 changed, 0 destroyed.
+
+Outputs:
+
+repo_full_name = "devops-organizational/test_devops"
+```
+
+## terraform show
+
+```
+# github_branch_default.main:
+resource "github_branch_default" "main" {
+    branch     = "main"
+    id         = "test_devops"
+    rename     = false
+    repository = "test_devops"
+}
+
+# github_branch_protection.default:
+resource "github_branch_protection" "default" {
+    allows_deletions                = false
+    allows_force_pushes             = false
+    blocks_creations                = false
+    enforce_admins                  = true
+    force_push_bypassers            = []
+    id                              = "BPR_kwDOKYe_vs4CgRRd"
+    lock_branch                     = false
+    pattern                         = "main"
+    push_restrictions               = []
+    repository_id                   = "test_devops"
+    require_conversation_resolution = true
+    require_signed_commits          = false
+    required_linear_history         = false
+
+    required_pull_request_reviews {
+        dismiss_stale_reviews           = false
+        dismissal_restrictions          = []
+        pull_request_bypassers          = []
+        require_code_owner_reviews      = false
+        require_last_push_approval      = false
+        required_approving_review_count = 1
+        restrict_dismissals             = false
+    }
+}
+
+# github_repository.test_devops:
+resource "github_repository" "test_devops" {
+    allow_auto_merge            = false
+    allow_merge_commit          = true
+    allow_rebase_merge          = true
+    allow_squash_merge          = true
+    allow_update_branch         = false
+    archived                    = false
+    auto_init                   = true
+    default_branch              = "main"
+    delete_branch_on_merge      = false
+    description                 = "Assignments for DevOps Course at Innopolis University"
+    etag                        = "W/\"e8647b206d9dc0bf1521e5884df7c61cddd1b42e49d37bd0f24b6fc09d91f493\""
+    full_name                   = "devops-organizational/test_devops"
+    git_clone_url               = "git://github.com/devops-organizational/test_devops.git"
+    has_discussions             = false
+    has_downloads               = false
+    has_issues                  = true
+    has_projects                = false
+    has_wiki                    = true
+    html_url                    = "https://github.com/devops-organizational/test_devops"
+    http_clone_url              = "https://github.com/devops-organizational/test_devops.git"
+    id                          = "test_devops"
+    is_template                 = false
+    license_template            = "mit"
+    merge_commit_message        = "PR_TITLE"
+    merge_commit_title          = "MERGE_MESSAGE"
+    name                        = "test_devops"
+    node_id                     = "R_kgDOKYfl_w"
+    private                     = false
+    repo_id                     = 696772095
+    squash_merge_commit_message = "COMMIT_MESSAGES"
+    squash_merge_commit_title   = "COMMIT_OR_PR_TITLE"
+    ssh_clone_url               = "git@github.com:devops-organizational/test_devops.git"
+    svn_url                     = "https://github.com/devops-organizational/test_devops"
+    topics                      = []
+    visibility                  = "public"
+    vulnerability_alerts        = false
+
+    security_and_analysis {
+        secret_scanning {
+            status = "disabled"
+        }
+        secret_scanning_push_protection {
+    team_id    = "8643636"
+}
+
+# github_team_repository.team2_repo:
+resource "github_team_repository" "team2_repo" {
+    etag       = "W/\"75e8973d9be48eb0ec1bcd0a7a685d076b6e973af3242964b84b1842eb08afa5\""
+    id         = "8643637:test_devops"
+    permission = "admin"
+    repository = "test_devops"
+    team_id    = "8643637"
+}
+
+
+Outputs:
+
+repo_full_name = "devops-organizational/test_devops"
 ```
