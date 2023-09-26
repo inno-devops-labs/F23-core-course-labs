@@ -20,3 +20,11 @@ This application displays the current time in Moscow
 ```docker pull ign19ht/dev-ops-labs```
 3. Run docker:
 ```docker run -dp 8000:8000 ign19ht/dev-ops-labs```
+
+## Run Unit Tests
+python -m unittest tests.test
+
+## GitHub Actions
+1. security - Check by Snyk
+2. build - Run unit test
+3. docker - Build and push docker image

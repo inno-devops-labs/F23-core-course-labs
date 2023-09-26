@@ -1,6 +1,7 @@
 FROM python:3.10-alpine
 
-COPY . /app
+COPY src/main.py /app/
+COPY requirements.txt /app/
 
 RUN adduser simpleuser -D && chown -R simpleuser /app
 
