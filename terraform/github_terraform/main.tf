@@ -12,10 +12,19 @@ provider "github" {
   token = var.token # or `GITHUB_TOKEN`
 }
 
+resource "github_repository" "DevOps_F23" {
+   name          = "DevOps_F23"
+   description   = "Updated description from terraform"
+   has_wiki      = true
+   has_projects  = true
+   has_downloads = true
+   # (resource arguments)
+ }
+
 #Create and initialise a public GitHub Repository with MIT license and a Visual Studio .gitignore file (incl. issues and wiki)
 resource "github_repository" "repo" {
   name               = "devops-f23-terraform"
-  description        = "Repository for Terraform code for DevOps F23 course"
+  description        = "Repo for Terraform code for DevOps_F23 course"
   visibility         = "public"
   has_issues         = true
   has_wiki           = true
