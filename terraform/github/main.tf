@@ -9,8 +9,8 @@ terraform {
 }
 
 resource "github_repository" "repo" {
-  name               = "DevOps-Course-Terraform-Repo"
-  description        = "DevOps course. Terraform lab."
+  name               = var.repo_name
+  description        = var.repo_description
   visibility         = "public"
   has_issues         = true
   has_wiki           = true
@@ -36,6 +36,6 @@ resource "github_branch_protection" "default" {
 }
 
 resource "github_repository" "devops-course" {
-  name          = "devops-course"
-  description   = "Description by terraform"
+  name        = "devops-course"
+  description = var.repo_description
 }

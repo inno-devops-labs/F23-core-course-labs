@@ -1,0 +1,38 @@
+aws_instance.app_server: Refreshing state... [id=i-0686ea9183ef710f3]
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are
+indicated with the following symbols:
+  ~ update in-place
+
+Terraform will perform the following actions:
+
+  # aws_instance.app_server will be updated in-place
+  ~ resource "aws_instance" "app_server" {
+        id                                   = "i-0686ea9183ef710f3"
+      ~ tags                                 = {
+          ~ "Name" = "DevOpsCourseAppServerInstance" -> "DevOps_Server"
+        }
+      ~ tags_all                             = {
+          ~ "Name" = "DevOpsCourseAppServerInstance" -> "DevOps_Server"
+        }
+        # (27 unchanged attributes hidden)
+
+        # (5 unchanged blocks hidden)
+    }
+
+Plan: 0 to add, 1 to change, 0 to destroy.
+
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+aws_instance.app_server: Modifying... [id=i-0686ea9183ef710f3]
+aws_instance.app_server: Modifications complete after 9s [id=i-0686ea9183ef710f3]
+
+Apply complete! Resources: 0 added, 1 changed, 0 destroyed.
+
+Outputs:
+
+public_ip = "54.191.87.7"

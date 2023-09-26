@@ -1,0 +1,141 @@
+Terraform used the selected providers to generate the following execution plan. Resource actions are
+indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # github_repository.repo will be created
+  + resource "github_repository" "repo" {
+      + allow_auto_merge            = false
+      + allow_merge_commit          = true
+      + allow_rebase_merge          = true
+      + allow_squash_merge          = true
+      + archived                    = false
+      + default_branch              = (known after apply)
+      + delete_branch_on_merge      = false
+      + description                 = "Description by terraform"
+      + etag                        = (known after apply)
+      + full_name                   = (known after apply)
+      + git_clone_url               = (known after apply)
+      + html_url                    = (known after apply)
+      + http_clone_url              = (known after apply)
+      + id                          = (known after apply)
+      + merge_commit_message        = "PR_TITLE"
+      + merge_commit_title          = "MERGE_MESSAGE"
+      + name                        = "DevOps-Course-Terraform-Repo"
+      + node_id                     = (known after apply)
+      + primary_language            = (known after apply)
+      + private                     = (known after apply)
+      + repo_id                     = (known after apply)
+      + squash_merge_commit_message = "COMMIT_MESSAGES"
+      + squash_merge_commit_title   = "COMMIT_OR_PR_TITLE"
+      + ssh_clone_url               = (known after apply)
+      + svn_url                     = (known after apply)
+      + topics                      = (known after apply)
+      + visibility                  = "public"
+    }
+
+  # github_team.first_team will be created
+  + resource "github_team" "first_team" {
+      + create_default_maintainer = false
+      + etag                      = (known after apply)
+      + id                        = (known after apply)
+      + members_count             = (known after apply)
+      + name                      = "Team-Frog"
+      + node_id                   = (known after apply)
+      + parent_team_read_id       = (known after apply)
+      + parent_team_read_slug     = (known after apply)
+      + privacy                   = "secret"
+      + slug                      = (known after apply)
+    }
+
+  # github_team.second_team will be created
+  + resource "github_team" "second_team" {
+      + create_default_maintainer = false
+      + etag                      = (known after apply)
+      + id                        = (known after apply)
+      + members_count             = (known after apply)
+      + name                      = "Team-Rabbit"
+      + node_id                   = (known after apply)
+      + parent_team_read_id       = (known after apply)
+      + parent_team_read_slug     = (known after apply)
+      + privacy                   = "secret"
+      + slug                      = (known after apply)
+    }
+
+  # github_team.third_team will be created
+  + resource "github_team" "third_team" {
+      + create_default_maintainer = false
+      + etag                      = (known after apply)
+      + id                        = (known after apply)
+      + members_count             = (known after apply)
+      + name                      = "Team-Lion"
+      + node_id                   = (known after apply)
+      + parent_team_read_id       = (known after apply)
+      + parent_team_read_slug     = (known after apply)
+      + privacy                   = "secret"
+      + slug                      = (known after apply)
+    }
+
+  # github_team_repository.team_1_access will be created
+  + resource "github_team_repository" "team_1_access" {
+      + etag       = (known after apply)
+      + id         = (known after apply)
+      + permission = "pull"
+      + repository = "DevOps-Course-Terraform-Repo"
+      + team_id    = (known after apply)
+    }
+
+  # github_team_repository.team_2_access will be created
+  + resource "github_team_repository" "team_2_access" {
+      + etag       = (known after apply)
+      + id         = (known after apply)
+      + permission = "push"
+      + repository = "DevOps-Course-Terraform-Repo"
+      + team_id    = (known after apply)
+    }
+
+  # github_team_repository.team_3_access will be created
+  + resource "github_team_repository" "team_3_access" {
+      + etag       = (known after apply)
+      + id         = (known after apply)
+      + permission = "admin"
+      + repository = "DevOps-Course-Terraform-Repo"
+      + team_id    = (known after apply)
+    }
+
+Plan: 7 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + html_url = (known after apply)
+
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+github_team.first_team: Creating...
+github_team.third_team: Creating...
+github_team.second_team: Creating...
+github_repository.repo: Creating...
+github_team.second_team: Still creating... [10s elapsed]
+github_team.first_team: Still creating... [10s elapsed]
+github_team.third_team: Still creating... [10s elapsed]
+github_repository.repo: Still creating... [10s elapsed]
+github_team.second_team: Creation complete after 17s [id=8646749]
+github_team.first_team: Creation complete after 19s [id=8646747]
+github_team.third_team: Creation complete after 19s [id=8646748]
+github_repository.repo: Creation complete after 20s [id=DevOps-Course-Terraform-Repo]
+github_team_repository.team_2_access: Creating...
+github_team_repository.team_3_access: Creating...
+github_team_repository.team_1_access: Creating...
+github_team_repository.team_2_access: Creation complete after 3s [id=8646749:DevOps-Course-Terraform-Repo]
+github_team_repository.team_3_access: Creation complete after 4s [id=8646748:DevOps-Course-Terraform-Repo]
+github_team_repository.team_1_access: Creation complete after 5s [id=8646747:DevOps-Course-Terraform-Repo]
+
+Apply complete! Resources: 7 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+html_url = "https://github.com/DevOps-Damir-Org/DevOps-Course-Terraform-Repo"
