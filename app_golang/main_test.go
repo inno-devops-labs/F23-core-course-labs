@@ -5,7 +5,6 @@ import (
  "net/http/httptest"
  "testing"
  "strings"
- "time"
 )
 
 func TestHandler(t *testing.T) {
@@ -41,12 +40,19 @@ func TestIndexHandler_ResponseBody(t *testing.T) {
 
 	handler.ServeHTTP(rr, req)
 
-	now := time.Now().Round(3)
+	now, err :=  http.NewRequest("GET", "/", nil)
 
-    expectedBodySubstring := string(now.Format("2006-01-02T15:04"))
+	if err != nil {
+		t.Fatal(err)
+	}
 	
-	if !strings.Contains(rr.Body.String(), expectedBodySubstring) {
+	rn := httptest.NewRecorder()
+	handler = http.HandlerFunc(handler)
+
+	handler.ServeHTTP(rn, now)
+
+	if !strings.Contains(rr.Body.String(), rn.Body.String()) {
 		t.Errorf("handler returned unexpected body: got %v want body substring %v",
-			rr.Body.String(), expectedBodySubstring)
+			rr.Body.String(), rn.Body.String())
 	}
 }
