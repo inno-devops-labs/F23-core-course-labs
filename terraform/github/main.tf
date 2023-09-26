@@ -35,13 +35,13 @@ resource "github_team" "teamB" {
 }
 
 resource "github_team_repository" "teamA_repo" {
-    team_id = github_team.teamA.id
-    repository = github_repository.terraform.name
-    permission = "pull"
+  team_id    = github_team.teamA.id
+  repository = github_repository.terraform.name
+  permission = "pull"
 }
 
 resource "github_team_repository" "teamB_repo" {
-    team_id = github_team.teamB.id
-    repository = github_repository.terraform.name
-    permission = "admin"
+  team_id    = github_team.teamB.id
+  repository = github_repository.terraform.name
+  permission = "admin"
 }
