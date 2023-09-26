@@ -8,6 +8,8 @@
 - [Pull](#pull)
 - [Run](#run)
 - [Project repository](#project-repository)
+- [CI Workflow](#ci-workflow)
+- [Unit Tests](#unit-tests)
 - [Bugs and feature requests](#bugs-and-feature-requests)
 - [Contributing](#contributing)
 - [Creator](#creator)
@@ -34,13 +36,13 @@ To build docker container use the following command:
 
 It is possible to pull the container from docker hub. To do is use the following command:
 
-`docker pull nabiull2020/programmer-profile-asp-net:1.0.0`
+`docker pull nabiull2020/programmer-profile-asp-net:latest`
 
 ## Run
 
 To run the container use the following command:
 
-`docker run -p 8000:80 nabiull2020/programmer-profile-asp-net:1.0.0`
+`docker run -p 8000:80 nabiull2020/programmer-profile-asp-net:latest`
 
 or if you built it manually:
 
@@ -61,6 +63,42 @@ app_c#/
     ├── bin (folder with builds)
     └── app_tests.py
 ```
+
+## CI Workflow
+
+Jobs:
+
+1. **Build**
+
+    - Setup .NET - setup .Net with version 6.0.x
+
+    - Cache dependencies - use cache to store dependencies
+
+    - Dependencies install
+
+    - Vulnerability check - using Snyk to check for vulnerabilities
+
+    - Vulnerability report - generate report of vulnerabilities
+
+    - Linter
+
+    - Tests
+
+2. **Docker**
+
+    - Login - login to docker hub
+
+    - Build and Push - build docker image and push it to docker hub
+
+I used Snyk in build stage in case to reduce dependencies installations.
+
+## Unit Tests
+
+You can find project with unit tests in `UnitTests` folder.
+
+Run test using:
+
+`dotnet test`
 
 ## Bugs and feature requests
 

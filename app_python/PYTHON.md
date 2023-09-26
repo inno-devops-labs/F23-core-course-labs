@@ -40,6 +40,18 @@
 
 2. I conducted manual testing in browser to check that page updates correctly and looks properly
 
+## Unit test
+
+I have only one unit test. Test checks that the response is 200 and that time is changed after 3 seconds.
+
+Best practices:
+
+1. Descriptive method and class names.
+
+2. Test isolation.
+
+3. Test data separation.
+
 ## Code quality
 
 1. Used a virtual environment to isolate dependencies for the project

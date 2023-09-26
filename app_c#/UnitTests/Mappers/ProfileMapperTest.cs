@@ -13,7 +13,7 @@ public class ProfileMapperTest
         Name = "repo",
         Url = "url"
     };
-        
+
     [Fact]
     public void DtoMappingTest()
     {
@@ -24,7 +24,7 @@ public class ProfileMapperTest
             Bio = "bio",
             HtmlUrl = "html"
         };
-        
+
         var repos = new List<GitHubRepository>()
         {
             Repository

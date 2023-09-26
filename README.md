@@ -1,5 +1,8 @@
 # DevOps Engineering Labs
 
+![Python Workflow](https://github.com/DamirNabiull/devops-course/actions/workflows/app_python.yml/badge.svg)
+![C# Workflow](https://github.com/DamirNabiull/devops-course/actions/workflows/app_c%23.yml/badge.svg)
+
 ## Introduction
 
 Welcome to the DevOps Engineering course labs! These hands-on labs are designed to guide you through various aspects of DevOps practices and principles. As you progress through the labs, you'll gain practical experience in application development, containerization, testing, infrastructure setup, CI/CD processes, and more.

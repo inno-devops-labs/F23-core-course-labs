@@ -26,6 +26,19 @@
 
 2. I conducted manual testing in browser
 
+## Unit test
+
+I have only one unit test. Test checks that DTO from github api has correct mapping into data model.
+
+Best practices:
+
+1. Descriptive method and class names.
+
+2. Test isolation.
+
+3. Test data separation.
+
+4. Arrange Act Assert pattern
 
 ## Code quality
 
