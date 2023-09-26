@@ -164,4 +164,6 @@ instance_fip = "212.233.95.2"
 
 ## Best practices
 
-+ Separated by folder 
++ Used `terraform fmt` and `terrafrom validate`
++ main.tf is divided into main.tf, variables.tf, and outputs.tf
++ Used env variables for security
