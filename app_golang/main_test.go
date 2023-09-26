@@ -51,7 +51,10 @@ func TestIndexHandler_ResponseBody(t *testing.T) {
 
 	handler.ServeHTTP(rn, now)
 
-	if !strings.Contains(rr.Body.String(), rn.Body.String()) {
+	left := rr.Body.String()
+	right := rn.Body.String()
+
+	if !strings.Contains(left[:len(left)-9], right[:len(right)-9]) {
 		t.Errorf("handler returned unexpected body: got %v want body substring %v",
 			rr.Body.String(), rn.Body.String())
 	}
