@@ -96,7 +96,7 @@ image_id = "sha256:0c585da953ad654d26bc1d0a3a08c58e1563e956134ccfd8594bbbc070e77
 
 ---
 
-`terraform show` (there is a mistake in requested command, cause `terraform state show` expect specified state to show, while `terraform show` shows all the states)
+`terraform show`
 
 ```
 # docker_container.app_python_container:
@@ -184,6 +184,87 @@ image_id = "sha256:0c585da953ad654d26bc1d0a3a08c58e1563e956134ccfd8594bbbc070e77
 ```
 docker_container.app_python_container
 docker_image.app_python
+```
+
+---
+
+`terraform state show`
+
+```bash
+terraform state show docker_container.app_python_container
+# docker_container.app_python_container:
+resource "docker_container" "app_python_container" {
+    attach                                      = false
+    command                                     = [
+        "python",
+        "app.py",
+    ]
+    container_read_refresh_timeout_milliseconds = 15000
+    cpu_shares                                  = 0
+    entrypoint                                  = []
+    env                                         = []
+    hostname                                    = "1f6ba7018d8b"
+    id                                          = "1f6ba7018d8b4a0298bd56ac724a5e0daf6abbca6067aba36cc819bb84a7480d"
+    image                                       = "sha256:6206b003a898bd4d7771cdf90c2618be50a619b1c4a01bdd88fee4fe6e652d5f"
+    init                                        = false
+    ipc_mode                                    = "private"
+    log_driver                                  = "json-file"
+    logs                                        = false
+    max_retry_count                             = 0
+    memory                                      = 0
+    memory_swap                                 = 0
+    must_run                                    = true
+    name                                        = "app_python_terraform"
+    network_data                                = [
+        {
+            gateway                   = "172.17.0.1"
+            global_ipv6_address       = ""
+            global_ipv6_prefix_length = 0
+            ip_address                = "172.17.0.2"
+            ip_prefix_length          = 16
+            ipv6_gateway              = ""
+            mac_address               = "02:42:ac:11:00:02"
+            network_name              = "bridge"
+        },
+    ]
+    network_mode                                = "default"
+    privileged                                  = false
+    publish_all_ports                           = false
+    read_only                                   = false
+    remove_volumes                              = true
+    restart                                     = "no"
+    rm                                          = false
+    runtime                                     = "runc"
+    security_opts                               = []
+    shm_size                                    = 64
+    start                                       = true
+    stdin_open                                  = false
+    stop_timeout                                = 0
+    tty                                         = false
+    user                                        = "app"
+    wait                                        = false
+    wait_timeout                                = 60
+    working_dir                                 = "/app"
+
+    ports {
+        external = 8080
+        internal = 8080
+        ip       = "0.0.0.0"
+        protocol = "tcp"
+    }
+}
+```
+
+```bash
+terraform state show docker_image.app_python
+# docker_image.app_python:
+resource "docker_image" "app_python" {
+    id           = "sha256:6206b003a898bd4d7771cdf90c2618be50a619b1c4a01bdd88fee4fe6e652d5felatypovinno/devops_inno:latest"
+    image_id     = "sha256:6206b003a898bd4d7771cdf90c2618be50a619b1c4a01bdd88fee4fe6e652d5f"
+    keep_locally = false
+    name         = "elatypovinno/devops_inno:latest"
+    repo_digest  = "elatypovinno/devops_inno@sha256:5ba20f96386e31ad80b3cf8606bc0cd22141fdbabfe862b84bdd38dee0bb423c"
+}
 ```
 
 ---
@@ -320,6 +401,111 @@ yandex_vpc_network.network-1
 yandex_vpc_subnet.subnet-1
 ```
 
+---
+
+`terraform state show`
+
+```bash
+terraform state show yandex_compute_instance.yandex-1
+# yandex_compute_instance.yandex-1:
+resource "yandex_compute_instance" "yandex-1" {
+    created_at                = "2023-09-26T18:38:14Z"
+    folder_id                 = "b1gn1ff56fu2r2e4kovg"
+    fqdn                      = "fhm0rh8chb89gr7ie07p.auto.internal"
+    id                        = "fhm0rh8chb89gr7ie07p"
+    metadata                  = {
+        "ssh-keys" = <<-EOT
+            ubuntu:ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHOT/NFjq0O/PL0tSIj8KjA/eFNQkmBaG/BUAfEcsF7a coreuser@vi96
+        EOT
+    }
+    name                      = "yc-terraform"
+    network_acceleration_type = "standard"
+    platform_id               = "standard-v1"
+    status                    = "running"
+    zone                      = "ru-central1-a"
+
+    boot_disk {
+        auto_delete = true
+        device_name = "fhmudjuj753qtv3kgd8g"
+        disk_id     = "fhmudjuj753qtv3kgd8g"
+        mode        = "READ_WRITE"
+
+        initialize_params {
+            block_size = 4096
+            image_id   = "fd8djv1vmpfdkn5eporh"
+            size       = 30
+            type       = "network-hdd"
+        }
+    }
+
+    metadata_options {
+        aws_v1_http_endpoint = 1
+        aws_v1_http_token    = 2
+        gce_http_endpoint    = 1
+        gce_http_token       = 1
+    }
+
+    network_interface {
+        index              = 0
+        ip_address         = "192.168.10.15"
+        ipv4               = true
+        ipv6               = false
+        mac_address        = "d0:0d:dc:50:c8:ad"
+        nat                = true
+        nat_ip_address     = "51.250.82.203"
+        nat_ip_version     = "IPV4"
+        security_group_ids = []
+        subnet_id          = "e9beane3795fg0oftnrc"
+    }
+
+    placement_policy {
+        host_affinity_rules = []
+    }
+
+    resources {
+        core_fraction = 100
+        cores         = 2
+        gpus          = 0
+        memory        = 2
+    }
+
+    scheduling_policy {
+        preemptible = false
+    }
+}
+```
+
+```bash
+terraform state show yandex_vpc_network.network-1
+# yandex_vpc_network.network-1:
+resource "yandex_vpc_network" "network-1" {
+    created_at                = "2023-09-26T18:38:10Z"
+    default_security_group_id = "enp307k8saj2g0g2k9te"
+    folder_id                 = "b1gn1ff56fu2r2e4kovg"
+    id                        = "enpr4n9laa82qeusejo1"
+    labels                    = {}
+    name                      = "network1"
+    subnet_ids                = []
+}
+```
+
+```bash
+terraform state show yandex_vpc_subnet.subnet-1
+# yandex_vpc_subnet.subnet-1:
+resource "yandex_vpc_subnet" "subnet-1" {
+    created_at     = "2023-09-26T18:38:12Z"
+    folder_id      = "b1gn1ff56fu2r2e4kovg"
+    id             = "e9beane3795fg0oftnrc"
+    labels         = {}
+    name           = "subnet1"
+    network_id     = "enpr4n9laa82qeusejo1"
+    v4_cidr_blocks = [
+        "192.168.10.0/24",
+    ]
+    v6_cidr_blocks = []
+    zone           = "ru-central1-a"
+}
+```
 ---
 
 `terraform output`
