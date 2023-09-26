@@ -24,7 +24,7 @@
     
           - name: Install dependencies
             run: 
-                cd ./../app_golang 
+                cd ../app_golang 
                 go mod download
           
           - name: Install Snyk CLI
@@ -38,13 +38,13 @@
     
           - name: Run linter
             run: 
-                cd ./../app_golang 
+                cd ../app_golang 
                 golangci-lint run
     
           
           - name: Tests
             run:
-                cd ./../app_golang 
+                cd ../app_golang 
                 go test 
           
           - name: Fix Snyk vulnerabilities
