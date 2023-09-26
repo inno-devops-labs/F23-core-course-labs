@@ -1,12 +1,25 @@
 # Terraform
-## Docker Infrastructure
+
+## Terraform best practices
+
+* Separate terraform files by their responsibility: providers, variables, network, outputs, etc.
+* Split files by scopes of work (GitHub, Cloud, Docker)
+* Preserve one variable naming style (e.g. snake_case)
+* Use `terraform fmt` to keep configs consistent
+* Use `terraform validate` to keep configs correct
+
+## Docker
+
 ### Terraform state list
+
 ```shell
 quiner@quiner-MaiBook-X-series:~/innopolis/dev-ops-course-labs/terraform$ terraform state list
 docker_container.nginx
 docker_image.nginx
 ```
+
 ### Terraform state show
+
 ```shell
 quiner@quiner-MaiBook-X-series:~/innopolis/dev-ops-course-labs/terraform$ terraform state show docker_container.nginx
 # docker_container.nginx:
@@ -75,6 +88,7 @@ resource "docker_container" "nginx" {
 ```
 
 ### Terraform outputs
+
 ```shell
 quiner@quiner-MaiBook-X-series:~/innopolis/dev-ops-course-labs/terraform$ terraform output
 container_id = "7143d5fe64bd55d171cbda4b30b594dda0bd23940cf0b18a0b36a1f736cb5be2"
@@ -82,7 +96,9 @@ image_id = "sha256:61395b4c586da2b9b3b7ca903ea6a448e6783dfdd7f768ff2c1a0f3360aab
 ```
 
 ## VK cloud
+
 ### Terraform state list
+
 ```shell
 quiner@quiner-MaiBook-X-series:~/innopolis/dev-ops-course-labs/terraform/vk-cloud$ terraform state list
 data.vkcs_compute_flavor.compute
@@ -101,7 +117,9 @@ vkcs_networking_secgroup_rule.secgroup_rule_1
 vkcs_networking_secgroup_rule.secgroup_rule_2
 vkcs_networking_subnet.subnetwork
 ```
+
 ### Terraform state show
+
 ```shell
 quiner@quiner-MaiBook-X-series:~/innopolis/dev-ops-course-labs/terraform/vk-cloud$ terraform state show vkcs_compute_instance.compute
 # vkcs_compute_instance.compute:
@@ -173,6 +191,10 @@ Import successful!
 The resources that were imported are shown above. These resources are now in
 your Terraform state and will henceforth be managed by Terraform.
 ```
+
+### GitHub organization
+
+For this task I have created a new [repository](https://github.com/quiner-inno/DevOpsCourse) in GitHub organization to manage teams
 
 ### Terraform state list
 
@@ -260,8 +282,13 @@ resource "github_team_repository" "teamB_repo" {
 ```
 
 ### Terraform outputs
+
 ```shell
 quiner@quiner-MaiBook-X-series:~/innopolis/dev-ops-course-labs/terraform/github$ terraform output
 team_A_id = "8646221"
 team_B_id = "8646220"
 ```
+
+### GitHub teams with terraform
+
+![alt text](terraform_teams.png)
