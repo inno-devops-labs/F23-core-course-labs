@@ -6,3 +6,11 @@ db.sqlite3
 *~
 *.pyc
 .vscode
+
+**/.terraform/*
+*.auto.tfvars
+*.tfoverride
+.envrc
+.terraformrc
+terraform.rc
+**/.terraform.lock.hcl
