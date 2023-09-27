@@ -191,3 +191,66 @@ data "vkcs_images_image" "compute" {
 ```
 instance_fip = "185.130.115.101"
 ```
+
+## GitHub infra
+
+### `terraform state list`
+
+```
+github_branch_default.main
+github_branch_protection.default
+github_repository.repo
+```
+
+
+### terraform state show github_repository.repo
+
+```
+resource "github_repository" "repo" {
+    allow_auto_merge            = false
+    allow_merge_commit          = true
+    allow_rebase_merge          = true
+    allow_squash_merge          = true
+    allow_update_branch         = false
+    archived                    = false
+    auto_init                   = true
+    default_branch              = "main"
+    delete_branch_on_merge      = false
+    description                 = "Lab 4"
+    etag                        = "W/\"911421b37a1e3ef85bad229b8f146531fa0306fdf8cd63fc3e91d202bf6ba2c0\""
+    full_name                   = "dmitriypru/core-course-lab4-terraform"
+    git_clone_url               = "git://github.com/dmitriypru/core-course-lab4-terraform.git"
+    gitignore_template          = "Python"
+    has_discussions             = false
+    has_downloads               = false
+    has_issues                  = false
+    has_projects                = false
+    has_wiki                    = false
+    html_url                    = "https://github.com/dmitriypru/core-course-lab4-terraform"
+    http_clone_url              = "https://github.com/dmitriypru/core-course-lab4-terraform.git"
+    id                          = "core-course-lab4-terraform"
+    is_template                 = false
+    merge_commit_message        = "PR_TITLE"
+    merge_commit_title          = "MERGE_MESSAGE"
+    name                        = "core-course-lab4-terraform"
+    node_id                     = "R_kgDOKY0FJA"
+    private                     = false
+    repo_id                     = 697107748
+    squash_merge_commit_message = "COMMIT_MESSAGES"
+    squash_merge_commit_title   = "COMMIT_OR_PR_TITLE"
+    ssh_clone_url               = "git@github.com:dmitriypru/core-course-lab4-terraform.git"
+    svn_url                     = "https://github.com/dmitriypru/core-course-lab4-terraform"
+    topics                      = []
+    visibility                  = "public"
+    vulnerability_alerts        = false
+
+    security_and_analysis {
+        secret_scanning {
+            status = "disabled"
+        }
+        secret_scanning_push_protection {
+            status = "disabled"
+        }
+    }
+}
+```
