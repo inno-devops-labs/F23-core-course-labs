@@ -27,7 +27,7 @@ where `{port}` is your desired port for app. After this the app will be accessbi
 In order to get time in MSK you need to go to `localhost:{port}/time`
 ![image](doc/screen.jpg)
 
-## Testing
+## Unit tests
 In order to run tests. Run in `app_python` directory
 ```bash
 poetry install --with test
@@ -48,9 +48,29 @@ docker run -p {port}:8080 moscow-time
 
 ### Pulling
 ```bash
-docker pull bizuki/moscow-time:1.1
-docker run -p {port}:8080 bizuki/moscow-time:1.1
+docker pull bizuki/moscow-time:latest
+docker run -p {port}:8080 bizuki/moscow-time:latest
 ```
+
+## CI
+In this repo the CI is building and testing your commits. You can check the results of tests in actions tab.
+
+We have several stages in out CI workflow:
+1. Tests
+2. Build and push
+
+### Tests
+1. Install python
+2. Install poetry
+3. Install dependencies of poetry
+4. Run linter
+5. Run Tests
+
+### Build
+Build depends on success of tests.
+
+1. Login into dockerhub
+2. build and push image
 
 ## License
 MIT License

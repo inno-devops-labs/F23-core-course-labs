@@ -24,7 +24,7 @@ It mostly do not concern our app (as it is very simple) but I can describe pros 
 ## Linter and Code style
 I used `pycodestyle` to follow `PEP-8` standard.
 
-## Tests
+## Unit tests
 For tests I used `pytest` and `freezegun` in order to stop time across all python (it is very useful for apps or programms dependent on time).
 
 ## Typing
