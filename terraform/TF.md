@@ -254,3 +254,11 @@ resource "github_repository" "repo" {
     }
 }
 ```
+
+## Terraform best practices:
+
+1. Use proper var naming style (snake-case)
+2. Move frequently changing data to vars
+3. Hide input of sensitive vars
+4. Use different folders for different terraform projects
+5. Use `terraform plan` to check differences

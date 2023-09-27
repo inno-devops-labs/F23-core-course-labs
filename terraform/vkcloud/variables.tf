@@ -24,8 +24,10 @@ variable "vk_cloud_username" {
 
 variable "vk_cloud_pass" {
   description = "VK Cloud password"
+  sensitive   = true
 }
 
 variable "vk_cloud_project_id" {
   description = "VK Cloud project_id"
+  sensitive   = true
 }
