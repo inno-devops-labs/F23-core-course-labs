@@ -1,1 +1,25 @@
 app_node/node_modules
+terraform/authorized_key.json
+
+**/.terraform
+
+# .tfstate files
+**/*.tfstate
+**/*.tfstate.*
+
+# Crash log files
+**/crash.log
+**/crash.*.log
+
+# lock file
+**/.terraform.lock.hcl
+
+# plan file
+**/plan.out
+
+# Config
+**/.terraformrc
+**/terraform.rc
+**/*.tfvars
+
+**/authorized_key.json
