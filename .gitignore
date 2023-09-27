@@ -2,3 +2,4 @@
 .pytest_cache
 app_python/.pytest_cache
 app_python/__pycache__
+terraform/.terraform

@@ -1,0 +1,7 @@
+users:
+  - name: admin
+    groups: sudo
+    shell: /bin/bash
+    sudo: 'ALL=(ALL) NOPASSWD:ALL'
+    ssh-authorized-keys:
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIErqWNOg+7D1rMm/YE/PUV9n3EgAClNKPfxXJtPiI95Q kamil@Camilles-MacBook-Pro.local
