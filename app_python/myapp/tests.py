@@ -5,7 +5,7 @@ from django.urls import reverse
 
 
 class CurrentTimeTestCase(TestCase):
-    """Class Spec for tests"""
+    """Class Spec for tests """
 
     def setUp(self):
         self.client = Client()
