@@ -17,7 +17,7 @@ Application to display current time in Moscow in format YYYY-MM-DD HH:MM:SS
 Building docker container:
 
 ```bash
-docker build dev-ops-lab-2 .
+docker build -t dev-ops-lab-2 .
 ```
 
 Or pulling from Docker Hub:
