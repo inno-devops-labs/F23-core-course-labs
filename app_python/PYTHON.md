@@ -30,10 +30,19 @@ To ensure code quality and standard compliance:
 
 I, of course, also installed the mypy, pylint and black plugins for my editor for faster feedback.
 
-## Testing
+## Unit testing
 
-I wrote a simple test case (test.py) using Flask testing capabilities and the unittest library.\
-The test checks that "Moscow" is mentioned in the web server response and that the responses are different of requested at different times.
+Best practices followed:
+
+1.  Using a library for testing (unittest).
+2.  Tested small units of code, one function / concept at a time.
+3.  Followed Arrange-Act-Assert pattern.
+4.  Used clear test names.
+
+I used Flask testing capabilities and unittest library to test sever responses to GET requests:
+
+1.  Check that response code to GET request to route "/" is 200 and that the format of the response is correct.
+2.  Check that the reponse to GET requests to "/" is different at different times (current time in Moscow changes).
 
 # Markdown
 
