@@ -14,7 +14,7 @@ COPY . /app
 
 RUN adduser myuser -D && chown -R myuser /app \
     && pip3 install -r requirements.txt \
-    && apk --no-cache add curl=8.2.1-r0
+    && apk --no-cache add curl=8.3.0-r0
 
 USER myuser
 
