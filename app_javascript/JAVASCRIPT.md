@@ -29,3 +29,13 @@
 4. **Code Reviews and Testing**: Conducting code reviews and incorporating automated tests, such as unit tests, helps ensure code quality and prevent regressions. This helps identify potential issues with the local time functionality or any other parts of the application.
 
 By following these best practices, coding standards, and code quality measures, the ReactJS application displaying local time can be built in a scalable, maintainable, and efficient manner.
+
+## Unit Tests
+
+I have created single App.test.js where I wrote several unit tests checking whether webpage loads without errors, whether time changes on page refresh and whether date shows. I used such best practices:
+
+- Descriptive test function names: This makes it easier to understand what each test is doing and helps with debugging.
+- Keep tests small and focused: This makes it easier to isolate bugs and makes your tests more maintainable.
+- Use expect statements: Use Jest's expect statements to check that your code is behaving as expected. This can include checking that certain elements are present on the page, that certain functions are being called, or that certain values are being returned.
+- Test edge cases: Make sure to test edge cases, such as empty inputs or invalid data, to ensure that your code handles these cases correctly.
+- Clear and concise code: This makes it easier for others to contribute to my codebase and helps with debugging.
