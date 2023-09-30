@@ -1,3 +1,7 @@
+- name: Include install_pip
+  ansible.builtin.include_tasks:
+    file: install_pip.yml
+
 - name: Include install_docker
   ansible.builtin.include_tasks:
     file: install_docker.yml
