@@ -1,15 +1,28 @@
 # JokeJS
 
+![example workflow](https://github.com/kerniee/core-course-labs/actions/workflows/js.yml/badge.svg)
+
 Simple NodeJS Express web application that says jokes.
 
 - **Framework**: Express
 - **Testing**: Jest
 - **Code style**: typescript-eslint
 
-## Running
+## Preparing dev environment
 
-1. `npm install` in the `app_js` directory
-1. `npm run start`
+`npm install` in the `app_js` directory
+
+### Running application
+
+`npm run start`
+
+### Linter
+
+`npm run build` for typescript and `npm run lint`
+
+### Unit Tests
+
+`npm run test`
 
 ## Docker
 
