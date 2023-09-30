@@ -1,3 +1,7 @@
+# This file is used in order to ensure that
+# docker and docker-compose are installed.
+# As an evidence it displays their versions.
+
 - name: Check docker version
   ansible.builtin.shell:
     cmd: docker --version

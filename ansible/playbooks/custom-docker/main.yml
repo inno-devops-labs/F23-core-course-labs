@@ -8,4 +8,6 @@
   hosts: lab_hosts
   become: yes
   roles:
+    # Run custom docker role which installs
+    # docker and docker-compose on machine
     - docker

@@ -6,6 +6,9 @@ galaxy_info:
 
   min_ansible_version: 2.15.4
 
+  # Current image officially supports only
+  # Debial distro in order to ensure that all
+  # required packages can be installed successfully
   platforms:
   - name: Debian
     versions:

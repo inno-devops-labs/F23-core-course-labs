@@ -8,4 +8,6 @@
   hosts: lab_hosts
   become: yes
   roles:
+    # Run existing docker deployment role
+    # installed via ansible-galaxy
     - role: geerlingguy.docker
