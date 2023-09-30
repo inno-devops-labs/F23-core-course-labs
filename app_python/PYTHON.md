@@ -7,16 +7,20 @@ I had experience with Flask and Fast Api so I choose between them.
 
 Start server:
 ```
-uvicorn main:app --reload
+uvicorn src.main:app --reload
 ```
 
 ## Best practices:
 - PEP8 standarts - The code is developed in accordance with the PEP8 standards, so it will be easier for developers to perceive it
 - There are tests in this project to make sure it works as planned
 
-## Testing:
+## Unit Tests
 For testing I used **pytest** framework:
 
+Tests:
+- Check that time is updating
+- Check responce code
+- Check String matching
 ```
-python3 -m pytest test.py
+python3 -m pytest test_main.py
 ```
