@@ -1,4 +1,4 @@
 - name: Install docker via pip
   ansible.builtin.pip:
-    name: docker
+    name: "docker=={{docker_version}}"
     state: present

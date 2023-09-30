@@ -4,7 +4,7 @@
 
 - name: Check docker version
   ansible.builtin.shell:
-    cmd: docker --version
+    cmd: python3 -c "import docker; print(docker.__version__)"
   register: docker_version
 
 - name: Check docker-compose version

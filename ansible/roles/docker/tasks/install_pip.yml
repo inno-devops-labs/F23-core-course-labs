@@ -4,9 +4,11 @@
 # role meta it is specified that Debian distro 
 # is required, we can assume that apt package
 # is guaranteed to exist on the machine
-
+- name: Update apt repos
+  apt:
+    update_cache: true
+  
 - name: Ensure python3 and pip3 are installed
-  become: true
   apt:
     name:
       - python3
