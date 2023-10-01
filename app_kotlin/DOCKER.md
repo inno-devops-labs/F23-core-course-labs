@@ -1,3 +1,5 @@
+# Docker information
+
 ### Best practices applied:
 
 * Mutli-stage build.

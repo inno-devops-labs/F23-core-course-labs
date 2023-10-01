@@ -1,4 +1,5 @@
 # Innopolis University DevOps [F23] | Kotlin 
+[![Kotlin CI](https://github.com/i-nafikov/iu-devops-course/actions/workflows/CI-kotlin.yml/badge.svg?branch=lab3&event=pull_request)](https://github.com/i-nafikov/iu-devops-course/actions/workflows/CI-kotlin.yml)
 
 ## Overview
 The service provides information about current time in Europe/Moscow timezone.
@@ -15,8 +16,8 @@ To build the application Docker image go to the `./app_kotlin` directory and run
 docker build --tag iskanred/app_kotlin:1.0.0 .
 ```
 
-## How to test?
-In the latest version of the project there are 2 tests.
+## Unit tests
+Details about testing you can find in [KOTLIN.md](KOTLIN.md) file in '**Unit tests**' section.
 To run tests go to the `./app_kotlin` directory and run the following command:
 ```shell
 ./gradlew test
@@ -41,6 +42,17 @@ To run tests go to the `./app_kotlin` directory and run the following command:
     docker run -p 8080:8080 --name app_kotlin iskanred/app_kotlin:1.0.0
     ```
 3. Now the service can be used
+
+## CI workflow
+Kotlin workflow run only on pull requests and
+if pull request contains changes in `./app_kotlin` directory or in Kotlin workflow file.
+
+**Jobs:**
+1. Security vulnerabilities analysis
+2. Test & Lint
+3. Build docker image & Push to dockerhub: https://hub.docker.com/repository/docker/iskanred/app_kotlin/general
+
+Best practices applied in CI process are described in [CI.md](CI.md).
 
 ## Usage
 The server's URL is `http://127.0.0.1:8080/`.

@@ -29,6 +29,14 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("io.github.oshai:kotlin-logging-jvm:5.1.0")
 
+    // Get rid of vulnerabilities in transitive dependencies
+    implementation(group = "org.yaml", name = "snakeyaml").version {
+        strictly("2.2")
+    }
+    implementation(group = "org.apache.tomcat.embed", name = "tomcat-embed-core").version {
+        strictly("10.1.13")
+    }
+
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation(kotlin("test"))
     testImplementation("io.mockk:mockk:1.13.7")

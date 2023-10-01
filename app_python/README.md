@@ -1,4 +1,5 @@
-# Innopolis University DevOps [F23] | Lab1
+# Innopolis University DevOps [F23] | Python
+[![Python CI](https://github.com/i-nafikov/iu-devops-course/actions/workflows/CI-python.yml/badge.svg?branch=lab3&event=pull_request)](https://github.com/i-nafikov/iu-devops-course/actions/workflows/CI-python.yml)
 
 ## Overview
 The service provides information about current time in Europe/Moscow timezone.
@@ -10,7 +11,7 @@ Install dependencies go to `./app_python` directory and run the following comman
 ```shell
 python3 -m venv env
 source env/bin/activate
-pip3 install --no-cache-dir -r requirements-dev.txt
+pip3 install --no-cache-dir -r requirements/requirements-dev.txt
 pre-commit install
 ```
 ### Building application Docker image
@@ -19,8 +20,9 @@ To build the application Docker image go to the `./app_python` directory and run
 docker build --tag iskanred/app_python:1.0.0 .
 ```
 
-## How to test?
-In latest version of the project there are 3 properly documented tests.
+## Unit tests
+Details about testing you can find in [PYTHON.md](PYTHON.md) file in '**Unit tests**' section.
+In the latest version of the project there are 2 properly documented tests.
 To run tests go to the `./app_python` directory and run the following command:
 ```shell
 pytest
@@ -46,6 +48,16 @@ pytest
     ```
 3. Now the service can be used
 
+## CI workflow
+Python workflow run only on pull requests and
+if pull request contains changes in `./app_python` directory or in Python workflow file.
+
+**Jobs:**
+1. Security vulnerabilities analysis
+2. Test & Lint
+3. Build docker image & Push to dockerhub: https://hub.docker.com/repository/docker/iskanred/app_python/general
+
+Best practices applied in CI process are described in [CI.md](CI.md).
 
 ## Usage
 The server's URL is `http://127.0.0.1:8080/`.
