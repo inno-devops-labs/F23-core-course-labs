@@ -1,6 +1,8 @@
 
 
 ### Playing playbook with existing docker role
+The requirements must be installed before playing the playbook:
+`ansible-galaxy install -r requirements.yml --ignore-errors`
 
 `ansible-playbook -i inventory/default_aws_ec2.yml playbooks/dev/main.yaml`
 
