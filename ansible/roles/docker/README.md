@@ -1,4 +1,16 @@
 
+## Custom docker role
+My docker role contains of two steps:
+1. Install the docker via pip
+2. Install the docker-compose via pip
+
+#### Requirements:
+The docker role uses ansible built-in pip (`ansible.builtin.pip`), so the only requirement is ansible itself:
+
+`pip install ansible`
+
+
+### Usage
 To utilize docker role it is enough to mention it in the playbook file as:
 ```yaml
 roles:
