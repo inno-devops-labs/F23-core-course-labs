@@ -95,7 +95,7 @@ PLAY RECAP *********************************************************************
 
 
 ### Inventory details
-`ansible-inventory  -i inventory/inventory.ini --list`
+`ansible-inventory  -i inventory/default_aws_ec2.yml --list`
 ```
 {
     "_meta": {
@@ -117,7 +117,7 @@ PLAY RECAP *********************************************************************
 
 
 ### Playing playbook with custom docker role
-`ansible-playbook -i inventory/inventory.ini playbooks/dev/my-docker.yaml`
+`ansible-playbook -i inventory/default_aws_ec2.yml playbooks/dev/my-docker.yaml`
 
 ```
 PLAY [My docker role] ******************************************************************************************************************************************************************************************
