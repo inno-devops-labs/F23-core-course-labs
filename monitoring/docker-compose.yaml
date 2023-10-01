@@ -6,17 +6,17 @@ networks:
 services:
   app_python:
     image: max3k/app_python:latest
+    container_name: app_python
     ports:
       - "80:80"
     logging: &logging
       driver: "json-file"
       options:
-        max-size: "10m"
-        max-file: "10"
-        tag: "{{.ImageName}}/{{.Name}}"
+        tag: "{{.ImageName}}|{{.Name}}"
       
   loki:
     image: grafana/loki:2.9.2
+    container_name: loki
     ports:
       - "3100:3100"
     command: -config.file=/etc/loki/local-config.yaml
@@ -27,6 +27,7 @@ services:
 
   promtail:
     image: grafana/promtail:2.9.2
+    container_name: promtail
     volumes:
        - ./promtail/config.yml:/etc/promtail/config.yml
        - /var/lib/docker/containers:/var/lib/docker/containers
@@ -62,6 +63,7 @@ services:
         EOF
         /run.sh
     image: grafana/grafana:latest
+    container_name: grafana
     ports:
       - "3000:3000"
     networks:
