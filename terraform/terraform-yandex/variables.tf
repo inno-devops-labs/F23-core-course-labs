@@ -5,4 +5,5 @@ variable "zone" {
 
 variable "image_id" {
   type = string
+  default = "fd8o6khjbdv3f1suqf69"
 }

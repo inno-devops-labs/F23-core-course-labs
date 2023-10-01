@@ -9,14 +9,14 @@ RUN useradd -ms /bin/bash pythonuser \
 WORKDIR /home/pythonuser/app
 
 # Copy the requirements file
-COPY app_python/requirements.txt .
+COPY requirements.txt .
 
 # Install the required Python packages and clean up
 RUN pip install --no-cache-dir -r requirements.txt \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy the application code
-COPY app_python/main.py .
+COPY main.py .
 
 # Switch to the new user
 USER pythonuser
