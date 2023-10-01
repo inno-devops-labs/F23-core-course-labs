@@ -1,6 +1,6 @@
 
 
-## Playing playbook with existing docker role
+### Playing playbook with existing docker role
 
 `ansible-playbook -i inventory/default_aws_ec2.yml playbooks/dev/main.yaml`
 
@@ -89,4 +89,26 @@ skipping: [51.250.43.196]
 
 PLAY RECAP *****************************************************************************************************************************************************************************************************
 51.250.43.196        : ok=14   changed=4    unreachable=0    failed=0    skipped=12   rescued=0    ignored=0   
+```
+
+
+### Inventory details
+`ansible-inventory  -i inventory/inventory.ini --list`
+```
+{
+    "_meta": {
+        "hostvars": {}
+    },
+    "all": {
+        "children": [
+            "ungrouped",
+            "myhosts"
+        ]
+    },
+    "myhosts": {
+        "hosts": [
+            "51.250.43.196"
+        ]
+    }
+}
 ```
