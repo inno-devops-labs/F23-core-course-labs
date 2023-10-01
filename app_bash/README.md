@@ -1,3 +1,4 @@
+![app_bash badge](https://github.com/zRrrGet/core-course-labs/actions/workflows/app_bash_ci.yaml/badge.svg)
 # Bash Web Application
 ## Overview
 This web application checks if the host is available(can be pinged) or not.
@@ -11,7 +12,7 @@ Example:
 ```
 ./main.sh moodle.innopolis.university 8000
 ```
-## Test
+## Unit Tests
 ```
 ./test.sh
 ```
@@ -39,4 +40,11 @@ docker run -p 8000:8000 zrrrget/app_bash moodle.innopolis.university 8000
 ```
 ```
 docker run zrrrget/app_bash_test
+```
+## CI
+Crucial steps triggered on push:
+- Lint bash using shellcheck
+- Run test
+- Build test docker, test image and push
+- Build production docker and push
 ```

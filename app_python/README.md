@@ -1,3 +1,5 @@
+![app_python badge](https://github.com/zRrrGet/core-course-labs/actions/workflows/app_python_ci.yaml/badge.svg)
+
 # Python Web Application
 ## Overview
 This web application displays Moscow time.
@@ -10,7 +12,7 @@ You can run it on any ASGI server. For example, on `uvicorn`:
 ```
 uvicorn main:app
 ```
-## Test
+## Unit Tests
 ```
 python3 -m pytest test.py
 ```
@@ -40,3 +42,10 @@ docker run -p 8000:8000 zrrrget/app_python
 ```
 docker run zrrrget/app_python_test
 ```
+## CI
+Crucial steps triggered on push:
+- Run Snyk to check for vulnerabilities
+- Lint python
+- Run pytest
+- Build test docker, test image and push
+- Build production docker and push
