@@ -1,0 +1,8 @@
+---
+- name: Prepare docker
+  hosts: localhost
+  connection: local
+  become: true
+  remote_user: ec2-user
+  roles:
+    - role: 'roles/docker'
