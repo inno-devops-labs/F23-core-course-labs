@@ -1,0 +1,8 @@
+---
+- name: Prepare docker
+  hosts: ec2-35-93-48-64.us-west-2.compute.amazonaws.com
+  connection: local
+  become: true
+  remote_user: ec2-user
+  roles:
+    - role: 'roles/docker'
