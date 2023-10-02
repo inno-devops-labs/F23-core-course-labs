@@ -1,0 +1,129 @@
+version: '3.7'
+
+x-logging: &x-logging
+  logging:
+    driver: 'json-file'
+    options:
+      max-size: '100m'
+      max-file: '2'
+      tag: '{{.ImageName}}|{{.Name}}|{{.ImageFullID}}|{{.FullID}}'
+
+x-healthcheck: &x-healthcheck
+  interval: 30s
+  timeout: 10s
+  retries: 3
+  start_period: 5s
+
+services:
+  app_python:
+    <<: *x-logging
+    image: dvechtomova/python_app:latest
+    container_name: app_python
+    restart: always
+    ports:
+      - '8080:8080'
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - wget --no-verbose --tries=1 -O /dev/null http://localhost:8080/healthcheck || exit 1
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
+
+  app_rust:
+    <<: *x-logging
+    image: dvechtomova/rust_app:latest
+    container_name: app_rust
+    restart: always
+    ports:
+      - '8081:8080'
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - wget --no-verbose --tries=1 -O /dev/null http://localhost:8080/healthcheck || exit 1
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
+
+  grafana:
+    <<: *x-logging
+    image: grafana/grafana:9.2.20
+    restart: always
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - grafana-config:/etc/grafana
+      - ./config/grafana/provisioning/datasources:/etc/grafana/provisioning/datasources:ro
+    environment:
+      - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
+      - GF_SECURITY_ADMIN_USER=${ADMIN_USER:-admin}
+      - GF_SECURITY_ADMIN_PASSWORD=${ADMIN_PASSWORD:-admin}
+    ports:
+      - '3000:3000'
+    healthcheck:
+      <<: *x-healthcheck
+      test:
+        - CMD-SHELL
+        - wget --no-verbose --tries=1 -O /dev/null http://localhost:3000/api/health || exit 1
+
+  prometheus:
+    <<: *x-logging
+    image: prom/prometheus:v2.45.1
+    restart: always
+    volumes:
+      - prometheus-data:/prometheus
+      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+      - '--web.enable-admin-api'
+      - '--web.enable-lifecycle'
+      - '--storage.tsdb.retention.time=7d'
+    ports:
+      - '9090:9090'
+    healthcheck:
+      <<: *x-healthcheck
+      test:
+        - CMD-SHELL
+        - wget --no-verbose --tries=1 -O /dev/null http://localhost:9090/-/healthy || exit 1
+
+  loki:
+    <<: *x-logging
+    image: grafana/loki:2.8.5
+    restart: always
+    command: -config.file=/etc/loki/local-config.yaml
+    expose:
+      - 3100
+    ports:
+      - '3100:3100'
+    healthcheck:
+      <<: *x-healthcheck
+      test:
+        - CMD-SHELL
+        - wget --no-verbose --tries=1 -O /dev/null http://localhost:3100/ready || exit 1
+
+  promtail:
+    <<: *x-logging
+    restart: always
+    image: grafana/promtail:2.8.5
+    volumes:
+      - ./config/promtail.yml:/etc/promtail/promtail.yml:ro
+      - promtail-data:/data
+      - /var/lib/docker/containers/:/var/lib/docker/containers/:ro
+    command:
+      - -config.file=/etc/promtail/promtail.yml
+    healthcheck:
+      <<: *x-healthcheck
+      test:
+        - CMD-SHELL
+        - timeout 5 bash -c 'cat < /dev/null > /dev/tcp/localhost/9080' || exit 1
+
+volumes:
+  grafana-data:
+  grafana-config:
+  loki-data:
+  promtail-data:
+  prometheus-data:
