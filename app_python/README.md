@@ -1,6 +1,11 @@
 # Display Current Time in Moscow
 
+---------------------------------------------------------------
+[![Python application](https://github.com/aibek99/core-course-labs/actions/workflows/app_python.yml/badge.svg?branch=lab3)](https://github.com/aibek99/core-course-labs/actions/workflows/app_python.yml)
+
 Hi :wave:, this is a simple app's repository that displays the current time in Moscow.
+
+---------------------------------------------------------------
 
 ## Table of Contents
 
