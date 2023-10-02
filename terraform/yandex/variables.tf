@@ -32,7 +32,7 @@ variable "my_vm_cores_number" {
 
 variable "my_vm_core_fraction" {
   description = "Usage of VM instance's CPU core in percent"
-  default     = "20"
+  default     = "5"
   type        = number
 }
 
