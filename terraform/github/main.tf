@@ -24,32 +24,24 @@ resource "github_branch_protection" "default" {
   }
 }
 
-locals {
-  teams = {
-    "Developers" = "Software Developers team",
-    "Business"   = "Business-people team"
-  }
+resource "github_team" "dev_team" {
+  name        = "Developers"
+  description = "Software Developers team"
 }
 
-resource "github_team" "team" {
-  for_each = local.teams
-
-  name        = each.key
-  description = each.value
+resource "github_team" "bus_team" {
+  name        = "Business"
+  description = "Business-people team"
 }
 
-resource "github_team_repository" "team_repo" {
-  for_each = local.teams
-
-  team_id    = github_team.team[each.key].id
+resource "github_team_repository" "dev_team_access" {
   repository = github_repository.repo.name
+  team_id    = github_team.dev_team.id
   permission = "push"
 }
 
-resource "github_team_membership" "membership" {
-  for_each = local.teams
-
-  team_id  = github_team.team[each.key].id
-  username = "vladimirKa002"
-  role     = "maintainer"
+resource "github_team_repository" "bus_team_access" {
+  repository = github_repository.repo.name
+  team_id    = github_team.bus_team.id
+  permission = "admin"
 }

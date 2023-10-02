@@ -6,6 +6,7 @@ provider "registry.terraform.io/vk-cs/vkcs" {
   constraints = "~> 0.1.12"
   hashes = [
     "h1:Rx4/FSBwm9WcKyeoRFRMDKD2eO6rIZybsayYpSfZipU=",
+    "h1:pVj8t08QtSmFSQpwAYVZkeQmf+hSlwA5ffD75tmJ4Ew=",
     "zh:27698f095a741e584bb08abaaa19277266b6a8f311fd8ed2ee5c178cf62fd3f3",
     "zh:2c690db2a9e8bc07d2252797890844629e25845e16309344b130180fffab4308",
     "zh:3528f30a47089c737f87770809a14d33b737ee7496afc5bafad51066e656ab9d",
