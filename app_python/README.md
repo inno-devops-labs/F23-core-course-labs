@@ -117,3 +117,14 @@ docker run -d -p 5000:5000 aibekbakirov/devops_lab2:1.0
 ```
 
 link: http://localhost:5000/
+
+## CI workflow
+
+---------------------------------------------------------------
+
+### Steps: 
+- Environment Setup and Dependency Caching
+- Python Dependency Installation and Security Scanning
+- Code Linting and Testing
+- Docker Login
+- Docker Build and Push
