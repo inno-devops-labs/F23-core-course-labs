@@ -26,15 +26,11 @@ jobs:
         uses: actions/setup-python@v4.7.0
         with:
           python-version: "3.x"
-      
-      - name: Change to app_python directory
-        run: echo "Directory changed to $PWD"
-        working-directory: app_python
   
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          pip install -r app_python/requirements.txt
   
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/python-3.10@0.4.0
@@ -42,7 +38,7 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
           command: test
-          args: --file=requirements.txt --skip-unresolved
+          args: --file=app_python/requirements.txt --skip-unresolved
       
       - name: Upload result to Github Code Scanning
         uses: github/codeql-action/upload-sarif@v2
