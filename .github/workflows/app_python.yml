@@ -43,6 +43,7 @@ jobs:
         
       - name: Linter - flake8, Autocorrector - black
         run: |
+          cd app_python
           pre-commit run --all-files
       
       - name: Test with pytest
