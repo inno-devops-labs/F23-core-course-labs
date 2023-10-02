@@ -1,3 +1,5 @@
+"""App Python main file that runs FastAPI"""
+
 from datetime import datetime
 
 from pytz import timezone
@@ -12,5 +14,6 @@ app = FastAPI()
 
 @app.get("/")
 async def get_time():
-    time = datetime.now(timezone(config.timezone))
-    return {"current_time": time.strftime(config.time_format)}
+    """Provides current Moscow time on main route"""
+    time = datetime.now(timezone(config.TIMEZONE))
+    return {"current_time": time.strftime(config.TIME_FORMAT)}
