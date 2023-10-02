@@ -4,16 +4,24 @@
 
 `docker compose up -d --pull always`
 
+[docker-compose.yml](File) includes Loki, Promtail, Prometheus, Grafana, and Python + Rust apps
+
 ## Using
 
-### docker job
+### We can select by job
+
+docker job
 
 ![](img/3.png)
 
-### app_python container name
+### Python logs
+
+app_python container name
 
 ![](img/1.png)
 
-### app_rust container name
+### Rust logs
+
+app_rust container name
 
 ![](img/2.png)
