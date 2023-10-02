@@ -1,9 +1,18 @@
+# Docker role
+
+## Setup
+Installing requirements:
+```
+python >= 3.6
+
+boto3 >= 1.22.0
+
+botocore >= 1.25.0
+```
+
 ## ansible-playbook playbooks/dev/main.yml --diff
 
 ```
-[WARNING]: Ansible is being run in a world writable directory (/mnt/d/Documents/Desktop/devops/core-course-labs/ansible), ignoring it as an ansible.cfg source. For more information see
-https://docs.ansible.com/ansible/devel/reference_appendices/config.html#cfg-in-world-writable-dir
-
 PLAY [Prepare docker] ***************************************************************************************************************************************************************************************************************************************
 TASK [Gathering Facts] **************************************************************************************************************************************************************************************************************************************ok: [ec2-35-93-48-64.us-west-2.compute.amazonaws.com]
 
@@ -64,16 +73,13 @@ TASK [geerlingguy.docker : include_tasks] **************************************
 PLAY RECAP **************************************************************************************************************************************************************************************************************************************************ec2-35-93-48-64.us-west-2.compute.amazonaws.com : ok=14   changed=6    unreachable=0    failed=0    skipped=13   rescued=0    ignored=0
 ```
 
-
-
-
 ## ansible-inventory -i default_aws_ec2.yml --list
 
 ```
 {
     "_meta": {
         "hostvars": {
-            "ec2-35-93-48-64.us-west-2.compute.amazonaws.com": {       
+            "ec2-35-93-48-64.us-west-2.compute.amazonaws.com": {
                 "ami_launch_index": 0,
                 "architecture": "x86_64",
                 "block_device_mappings": [
