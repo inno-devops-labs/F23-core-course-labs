@@ -243,4 +243,81 @@ resource "github_repository" "repo" {
 
 To create teams in Github one has to use organization. For this, I created a 'inno-devops-vladimirKa002-org' organization.
  Then, using Terraform I created multiple teams with different access levels:
- ![teams](../assets/Teams.png)
+ ![teams](github/assets/Teams.png)
+ 
+ ```
+- terraform state show
+resource "github_branch_default" "main" {
+    branch     = "main"
+    id         = "devops-course-labs"
+    rename     = false
+    repository = "devops-course-labs"
+}
+# github_branch_protection.default:
+resource "github_branch_protection" "default" {
+    allows_deletions                = false
+    allows_force_pushes             = false
+    blocks_creations                = false
+    enforce_admins                  = true
+    force_push_bypassers            = []
+    lock_branch                     = false
+    pattern                         = "main"
+    push_restrictions               = []
+    repository_id                   = "devops-course-labs-infrastructure"
+    require_conversation_resolution = true
+    require_signed_commits          = false
+    required_linear_history         = false
+    required_pull_request_reviews {
+        dismiss_stale_reviews           = false
+        dismissal_restrictions          = []
+        pull_request_bypassers          = []
+        require_code_owner_reviews      = false
+        require_last_push_approval      = false
+        required_approving_review_count = 1
+        restrict_dismissals             = false
+    }
+}
+# github_repository.repo:
+resource "github_repository" "repo" {
+    allow_auto_merge            = false
+    allow_merge_commit          = true
+    allow_rebase_merge          = true
+    allow_squash_merge          = true
+    allow_update_branch         = false
+    archived                    = false
+    auto_init                   = true
+    default_branch              = "main"
+    delete_branch_on_merge      = false
+    full_name                   = "vladimirKa002/devops-course-labs"
+    git_clone_url               = "git://github.com/vladimirKa002/devops-course-labs.git"
+    has_discussions             = false
+    has_downloads               = false
+    has_issues                  = false
+    has_projects                = false
+    has_wiki                    = false
+    html_url                    = "https://github.com/vladimirKa002/devops-course-labs"
+    http_clone_url              = "https://github.com/vladimirKa002/devops-course-labs.git"
+    id                          = "devops-course-labs"
+    is_template                 = false
+    merge_commit_message        = "PR_TITLE"
+    merge_commit_title          = "MERGE_MESSAGE"
+    name                        = "devops-course-labs"
+    primary_language            = "Python"
+    private                     = false
+    squash_merge_commit_message = "COMMIT_MESSAGES"
+    squash_merge_commit_title   = "COMMIT_OR_PR_TITLE"
+    ssh_clone_url               = "git@github.com:vladimirKa002/devops-course-labs.git"
+    svn_url                     = "https://github.com/vladimirKa002/devops-course-labs
+    topics                      = []
+    visibility                  = "public"
+    vulnerability_alerts        = false
+    security_and_analysis {
+        secret_scanning {
+            status = "disabled"
+        }
+        secret_scanning_push_protection {
+            status = "disabled"
+        }
+    }
+}
+```
