@@ -37,7 +37,7 @@ In this lab, you will become familiar with a logging stack that includes Promtai
    - Include these screenshots in your `LOGGING.md` report for reference.
 
 3. Pull Request to Forked Repository:
-   - Initiate a Pull Request (PR) to the lab4 branch of the forked repository.
+   - Initiate a Pull Request (PR) to the lab7 branch of the forked repository.
    - Request that your teammates review this PR, and also review PRs from your teammates.
 
 4. Pull Request in Your Repository:
