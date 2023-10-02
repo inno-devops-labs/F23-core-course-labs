@@ -243,4 +243,4 @@ resource "github_repository" "repo" {
 
 To create teams in Github one has to use organization. For this, I created a 'inno-devops-vladimirKa002-org' organization.
  Then, using Terraform I created multiple teams with different access levels:
- ![teams](github/assets/Teams.png)
+ ![teams](../assets/Teams.png)
