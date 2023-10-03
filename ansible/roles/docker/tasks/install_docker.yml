@@ -1,20 +1,3 @@
-#- name: Load OS-specific vars.
-#  include_vars: "{{ lookup('first_found', params) }}"
-#  vars:
-#    params:
-#      files:
-#        - '{{ansible_distribution}}.yml'
-#        - '{{ansible_os_family}}.yml'
-#        - main.yml
-#      paths:
-#        - 'vars'
-
-#- include_tasks: setup-RedHat.yml
-#  when: ansible_os_family == 'RedHat'
-#
-#- include_tasks: setup-Debian.yml
-#  when: ansible_os_family == 'Debian'
-
 - name: Install Docker packages.
   pip:
     name: docker
@@ -23,15 +6,6 @@
   ignore_errors: "{{ ansible_check_mode }}"
   when: "ansible_version.full is version_compare('2.12', '<')"
 
-#- name: Install Docker packages (with downgrade option).
-#  package:
-#    name: "{{ docker_packages }}"
-#    state: "{{ docker_packages_state }}"
-#    allow_downgrade: true
-#  notify: restart docker
-#  ignore_errors: "{{ ansible_check_mode }}"
-#  when: "ansible_version.full is version_compare('2.12', '>=')"
-
 - name: Install docker-compose plugin.
   package:
     name: "{{ docker_compose_package }}"
@@ -39,15 +13,6 @@
   notify: restart docker
   ignore_errors: "{{ ansible_check_mode }}"
   when: "docker_install_compose_plugin | bool == true and (ansible_version.full is version_compare('2.12', '<'))"
-
-#- name: Install docker-compose-plugin (with downgrade option).
-#  package:
-#    name: "{{ docker_compose_package }}"
-#    state: "{{ docker_compose_package_state }}"
-#    allow_downgrade: true
-#  notify: restart docker
-#  ignore_errors: "{{ ansible_check_mode }}"
-#  when: "docker_install_compose_plugin | bool == true and ansible_version.full is version_compare('2.12', '>=')"
 
 - name: Ensure /etc/docker/ directory exists.
   file:
