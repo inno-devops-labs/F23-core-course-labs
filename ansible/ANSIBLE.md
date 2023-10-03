@@ -1,4 +1,14 @@
+Best practices:
+
+* Keep all simple
+* Use ansible yaml format
+* Use variables
+* Use dynamic inventory
+* Do not put secrets into configs
+* Use roles instead of a lot of includes
+
 # First task
+
 ```
 edikgoose@edikgoose-NBLB-WAX9N:~/iu-devops/ansible$ ansible-playbook playbooks/dev/main.yml
 
@@ -85,13 +95,14 @@ PLAY RECAP *********************************************************************
 ```
 
 Inside the VM:
+
 ```
 root@fhmv4skgn3aa7q3q3kmf:~# docker --version
 Docker version 24.0.6, build ed223bc
 ```
 
-
 # Task 2
+
 ```
 edikgoose@edikgoose-NBLB-WAX9N:~/iu-devops/ansible$ ansible-playbook playbooks/dev/main.yml 
 
@@ -123,6 +134,7 @@ PLAY RECAP *********************************************************************
 ```
 
 #### `ansible-inventory -i inventory/hosts.yml --list`:
+
 ```
 edikgoose@edikgoose-NBLB-WAX9N:~/iu-devops/ansible$ ansible-inventory -i inventory/hosts.yml --list
 {
@@ -143,6 +155,31 @@ edikgoose@edikgoose-NBLB-WAX9N:~/iu-devops/ansible$ ansible-inventory -i invento
     "yandexcloudvm": {
         "hosts": [
             "158.160.107.107"
+        ]
+    }
+}
+```
+
+#### After add dynamic inventory:
+```
+edikgoose@edikgoose-NBLB-WAX9N:~/iu-devops/ansible$ ansible-inventory --list
+{
+    "_meta": {
+        "hostvars": {
+            "edikgoose-compute-instance": {
+                "ansible_host": "51.250.91.0"
+            }
+        }
+    },
+    "all": {
+        "children": [
+            "ungrouped",
+            "yacloud"
+        ]
+    },
+    "yacloud": {
+        "hosts": [
+            "edikgoose-compute-instance"
         ]
     }
 }
