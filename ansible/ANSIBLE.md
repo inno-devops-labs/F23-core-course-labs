@@ -1,6 +1,13 @@
-## Output from deployment command:
+# Ansible
+## Best Practices
+- Use config file `ansible.cfg`
+- Use roles
+- Use inventory
+- Use defaults for variable storing
+
+## Output of deployment command:
 ```angular2html
-~/develop/iu/F23-DevOps/ansible lab5 ?1 ❯ ansible-playbook -i inventory/default_aws_ec2.yml playbooks/dev/main.yml
+ansible-playbook -i inventory/default_aws_ec2.yml playbooks/dev/main.yml
 
 PLAY [Docker] ****************************************************************************************************************************************************************************************************************************************
 
@@ -36,4 +43,30 @@ changed: [vm01]
 
 PLAY RECAP *******************************************************************************************************************************************************************************************************************************************
 vm01                       : ok=10   changed=6    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+```
+
+## Output of ansible-inventory
+```angular2html
+ansible-inventory -i inventory/default_aws_ec2.yml --list    
+{
+    "_meta": {
+        "hostvars": {
+            "vm01": {
+                "ansible_host": "51.250.20.249",
+                "ansible_user": "art22m"
+            }
+        }
+    },
+    "all": {
+        "children": [
+            "ungrouped",
+            "yandex_vms"
+        ]
+    },
+    "yandex_vms": {
+        "hosts": [
+            "vm01"
+        ]
+    }
+}
 ```
