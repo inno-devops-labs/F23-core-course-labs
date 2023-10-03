@@ -1,0 +1,5 @@
+---
+- name: Installing pip using apt
+  ansible.builtin.apt:
+    name: python3-pip
+    state: present

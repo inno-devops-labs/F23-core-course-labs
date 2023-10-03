@@ -1,4 +1,4 @@
-- hosts: vk-cloud
+- hosts: vk_cloud
   roles:
-    - role: 'roles/docker'
+    - role: 'roles/docker-custom-role'
   become: true

@@ -22,3 +22,4 @@ terraform.rc
 *~
 .pytest_cache
 .terraform.*
+.DS_Store

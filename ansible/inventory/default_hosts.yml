@@ -1,6 +1,6 @@
-vk-cloud:
+vk_cloud:
   hosts:
-    84.23.55.42
+    89.208.84.38
   vars:
     ansible_user: ubuntu
     ansible_ssh_private_key_file: ~/.ssh/id_rsa
