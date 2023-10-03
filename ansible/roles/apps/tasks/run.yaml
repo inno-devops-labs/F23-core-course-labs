@@ -1,0 +1,7 @@
+---
+- name: Run application
+  docker_container:
+    name: app
+    image: relisqu/python-app:latest
+    ports:
+    - "5000:5000"

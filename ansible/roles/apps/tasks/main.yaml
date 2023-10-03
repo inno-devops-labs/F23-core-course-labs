@@ -1,0 +1,3 @@
+---
+- include: roles/apps/tasks/deps.yaml
+- include: roles/apps/tasks/run.yaml

@@ -7,7 +7,7 @@ data "vkcs_images_image" "compute" {
 }
 
 resource "vkcs_compute_instance" "compute" {
-  name              = "compute"
+  name              = "compute1"
   flavor_id         = data.vkcs_compute_flavor.compute.id
   key_pair          = var.key_pair_name
   security_groups   = ["default", "admin"]
