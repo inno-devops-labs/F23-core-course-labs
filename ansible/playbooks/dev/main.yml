@@ -2,4 +2,4 @@
   hosts: yandex_vms
   become: true
   roles:
-    - docker
+    - docker_custom

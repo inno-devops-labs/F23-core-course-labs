@@ -1,0 +1,8 @@
+---
+- name: Install docker-compose via pip.
+  become: true
+  ansible.builtin.import_role:
+    name: geerlingguy.pip
+  vars:
+    pip_install_packages:
+      - name: docker-compose

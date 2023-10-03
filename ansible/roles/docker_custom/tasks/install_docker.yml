@@ -1,0 +1,8 @@
+---
+- name: Install Docker with Ansible Galaxy role.
+  become: true
+  vars:
+    docker_install_compose: false
+    docker_install_compose_plugin: false
+  ansible.builtin.import_role:
+    name: geerlingguy.docker
