@@ -1,0 +1,4 @@
+lab_hosts:
+  hosts:
+    vk_cloud:
+      ansible_host: 212.233.95.2
