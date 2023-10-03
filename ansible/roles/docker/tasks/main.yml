@@ -1,0 +1,22 @@
+- name: Install aptitude
+  apt:
+    name:
+    - aptitude
+    state: latest
+    update_cache: true
+
+- name: Install required system packages
+  apt:
+    pkg:
+      - python3-pip
+      - python3
+    state: latest
+    update_cache: true
+
+- name: Include docker installation
+  ansible.builtin.include_tasks:
+    file: install_docker.yml
+
+- name: Include docker-compose installation
+  ansible.builtin.include_tasks:
+    file: install_compose.yml

@@ -1,0 +1,4 @@
+lab_hosts:
+  hosts:
+    yandex_cloud_01:
+      ansible_host: 62.84.124.130
