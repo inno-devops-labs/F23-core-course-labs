@@ -1,0 +1,5 @@
+docker_repo: "https://download.docker.com/linux/ubuntu focal stable"
+docker_key: https://download.docker.com/linux/ubuntu/gpg
+
+docker_ce_version: 5:24.0.6-1*
+compose_version: 1.29.2
