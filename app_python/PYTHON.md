@@ -15,3 +15,17 @@ My code follows the following best coding practices:
 4. Functions and arguments. The functions have small number of arguments that ensures that the function 
    should not be divided into smaller once 
 5. Magic numbers. The code doesn't have some random numbers
+
+
+## Tests' description:
+For the testing of my web app I wrote 3 tests:
+
+- First test checks that the page is loading with http code 200
+- Second test confirms that the title of the page is loading
+- Third test checks that the page display the time
+
+## The best practices for code testing
+- Fast: my unit tests take little time to run.
+- Isolated: unit tests are standalone, can be run in isolation, and have no dependencies on any outside factors.
+- Self-Checking: the tests automatically detect its result without any human interaction.
+- Repeatable: unit tests return the same result without changing anything in between runs
