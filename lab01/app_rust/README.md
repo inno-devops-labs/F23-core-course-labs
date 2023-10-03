@@ -68,3 +68,18 @@ docker build -t ilyasiluyanov/app_rust:dev
 ```bash
 docker run --rm -p 8000:8000 ilyasiluyanov/app_rust:dev
 ```
+
+## Unit tests
+
+```bash
+cargo test
+```
+
+## CI/CD
+
+For each commit there is a pipeline with:
+
+- lint job
+- Snyk vulnerability scanner
+- test job
+- build and push docker image job

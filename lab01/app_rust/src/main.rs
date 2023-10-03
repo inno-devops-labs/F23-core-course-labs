@@ -4,16 +4,20 @@ use chrono::{DateTime, FixedOffset, Local};
 use clap::Parser;
 use rocket::Config;
 
-#[get("/")]
-fn time() -> String {
+pub fn current_time() -> DateTime<Local>  {
     let msk_timezone = FixedOffset::east_opt(3 * 3600).unwrap();
     let utc_now = Local::now().naive_utc();
-    DateTime::<Local>::from_naive_utc_and_offset(utc_now, msk_timezone).to_rfc3339()
+    DateTime::<Local>::from_naive_utc_and_offset(utc_now, msk_timezone)
+}
+
+#[get("/")]
+fn time() -> String {
+    current_time().to_rfc3339()
 }
 
 #[get("/health")]
 fn healthcheck() -> &'static str {
-    return "OK"
+    "OK"
 }
 
 #[derive(Parser, Debug)]
@@ -35,4 +39,35 @@ fn rocket() -> _ {
     };
 
     rocket::build().configure(config).mount("/", routes![time, healthcheck])
+}
+
+
+#[cfg(test)]
+mod tests {
+    use super::{current_time, rocket};
+
+    use chrono::{Duration, DateTime};
+    use rocket::local::blocking::Client;
+
+    #[test]
+    fn test_current_time() {
+        let dt1 = current_time();
+        let dt2 = current_time();
+        assert!(dt2 - dt1 < Duration::seconds(10))
+    }
+
+    #[test]
+    fn test_endpoint() {
+        let client = Client::tracked(rocket()).unwrap();
+        let resp1 = client.get("/").dispatch();
+        let resp2 = client.get("/").dispatch();
+
+        let dt1 = resp1.into_string().unwrap();
+        let dt2 = resp2.into_string().unwrap();
+
+        let dt1 = DateTime::parse_from_rfc3339(&dt1).unwrap();
+        let dt2 = DateTime::parse_from_rfc3339(&dt2).unwrap();
+
+        assert!(dt2 - dt1 < Duration::seconds(10))
+    }
 }
