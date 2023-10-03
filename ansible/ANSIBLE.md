@@ -72,6 +72,19 @@ changed: [lab5_vm]
 PLAY RECAP **********************************************************************************************************************************************
 lab5_vm            : ok=9    changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 ```
+## Inventory local:
+
+```
+    "_meta": {
+        "hostvars": {}
+    },
+    "all": {
+        "children": [
+            "ungrouped"
+        ]
+    }
+}
+```
 
 ## Inventory
 ```
