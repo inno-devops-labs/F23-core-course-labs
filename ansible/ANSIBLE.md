@@ -20,8 +20,6 @@
 
 ### Deployment
 
-As I use WSL - I had a trouble with playbook. Playbook had incorrect paths inside. Therefore, I copied playbook to the root ansible folder to run it.
-
 Command:
 
 `ansible-playbook playbooks/dev/main.yaml --diff`
