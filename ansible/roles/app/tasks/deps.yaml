@@ -1,0 +1,6 @@
+---
+- name: Ensure dependencies are installed.
+  apt:
+    name:
+      - docker
+    state: present
