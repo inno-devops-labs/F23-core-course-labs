@@ -32,4 +32,9 @@ To get started with the Django web application, follow these steps:
   `docker pull tcarinaa/current_time:latest`
 
 - Run:
-  `docker run -p 8000:8000 current_time`    
+  `docker run -p 8000:8000 current_time`
+
+## Run Unit tests
+
+`python3 manage.py test myapp.tests.CurrentTimeTestCase`
+

@@ -1,0 +1,34 @@
+name: Django CI
+
+on:
+  push:
+    branches: [ main, lab3 ]
+  pull_request:
+    branches: [ main, lab3 ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: |
+        python3 -m pip install --upgrade pip
+        pip3 install -r app_python/requirements.txt
+
+    - name: Lint code
+      run: |
+        pip3 install pylint
+        pylint app_python/myapp
+
+    - name: Run Django tests
+      run: |
+        python3 app_python/manage.py test myapp.tests.CurrentTimeTestCase
