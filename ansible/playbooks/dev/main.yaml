@@ -1,0 +1,6 @@
+- name: Dev
+  hosts: all
+  connection: local
+  become: true
+  roles:
+    - docker
