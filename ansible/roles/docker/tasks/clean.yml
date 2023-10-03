@@ -1,12 +1,11 @@
 - name: Remove old packages
   apt:
     pkg:
-      - docker.io
-      - docker-compose
-      - docker-doc
-      - docker
-      - podman-docker
-      - containerd
+      - docker.io 
+      - docker-doc 
+      - docker-compose 
+      - podman-docker 
+      - containerd 
       - runc
-      - containerd.io
+    purge: true
     state: absent

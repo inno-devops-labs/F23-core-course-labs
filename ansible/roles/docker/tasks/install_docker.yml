@@ -5,5 +5,4 @@
       - docker-ce-cli={{ docker_version }}
       - containerd.io
       - docker-buildx-plugin
-      - docker-compose-plugin
     state: present

@@ -1,0 +1,7 @@
+- name: Create app
+  community.docker.docker_container:
+    name: moscow-time
+    image: bizuki/moscow-time:latest
+    state: started
+    ports:
+      - "8080:8080"

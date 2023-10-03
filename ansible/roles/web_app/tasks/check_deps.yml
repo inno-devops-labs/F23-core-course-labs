@@ -1,0 +1,5 @@
+- name: check and install deps
+  apt:
+    name:
+      - docker
+    state: present

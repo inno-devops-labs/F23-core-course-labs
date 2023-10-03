@@ -22,4 +22,8 @@
 
 - name: Add docker repo.
   apt_repository:
-    repo: deb [arch={{ deb_architecture }} signed-by=/etc/apt/trusted.gpg.d/docker.asc] https://download.docker.com/linux/ubuntu {{ deb_release }} stable
+    repo: deb [arch={{ deb_architecture.stdout }} signed-by=/etc/apt/trusted.gpg.d/docker.asc] https://download.docker.com/linux/ubuntu {{ deb_release.stdout }} stable
+
+- name: Update package list
+  apt:
+    update_cache: yes

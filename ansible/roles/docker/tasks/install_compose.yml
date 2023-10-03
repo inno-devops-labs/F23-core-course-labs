@@ -1,0 +1,25 @@
+- name: install pip
+  apt:
+    name:
+      - python3-pip
+      - python3
+      - python3-virtualenv
+      - python3-setuptools
+      - python3-apt
+    state: present
+
+- name: upgrade pip
+  pip:
+    name:
+      - pip
+      - requests
+    state: latest
+    executable: pip3
+
+- name: install docker-compose from pip
+  pip:
+    name:
+      - docker-compose
+      - docker
+    state: latest
+    executable: pip3
