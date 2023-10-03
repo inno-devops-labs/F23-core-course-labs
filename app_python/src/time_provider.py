@@ -7,5 +7,5 @@ class TimeProvider:
         pass
 
     @staticmethod
-    async def get_current_datetime(tz=pytz.timezone('Europe/Moscow')) -> datetime:
+    def get_current_datetime(tz=pytz.timezone('Europe/Moscow')) -> datetime:
         return datetime.now(tz)

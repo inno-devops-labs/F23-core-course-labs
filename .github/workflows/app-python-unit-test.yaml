@@ -1,0 +1,71 @@
+name: python_app_unit_testing
+
+on:
+  push:
+    paths:
+      - ".github/workflows/app-python-unit-test.yaml"
+      - "app_python/**"
+      - "!app_python/**.md"
+
+defaults:
+  run:
+    shell: bash
+    working-directory: app_python
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+
+      - name: Install and configure Poetry
+        uses: snok/install-poetry@v1
+
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/pypoetry/virtualenvs
+          key: ${{ runner.os }}-poetry-${{ hashFiles('**/poetry.lock') }}
+
+      - name: Restore dependencies cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/pypoetry/virtualenvs
+          key: ${{ runner.os }}-poetry-${{ hashFiles('**/poetry.lock') }}
+          restore-keys: ${{ runner.os }}-poetry-
+
+      - name: Install dependencies
+        run: |
+          poetry config virtualenvs.in-project true
+          poetry install --no-interaction --no-ansi
+
+      - name: Unit tests
+        if: always()
+        run: |
+          . ./.venv/bin/activate
+          export PYTHONPATH=`pwd`/src 
+          pytest --junit-xml=test-results.xml
+
+      - name: Vulnerability check
+        uses: snyk/actions/python@master
+        continue-on-error: true
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --sarif-file-output=python_snyk.sarif
+            --file=app_python/requirements.txt
+            --package-manager=pip
+            --skip-unresolved
+
+      - name: Linter
+        run: |
+          . ./.venv/bin/activate
+          pylint ./src/app.py --fail-under=8 --disable=missing-module-docstring --disable=missing-class-docstring --disable=missing-function-docstring
+          pylint ./tests --fail-under=8 --disable=missing-module-docstring --disable=missing-class-docstring --disable=missing-function-docstring

@@ -4,12 +4,13 @@ version = "0.1.0"
 description = ""
 authors = ["vlasov-egor <vlasov-egorl@ya.ru>"]
 readme = "README.md"
-packages = [{include = "app_python"}]
 
 [tool.poetry.dependencies]
 python = "^3.11"
 aiohttp = "^3.8.5"
 pytz = "^2023.3.post1"
+pytest = "^7.4.2"
+pylint = "^2.17.5"
 
 
 [build-system]
