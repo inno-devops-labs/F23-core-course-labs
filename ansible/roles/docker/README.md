@@ -51,4 +51,4 @@ MIT
 
 ## Author Information
 
-This role was created by Your Name for Your Company.
+This role was created by Ilya Mirzazhanov.
