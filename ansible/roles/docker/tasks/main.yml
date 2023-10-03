@@ -1,24 +1,11 @@
-- name: docker role
-  tags: [docker]
-  block:
-    - name: Execute apt update
-      become: true
-      ansible.builtin.apt:
-        update_cache: true
+- name: Install pip
+  ansible.builtin.include_tasks:
+    file: install_pip.yml
 
-    - name: Install docker package using pip
-      become: true
-      ansible.builtin.import_role:
-        name: geerlingguy.pip
-      vars:
-        pip_install_packages:
-          - name: docker
-          - name: docker-compose
+- name: Install docker
+  ansible.builtin.include_tasks:
+    file: install_docker.yml
 
-    - name: geerlingguy.docker
-      become: true
-      vars:
-        docker_install_compose: false
-        docker_install_compose_plugin: false
-      ansible.builtin.import_role:
-        name: geerlingguy.docker
+- name: Install docker-compose
+  ansible.builtin.include_tasks:
+    file: install_compose.yml

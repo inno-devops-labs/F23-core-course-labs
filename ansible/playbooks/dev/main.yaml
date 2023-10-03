@@ -1,5 +1,5 @@
-- name: Deploy docker
+- name: Deploy Docker
   hosts: all
-  become: yes
+  become: true
   roles:
-    - role: geerlingguy.docker
+    - docker
