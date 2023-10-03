@@ -43,3 +43,7 @@ warning: `app_rust` (bin "app_rust") generated 2 warnings
 RUST.md:23:81 MD013/line-length Line length [Expected: 80; Actual: 95]
 RUST.md:32:81 MD013/line-length Line length [Expected: 80; Actual: 123]
 ```
+
+## Unit testing
+
+Unit tests check that we return RFC339-compliant datetime

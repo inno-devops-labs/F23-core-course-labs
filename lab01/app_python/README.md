@@ -2,7 +2,8 @@
 
 ## Overview
 
-The application provides current time in Moscow.
+
+The application provides a storage of text notes.
 
 ## Usage
 
@@ -34,11 +35,19 @@ In order to build and launch the app, there are some steps:
    python3 main.py
    ```
 
-1. Request current time:
+1. Create a note:
 
     ```bash
-    > curl http://localhost:8000
-    "2023-09-04T20:31:08.696046+03:00"
+    > curl -X POST -d '{"text": "abcd"}' -H 'content-type: application/json' http://localhost:8000/notes/
+    {"uuid":"0197e693-9abc-417c-b281-eacc3e1a4ecf"}
+    ```
+
+1. Get the same note:
+
+    ```bash
+    > curl http://localhost:8000/notes/0197e693-9abc-417c-b281-eacc3e1a4ecf
+    {"id":"0197e693-9abc-417c-b281-eacc3e1a4ecf","text":"abcd","created_at":"2023-09-16T18:14:08.990677Z"}
+
     ```
 
 Help is also available:
@@ -76,3 +85,18 @@ docker pull ilyasiluyanov/app_python:dev
 ```bash
 docker run --rm -p 8000:8000 --name app_python ilyasiluyanov/app_python:dev
 ```
+
+## Unit tests
+
+```bash
+pytest tests
+```
+
+## CI/CD
+
+For each commit there is a pipeline with:
+
+- lint job
+- Snyk vulnerability scanner
+- test job
+- build and push docker image job

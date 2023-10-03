@@ -43,3 +43,20 @@ README.md:10 MD032/blanks-around-lists
     Lists should be surrounded by blank lines
     [Context: "1. Install [npm](https://docs...."]
 ```
+
+## Unit tests
+
+Unit tests check test a repository to persist notes (`test_repo.py`) and endpoints correct work (`test_endpoints.py`)
+
+### Best practices
+
+We use the base pattern for tests:
+
+1. Prepare environment
+1. Perform actions
+1. Make assertions and validate them
+
+We also make unit-tests as lightweight as we can:
+
+1. We use `InMemoryNoteRepo`, because we don't care where notes will be persisted during testing
+1. We split tests based on components responsibility in order to eradicate fragile tests
