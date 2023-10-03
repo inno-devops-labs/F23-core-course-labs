@@ -1,0 +1,6 @@
+yandex_vms:
+  hosts:
+    vm01:
+      ansible_host: 51.250.20.249
+  vars:
+    ansible_user: art22m
