@@ -2,6 +2,7 @@
 - name: Prepare docker
   hosts: localhost
   connection: local
-  become: true
+  become: yes
+  gather_facts: no
   roles:
-    - docker
+    - ansible/roles/docker
