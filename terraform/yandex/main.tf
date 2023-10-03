@@ -43,8 +43,12 @@ resource "yandex_compute_instance" "vm_1" {
   }
 
   network_interface {
-    subnet_id = yandex_vpc_subnet.subnet-1.id
+    subnet_id = yandex_vpc_subnet.subnet_1.id
     nat       = true
+  }
+
+  metadata = {
+    ssh-keys = "ubuntu:${file("~/.ssh/id_ed25519.pub")}"
   }
 }
 
@@ -55,7 +59,7 @@ resource "yandex_vpc_network" "network_1" {
 resource "yandex_vpc_subnet" "subnet_1" {
   name           = "default-ru-central1-a2"
   zone           = "ru-central1-a"
-  network_id     = yandex_vpc_network.network-1.id
+  network_id     = yandex_vpc_network.network_1.id
   v4_cidr_blocks = ["10.130.0.0/24"]
 }
 

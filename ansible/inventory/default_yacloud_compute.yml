@@ -1,0 +1,4 @@
+plugin: yacloud_compute
+yacloud_clouds: cloud-ya-mafiozic1
+yacloud_folders: default
+yacloud_token_file: ya.token
