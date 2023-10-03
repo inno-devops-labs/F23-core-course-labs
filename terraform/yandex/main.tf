@@ -7,10 +7,10 @@ terraform {
   required_version = ">= 0.13"
 
   backend "s3" {
-    endpoint   = "storage.yandexcloud.net"
-    bucket     = "chiplinka-default-backet"
-    region     = "ru-central1"
-    key        = "terraform-main.tfstate"
+    endpoint = "storage.yandexcloud.net"
+    bucket   = "chiplinka-default-backet"
+    region   = "ru-central1"
+    key      = "terraform-main.tfstate"
 
     skip_region_validation      = true
     skip_credentials_validation = true
@@ -44,6 +44,12 @@ resource "yandex_compute_instance" "vm_1" {
   network_interface {
     subnet_id = yandex_vpc_subnet.subnet_1.id
     nat       = true
+  }
+
+  metadata = {
+    ssh-keys  = "ubuntu:${file("~/.ssh/try2.pub")}"
+    user-data = "${file("/home/arodef/Projects/core-course-labs/terraform/yandex/meta.txt")}"
+    serial-port-enable    = 1
   }
 }
 
