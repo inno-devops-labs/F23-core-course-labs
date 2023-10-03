@@ -1,0 +1,5 @@
+- name: Prepare docker own role
+  hosts: all
+  become: true
+  roles:
+    - docker

@@ -1,0 +1,4 @@
+virtualmachines:
+  hosts:
+    vm-1:
+      ansible_host: 1.2.3.4
