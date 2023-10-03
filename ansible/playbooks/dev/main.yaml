@@ -1,10 +1,5 @@
 ---
 - name: Playbook with existing Ansible role
-  hosts: all
-
-  vars:
-    pip_install_packages:
-      - name: docker
-
+  hosts: devhost
   roles:
-    - geerlingguy.docker
+    - docker
