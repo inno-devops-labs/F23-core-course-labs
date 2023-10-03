@@ -1,0 +1,3 @@
+---
+- include: roles/web_app/tasks/deps.yaml
+- include: roles/web_app/tasks/run.yaml

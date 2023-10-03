@@ -43,8 +43,8 @@ resource "vkcs_networking_secgroup_rule" "secgroup_rule_1" {
 resource "vkcs_networking_secgroup_rule" "secgroup_rule_2" {
   direction         = "ingress"
   ethertype         = "IPv4"
-  port_range_max    = 3389
-  port_range_min    = 3389
+  port_range_max    = 8000
+  port_range_min    = 8000
   remote_ip_prefix  = "0.0.0.0/0"
   protocol          = "tcp"
   security_group_id = vkcs_networking_secgroup.secgroup.id

@@ -1,0 +1,7 @@
+---
+- name: Run application
+  docker_container:
+    name: app
+    image: kinjalik/devops-course-app:python
+    ports:
+    - "8000:8000"

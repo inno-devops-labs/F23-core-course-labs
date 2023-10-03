@@ -16,7 +16,7 @@ variable "compute_flavor" {
 
 variable "key_pair_name" {
   type    = string
-  default = "keypair-terraform"
+  default = "albert_pc"
 }
 
 variable "availability_zone_name" {

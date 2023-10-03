@@ -1,0 +1,7 @@
+---
+- name: VK Cluud config
+  hosts: vk_cloud
+  become: true
+  roles:
+    - docker
+    - web_app
