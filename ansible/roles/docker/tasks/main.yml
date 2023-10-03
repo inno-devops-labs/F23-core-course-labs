@@ -1,4 +1,10 @@
 ---
-- include_tasks: roles/docker/tasks/install_pip.yml
-- include_tasks: roles/docker/tasks/install_docker.yml
-- include_tasks: roles/docker/tasks/install_compose.yml
+- name: Docker role
+  become: true
+  block:
+    - name: Import install_pip.yml
+      ansible.builtin.import_tasks: install_pip.yml
+    - name: Import install_docker.yml
+      ansible.builtin.import_tasks: install_docker.yml
+    - name: Import install_docker.yml
+      ansible.builtin.import_tasks: install_compose.yml
