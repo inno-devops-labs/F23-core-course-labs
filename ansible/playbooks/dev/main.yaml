@@ -1,0 +1,16 @@
+---
+- hosts: all
+  become: true
+  roles:
+  #  - geerlingguy.docker
+    - roles/docker
+    - roles/web_app
+  # post_tasks:
+  #   # below we check results of a role execution, only required for geerlingguy.docker, my role has built-in checks
+  #   - name: Verify docker installation
+  #     command: docker --version
+  #     register: docker_version
+
+  #   - name: Print docker version
+  #     debug:
+  #       msg: "{{ docker_version.stdout }}"
