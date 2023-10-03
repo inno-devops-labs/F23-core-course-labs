@@ -6,7 +6,10 @@
 - Use comments
 - Use dynamic inventory with clouds
 
-ansible-playbook ansible/playbooks/dev/main.yaml --diff
+# Commands output:
+
+* ansible-playbook ansible/playbooks/dev/main.yaml --diff
+```
 [WARNING]: No inventory was parsed, only implicit localhost is available
 [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
 
@@ -72,10 +75,13 @@ changed: [localhost]
 
 PLAY RECAP *****************************************************************************************************************************************************************************************************************************
 localhost                  : ok=7    changed=1    unreachable=0    failed=0    skipped=10   rescued=0    ignored=0   
+```
 
 
 
-ansible-inventory -i ansible/inventory/default_aws_ec2.yml --list
+* ansible-inventory -i ansible/inventory/default_aws_ec2.yml --list
+
+```
 [WARNING]:  * Failed to parse /home/irina/PycharmProjects/core-course-labs/ansible/inventory/default_aws_ec2.yml with auto plugin: inventory config '/home/irina/PycharmProjects/core-course-
 labs/ansible/inventory/default_aws_ec2.yml' specifies unknown plugin 'yacloud_compute'
 [WARNING]:  * Failed to parse /home/irina/PycharmProjects/core-course-labs/ansible/inventory/default_aws_ec2.yml with yaml plugin: Plugin configuration YAML file, not YAML inventory
@@ -93,4 +99,6 @@ provide a port.
         ]
     }
 }
+```
+
 
