@@ -1,0 +1,7 @@
+---
+- name: Run app_python:latest
+  docker_container:
+    name: app_python
+    image: bobievnodir/app_python:latest
+    ports:
+      - "5000:5000"
