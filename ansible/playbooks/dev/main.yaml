@@ -1,6 +1,7 @@
 - name: Dev
-  hosts: all
+  gather_facts: no
+  hosts: localhost
   connection: local
   become: true
   roles:
-    - docker
+    - ansible/roles/docker
