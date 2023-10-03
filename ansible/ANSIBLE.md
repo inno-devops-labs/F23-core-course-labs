@@ -125,6 +125,9 @@ PLAY [My docker role] **********************************************************
 TASK [Gathering Facts] *****************************************************************************************************************************************************************************************
 ok: [51.250.43.196]
 
+TASK [docker : Install pip] ************************************************************************************************************************************************************************************
+ok: [51.250.43.196]
+
 TASK [docker : Include install_docker] *************************************************************************************************************************************************************************
 included: /Users/klemencya/Documents/core-course-labs/ansible/roles/docker/tasks/install_docker.yml for 51.250.43.196
 
@@ -138,6 +141,59 @@ TASK [docker : Install docker-compose] *****************************************
 ok: [51.250.43.196]
 
 PLAY RECAP *****************************************************************************************************************************************************************************************************
-51.250.43.196        : ok=5    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+51.250.43.196        : ok=6    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 
 ```
+
+
+### AWS Dynamic inventory
+
+I enabled VPN and configured dynamic inventory via amazon.aws.aws_ec2 plugin.
+Also, to enable it I configured my environment variables `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`.
+
+And to check it I used `ansible-inventory` command again but with new config:
+`ansible-inventory -i inventory/default_aws_ec2.yml --graph`
+```
+@all:
+  |--@ungrouped:
+  |--@aws_ec2:
+  |  |--ec2-34-209-241-33.us-west-2.compute.amazonaws.com
+```
+It shows my instance on AWS:
+![img.png](resources/img.png)
+
+`ansible-playbook -i inventory/default_aws_ec2.yml playbooks/dev/my-docker.yaml`
+
+
+To use it I also had to add my new ssh keypair I generated in AWS via:
+`ssh-add ~/.ssh/aws-rita.pem`
+
+
+`ansible-playbook -i inventory/default_aws_ec2.yml playbooks/dev/my-docker.yaml`
+``` 
+PLAY [My docker role] ******************************************************************************************************************************************************************************************
+
+TASK [Gathering Facts] *****************************************************************************************************************************************************************************************
+ok: [ec2-54-218-184-212.us-west-2.compute.amazonaws.com]
+
+TASK [docker : Install pip] ************************************************************************************************************************************************************************************
+ok: [ec2-54-218-184-212.us-west-2.compute.amazonaws.com]
+
+TASK [docker : Include install_docker] *************************************************************************************************************************************************************************
+included: /Users/klemencya/Documents/core-course-labs/ansible/roles/docker/tasks/install_docker.yml for ec2-54-218-184-212.us-west-2.compute.amazonaws.com
+
+TASK [docker : Install docker] *********************************************************************************************************************************************************************************
+ok: [ec2-54-218-184-212.us-west-2.compute.amazonaws.com]
+
+TASK [docker : Include install_compose] ************************************************************************************************************************************************************************
+included: /Users/klemencya/Documents/core-course-labs/ansible/roles/docker/tasks/install_compose.yml for ec2-54-218-184-212.us-west-2.compute.amazonaws.com
+
+TASK [docker : Install docker-compose] *************************************************************************************************************************************************************************
+ok: [ec2-54-218-184-212.us-west-2.compute.amazonaws.com]
+
+PLAY RECAP *****************************************************************************************************************************************************************************************************
+ec2-54-218-184-212.us-west-2.compute.amazonaws.com : ok=6    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+```
+
+And after this I have docker-compose installed on my instance:
+![img_1.png](resources/img_1.png)

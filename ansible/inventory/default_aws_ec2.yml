@@ -1,2 +1,4 @@
-[myhosts]
-51.250.43.196
+plugin: amazon.aws.aws_ec2
+regions:
+- us-west-2
+user: ubuntu
