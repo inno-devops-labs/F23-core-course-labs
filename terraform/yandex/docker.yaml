@@ -1,0 +1,7 @@
+spec:
+  containers:
+  - image: amoriodi/app_python:latest
+    securityContext:
+      privileged: false
+    stdin: false
+    tty: true
