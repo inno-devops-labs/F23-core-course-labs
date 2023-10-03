@@ -1,0 +1,9 @@
+- name: install docker
+  apt:
+    name:
+      - docker-ce={{ docker_version }}
+      - docker-ce-cli={{ docker_version }}
+      - containerd.io
+      - docker-buildx-plugin
+      - docker-compose-plugin
+    state: present

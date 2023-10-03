@@ -1,0 +1,6 @@
+---
+- name: deploy
+  hosts: localhost
+  become: true
+  roles:
+    - docker
