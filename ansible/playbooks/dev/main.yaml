@@ -1,0 +1,10 @@
+---
+- name: Ansible playbook for deploying Docker
+  hosts: all
+
+  vars:
+    pip_install_packages:
+      - name: docker
+
+  roles:
+    - geerlingguy.docker
