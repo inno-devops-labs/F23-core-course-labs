@@ -1,0 +1,4 @@
+- hosts: vk-cloud
+  roles:
+    - role: 'roles/docker'
+  become: true
