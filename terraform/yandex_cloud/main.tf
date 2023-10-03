@@ -43,6 +43,6 @@ resource "yandex_compute_instance" "default" {
   }
 
   metadata = {
-    ssh-keys = "ubuntu:${file("~/.ssh/id_rsa.pub")}"
+    ssh-keys = "root:${file("~/.ssh/id_ed25519-cloud.pub")}"
   }
 }
