@@ -6,6 +6,38 @@
 * Good naming of tasks.
 * Using version control. Keeping your playbooks and inventory file in git.
 
+## Task 1:
+```
+become-pass
+BECOME password: 
+
+PLAY [Playbook with existing Ansible role] *****************************************************************************
+
+TASK [Gathering Facts] *************************************************************************************************
+ok: [localhost]
+
+TASK [docker : include_tasks] ******************************************************************************************
+included: /home/ilya/Документы/DevOps/core-course-labs/ansible/roles/docker/tasks/install_pip.yml for localhost
+
+TASK [docker : Install pip] ********************************************************************************************
+ok: [localhost]
+
+TASK [docker : include_tasks] ******************************************************************************************
+included: /home/ilya/Документы/DevOps/core-course-labs/ansible/roles/docker/tasks/install_docker.yml for localhost
+
+TASK [docker : Install docker] *****************************************************************************************
+changed: [localhost]
+
+TASK [docker : include_tasks] ******************************************************************************************
+included: /home/ilya/Документы/DevOps/core-course-labs/ansible/roles/docker/tasks/install_compose.yml for localhost
+
+TASK [docker : Install Docker Compose] *********************************************************************************
+changed: [localhost]
+
+PLAY RECAP *************************************************************************************************************
+localhost                  : ok=7    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+```
+
 ```
 PLAY [Deploy Docker] ************************************************************************************************************************************
 
