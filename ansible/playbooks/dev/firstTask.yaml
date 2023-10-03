@@ -1,0 +1,6 @@
+---
+- name: First Task
+  hosts: all  
+  become: yes
+  roles:
+    - geerlingguy.docker

@@ -1,0 +1,6 @@
+---
+- name: Second Task
+  hosts: all
+  become: yes
+  roles:
+    - docker
