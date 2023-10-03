@@ -1,0 +1,15 @@
+- name: Install dependencies
+  become: true
+  apt:
+    name: "{{ docker_compose_dependencies }}"
+    update_cache: yes
+
+- name: Install pip dependencies
+  ansible.builtin.pip:
+    name:  setuptools-rust
+    state: latest
+
+- name: Install docker-compose via pip
+  ansible.builtin.pip:
+    name: docker-compose=={{pip_docker_compose_version}}
+    state: latest
