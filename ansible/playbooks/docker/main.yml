@@ -1,0 +1,4 @@
+#- name: Install docker on yandex
+#  hosts: yandex
+#  tasks:
+#    - ping:

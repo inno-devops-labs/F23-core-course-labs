@@ -1,0 +1,11 @@
+---
+- name: Install pip
+  apt:
+    name: python3-pip
+
+
+- name: Install docker
+  command: pip3 install docker
+
+- name: Install compose
+  command: pip3 install pip install docker-compose
