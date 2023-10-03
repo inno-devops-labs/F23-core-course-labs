@@ -1,5 +1,5 @@
 - name: Deploy Docker
-  hosts: web_server
+  hosts: all
   become: true
   roles:
     - ../../roles/docker
