@@ -2,4 +2,4 @@ private_key_file_yandex:
   ~/.ssh/id_ed25519-cloud
 
 remote_user_yandex:
-  root
+  ubuntu

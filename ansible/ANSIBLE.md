@@ -89,3 +89,61 @@ Inside the VM:
 root@fhmv4skgn3aa7q3q3kmf:~# docker --version
 Docker version 24.0.6, build ed223bc
 ```
+
+
+# Task 2
+```
+edikgoose@edikgoose-NBLB-WAX9N:~/iu-devops/ansible$ ansible-playbook playbooks/dev/main.yml 
+
+PLAY [Install docker] ********************************************************************************************************
+
+TASK [Gathering Facts] *******************************************************************************************************
+ok: [158.160.107.107]
+
+TASK [../../roles/docker : Ensure old versions of Docker are not installed.] *************************************************
+ok: [158.160.107.107]
+
+TASK [../../roles/docker : include_tasks] ************************************************************************************
+included: /home/edikgoose/iu-devops/ansible/roles/docker/tasks/install_docker.yml for 158.160.107.107
+
+TASK [../../roles/docker : Install packages required by docker] **************************************************************
+ok: [158.160.107.107]
+
+TASK [../../roles/docker : Add docker GPG key] *******************************************************************************
+ok: [158.160.107.107]
+
+TASK [../../roles/docker : Add docker apt repo] ******************************************************************************
+ok: [158.160.107.107]
+
+TASK [../../roles/docker : Install docker] ***********************************************************************************
+ok: [158.160.107.107]
+
+PLAY RECAP *******************************************************************************************************************
+158.160.107.107            : ok=7    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+```
+
+#### `ansible-inventory -i inventory/hosts.yml --list`:
+```
+edikgoose@edikgoose-NBLB-WAX9N:~/iu-devops/ansible$ ansible-inventory -i inventory/hosts.yml --list
+{
+    "_meta": {
+        "hostvars": {
+            "158.160.107.107": {
+                "private_key_file_yandex": "~/.ssh/id_ed25519-cloud",
+                "remote_user_yandex": "ubuntu"
+            }
+        }
+    },
+    "all": {
+        "children": [
+            "ungrouped",
+            "yandexcloudvm"
+        ]
+    },
+    "yandexcloudvm": {
+        "hosts": [
+            "158.160.107.107"
+        ]
+    }
+}
+```

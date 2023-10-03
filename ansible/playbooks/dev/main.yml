@@ -1,9 +1,8 @@
-- hosts: all
-
-  vars:
-    pip_install_packages:
-      - name: docker
-
+---
+- name: Install docker
+  hosts: yandexcloudvm
+  become: true
+  become_method: sudo
   roles:
-    - geerlingguy.pip
-    - geerlingguy.docker
+    - ../../roles/docker
+...
