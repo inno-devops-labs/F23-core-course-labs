@@ -1,0 +1,5 @@
+- name: Prepare docker
+  hosts: vk-cloud
+  become: true
+  roles:
+    - docker
