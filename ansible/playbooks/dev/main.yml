@@ -2,4 +2,4 @@
   hosts: yandex-cloud
   become: true
   roles:
-    - role: geerlingguy.docker
+     - docker
