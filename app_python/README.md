@@ -31,6 +31,26 @@ Then you can check the time in Moscow by visiting `http://127.0.0.1:8000`:
 curl http://127.0.0.1:8000 # "2023-09-05T23:25:40.902380+03:00"
 ```
 
+## Docker
+
+### Build image
+
+```bash
+docker build -t sl1depengwyn/python_devops .
+```
+
+### Or pull
+
+```bash
+docker pull sl1depengwyn/python_devops
+```
+
+### Run image
+
+```bash
+docker run -p 80:80 sl1depengwyn/python_devops
+```
+
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first

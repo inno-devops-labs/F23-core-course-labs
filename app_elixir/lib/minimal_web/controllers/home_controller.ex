@@ -20,8 +20,6 @@ defmodule MinimalWeb.HomeController do
   end
 
   def index(conn, params) do
-    dbg(params)
-    dbg(conn)
     case DateTime.now(conn.cookies["timezone"]) do
       {:ok, time} -> Phoenix.Controller.html(conn, """
       <p>Your time is #{time}</p>
