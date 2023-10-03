@@ -1,6 +1,7 @@
 ---
-- name: Custom Ansible playbook for deploying Docker
-  hosts: devhost
-
+- name: Prepare docker
+  hosts: aws_region_us_west_2
+  remote_user: ubuntu
+  become: yes
   roles:
     - docker

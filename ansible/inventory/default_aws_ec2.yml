@@ -1,0 +1,13 @@
+---
+aws_access_key: AKIAZ57IFNR5PBDKPRZE
+aws_secret_key: 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
+plugin: amazon.aws.aws_ec2
+regions:
+  - us-west-2
+keyed_groups:
+  - key: tags
+    prefix: tag
+  - prefix: instance_type
+    key: instance_type
+  - key: placement.region
+    prefix: aws_region
