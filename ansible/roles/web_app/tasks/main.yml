@@ -1,0 +1,16 @@
+---
+- name: Pull Docker image
+  docker_image:
+    name: rinnatova/docker_lab:latest
+    state: present
+
+- name: Stop and remove the old container
+  docker_container:
+    name: my-docker_container
+    state: absent
+
+- name: Run the new container
+  docker_container:
+    name: my-web-container
+    image: rinnatova/docker_lab:latest
+    state: started
