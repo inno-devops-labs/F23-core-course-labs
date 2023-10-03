@@ -70,3 +70,28 @@ ansible-inventory -i inventory/default_aws_ec2.yml --list
     }
 }
 ```
+
+## Output of inventory using dynamic inventory
+
+```angular2html
+{
+    "_meta": {
+        "hostvars": {
+            "art22m-devops": {
+                "ansible_host": "51.250.20.249"
+            }
+        }
+    },
+    "all": {
+        "children": [
+            "ungrouped",
+            "yacloud"
+        ]
+    },
+    "yacloud": {
+        "hosts": [
+            "art22m-devops"
+        ]
+    }
+}
+```
