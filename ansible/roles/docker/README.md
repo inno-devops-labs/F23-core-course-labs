@@ -6,8 +6,12 @@
 - Docker package dependencies
 - Internet access to download packages
 
+### Pre-install
 
-
+```
+ansible-galaxy install geerlingguy.pip
+ansible-galaxy install geerlingguy.docker
+```
 
 ### Usage:
 
