@@ -20,7 +20,7 @@ TASK [docker : Include install_pip] ********************************************
 included: /mnt/ssd/repos/study/devops/core-course-labs/ansible/roles/docker/tasks/install_pip.yml for yandex_cloud_01
 
 TASK [docker : Update apt repos] ****************************************************************************************************************
-changed: [yandex_cloud_01]
+ok: [yandex_cloud_01]
 
 TASK [docker : Ensure python3 and pip3 are installed] *******************************************************************************************
 ok: [yandex_cloud_01]
@@ -28,14 +28,14 @@ ok: [yandex_cloud_01]
 TASK [docker : Include install_docker] **********************************************************************************************************
 included: /mnt/ssd/repos/study/devops/core-course-labs/ansible/roles/docker/tasks/install_docker.yml for yandex_cloud_01
 
-TASK [docker : Install docker via pip] **********************************************************************************************************
-ok: [yandex_cloud_01]
+TASK [docker : Install docker via apt] **********************************************************************************************************
+changed: [yandex_cloud_01]
 
 TASK [docker : Include install_compose] *********************************************************************************************************
 included: /mnt/ssd/repos/study/devops/core-course-labs/ansible/roles/docker/tasks/install_compose.yml for yandex_cloud_01
 
 TASK [docker : Install docker-compose via pip] **************************************************************************************************
-changed: [yandex_cloud_01]
+ok: [yandex_cloud_01]
 
 TASK [docker : Include check_docker] ************************************************************************************************************
 included: /mnt/ssd/repos/study/devops/core-course-labs/ansible/roles/docker/tasks/check_docker.yml for yandex_cloud_01
@@ -48,7 +48,7 @@ changed: [yandex_cloud_01]
 
 TASK [docker : Display docker version] **********************************************************************************************************
 ok: [yandex_cloud_01] => {
-    "msg": "6.1.3"
+    "msg": "Docker version 24.0.5, build 24.0.5-0ubuntu1~20.04.1"
 }
 
 TASK [docker : Display docker-compose version] **************************************************************************************************
@@ -57,7 +57,7 @@ ok: [yandex_cloud_01] => {
 }
 
 PLAY RECAP **************************************************************************************************************************************
-yandex_cloud_01            : ok=15   changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+yandex_cloud_01            : ok=15   changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 ```
 
 #### Inventory Details

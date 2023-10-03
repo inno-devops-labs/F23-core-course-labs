@@ -15,7 +15,7 @@ The role allows to specify docker and docker-compose versions to be installed
 
 | Variable        | Required | Default |
 | --------------- | -------- | ------- |
-| docker_version  | no       | 6.1.3   |
+| docker_version  | no       | 24.0.5  |
 | compose_version | no       | 1.29.2  |
 
 
