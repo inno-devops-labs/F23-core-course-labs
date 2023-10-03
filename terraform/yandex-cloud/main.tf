@@ -19,8 +19,14 @@ resource "yandex_compute_instance" "my_vm" {
     }
   }
 
+  metadata = {
+    ssh-keys  = "rakavaqaflow:${file("~/.ssh/id_ed25519.pub")}"
+    user-data = "${file("~/devopslabs/core-course-labs/terraform/yandex-cloud/userdata.yml")}"
+  }
+
   network_interface {
     subnet_id = yandex_vpc_subnet.my_subnetwork.id
+    nat       = true
   }
 }
 

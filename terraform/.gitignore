@@ -35,3 +35,4 @@ terraform.rc
 
 # Key data for yandex cloud
 key.json
+userdata.yml
