@@ -1,5 +1,1 @@
-- name: Restart Docker
-  service:
-    name: docker
-    state: "{{ docker_restart_handler_state }}"
-    enabled: yes
+#
