@@ -1,0 +1,3 @@
+- hosts: virtualmachines
+  roles:
+    - geerlingguy.docker
