@@ -1,0 +1,5 @@
+---
+all:
+  hosts:
+    lab-ansible:
+      ansible_host: 89.208.228.192

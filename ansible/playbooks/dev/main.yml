@@ -1,0 +1,8 @@
+---
+- name: VK Cloud config for Lab 5
+  hosts: lab-ansible
+  connection: local
+  become: yes
+  remote_user: ubuntu
+  roles:
+    - docker
