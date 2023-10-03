@@ -5,3 +5,5 @@ vk_cloud/.terraform
 vk_cloud/.terraform.lock.hci
 */**/*.tfstate
 */**/*.backup
+*/**/geerlingguy.docker
+*/**/geerlingguy.pip
