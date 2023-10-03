@@ -4,12 +4,12 @@
     name: "{{ docker_compose_dependencies }}"
     update_cache: yes
 
-- name: Install pip dependencies
+- name: Upgrade pip
   ansible.builtin.pip:
-    name:  setuptools-rust
-    state: latest
+    name:  pip
+    state: forcereinstall
 
 - name: Install docker-compose via pip
   ansible.builtin.pip:
-    name: docker-compose=={{pip_docker_compose_version}}
+    name: "docker-compose=={{pip_docker_compose_version}}"
     state: latest
