@@ -1,4 +1,4 @@
-yandex_vms:
+devopscourse:
   hosts:
     devops-lab-instance.spigin.ru
   vars:

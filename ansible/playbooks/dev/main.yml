@@ -1,5 +1,5 @@
 - name: lab5
-  hosts: yandex_vms
+  hosts: devopscourse
   become: true
   roles:
     - docker_custom

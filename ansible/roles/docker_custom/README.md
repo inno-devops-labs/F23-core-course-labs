@@ -28,3 +28,6 @@ To use this role, include it in your playbook like that:
   roles:
     - docker_custom
 ```
+
+## Dynamic inventory
+If you want to use yandex cloud dynamic inventory, you can add use `yacloud_compute.yml` inventory and you should rename `yacloud_key.example` wirh `yacloud_key` with actual credentials.
