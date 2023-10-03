@@ -1,5 +1,3 @@
-
-
 ## ansible-inventory -i inventory/aws_ec2.yaml --list
 
 ```
@@ -23,5 +21,7 @@
     }
 }
 ```
+
+
 
 
