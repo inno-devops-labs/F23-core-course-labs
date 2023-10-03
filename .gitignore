@@ -3,3 +3,5 @@ terraform/.terraform
 terraform/.terraform.lock.hci
 vk_cloud/.terraform
 vk_cloud/.terraform.lock.hci
+*/**/*.tfstate
+*/**/*.backup
