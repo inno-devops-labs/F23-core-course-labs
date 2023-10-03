@@ -1,0 +1,5 @@
+# Installing Docker using Pip
+- name: Install docker
+  pip:
+    name: docker
+    state: present

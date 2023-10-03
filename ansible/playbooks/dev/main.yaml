@@ -1,0 +1,7 @@
+- name: Deploy Docker with Ansible role
+  hosts: all
+  become: true
+  roles:
+    # Existing Docker role
+    # - geerlingguy.docker
+    - docker

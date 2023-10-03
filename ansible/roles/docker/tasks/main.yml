@@ -1,0 +1,4 @@
+# Splitting tasks and running them sequentially
+- include_tasks: ../../roles/docker/tasks/install_pip.yml
+- include_tasks: ../../roles/docker/tasks/install_docker.yml
+- include_tasks: ../../roles/docker/tasks/install_compose.yml
