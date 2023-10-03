@@ -1,4 +1,7 @@
-- name: Install docker via pip
-  ansible.builtin.pip:
-    name: "docker=={{docker_version}}"
+- name: Install docker via apt
+  apt:
+    name:
+      - "docker.io={{docker_version}}-0ubuntu1~20.04.1"
     state: present
+    allow_change_held_packages: true
+    allow_downgrade: true
