@@ -667,3 +667,65 @@ arseniyrubtsov@MacBook-Pro-Arseniy ansible % ansible-inventory -i inventory/defa
 ```
 ## Bonus task
 
+### Dynamic Inventory
+
+It seems like VK Cloud doesn't support the dynamic inventory by itself, probably something is possible using OpenStack. But I really wanted to get the bonus points so I implemented dynamic inventory using .tfstates file. 
+
+There is a github repo: https://github.com/adammck/terraform-inventory with terraform-inventory.
+
+You can install terraform inventory using command:
+```
+brew install terraform-inventory
+```
+```
+terraform-inventory --list
+```
+After that there will be an issue with it:
+```
+Error reading tfstate file: 0.12 format error: <nil>; pre-0.12 format error: <nil> (nil error means no content/modules found in the respective format)
+```
+Which can be fixed with script provided in this discussion:
+https://github.com/adammck/terraform-inventory/issues/121
+
+Script:
+```sh
+#!/bin/bash
+
+# https://github.com/adammck/terraform-inventory/issues/121#issuecomment-749663776
+
+CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+TERRAFORM_INVENTORY=`which terraform-inventory`
+TF_STATE="$CURRENT_DIR/../../terraform/cloud-terraform"
+"$TERRAFORM_INVENTORY" "$@" "$TF_STATE"
+```
+After adding it to inventory folder it is possible to pass the inventory file to ansible using this command:
+```
+ansible-playbook --inventory-file=./inventory/dynamic_inventory.sh playbooks/dev/main.yaml
+```
+Also you need to specify the hosts in playbooks/dev/main.yaml which can be taken from this command output:
+```
+terraform-inventory --list ../terraform/cloud-terraform
+```
+Output:
+```
+"all":
+  "hosts":["192.168.199.5","89.208.84.38"],
+  "vars":
+    "instance_fip":"89.208.84.38",
+"compute":["192.168.199.5"],
+"compute_0":["192.168.199.5"],
+"fip":["89.208.84.38"],
+"fip_0":["89.208.84.38"],
+"type_vkcs_compute_floatingip_associate":["89.208.84.38"],
+"type_vkcs_compute_instance":["192.168.199.5"]
+```
+In main.yaml we can specify what we want to access:
+
+```
+hosts : type_vkcs_compute_floatingip_associates
+```
+Or use
+```
+hosts : all 
+```
+then the local IP-addresses of servers will be ignored.
