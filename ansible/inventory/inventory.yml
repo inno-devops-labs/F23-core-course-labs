@@ -1,0 +1,8 @@
+all:
+  hosts:
+    vm:
+      ansible_host: localhost
+      ansible_port: 2222
+      ansible_user: xdkomel
+      ansible_ssh_private_key_file: ~/.ssh/id_rsa
+      ansible_become: true
