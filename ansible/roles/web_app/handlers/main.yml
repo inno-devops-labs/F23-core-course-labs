@@ -1,4 +1,0 @@
-- name: Restart Web Application
-      docker_container:
-        name: web_app_container
-        state: restarted

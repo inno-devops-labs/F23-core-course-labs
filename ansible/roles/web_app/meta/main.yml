@@ -1,2 +1,0 @@
-dependencies:
-  - { role: docker, some_other_options: value }
