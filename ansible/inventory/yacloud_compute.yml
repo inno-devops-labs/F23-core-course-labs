@@ -1,0 +1,6 @@
+plugin: yacloud_compute
+cache: true
+cache_timeout: 5600
+cache_plugin: ansible.builtin.jsonfile
+yacloud_token_file: keystore/cloud
+cache_connection: temp/yacloud_inventory

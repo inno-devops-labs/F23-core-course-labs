@@ -1,0 +1,26 @@
+---
+- name: custom docker role
+  tags: [docker]
+  block:
+    - name: Apt update and install docker
+      become: true
+      ansible.builtin.apt:
+        update_cache: true
+        name: docker
+
+    - name: Install docker-compose package using pip
+      become: true
+      ansible.builtin.import_role:
+        name: geerlingguy.pip
+      vars:
+        pip_install_packages:
+          - name: docker-compose
+
+    - name: geerlingguy.docker
+      become: true
+      vars:
+        docker_install_compose: false
+        docker_install_compose_plugin: false
+        docker_users: [ubuntu]
+      ansible.builtin.import_role:
+        name: geerlingguy.docker

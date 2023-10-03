@@ -51,7 +51,7 @@ resource "yandex_compute_instance" "default" {
 
   metadata = {
     serial-port-enable = 1
-    ssh-keys           = "ubuntu:${file("~/.ssh/authorized_keys.pub")}"
+    ssh-keys           = "ubuntu:${file("~/.ssh/vmKey.pub")}"
   }
 }
 

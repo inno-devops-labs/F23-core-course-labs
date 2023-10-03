@@ -1,0 +1,5 @@
+- name: ansibleLab5
+  hosts: all
+  become: true
+  roles:
+    - docker
