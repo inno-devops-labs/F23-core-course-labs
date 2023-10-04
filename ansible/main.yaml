@@ -1,0 +1,7 @@
+---
+- name: VK Cloud config
+  hosts: vk_cloud
+  become: true
+  roles:
+    - docker
+    - py_app

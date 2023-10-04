@@ -1,0 +1,6 @@
+---
+- name: Check if docker is present
+  apt:
+    name:
+      - docker
+    state: present
