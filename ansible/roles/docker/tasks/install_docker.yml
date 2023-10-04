@@ -53,3 +53,9 @@
     filename: "{{ docker_apt_filename }}"
     update_cache: true
   when: docker_add_repo | bool
+
+- name: Install docker via pip.
+  pip:
+    name:
+      - docker
+    state: latest
