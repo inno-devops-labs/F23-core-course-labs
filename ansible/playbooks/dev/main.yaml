@@ -1,6 +1,6 @@
 ---
 - name: Deploy Docker
-  hosts: vk-cloud
+  hosts: all
   become: true
   roles:
     - docker
