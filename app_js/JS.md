@@ -37,3 +37,11 @@ docker pull purfreak/lab2_devops:latest-js
 ```bash
 docker run -d -p purfreak/lab2_devops:latest-js
 ```
+
+## Unit Tests
+Unit tests have been written to ensure the application's reliability. I've used the Mocha testing framework along with Chai for assertions. The tests are designed to check the application's main endpoint and ensure it returns the correct response.
+
+To run the tests, use the command:
+```bash
+npm test
+```

@@ -1,3 +1,6 @@
+[![Python CI](https://github.com/purfreak/core-course-labs/actions/workflows/app_python.yaml/badge.svg)](https://github.com/purfreak/core-course-labs/actions/workflows/app_python.yaml)
+[![JS CI](https://github.com/purfreak/core-course-labs/actions/workflows/app_js.yaml/badge.svg)](https://github.com/purfreak/core-course-labs/actions/workflows/app_js.yaml)
+
 # DevOps Engineering Labs
 
 ## Introduction

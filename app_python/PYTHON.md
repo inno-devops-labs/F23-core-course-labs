@@ -55,11 +55,29 @@ FastAPI is an innovative web framework tailored for building APIs with Python. I
 
 ## Implementing testing:
 
-- **separate test file**: by isolating tests from the application logic, the codebase remains tidy,
+### Test steps:
 
-- **use of FastAPI's TestClient**: FastAPI's `TestClient` facilitates the easy testing of FastAPI applications without the need to initiate a real server,
+- **initial request**:
+The test begins by making a GET request to the root endpoint (/).
+It expects a successful response with a status code of 200.
+The response should contain the current time in Moscow.
+- **wait**:
+The test then waits for 2 seconds using the time.sleep(2) function.
+This pause ensures that there's a noticeable difference in time between the two requests.
+- **second request**:
+After the wait, another GET request is made to the root endpoint (/).
+Again, a successful response with a status code of 200 is expected.
+The response should contain the updated current time in Moscow.
+- **assertion**:
+The test finally checks that the Moscow time received in the first response is not equal to the time received in the second response.
+This assertion ensures that the time is updating as expected.
 
-- **time-based testing**: in the `test_display_msk_time`, it's confirmed that the time refreshes with successive requests.
+### Best practices applied:
+- **modularity**: the test is written as a function, making it modular and easy to integrate with testing frameworks like pytest.
+- **assertive testing**: it uses assertions to ensure that the responses from the API are as expected. This includes checking the status code and the content of the response.
+- **time-based testing**: by introducing a delay between requests and then comparing the results, the test ensures that the time functionality of the application is working correctly.
+- **dependency isolation**: the test uses TestClient from fastapi.testclient to simulate requests to the FastAPI application. This means the test doesn't rely on an external server or environment to run, ensuring consistency and reliability.
+- **descriptive variable names**: variables like response1_time and response2_time are named descriptively, making the test easy to read and understand.
 
 ## Ensuring code quality:
 
