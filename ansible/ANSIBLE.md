@@ -72,8 +72,6 @@ changed: [vk-cloud]
 
 PLAY RECAP **********************************************************************************************************************************************************************************************************************************
 vk-cloud                   : ok=15   changed=5    unreachable=0    failed=0    skipped=5    rescued=0    ignored=0
-
-
 ```
 
 
@@ -102,4 +100,23 @@ vk-cloud                   : ok=15   changed=5    unreachable=0    failed=0    s
         ]
     }
 }
+```
+
+## bonus
+
+firstly try to generate dynamic inventory
+
+
+```bash
+❯ terraform-inventory -inventory ../../terraform/cloud/terraform.tfstate
+Error reading tfstate file: 0.12 format error: <nil>; pre-0.12 format error: <nil> (nil error means no content/modules found in the respective format)
+```
+
+Error, searching leads to https://github.com/adammck/terraform-inventory/issues/121
+
+
+
+```bash
+❯ terraform-inventory --list ../../terraform/cloud
+{"all":{"hosts":["192.168.199.8","37.139.35.18"],"vars":{"instance_fip":"37.139.35.18"}},"compute":["192.168.199.8"],"compute_0":["192.168.199.8"],"fip":["37.139.35.18"],"fip_0":["37.139.35.18"],"type_vkcs_compute_floatingip_associate":["37.139.35.18"],"type_vkcs_compute_instance":["192.168.199.8"]}%
 ```
