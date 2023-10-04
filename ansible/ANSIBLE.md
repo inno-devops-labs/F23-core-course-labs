@@ -120,3 +120,5 @@ Error, searching leads to https://github.com/adammck/terraform-inventory/issues/
 ❯ terraform-inventory --list ../../terraform/cloud
 {"all":{"hosts":["192.168.199.8","37.139.35.18"],"vars":{"instance_fip":"37.139.35.18"}},"compute":["192.168.199.8"],"compute_0":["192.168.199.8"],"fip":["37.139.35.18"],"fip_0":["37.139.35.18"],"type_vkcs_compute_floatingip_associate":["37.139.35.18"],"type_vkcs_compute_instance":["192.168.199.8"]}%
 ```
+
+then just run via `ansible-playbook playbooks/dev/main.yaml --diff`
