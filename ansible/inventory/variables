@@ -1,0 +1,2 @@
+[vk_cloud:vars]
+ansible_user=ubuntu
