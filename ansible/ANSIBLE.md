@@ -57,7 +57,7 @@ PLAY RECAP *********************************************************************
 ```
 
 Inventory:
-It looks weird because it's dynamic and not supposed to be used with VK Cloud (details in section of Dynamic Inventory)
+The result was quite strange, most likely due to the fact that I used VK Сloud
 ```
 ❯ ansible-inventory -i inventory/ --list
 {
