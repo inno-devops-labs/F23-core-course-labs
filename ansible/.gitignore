@@ -1,0 +1,3 @@
+fact_cache
+ansible/fact_cache
+*.retry
