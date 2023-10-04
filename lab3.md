@@ -32,12 +32,15 @@ In this lab assignment, you will delve into continuous integration (CI) practice
 
 1. Workflow Enhancements:
    - Add a workflow status badge to your repository for visibility.
+      - In order to add a badge, we need to go to the [action page](https://github.com/lcensies/core-course-labs/actions/workflows/unpyclock.yml) -> `...` -> Create status badge  
    - Dive into best practices for CI workflows and apply them to optimize your existing workflow.
    - Utilize build cache to enhance workflow efficiency.
    - Create a `CI.md` file and document the best practices you've implemented.
 
 2. Implement Snyk Vulnerability Checks:
    - Integrate Snyk into your CI workflow to identify and address vulnerabilities in your projects. You can refer to the [Python example](https://github.com/snyk/actions/tree/master/python-3.8) for guidance.
+      - We need to obtain our Snyk API token [in the snyk account settings](https://app.snyk.io/account)
+
 
 ## Bonus Task
 

@@ -1,5 +1,3 @@
-from flask import request
-import json
 from app_python.config import config
 from datetime import datetime
 
