@@ -83,7 +83,3 @@ I used static inventory (no bonus) and just specifed previously created vm in la
     }
 }
 ```
-
-# It actually works
-(![Alt text](doc/image.png))
-You can access it from [here](http://158.160.122.93:8080/time)

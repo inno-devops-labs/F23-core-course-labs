@@ -1,2 +1,0 @@
-- include_tasks: roles/web_app/tasks/check_deps.yml
-- include_tasks: roles/web_app/tasks/run.yml
