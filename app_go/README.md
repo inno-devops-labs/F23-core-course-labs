@@ -1,5 +1,7 @@
 # Web Application 
 
+[![Go App](https://github.com/NodirBobiev/devops-labs/actions/workflows/app_go.yaml/badge.svg)](https://github.com/NodirBobiev/devops-labs/actions/workflows/app_go.yaml)
+
 The application displays the current date and time, as this is the first lab assignment for the DevOps course at the university
 
 ## Installation
