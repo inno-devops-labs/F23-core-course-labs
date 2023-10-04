@@ -1,4 +1,4 @@
-- hosts: vk_cloud
+- hosts: type_vkcs_compute_floatingip_associate 
   become: true
   roles:
     - role: 'docker'
