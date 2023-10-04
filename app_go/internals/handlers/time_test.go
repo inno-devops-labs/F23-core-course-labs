@@ -13,6 +13,7 @@ import (
 func TestCurrentTime(t *testing.T) {
 	timeZone := "Europe/Moscow"
 	location, err := time.LoadLocation(timeZone)
+
 	if err != nil {
 		t.Errorf("Coudn't load location for: %v", timeZone)
 	}
