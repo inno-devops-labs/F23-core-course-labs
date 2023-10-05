@@ -34,4 +34,4 @@ USER myuser
 EXPOSE 8070
 
 # Run application
-CMD ["/bin/bash"]
+CMD [ "./go_app" ]
