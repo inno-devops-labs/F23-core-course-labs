@@ -1,4 +1,3 @@
----
 - name: Install docker via pip
   # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/pip_module.html#ansible-collections-ansible-builtin-pip-module
   ansible.builtin.pip:
