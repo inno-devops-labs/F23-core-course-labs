@@ -304,3 +304,142 @@ quiner@quiner-MaiBook-X-series:~/innopolis/dev-ops-course-labs/ansible$ ansible-
     }
 }
 ```
+
+## Ansible Docker images deploy
+
+### Ansible deploy python-app
+```shell
+quiner@quiner-MaiBook-X-series:~/innopolis/dev-ops-course-labs/ansible$ ansible-playbook -i inventory/default_local.yml playbooks/dev/app_python/main.yaml -K
+BECOME password: 
+
+PLAY [python_app] ***************************************************************************************************************
+
+TASK [Gathering Facts] **********************************************************************************************************
+ok: [web_server]
+
+TASK [docker : Install pip] *****************************************************************************************************
+included: /home/quiner/innopolis/dev-ops-course-labs/ansible/roles/docker/tasks/pip.yml for web_server
+
+TASK [docker : Update apt] ******************************************************************************************************
+changed: [web_server]
+
+TASK [docker : Install python] **************************************************************************************************
+ok: [web_server]
+
+TASK [docker : Install pip] *****************************************************************************************************
+ok: [web_server]
+
+TASK [docker : Install docker] **************************************************************************************************
+included: /home/quiner/innopolis/dev-ops-course-labs/ansible/roles/docker/tasks/docker.yml for web_server
+
+TASK [docker : Install docker via pip] ******************************************************************************************
+ok: [web_server]
+
+TASK [docker : Install docker-compose] ******************************************************************************************
+included: /home/quiner/innopolis/dev-ops-course-labs/ansible/roles/docker/tasks/docker-compose.yml for web_server
+
+TASK [docker : Install docker-compose via pip] **********************************************************************************
+ok: [web_server]
+
+TASK [web_app : Wipe] ***********************************************************************************************************
+included: /home/quiner/innopolis/dev-ops-course-labs/ansible/roles/web_app/tasks/0-wipe.yml for web_server
+
+TASK [web_app : Check if docker-compose.yml file exists] ************************************************************************
+ok: [web_server]
+
+TASK [web_app : Check if Web App directory exists] ******************************************************************************
+ok: [web_server]
+
+TASK [web_app : Docker Compose remove] ******************************************************************************************
+changed: [web_server]
+
+TASK [web_app : Remove directory /app_python] ***********************************************************************************
+changed: [web_server]
+
+TASK [web_app : Docker-compose deploy] ******************************************************************************************
+included: /home/quiner/innopolis/dev-ops-course-labs/ansible/roles/web_app/tasks/1-deploy.yml for web_server
+
+TASK [web_app : Create directory /app_python] ***********************************************************************************
+changed: [web_server]
+
+TASK [web_app : Generate docker-compose from template] **************************************************************************
+changed: [web_server]
+
+TASK [web_app : Deliver docker-compose] *****************************************************************************************
+changed: [web_server]
+
+RUNNING HANDLER [web_app : Docker Compose restart] ******************************************************************************
+changed: [web_server]
+
+PLAY RECAP **********************************************************************************************************************
+web_server                 : ok=19   changed=7    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+```
+
+### Ansible deploy go-app
+
+```shell
+quiner@quiner-MaiBook-X-series:~/innopolis/dev-ops-course-labs/ansible$ ansible-playbook -i inventory/default_local.yml playbooks/dev/app_go/main.yaml -K
+BECOME password: 
+
+PLAY [go_app] *******************************************************************************************************************
+
+TASK [Gathering Facts] **********************************************************************************************************
+ok: [web_server]
+
+TASK [docker : Install pip] *****************************************************************************************************
+included: /home/quiner/innopolis/dev-ops-course-labs/ansible/roles/docker/tasks/pip.yml for web_server
+
+TASK [docker : Update apt] ******************************************************************************************************
+ok: [web_server]
+
+TASK [docker : Install python] **************************************************************************************************
+ok: [web_server]
+
+TASK [docker : Install pip] *****************************************************************************************************
+ok: [web_server]
+
+TASK [docker : Install docker] **************************************************************************************************
+included: /home/quiner/innopolis/dev-ops-course-labs/ansible/roles/docker/tasks/docker.yml for web_server
+
+TASK [docker : Install docker via pip] ******************************************************************************************
+ok: [web_server]
+
+TASK [docker : Install docker-compose] ******************************************************************************************
+included: /home/quiner/innopolis/dev-ops-course-labs/ansible/roles/docker/tasks/docker-compose.yml for web_server
+
+TASK [docker : Install docker-compose via pip] **********************************************************************************
+ok: [web_server]
+
+TASK [web_app : Wipe] ***********************************************************************************************************
+included: /home/quiner/innopolis/dev-ops-course-labs/ansible/roles/web_app/tasks/0-wipe.yml for web_server
+
+TASK [web_app : Check if docker-compose.yml file exists] ************************************************************************
+ok: [web_server]
+
+TASK [web_app : Check if Web App directory exists] ******************************************************************************
+ok: [web_server]
+
+TASK [web_app : Docker Compose remove] ******************************************************************************************
+changed: [web_server]
+
+TASK [web_app : Remove directory /app_go] ***************************************************************************************
+changed: [web_server]
+
+TASK [web_app : Docker-compose deploy] ******************************************************************************************
+included: /home/quiner/innopolis/dev-ops-course-labs/ansible/roles/web_app/tasks/1-deploy.yml for web_server
+
+TASK [web_app : Create directory /app_go] ***************************************************************************************
+changed: [web_server]
+
+TASK [web_app : Generate docker-compose from template] **************************************************************************
+changed: [web_server]
+
+TASK [web_app : Deliver docker-compose] *****************************************************************************************
+changed: [web_server]
+
+RUNNING HANDLER [web_app : Docker Compose restart] ******************************************************************************
+changed: [web_server]
+
+PLAY RECAP **********************************************************************************************************************
+web_server                 : ok=19   changed=6    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+```
