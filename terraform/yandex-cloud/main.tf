@@ -42,3 +42,24 @@ resource "yandex_compute_instance" "vm_1" {
     nat = true
   }
 }
+
+resource "yandex_compute_instance" "vm_2" {
+  name = "my-vm-2"
+
+  resources {
+    core_fraction = 5
+    cores  = 2
+    memory = 1
+  }
+
+  boot_disk {
+    initialize_params {
+      image_id = data.yandex_compute_image.last_ubuntu.id
+    }
+  }
+
+  network_interface {
+    subnet_id = data.yandex_vpc_subnet.default_a.subnet_id
+    nat = true
+  }
+}

@@ -1,5 +1,9 @@
-output "default_instance_public_ip" {
+output "vm_1_public_ip" {
     value = yandex_compute_instance.vm_1.network_interface[0].nat_ip_address
+}
+
+output "vm_2_public_ip" {
+    value = yandex_compute_instance.vm_2.network_interface[0].nat_ip_address
 }
 
 output "subnet_id" {
