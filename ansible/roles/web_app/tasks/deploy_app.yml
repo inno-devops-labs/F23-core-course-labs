@@ -25,7 +25,7 @@
 
     - name: Run Docker Compose by template
       template:
-        src: docker-compose.yml.j2
+        src: "{{ docker_compose_file }}.j2"
         dest: "{{ docker_compose_file_path }}"
         mode: 0644
       notify: docker_restart_handler
