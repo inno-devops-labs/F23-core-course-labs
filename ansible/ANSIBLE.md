@@ -401,6 +401,10 @@ Output:
 
 ## Task 1 (lab 6)
 
+Command:
+
+`ansible-playbook playbooks/dev/main.yaml --diff`
+
 ```
 PLAY [Deploy docker image] *********************************************************************************************
 
@@ -438,3 +442,77 @@ localhost                  : ok=4    changed=1    unreachable=0    failed=0    s
 
 ## Task 2 (lab 6)
 
+I have such structure of role:
+
+```
+.
+|-- defaults
+|   `-- main.yml
+|-- meta
+|   `-- main.yml
+|-- tasks
+|   |-- wipe_app.yml
+|   |-- stop_app.yml
+|   |-- deploy_app.yml
+|   `-- main.yml
+`-- templates
+    `-- docker-compose.yml.j2
+```
+
+I used `stop_app` task to stop container (in case when I don't need to wipe). `deploy_app` task is used to deploy docker compose.
+
+### Outputs
+
+Command:
+
+`ansible-playbook playbooks/dev/main.yaml --diff`
+
+```
+TASK [web_app : Create directory for my-app] *********************************************************************************************
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+     "path": "/my-app",
+-    "state": "absent"
++    "state": "directory"
+ }
+
+changed: [localhost]
+
+TASK [web_app : Create directory for Docker Compose] *************************************************************************************
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+     "path": "/my-app/docker-compose",
+-    "state": "absent"
++    "state": "directory"
+ }
+
+changed: [localhost]
+
+TASK [web_app : Run Docker Compose by template] ******************************************************************************************
+--- before
++++ after: /root/.ansible/tmp/ansible-local-11072cnw01ff9/tmplfypnnrh/docker-compose.yml.j2
+@@ -0,0 +1,8 @@
++version: '3.8'
++services:
++  my-app:
++    image: "nabiull2020/moscow-time-flask-app:latest"
++    container_name: "my-container"
++    ports:
++      - "8000:8000"
++    restart: unless-stopped
+\ No newline at end of file
+
+changed: [localhost]
+
+RUNNING HANDLER [web_app : Restart Docker Compose] ***************************************************************************************
+changed: [localhost]
+
+PLAY RECAP *******************************************************************************************************************************
+localhost                  : ok=21   changed=8    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+```
+
+## Bonus task (lab 6)
