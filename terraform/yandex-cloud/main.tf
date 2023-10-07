@@ -43,9 +43,9 @@ resource "yandex_compute_instance" "vm_1" {
   }
 
   metadata = {
-    ssh-keys  = "ubuntu:${file("~/.ssh/ya_cloud.pub")}"
-    user-data = "${file("./meta.txt")}"
-    serial-port-enable    = 1
+    ssh-keys           = "ubuntu:${file("~/.ssh/ya_cloud.pub")}"
+    user-data          = "${file("./meta.txt")}"
+    serial-port-enable = 1
   }
 }
 
@@ -70,8 +70,8 @@ resource "yandex_compute_instance" "vm_2" {
   }
 
   metadata = {
-    ssh-keys  = "ubuntu:${file("~/.ssh/ya_cloud.pub")}"
-    user-data = "${file("./meta.txt")}"
-    serial-port-enable    = 1
+    ssh-keys           = "ubuntu:${file("~/.ssh/ya_cloud.pub")}"
+    user-data          = "${file("./meta.txt")}"
+    serial-port-enable = 1
   }
 }
