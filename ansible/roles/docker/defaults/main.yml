@@ -28,4 +28,4 @@ docker_apt_filename: "docker"
 
 # A list of users who will be added to the docker group.
 docker_users:
-  - "{{ ansible_user }}"
+  - ubuntu

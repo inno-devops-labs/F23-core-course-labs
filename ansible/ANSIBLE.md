@@ -169,5 +169,5 @@
 1. To use dynamic inventory for yandex cloud, use the following command:
 
    ```shell
-   ansible-playbook -i inventory/yacloud_compute.py playbooks/dev/main.yaml
+   ansible-playbook -i inventory/yacloud_compute.yml playbooks/dev/main.yaml
    ```
