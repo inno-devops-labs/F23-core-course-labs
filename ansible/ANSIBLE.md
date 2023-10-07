@@ -140,3 +140,34 @@
         }
     }
     ```
+
+## Dynamic inventory
+
+1. Make sure, you put `yacloud_compute.py` file in ansible plugins
+
+1. Check if dynamic inventory works:
+
+   ```shell
+   ansible-inventory -i inventory/yacloud_compute.yml --graph
+   ```
+   
+   Output:
+   ```text
+   @all:
+     |--@ungrouped:
+     |--@yacloud:
+     |  |--my-vm-2
+     |  |--my-vm-1
+   ```
+   
+   If you have problems with it, check if this command contains path to plugin `yacloud_compute.py`:
+   ```shell
+   ansible-config dump | grep DEFAULT_INVENTORY_PLUGIN_PATH
+   ```
+   If output doesn't contain path to the plugin then put this plugin into one of the paths in output.
+
+1. To use dynamic inventory for yandex cloud, use the following command:
+
+   ```shell
+   ansible-playbook -i inventory/yacloud_compute.py playbooks/dev/main.yaml
+   ```
