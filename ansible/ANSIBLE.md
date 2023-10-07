@@ -16,6 +16,12 @@
 
 - Using defaults to store variables.
 
+- Using tags
+
+- Using blocks
+
+- Using templates
+
 ## Task 2 (lab 5)
 
 ### Deployment
@@ -516,3 +522,83 @@ localhost                  : ok=21   changed=8    unreachable=0    failed=0    s
 ```
 
 ## Bonus task (lab 6)
+
+### Python app
+
+Folder: `ansible/playbooks/app_python`
+
+```
+TASK [web_app : Run Docker Compose by template] ******************************************************************************************
+--- before
++++ after: /root/.ansible/tmp/ansible-local-157714gw1jz57/tmpgddxgwsm/docker-compose.yml.j2
+@@ -0,0 +1,8 @@
++version: '3.8'
++services:
++  python_app:
++    image: "nabiull2020/moscow-time-flask-app:latest"
++    container_name: "python_app"
++    ports:
++      - "8000:8000"
++    restart: unless-stopped
+\ No newline at end of file
+
+changed: [localhost]
+
+RUNNING HANDLER [web_app : Restart Docker Compose] ***************************************************************************************
+changed: [localhost]
+
+PLAY RECAP *******************************************************************************************************************************
+localhost                  : ok=17   changed=4    unreachable=0    failed=0    skipped=5    rescued=0    ignored=0
+```
+
+### C# app
+
+Folder: `ansible/playbooks/app_c#`
+
+```
+TASK [web_app : Create directory for c_sharp_app] ****************************************************************************************
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+     "path": "/c_sharp_app",
+-    "state": "absent"
++    "state": "directory"
+ }
+
+changed: [localhost]
+
+TASK [web_app : Create directory for Docker Compose] *************************************************************************************
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+     "path": "/c_sharp_app/docker-compose",
+-    "state": "absent"
++    "state": "directory"
+ }
+
+changed: [localhost]
+
+TASK [web_app : Run Docker Compose by template] ******************************************************************************************
+--- before
++++ after: /root/.ansible/tmp/ansible-local-23223jegmezf8/tmpz306p59q/docker-compose.yml.j2
+@@ -0,0 +1,8 @@
++version: '3.8'
++services:
++  c_sharp_app:
++    image: "nabiull2020/programmer-profile-asp-net:latest"
++    container_name: "c_sharp_app"
++    ports:
++      - "8080:80"
++    restart: unless-stopped
+\ No newline at end of file
+
+changed: [localhost]
+
+RUNNING HANDLER [web_app : Restart Docker Compose] ***************************************************************************************
+changed: [localhost]
+
+PLAY RECAP *******************************************************************************************************************************
+localhost                  : ok=20   changed=7    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0
+```

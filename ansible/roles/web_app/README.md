@@ -35,3 +35,9 @@ Add role to `roles` in playbook:
 ```
 
 You can find examples in `ansible/playbooks/dev` folder.
+
+## Wipe:
+
+You can wipe application using such flag whe run playbook:
+
+`--tags wipe_web_app`

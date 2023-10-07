@@ -31,6 +31,6 @@
       notify: docker_restart_handler
 
     # - name: Run Docker Compose
-    #   command: docker-compose up -d
+    #   command: docker-compose -p {{ app_name }} up -d
     #   args:
     #     chdir: "{{ docker_compose_path }}"

@@ -20,7 +20,7 @@
       register: compose_file_status
 
     - name: Stop Docker Compose if it exists
-      command: docker-compose stop
+      command: docker-compose -p {{ app_name }} stop
       args:
             chdir: "{{ docker_compose_path }}"
       when: compose_file_status.stat.exists == true

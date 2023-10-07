@@ -20,7 +20,7 @@
     #   when: container_status.exists == true
 
     - name: Remove Docker Compose containers if exists
-      command: docker-compose down
+      command: docker-compose -p {{ app_name }} down --remove-orphans
       args:
             chdir: "{{ docker_compose_path }}"
       when: compose_file_status.stat.exists == true
