@@ -16,7 +16,7 @@
 
 - Using defaults to store variables.
 
-## Task 2
+## Task 2 (lab 5)
 
 ### Deployment
 
@@ -77,7 +77,7 @@ PLAY RECAP *********************************************************************
 localhost                  : ok=11   changed=5    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 ```
 
-### Inventory 
+### Inventory
 
 Command:
 
@@ -108,7 +108,7 @@ Output:
 }
 ```
 
-## Bonus task
+## Bonus task (lab 5)
 
 - 12 Hours to complete the whole assignment
 
@@ -396,3 +396,45 @@ Output:
     }
 }
 ```
+
+---
+
+## Task 1 (lab 6)
+
+```
+PLAY [Deploy docker image] *********************************************************************************************
+
+TASK [Gathering Facts] *************************************************************************************************
+ok: [localhost]
+
+TASK [web_app : Check if container exists] *****************************************************************************
+ok: [localhost]
+
+TASK [web_app : Stop the container if it exists] ***********************************************************************
+skipping: [localhost]
+
+TASK [web_app : Remove the container if it exists] *********************************************************************
+skipping: [localhost]
+
+TASK [web_app : Pull the Docker image] *********************************************************************************
+ok: [localhost]
+
+TASK [web_app : Run the Docker container] ******************************************************************************
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+-    "exists": false,
+-    "running": false
++    "exists": true,
++    "running": true
+ }
+
+changed: [localhost]
+
+PLAY RECAP *************************************************************************************************************
+localhost                  : ok=4    changed=1    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0
+```
+
+## Task 2 (lab 6)
+
