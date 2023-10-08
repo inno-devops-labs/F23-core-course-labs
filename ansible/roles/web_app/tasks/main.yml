@@ -17,9 +17,6 @@
       restart_policy: "always"
       state: started
   
-  - name: Kek
-    command: /bin/false
-  
   rescue:
   - name: Abort on fail to deploy docker image
     fail:
