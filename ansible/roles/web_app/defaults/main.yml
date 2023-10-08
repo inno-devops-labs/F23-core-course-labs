@@ -1,0 +1,6 @@
+docker_container: 'art22m-container'
+docker_image_name: 'art22m/pyapp'
+docker_image_version: 'latest'
+docker_image: "{{ docker_image_name }}:{{ docker_image_version }}"
+internal_port: 8000
+external_port: 8000 

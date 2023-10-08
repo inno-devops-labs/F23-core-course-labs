@@ -95,3 +95,31 @@ ansible-inventory -i inventory/default_aws_ec2.yml --list
     }
 }
 ```
+
+## Outpit of playbook with deploy
+```
+PLAY [Deploy Docker] *****************************************************************************************
+
+TASK [Gathering Facts] ***************************************************************************************
+ok: [vm01]
+
+TASK [web_app : Get info about container] *******************************************************************
+ok: [vm01]
+
+TASK [web_app : Stop the container]
+*************************************************************
+skipping: [vm01]
+
+TASK [web_app : Remove the container]
+***********************************************************
+skipping: [vm01]
+
+TASK [web_app : Pull the Docker image]***********************************************************************
+changed: [vm01]
+
+TASK [web_app : Run the Docker container] ********************************************************************
+changed: [vm01]
+
+PLAY RECAP ***************************************************************************************************
+vm01                       : ok=4    changed=2    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0
+```
