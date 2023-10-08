@@ -171,3 +171,35 @@
    ```shell
    ansible-playbook -i inventory/yacloud_compute.yml playbooks/dev/main.yaml
    ```
+
+## Deploy app_python to Yandex cloud
+
+To deploy app_python application you should use `web_app` role which runs within `app_python` playbook:
+```shell
+ansible-playbook -i inventory/yacloud_compute.yml playbooks/dev/app_python/main.yaml
+```
+
+Output:
+```text
+PLAY [Deploy App Python] ********************************************************************************************
+
+TASK [Gathering Facts] **********************************************************************************************
+ok: [my-vm-2]
+ok: [my-vm-1]
+
+TASK [web_app : Pull application Docker image] **********************************************************************
+changed: [my-vm-2]
+changed: [my-vm-1]
+
+TASK [web_app : Create container] ***********************************************************************************
+changed: [my-vm-2]
+changed: [my-vm-1]
+
+TASK [web_app : Start container] ************************************************************************************
+changed: [my-vm-2]
+changed: [my-vm-1]
+
+PLAY RECAP **********************************************************************************************************
+my-vm-1                    : ok=4    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+my-vm-2                    : ok=4    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+```

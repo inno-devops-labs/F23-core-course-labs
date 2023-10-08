@@ -1,0 +1,19 @@
+---
+- name: Pull application Docker image
+  community.docker.docker_image:
+    name: "{{ app_container_image }}"
+    source: pull
+
+- name: Create container
+  community.docker.docker_container:
+    name: "{{ app_container_name }}"
+    image: "{{ app_container_image }}"
+    state: present
+
+- name: Start container
+  community.docker.docker_container:
+    name: "{{ app_container_name }}"
+    image: "{{ app_container_image }}"
+    state: started
+    ports:
+      - "8000:8000"

@@ -1,0 +1,2 @@
+app_container_image: "yesliesnayder/app_python:1.0.3"
+app_container_name: app_python
