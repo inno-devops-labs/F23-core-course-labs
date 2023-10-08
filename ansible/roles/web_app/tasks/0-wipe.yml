@@ -1,6 +1,8 @@
 ---
 - name: Wipe application
-  tags: never
+  tags:
+    - never
+    - web_app_wipe_container
   when: web_app_full_wipe|bool
   block:
     - name: Stop and Delete the container
@@ -15,10 +17,7 @@
   block:
     - name: Tear down existing services
       community.docker.docker_compose:
-        project_src: docker-compose.yml
+        project_src: ./
+        files:
+          - docker-compose.yml
         state: absent
-      register: output
-
-    - name: Show results
-      ansible.builtin.debug:
-        var: output
