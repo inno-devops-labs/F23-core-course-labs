@@ -1,5 +1,6 @@
 # Include all tasks into one to perform the job
 - name: Install dependencies
+  tags: dependencies
   block:
     - name: Include install_pip
       ansible.builtin.include_tasks:

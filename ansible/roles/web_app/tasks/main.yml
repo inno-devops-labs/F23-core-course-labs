@@ -1,11 +1,13 @@
 - name: Deploy docker image
   block:
   - name: Pull docker image
+    tags: pull
     community.docker.docker_image:
       name: "{{docker_image}}"
       source: pull
 
   - name: Deploy app container
+    tags: deploy
     community.docker.docker_container:
       name: "{{container_name}}"
       image: "{{docker_image}}"
