@@ -1,8 +1,9 @@
 app_container_image: "yesliesnayder/app_python"
 app_container_image_tag: ":1.0.3"
 app_container_name: app_python
+service_name: "{{ app_container_name }}"
 
-container_port_in: 8000
-container_port_out: 8000
+app_container_ports:
+  - "8000:8000"
 
 web_app_full_wipe: false

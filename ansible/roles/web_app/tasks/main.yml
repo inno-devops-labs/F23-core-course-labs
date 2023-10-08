@@ -1,6 +1,6 @@
 ---
 - name: Pull image, create and start container of the application
-  tags: web_app_run
+  tags: never
   block:
     - name: Pull application Docker image
       community.docker.docker_image:
@@ -14,6 +14,28 @@
         state: started
         ports:
           - "{{ container_port_out }}:{{ container_port_in }}"
+
+- name: Create and Start container using Docker Compose
+  tags: web_app_run
+  block:
+    - name: Create Docker Compose file
+      template:
+        src: docker-compose.yml.j2
+        dest: docker-compose.yml
+
+    - name: Create and Start the container
+      community.docker.docker_compose:
+        project_src: docker-compose.yml
+      register: output
+
+    - name: Show results
+      ansible.builtin.debug:
+        var: output
+
+    - name: Verify that web_app is running
+      ansible.builtin.assert:
+        that:
+          - "output.services.{{ service_name }}.state.running"
 
 - include_tasks: 0-wipe.yml
   tags: web_app_wipe
