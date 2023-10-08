@@ -1,0 +1,16 @@
+- name: Pull docker image
+  community.docker.docker_image:
+    name: "{{docker_image}}"
+    source: pull
+
+- name: Deploy app container
+  community.docker.docker_container:
+    name: "{{container_name}}"
+    image: "{{docker_image}}"
+    ports:
+      - "{{web_app_port}}:{{web_app_port}}"
+    publish_all_ports: true
+    recreate: true
+    restart: true
+    restart_policy: "always"
+    state: started
