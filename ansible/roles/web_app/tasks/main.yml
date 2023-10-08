@@ -1,19 +1,19 @@
 ---
-- name: Pull application Docker image
-  community.docker.docker_image:
-    name: "{{ app_container_image }}"
-    source: pull
+- name: Pull image, create and start container of the application
+  tags: web_app_run
+  block:
+    - name: Pull application Docker image
+      community.docker.docker_image:
+        name: "{{ app_container_image }}{{ app_container_image_tag }}"
+        source: pull
 
-- name: Create container
-  community.docker.docker_container:
-    name: "{{ app_container_name }}"
-    image: "{{ app_container_image }}"
-    state: present
+    - name: Create and Start the container
+      community.docker.docker_container:
+        name: "{{ app_container_name }}"
+        image: "{{ app_container_image }}{{ app_container_image_tag }}"
+        state: started
+        ports:
+          - "{{ container_port_out }}:{{ container_port_in }}"
 
-- name: Start container
-  community.docker.docker_container:
-    name: "{{ app_container_name }}"
-    image: "{{ app_container_image }}"
-    state: started
-    ports:
-      - "8000:8000"
+- include_tasks: 0-wipe.yml
+  tags: web_app_wipe

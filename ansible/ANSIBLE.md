@@ -181,25 +181,54 @@ ansible-playbook -i inventory/yacloud_compute.yml playbooks/dev/app_python/main.
 
 Output:
 ```text
-PLAY [Deploy App Python] ********************************************************************************************
+...
+TASK [docker : include_tasks] ***************************************************************************************
+included: /home/yesliesnayder/PycharmProjects/devops-course-labs/ansible/roles/docker/tasks/install_compose.yml for my-vm-2, my-vm-1
 
-TASK [Gathering Facts] **********************************************************************************************
+TASK [docker : Check current docker-compose version.] ***************************************************************
+ok: [my-vm-1]
+ok: [my-vm-2]
+
+TASK [docker : set_fact] ********************************************************************************************
 ok: [my-vm-2]
 ok: [my-vm-1]
 
+TASK [docker : Delete existing docker-compose version if it's different.] *******************************************
+skipping: [my-vm-2]
+skipping: [my-vm-1]
+
+TASK [docker : Install Docker Compose (if configured).] *************************************************************
+skipping: [my-vm-2]
+skipping: [my-vm-1]
+
+TASK [docker : Get docker group info using getent.] *****************************************************************
+ok: [my-vm-1]
+ok: [my-vm-2]
+
+TASK [docker : Ensure docker users are added to the docker group.] **************************************************
+ok: [my-vm-1] => (item=ubuntu)
+ok: [my-vm-2] => (item=ubuntu)
+
+TASK [docker : Reset ssh connection to apply user changes.] *********************************************************
+
+TASK [docker : Reset ssh connection to apply user changes.] *********************************************************
+
 TASK [web_app : Pull application Docker image] **********************************************************************
-changed: [my-vm-2]
-changed: [my-vm-1]
+ok: [my-vm-2]
+ok: [my-vm-1]
 
-TASK [web_app : Create container] ***********************************************************************************
-changed: [my-vm-2]
+TASK [web_app : Create and Start the container] *********************************************************************
 changed: [my-vm-1]
+changed: [my-vm-2]
 
-TASK [web_app : Start container] ************************************************************************************
-changed: [my-vm-2]
-changed: [my-vm-1]
+TASK [web_app : include_tasks] **************************************************************************************
+included: /home/yesliesnayder/PycharmProjects/devops-course-labs/ansible/roles/web_app/tasks/0-wipe.yml for my-vm-2, my-vm-1
+
+TASK [web_app : Stop and Delete the container] **********************************************************************
+skipping: [my-vm-2]
+skipping: [my-vm-1]
 
 PLAY RECAP **********************************************************************************************************
-my-vm-1                    : ok=4    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
-my-vm-2                    : ok=4    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+my-vm-1                    : ok=18   changed=1    unreachable=0    failed=0    skipped=5    rescued=0    ignored=0   
+my-vm-2                    : ok=18   changed=1    unreachable=0    failed=0    skipped=5    rescued=0    ignored=0   
 ```
