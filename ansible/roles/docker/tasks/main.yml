@@ -31,6 +31,8 @@
 
 - include_tasks: install_compose.yml
 
+- include_tasks: install_docker_python.yml
+
 - name: Get docker group info using getent.
   getent:
     database: group
