@@ -1,6 +1,7 @@
-- name: Task2
+- name: Lab 6
   become: yes
   hosts:
     yandex
   roles:
     - docker
+    - web_app

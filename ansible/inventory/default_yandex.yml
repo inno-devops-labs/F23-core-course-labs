@@ -1,5 +1,0 @@
-yandex:
-  hosts:
-    main:
-      ansible_host: 51.250.29.149
-      ansible_user: wiirtex

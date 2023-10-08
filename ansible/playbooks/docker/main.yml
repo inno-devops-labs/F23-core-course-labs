@@ -1,4 +1,6 @@
-#- name: Install docker on yandex
-#  hosts: yandex
-#  tasks:
-#    - ping:
+- name: Task2
+  become: yes
+  hosts:
+    yandex
+  roles:
+    - docker
