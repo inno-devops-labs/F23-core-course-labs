@@ -180,3 +180,58 @@ It looks weird because it's dynamic and not supposed to be used with VK Cloud (d
 For VK Cloud it was a challenging task since all manuals for OpenStack (FYI: VK Cloud partially complies with OpenStack) are weird and overcomplicated.
 
 For generation of dynamic inventory I used [terraform-inventory](https://github.com/adammck/terraform-inventory). 
+
+## Deploy using docker-compose role
+Logs:
+```
+ok: [[IP EXPUNGED]]
+
+TASK [docker : include_tasks] **************************************************
+included: /home/kinjalik/core-course-labs/ansible/roles/docker/tasks/deps.yaml for [IP EXPUNGED]
+
+TASK [docker : Ensure dependencies are installed.] *****************************
+ok: [[IP EXPUNGED]]
+
+TASK [docker : include_tasks] **************************************************
+included: /home/kinjalik/core-course-labs/ansible/roles/docker/tasks/repo.yaml for [IP EXPUNGED]
+
+TASK [docker : Install keys] ***************************************************
+ok: [[IP EXPUNGED]]
+
+TASK [docker : Add docker repo] ************************************************
+ok: [[IP EXPUNGED]]
+
+TASK [docker : include_tasks] **************************************************
+included: /home/kinjalik/core-course-labs/ansible/roles/docker/tasks/install.yaml for [IP EXPUNGED]
+
+TASK [docker : Ensure unnecessary, unofficial or old packages are removed] *****
+ok: [[IP EXPUNGED]]
+
+TASK [docker : Install docker] *************************************************
+ok: [[IP EXPUNGED]]
+
+TASK [docker : Install pip packets] ********************************************
+ok: [[IP EXPUNGED]]
+
+TASK [web_app : Install application] *******************************************
+included: /home/kinjalik/core-course-labs/ansible/roles/web_app/tasks/run.yaml for [IP EXPUNGED]
+
+TASK [web_app : Create a directory if it does not exist] ***********************
+changed: [[IP EXPUNGED]]
+
+TASK [web_app : Create docker-compose] *****************************************
+changed: [[IP EXPUNGED]]
+
+TASK [web_app : Run application] ***********************************************
+changed: [[IP EXPUNGED]]
+
+TASK [web_app : Wipe appliction] ***********************************************
+skipping: [[IP EXPUNGED]]
+
+PLAY RECAP *********************************************************************
+[IP EXPUNGED]             : ok=28   changed=6    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0   
+
+
+EXIT NOTICE [Playbook execution success] **************************************
+===============================================================================
+```

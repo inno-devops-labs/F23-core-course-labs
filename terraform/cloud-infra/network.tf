@@ -29,7 +29,7 @@ resource "vkcs_networking_secgroup" "secgroup" {
   description = "terraform security group"
 }
 
-resource "vkcs_networking_secgroup_rule" "secgroup_rule_1" {
+resource "vkcs_networking_secgroup_rule" "secgroup_rule_ssh" {
   direction         = "ingress"
   ethertype         = "IPv4"
   port_range_max    = 22
@@ -37,14 +37,24 @@ resource "vkcs_networking_secgroup_rule" "secgroup_rule_1" {
   protocol          = "tcp"
   remote_ip_prefix  = "0.0.0.0/0"
   security_group_id = vkcs_networking_secgroup.secgroup.id
-  description       = "secgroup_rule_1"
+  description       = "secgroup_rule_ssh"
 }
 
-resource "vkcs_networking_secgroup_rule" "secgroup_rule_2" {
+resource "vkcs_networking_secgroup_rule" "secgroup_rule_python_app" {
   direction         = "ingress"
   ethertype         = "IPv4"
   port_range_max    = 8000
   port_range_min    = 8000
+  remote_ip_prefix  = "0.0.0.0/0"
+  protocol          = "tcp"
+  security_group_id = vkcs_networking_secgroup.secgroup.id
+}
+
+resource "vkcs_networking_secgroup_rule" "secgroup_rule_kotlin-native" {
+  direction         = "ingress"
+  ethertype         = "IPv4"
+  port_range_max    = 8080
+  port_range_min    = 8080
   remote_ip_prefix  = "0.0.0.0/0"
   protocol          = "tcp"
   security_group_id = vkcs_networking_secgroup.secgroup.id

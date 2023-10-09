@@ -1,15 +1,18 @@
 # Web App Role
-This role install web application to the target
+This role install web application with given docker image onto the host
 
 ## Requirements:
-- Docker installed on target
+- Docker role available
 
 ## How to user:
-Just use the role, no extra actions required
 ```main.yaml
 - name: Example of usage the role
   hosts: all
   become: true
   roles:
-    - web_app
+    - role: web_app
+      image: ubuntu:latest
+      ports:
+        - 1337:322
+        - 2000:3000
 ```

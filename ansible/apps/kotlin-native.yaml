@@ -1,0 +1,10 @@
+---
+- name: Deploy Kotlin Native app
+  hosts: vk_cloud
+  become: true
+  roles:
+    - role: web_app
+      image: kinjalik/devops-course-app:kotlin-native
+      ports:
+        - "8080:8080"
+    

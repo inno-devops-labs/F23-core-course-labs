@@ -1,0 +1,10 @@
+---
+- name: Deploy Python app
+  hosts: vk_cloud
+  become: true
+  roles:
+    - role: web_app
+      image: kinjalik/devops-course-app:python
+      ports:
+        - "8000:8000"
+    
