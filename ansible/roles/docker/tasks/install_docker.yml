@@ -18,4 +18,8 @@
     state: "{{ docker_packages_state }}"
     name: "{{ docker_packages }}"
   notify: Restart docker
+
+- name: Install 'Docker SDK for Python'
+  pip:
+    name: docker
 ...

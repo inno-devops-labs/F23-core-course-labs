@@ -1,0 +1,8 @@
+---
+- name: Web App role
+  block:
+    - name: Pull container
+      include_tasks: pull_container.yml
+    - name: Run container
+      include_tasks: run_container.yml
+...
