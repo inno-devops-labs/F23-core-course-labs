@@ -4,5 +4,12 @@
   become: true
   become_method: sudo
   roles:
-    - ../../roles/docker
+    - docker
+
+- name: Deploy dockerized app
+  hosts: all
+  become: true
+  become_method: sudo
+  roles:
+    - web_app
 ...

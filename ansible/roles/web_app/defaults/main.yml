@@ -1,0 +1,6 @@
+---
+docker_image_name: edikgoose/moscow-time-app
+docker_image_tag: latest
+
+docker_container_name: moscow-time-app
+...
