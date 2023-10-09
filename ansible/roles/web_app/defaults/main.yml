@@ -1,6 +1,12 @@
 ---
 docker_image_name: edikgoose/moscow-time-app
 docker_image_tag: latest
-
 docker_container_name: moscow-time-app
+
+internal_port: 80
+external_port: 8080
+
+web_app_full_wipe: false
+
+app_name: moscow-time-app
 ...

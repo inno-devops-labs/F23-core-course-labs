@@ -5,5 +5,5 @@
     image: "{{ docker_image_name }}:{{ docker_image_tag }}"
     state: started
     ports:
-      - "8080:80"
+      - "{{ internal_port }} : {{ external_port }}"
 ...
