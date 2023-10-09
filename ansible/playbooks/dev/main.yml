@@ -1,7 +1,7 @@
 ---
 - name: Prepare docker
-  hosts: ec2-35-86-141-140.us-west-2.compute.amazonaws.com
-  remote_user: ec2-user
+  hosts: ec2-34-216-21-217.us-west-2.compute.amazonaws.com
   become: yes
+  remote_user: ubuntu
   roles:
     - role: 'roles/docker'
