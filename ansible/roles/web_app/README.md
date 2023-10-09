@@ -1,4 +1,12 @@
-It's role for deploying dockerized web app using docker compose. It consists of:
+### It's role for deploying dockerized web app using docker compose. 
+
+It has two additional tags:
+- **wipe** - to clear docker container and all related file (example: `ansible-playbook playbooks/dev/app_python/main.yml --tags wipe`)
+- **deploy** - to deploy your app
+
+Also you can set "web_app_full_wipe: false" to disable default wiping
+
+Role consists of:
 
 1. Tasks:
     1. main.yml - consists of delegated wipe and deploy steps
