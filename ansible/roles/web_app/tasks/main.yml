@@ -2,10 +2,8 @@
 - name: Deploy web app docker container
   tags: deploy
   block:
-    - name: Remove container
+    - name: Wipe web app
       include_tasks: wipe_web_app.yml
-    - name: Pull image
-      include_tasks: pull_image.yml
-    - name: Run container
-      include_tasks: run_container.yml
+    - name: Deploy web app
+      include_tasks: deliver_docker_compose_file.yml
 ...
