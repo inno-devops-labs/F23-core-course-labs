@@ -1,8 +1,7 @@
-- hosts: all
-  vars:
-    pip_install_packages:
-      - name: docker
+- name: Deploy web app
+  hosts: all
+  remote_user: ubuntu
 
   roles:
-    - { role: geerlingguy.pip, become: yes }
-    - { role: geerlingguy.docker, become: yes }
+    - { role: docker, become: yes }
+    - { role: web_app, become: yes }

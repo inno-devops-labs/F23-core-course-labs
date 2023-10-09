@@ -197,3 +197,38 @@ ec2-54-218-184-212.us-west-2.compute.amazonaws.com : ok=6    changed=0    unreac
 
 And after this I have docker-compose installed on my instance:
 ![img_1.png](resources/img_1.png)
+
+
+## Deploy web app via docker 
+
+`ansible-playbook -i inventory/default_aws_ec2.yml playbooks/dev/main.yaml` 
+```
+PLAY [Deploy web app] ******************************************************************************************************************************************************************************************
+
+TASK [Gathering Facts] *****************************************************************************************************************************************************************************************
+ok: [ec2-35-89-76-157.us-west-2.compute.amazonaws.com]
+
+TASK [docker : Install pip] ************************************************************************************************************************************************************************************
+included: /Users/klemencya/Documents/core-course-labs/ansible/roles/docker/tasks/install_pip.yml for ec2-35-89-76-157.us-west-2.compute.amazonaws.com
+
+TASK [docker : Install pip] ************************************************************************************************************************************************************************************
+changed: [ec2-35-89-76-157.us-west-2.compute.amazonaws.com]
+
+TASK [docker : Include install_docker] *************************************************************************************************************************************************************************
+included: /Users/klemencya/Documents/core-course-labs/ansible/roles/docker/tasks/install_docker.yml for ec2-35-89-76-157.us-west-2.compute.amazonaws.com
+
+TASK [docker : Install docker] *********************************************************************************************************************************************************************************
+changed: [ec2-35-89-76-157.us-west-2.compute.amazonaws.com]
+
+TASK [docker : Include install_compose] ************************************************************************************************************************************************************************
+included: /Users/klemencya/Documents/core-course-labs/ansible/roles/docker/tasks/install_compose.yml for ec2-35-89-76-157.us-west-2.compute.amazonaws.com
+
+TASK [docker : Install docker-compose] *************************************************************************************************************************************************************************
+ok: [ec2-35-89-76-157.us-west-2.compute.amazonaws.com]
+
+TASK [web_app : Deploy web app] ********************************************************************************************************************************************************************************
+changed: [ec2-35-89-76-157.us-west-2.compute.amazonaws.com]
+
+PLAY RECAP *****************************************************************************************************************************************************************************************************
+ec2-35-89-76-157.us-west-2.compute.amazonaws.com : ok=8    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+```
