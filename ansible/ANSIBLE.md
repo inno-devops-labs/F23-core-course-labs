@@ -7,6 +7,7 @@ Best practices:
 * Do not put secrets into configs
 * Use roles instead of a lot of includes
 
+# Lab 5
 # First task
 
 ```
@@ -183,4 +184,70 @@ edikgoose@edikgoose-NBLB-WAX9N:~/iu-devops/ansible$ ansible-inventory --list
         ]
     }
 }
+```
+
+
+# Lab 6
+```
+ok: [edikgoose-compute-instance]
+
+TASK [docker : Ensure old versions of Docker are not installed.] *************************************************************
+ok: [edikgoose-compute-instance]
+
+TASK [docker : Install docker] ***********************************************************************************************
+included: /home/edikgoose/iu-devops/ansible/roles/docker/tasks/install_docker.yml for edikgoose-compute-instance
+
+TASK [docker : Install packages required by docker] **************************************************************************
+ok: [edikgoose-compute-instance]
+
+TASK [docker : Add docker GPG key] *******************************************************************************************
+ok: [edikgoose-compute-instance]
+
+TASK [docker : Add docker apt repo] ******************************************************************************************
+ok: [edikgoose-compute-instance]
+
+TASK [docker : Install docker] ***********************************************************************************************
+ok: [edikgoose-compute-instance]
+
+TASK [docker : Install 'Docker SDK for Python'] ******************************************************************************
+ok: [edikgoose-compute-instance]
+
+TASK [docker : Install pip] **************************************************************************************************
+included: /home/edikgoose/iu-devops/ansible/roles/docker/tasks/install_pip.yml for edikgoose-compute-instance
+
+TASK [docker : Install pip] **************************************************************************************************
+ok: [edikgoose-compute-instance]
+
+TASK [docker : Install docker_compose] ***************************************************************************************
+included: /home/edikgoose/iu-devops/ansible/roles/docker/tasks/install_docker_compose.yml for edikgoose-compute-instance
+
+TASK [docker : Install Docker Compose] ***************************************************************************************
+ok: [edikgoose-compute-instance]
+
+TASK [web_app : Wipe web app] ************************************************************************************************
+included: /home/edikgoose/iu-devops/ansible/roles/web_app/tasks/wipe_web_app.yml for edikgoose-compute-instance
+
+TASK [web_app : Remove moscow-time-app directory] ****************************************************************************
+changed: [edikgoose-compute-instance]
+
+TASK [web_app : Remove Docker container] *************************************************************************************
+changed: [edikgoose-compute-instance]
+
+TASK [web_app : Remove Docker image] *****************************************************************************************
+changed: [edikgoose-compute-instance]
+
+TASK [web_app : Deploy web app] **********************************************************************************************
+included: /home/edikgoose/iu-devops/ansible/roles/web_app/tasks/deliver_docker_compose_file.yml for edikgoose-compute-instance
+
+TASK [web_app : Create moscow-time-app directory] ****************************************************************************
+changed: [edikgoose-compute-instance]
+
+TASK [web_app : Deliver docker compose file to /home/ubuntu/moscow-time-app] *************************************************
+changed: [edikgoose-compute-instance]
+
+RUNNING HANDLER [web_app : Restart Docker Compose] ***************************************************************************
+changed: [edikgoose-compute-instance]
+
+PLAY RECAP *******************************************************************************************************************
+edikgoose-compute-instance : ok=20   changed=6    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 ```
