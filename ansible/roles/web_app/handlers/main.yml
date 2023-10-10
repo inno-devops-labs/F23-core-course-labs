@@ -1,4 +1,4 @@
----
-- name: restart docker
-  service: "name=docker state={{ docker_restart_handler_state }}"
-  ignore_errors: "{{ ansible_check_mode }}"
+- name: Restart Web Application
+      docker_container:
+        name: web_app_container
+        state: restarted

@@ -1,15 +1,22 @@
 ---
-- name: Pull the Docker image
-  docker_image:
-    name: rinnatova/docker_lab:latest
-    state: present
-  become: yes
+- name: Deploy Dockerized Web Application
+  hosts: localhost
+  become: yes  
 
-- name: Create a Docker container
-  docker_container:
-    name: my-web-app-container
-    image: my-web-app-image:latest
-    state: started
-    ports:
-      - "80:80"  # Assuming your application runs on port 80
-  become: yes
+  tasks:
+    - name: Pull Docker Image
+      docker_image:
+        name: web_app_image 
+        source: pull
+      tags:
+        - deployment
+
+    - name: Run Docker Container
+      docker_container:
+        name: web_app_container
+        image: web_app_image 
+        state: started
+        ports:
+          - "8080:5000"
+      tags:
+        - deployment
