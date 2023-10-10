@@ -3,6 +3,7 @@ FROM elixir:1.14.3-alpine
 RUN addgroup -S app && adduser -S app -G app
 USER app
 ENV PATH /home/app/.local/bin:${PATH}
+ENV MIX_ENV=prod
 
 WORKDIR /app
 
