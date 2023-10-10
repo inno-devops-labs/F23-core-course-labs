@@ -1,0 +1,5 @@
+app_directory: /opt/web_app
+timezone: UTC
+wipe_logic: false
+image: bobievnodir/app_python:latest
+container_name: web_app

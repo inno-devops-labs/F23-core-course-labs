@@ -1,0 +1,9 @@
+version: '3'
+services:
+  web_app:
+    container_name: {{ container_name }}
+    image: {{ image }}
+    ports:
+        - "5000:5000"
+    environment:
+        - TZ={{ timezone }}
