@@ -1,7 +1,7 @@
 
 # Outputs
 
-    ansible-playbook ./playbooks/dev/main.yaml
+    ansible-playbook ./playbooks/dev/app_python/main.yaml
 
     PLAY [health check] ********************************************************************************************************************************************************
 
