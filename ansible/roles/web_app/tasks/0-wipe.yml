@@ -1,0 +1,25 @@
+---
+- name: Wipe Web App
+  become: true
+  # vars:
+  #   web_app_full_wipe: false  # Set this variable to true to enable full wipe
+  block:
+    - name: Stop Docker Container
+      docker_container:
+        name: app
+        state: stopped
+
+    - name: remove docker container
+      docker_container:
+        name: app
+        state: absent
+
+    - name: remove docker-compose.yml
+      file:
+        path: "/temp/{{ image }}/docker-compose.yml"
+        state: absent
+
+    - name: Remove image
+      docker_image:
+        state: absent
+        name: "{{ image }}"
