@@ -4,10 +4,10 @@
    - name: Ping my hosts
      ansible.builtin.ping:
 
-- name: Deploy docker from scratch
+- name: Deploy web application docker container
   hosts: lab_hosts
   become: yes
   roles:
-    # Run custom docker role which installs
-    # docker and docker-compose on machine
-    - docker
+    - name: web_app
+      vars:
+        web_app_wipe: true
