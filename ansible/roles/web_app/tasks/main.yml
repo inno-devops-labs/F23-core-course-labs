@@ -1,0 +1,15 @@
+---
+- name: Pull Docker image
+  docker_image:
+    name: "{{ image }}"
+    source: pull
+  become: yes
+
+- name: Run Docker container
+  docker_container:
+    name: "moscowtime"
+    image: "{{ image }}"
+    state: started
+    ports:
+      - "80:5000"
+  become: yes

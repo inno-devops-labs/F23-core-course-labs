@@ -1,0 +1,9 @@
+---
+- name: Deploy Javascript App
+  hosts: type_vkcs_compute_floatingip_associate
+  become: true
+  roles:
+    - role: web_app
+      image: arseniy5443/randomquote:latest
+      ports:
+        - "80:3000"

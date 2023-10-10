@@ -1,0 +1,9 @@
+---
+- name: Deploy Python App
+  hosts: type_vkcs_compute_floatingip_associate
+  become: true
+  roles:
+    - role: web_app
+      image: arseniy5443/moscowtime:latest
+      ports:
+        - "80:5000"

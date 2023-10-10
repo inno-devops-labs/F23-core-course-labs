@@ -48,6 +48,16 @@ resource "vkcs_networking_secgroup_rule" "secgroup_rule_2" {
   security_group_id = vkcs_networking_secgroup.secgroup.id
 }
 
+resource "vkcs_networking_secgroup_rule" "secgroup_rule_3" {
+  direction         = "ingress"
+  port_range_max    = 80
+  port_range_min    = 80
+  protocol          = "tcp"
+  remote_ip_prefix  = "0.0.0.0/0"
+  security_group_id = vkcs_networking_secgroup.secgroup.id
+  description       = "secgroup_rule_3"
+}
+
 resource "vkcs_networking_port" "port" {
   name           = "port_1"
   admin_state_up = "true"

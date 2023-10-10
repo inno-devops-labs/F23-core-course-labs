@@ -729,3 +729,129 @@ Or use
 hosts : all 
 ```
 then the local IP-addresses of servers will be ignored.
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+# ANSIBLE 2
+
+## Task 1: Application Deployment
+## Install the dependencies for this task:
+```
+ansible-galaxy collection install community.docker
+```
+
+Output from your deployment command:
+```
+arseniyrubtsov@MacBook-Pro-Arseniy ansible % ansible-playbook --inventory-file=./inventory/dynamic_inventory.sh playbooks/dev/app_python/main.yaml
+
+PLAY [Deploy Python App] **********************************************************************************************************************************************************************************
+
+TASK [Gathering Facts] ************************************************************************************************************************************************************************************
+The authenticity of host '95.163.251.170 (95.163.251.170)' can't be established.
+ED25519 key fingerprint is SHA256:i+qmENQzafgrJEx5ZABcHCl1SMHEhy5uKT6BKEmwgGo.
+This key is not known by any other names
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+ok: [95.163.251.170]
+
+TASK [docker-custom-role : include_tasks] *****************************************************************************************************************************************************************
+included: /Users/arseniyrubtsov/Desktop/core-course-labs-devops/ansible/roles/docker-custom-role/tasks/install_pip.yml for 95.163.251.170
+
+TASK [docker-custom-role : Installing pip using apt] ******************************************************************************************************************************************************
+changed: [95.163.251.170]
+
+TASK [docker-custom-role : include_tasks] *****************************************************************************************************************************************************************
+included: /Users/arseniyrubtsov/Desktop/core-course-labs-devops/ansible/roles/docker-custom-role/tasks/install_docker.yml for 95.163.251.170
+
+TASK [geerlingguy.docker : Load OS-specific vars.] ********************************************************************************************************************************************************
+ok: [95.163.251.170]
+
+TASK [geerlingguy.docker : include_tasks] *****************************************************************************************************************************************************************
+skipping: [95.163.251.170]
+
+TASK [geerlingguy.docker : include_tasks] *****************************************************************************************************************************************************************
+included: /Users/arseniyrubtsov/Desktop/core-course-labs-devops/ansible/roles/geerlingguy.docker/tasks/setup-Debian.yml for 95.163.251.170
+
+TASK [geerlingguy.docker : Ensure old versions of Docker are not installed.] ******************************************************************************************************************************
+ok: [95.163.251.170]
+
+TASK [geerlingguy.docker : Ensure dependencies are installed.] ********************************************************************************************************************************************
+ok: [95.163.251.170]
+
+TASK [geerlingguy.docker : Ensure additional dependencies are installed (on Ubuntu < 20.04 and any other systems).] ***************************************************************************************
+skipping: [95.163.251.170]
+
+TASK [geerlingguy.docker : Ensure additional dependencies are installed (on Ubuntu >= 20.04).] ************************************************************************************************************
+ok: [95.163.251.170]
+
+TASK [geerlingguy.docker : Add Docker apt key.] ***********************************************************************************************************************************************************
+changed: [95.163.251.170]
+
+TASK [geerlingguy.docker : Ensure curl is present (on older systems without SNI).] ************************************************************************************************************************
+skipping: [95.163.251.170]
+
+TASK [geerlingguy.docker : Add Docker apt key (alternative for older systems without SNI).] ***************************************************************************************************************
+skipping: [95.163.251.170]
+
+TASK [geerlingguy.docker : Add Docker repository.] ********************************************************************************************************************************************************
+changed: [95.163.251.170]
+
+TASK [geerlingguy.docker : Install Docker packages.] ******************************************************************************************************************************************************
+skipping: [95.163.251.170]
+
+TASK [geerlingguy.docker : Install Docker packages (with downgrade option).] ******************************************************************************************************************************
+changed: [95.163.251.170]
+
+TASK [geerlingguy.docker : Install docker-compose plugin.] ************************************************************************************************************************************************
+skipping: [95.163.251.170]
+
+TASK [geerlingguy.docker : Install docker-compose-plugin (with downgrade option).] ************************************************************************************************************************
+skipping: [95.163.251.170]
+
+TASK [geerlingguy.docker : Ensure /etc/docker/ directory exists.] *****************************************************************************************************************************************
+skipping: [95.163.251.170]
+
+TASK [geerlingguy.docker : Configure Docker daemon options.] **********************************************************************************************************************************************
+skipping: [95.163.251.170]
+
+TASK [geerlingguy.docker : Ensure Docker is started and enabled at boot.] *********************************************************************************************************************************
+ok: [95.163.251.170]
+
+TASK [geerlingguy.docker : Ensure handlers are notified now to avoid firewall conflicts.] *****************************************************************************************************************
+
+RUNNING HANDLER [geerlingguy.docker : restart docker] *****************************************************************************************************************************************************
+changed: [95.163.251.170]
+
+TASK [geerlingguy.docker : include_tasks] *****************************************************************************************************************************************************************
+skipping: [95.163.251.170]
+
+TASK [geerlingguy.docker : Get docker group info using getent.] *******************************************************************************************************************************************
+skipping: [95.163.251.170]
+
+TASK [geerlingguy.docker : Check if there are any users to add to the docker group.] **********************************************************************************************************************
+skipping: [95.163.251.170]
+
+TASK [geerlingguy.docker : include_tasks] *****************************************************************************************************************************************************************
+skipping: [95.163.251.170]
+
+TASK [docker-custom-role : include_tasks] *****************************************************************************************************************************************************************
+included: /Users/arseniyrubtsov/Desktop/core-course-labs-devops/ansible/roles/docker-custom-role/tasks/install_compose.yml for 95.163.251.170
+
+TASK [geerlingguy.pip : Ensure Pip is installed.] *********************************************************************************************************************************************************
+ok: [95.163.251.170]
+
+TASK [geerlingguy.pip : Ensure pip_install_packages are installed.] ***************************************************************************************************************************************
+changed: [95.163.251.170] => (item={'name': 'docker-compose'})
+
+TASK [web_app : Pull Docker image] ************************************************************************************************************************************************************************
+changed: [95.163.251.170]
+
+TASK [web_app : Run Docker container] *********************************************************************************************************************************************************************
+changed: [95.163.251.170]
+
+PLAY RECAP ************************************************************************************************************************************************************************************************
+95.163.251.170             : ok=19   changed=8    unreachable=0    failed=0    skipped=13   rescued=0    ignored=0  
+```
