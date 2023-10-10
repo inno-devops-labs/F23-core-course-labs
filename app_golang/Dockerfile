@@ -16,7 +16,7 @@ RUN GOOS=linux GOARCH=amd64 go build .
 
 FROM golang:1.19.13-alpine3.18
 
-RUN apk --no-cache add libc6-compat=1.2.4-r1 \
+RUN apk --no-cache add libc6-compat=1.2.4-r2 \
     && adduser myuser -D && chown -R myuser . \
     && apk --no-cache add curl=8.3.0-r0
 
