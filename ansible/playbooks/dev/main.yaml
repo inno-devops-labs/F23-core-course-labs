@@ -1,4 +1,4 @@
-- name: yandex_cloud
+- name: main
   hosts: vm
   roles:
     - docker

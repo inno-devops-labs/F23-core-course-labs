@@ -1,0 +1,6 @@
+- name: web_app
+  hosts: vm
+  roles:
+    - role: web_app
+      vars:
+        wipe: true
