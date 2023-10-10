@@ -1,6 +1,6 @@
 #!/bin/bash
 HOST=$1
-PORT=$2
+PORT=8000
 
 if [[ "$HOST" == "" ]]; then
     echo "Please, specify host"

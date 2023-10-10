@@ -10,7 +10,7 @@ First argument is target host, second is server port to listen.
 Example:
 
 ```
-./main.sh moodle.innopolis.university 8000
+./main.sh moodle.innopolis.university
 ```
 ## Unit Tests
 ```
@@ -36,7 +36,7 @@ docker pull zrrrget/app_bash_test
 ### Run
 Port 8000 is exposed.
 ```
-docker run -p 8000:8000 zrrrget/app_bash moodle.innopolis.university 8000
+docker run -p 8000:8000 zrrrget/app_bash
 ```
 ```
 docker run zrrrget/app_bash_test

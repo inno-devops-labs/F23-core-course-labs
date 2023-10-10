@@ -1,0 +1,9 @@
+---
+- name: Deploy Python app
+  hosts: all
+  become: true
+  roles:
+    - role: web_app
+      image: zrrrget/app_bash
+      ports:
+        - "8000:8000"

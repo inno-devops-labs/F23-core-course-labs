@@ -9,5 +9,5 @@ COPY . .
 CMD ["./test.sh"]
 
 FROM test AS production
-ENTRYPOINT ["./main.sh"]
+ENTRYPOINT ["./main.sh", "moodle.innopolis.university"]
 EXPOSE 8000
