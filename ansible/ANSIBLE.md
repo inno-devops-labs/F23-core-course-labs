@@ -1,6 +1,6 @@
 # Ansible
 
-## Outputs
+## Lab 5
 
 - output of command ` ansible-playbook playbooks/dev/main.yml --diff`
 
@@ -74,5 +74,36 @@ vm                         : ok=11   changed=1    unreachable=0    failed=0    s
     }
 }
 
+```
+
+## Lab 6
+
+### Taks 1 
+
+output of command `ansible-playbook playbooks/dev/main.yml`:
+
+```yml
+
+[WARNING]: Invalid characters were found in group names but not replaced, use -vvvv to see details
+
+PLAY [Deploy Docker image] ***************************************************************************************************
+
+TASK [Gathering Facts] *******************************************************************************************************
+ok: [vm]
+
+TASK [web_app : Pull container] **********************************************************************************************
+included: /Users/vakhalilov/devopslabs/core-course-labs/ansible/roles/web_app/tasks/pull_image.yml for vm
+
+TASK [web_app : Pull Docker image] *******************************************************************************************
+ok: [vm]
+
+TASK [web_app : Run container] ***********************************************************************************************
+included: /Users/vakhalilov/devopslabs/core-course-labs/ansible/roles/web_app/tasks/run_image.yml for vm
+
+TASK [web_app : Run Docker container] ****************************************************************************************
+changed: [vm]
+
+PLAY RECAP *******************************************************************************************************************
+vm                         : ok=5    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0  
 ```
 
