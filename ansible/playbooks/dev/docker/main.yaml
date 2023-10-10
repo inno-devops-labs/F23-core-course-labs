@@ -4,4 +4,6 @@
   roles:
     # Existing Docker role
     # - geerlingguy.docker
+
+    # Custom Docker role
     - docker

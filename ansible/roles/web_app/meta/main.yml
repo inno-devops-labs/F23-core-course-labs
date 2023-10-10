@@ -1,0 +1,4 @@
+dependencies:
+  # Defining a dependency on our custom docker role
+  - role: docker
+    allow_duplicates: true

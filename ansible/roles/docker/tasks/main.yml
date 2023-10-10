@@ -1,4 +1,9 @@
 # Splitting tasks and running them sequentially
-- include_tasks: ../../roles/docker/tasks/install_pip.yml
-- include_tasks: ../../roles/docker/tasks/install_docker.yml
-- include_tasks: ../../roles/docker/tasks/install_compose.yml
+- name: Create Docker Role
+  block:
+    - name: Pip
+      import_tasks: install_pip.yml
+    - name: Docker
+      import_tasks: install_docker.yml
+    - name: Compose
+      import_tasks: install_compose.yml

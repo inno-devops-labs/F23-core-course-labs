@@ -19,6 +19,15 @@ I used dynamic inventory using `terraform-inventory` to enhance automation capab
 ## Separation
 All project files are split logically.
 
+## Tasks Blocks
+Related tasks are organized within playbooks using Ansible blocks.
+
+## Tagging
+Ansible tags are implemented to group tasks logically and enable selective execution.
+
+## Variables
+An additional file with default variables is created for **web_app** role.
+
 
 # Docker Role
 
@@ -123,3 +132,115 @@ And then, run the following command and provide the full path to _terraform-inve
 `ansible-playbook --inventory-file="path to exe of terraform inventory" "../../playbooks/dev/main.yaml"`
 
 The result of the execution is pretty the same as the one from output above.
+
+
+# Web Application Deployment using Docker compose
+
+**Python:**
+
+```
+$ ansible-playbook playbooks/dev/app_python/main.yaml --diff
+
+PLAY [Deploy python docker app with Ansible role] *********************************************
+
+TASK [Gathering Facts] ************************************************************************
+ok: [vm01]
+
+TASK [docker : Update apt] ********************************************************************
+changed: [vm01]
+
+TASK [docker : Install python and pip] ********************************************************
+ok: [vm01]
+
+TASK [docker : Update cache] ******************************************************************
+changed: [vm01]
+
+TASK [docker : Install dependencies] **********************************************************
+ok: [vm01]
+
+TASK [docker : Add apt key] *******************************************************************
+changed: [vm01]
+
+TASK [docker : Add repository] ****************************************************************
+--- before: /dev/null
++++ after: /etc/apt/sources.list.d/download_docker_com_linux_ubuntu.list
+@@ -0,0 +1 @@
++deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable
+
+changed: [vm01]
+
+TASK [docker : Install Docker] ****************************************************************
+Suggested packages:
+  aufs-tools cgroupfs-mount | cgroup-lite
+Recommended packages:
+  libltdl7 pigz docker-buildx-plugin docker-compose-plugin slirp4netns
+The following NEW packages will be installed:
+  containerd.io docker-ce docker-ce-cli docker-ce-rootless-extras
+0 upgraded, 4 newly installed, 0 to remove and 104 not upgraded.
+changed: [vm01]
+
+TASK [docker : Install docker-compose] ********************************************************
+ok: [vm01]
+
+TASK [web_app : Check if docker-compose file exists] ******************************************
+ok: [vm01]
+
+TASK [web_app : Check if web app directory exists] ********************************************
+ok: [vm01]
+
+TASK [web_app : Remove docker containers] *****************************************************
+changed: [vm01]
+
+TASK [web_app : Delete web application directory] *********************************************
+--- before
++++ after
+@@ -1,10 +1,4 @@
+ {
+     "path": "/app_python",
+-    "path_content": {
+-        "directories": [],
+-        "files": [
+-            "/app_python/docker-compose.yml"
+-        ]
+-    },
+-    "state": "directory"
++    "state": "absent"
+ }
+
+changed: [vm01]
+
+TASK [web_app : Create directory for the app] *************************************************
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+     "path": "/app_python",
+-    "state": "absent"
++    "state": "directory"
+ }
+
+changed: [vm01]
+
+TASK [web_app : Create docker-compose file] ***************************************************
+--- before
++++ after: /home/vladimir_ka/.ansible/tmp/ansible-local-859na3m65bb/tmpmyg4k3gu/docker-compose.yml.j2
+@@ -0,0 +1,9 @@
++version: '3.9'
++
++services:
++  web_app_python:
++    image: vladimirka002/innopolis-devops-python-app
++    container_name: innopolis-devops-python-app
++    ports:
++      - 5000:8000
++    restart: always
+\ No newline at end of file
+
+changed: [vm01]
+
+RUNNING HANDLER [web_app : Run Docker Compose] ************************************************
+changed: [vm01]
+
+PLAY RECAP ************************************************************************************
+vm01                       : ok=16   changed=10   unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+```

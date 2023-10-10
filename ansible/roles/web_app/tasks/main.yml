@@ -1,0 +1,12 @@
+- name: Web App Role
+  tags: web_app_role
+  block:
+    # Wipe actions for the App
+    - name: Wipe Web App
+      tags: wipe_web_app
+      import_tasks: wipe_web_app.yml
+
+    # Deployment task for web app role
+    - name: Deploy Web App
+      tags: deploy_web_app
+      import_tasks: deploy_web_app.yml
