@@ -1,0 +1,13 @@
+---
+- name: Deploy Go app in Docker
+  hosts: all
+  become: yes
+  roles:
+    - name: web_app
+      vars:
+        docker_container: 'app_go'
+        docker_image_name: 'lnsfna/app_go'
+        docker_image_version: 'latest'
+        internal_port: 8081
+        external_port: 8081
+        app_name: 'app_go'
