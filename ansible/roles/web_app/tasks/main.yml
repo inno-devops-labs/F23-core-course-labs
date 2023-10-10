@@ -13,6 +13,7 @@
         name: "{{ app_name}}"
         image: "{{ image_name }}:latest"
         ports:  "{{ ports }}"
+        env: "{{ envs }}"
       tags: 
         - run
 

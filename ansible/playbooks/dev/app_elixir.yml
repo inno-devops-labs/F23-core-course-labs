@@ -6,3 +6,5 @@
     - role: web_app
       image_name: sl1depengwyn/elixir_devops
       ports: "80:4000" 
+      envs: 
+        SECRET_KEY_BASE: 5Ms9YbqJi6VZzMIuKPXZVbwEGC8VM0DVDHsz6BTHQTR2wXikxC8gJiwNCHlTkGBW
