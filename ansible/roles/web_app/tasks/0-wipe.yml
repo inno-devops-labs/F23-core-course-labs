@@ -1,0 +1,12 @@
+- name: remove Docker container and related files
+  tags:
+    - wipe
+  block:
+    - name: remove Docker container
+      container_name:
+        name: "{{ container_name }}"
+        state: absent
+    - name: remove Docker image
+      docker_image:
+        name: "{{ my_image }}"
+        state: absent

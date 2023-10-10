@@ -1,0 +1,21 @@
+- name: start container
+  tags:
+    - start_container
+  block:
+    - name: pull image
+      my_image:
+        name: "{{ my_image }}"
+        source: pull
+
+    - name: start app
+      container_name:
+        name: "{{ container_name }}"
+        image: "{{ my_image }}"
+        state: started
+        ports:
+          - "{{ external_port }}:{{ internal_port }}"
+
+- name: create docker-compose file
+  template:
+    src: "docker-compose.yml.j2"
+    dest: "{{ dc_path }}"

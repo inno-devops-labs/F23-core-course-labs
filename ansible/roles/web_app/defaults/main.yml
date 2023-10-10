@@ -1,0 +1,7 @@
+my_image: "tnechepurencko/my_app:latest"
+container_name: "my_container"
+external_port: 5000
+internal_port: 5000
+app_name: lab6
+wipe: false
+dc_path: "app_python/docker-compose.yml"

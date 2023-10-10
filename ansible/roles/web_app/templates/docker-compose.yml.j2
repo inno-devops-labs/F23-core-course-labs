@@ -1,0 +1,6 @@
+services:
+  {{ app_name }}:
+    image: "{{ my_image }}"
+    container_name: "{{ container_name }}"
+    ports:
+      - "{{ external_port }}:{{ internal_port }}"

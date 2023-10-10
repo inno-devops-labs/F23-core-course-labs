@@ -5,3 +5,4 @@
   become: true
   roles:
     - ansible/roles/docker
+    - ansible/roles/web_app
