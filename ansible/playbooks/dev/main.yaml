@@ -6,3 +6,4 @@
   gather_facts: no
   roles:
     - ansible/roles/docker
+    - ansible/roles/web-app
