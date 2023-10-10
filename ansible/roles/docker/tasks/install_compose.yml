@@ -1,3 +1,6 @@
 - name: Install docker-compose
-  ansible.builtin.pip:
+  become: true
+  ansible.builtin.apt:
     name: docker-compose
+    update_cache: yes
+    state: present
