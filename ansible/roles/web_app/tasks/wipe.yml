@@ -1,5 +1,5 @@
 ---
-- name: Remove all containers and images.
+- name: Remove app containers and images.
   block:
     - name: Stop running container.
       docker_container:
