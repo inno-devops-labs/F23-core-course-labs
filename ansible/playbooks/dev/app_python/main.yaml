@@ -4,4 +4,6 @@
   become: true
   roles:
     - docker
-    - web_app
+    - role: web_app
+      image: nikitosing/app_python
+      ports: "80:1010"

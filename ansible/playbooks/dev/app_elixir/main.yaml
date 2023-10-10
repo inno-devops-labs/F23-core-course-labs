@@ -1,0 +1,10 @@
+---
+- name: Deploy Docker
+  hosts: vk_cloud
+  become: true
+  roles:
+    - docker
+    - role: web_app
+      image: nikitosing/app_elixir
+      ports: "80:4000"
+      envs: {"SECRET_KEY_BASE": "WPcE2F5vjA5X3XBE+QcK7OHMiAuPovP4e62Gsl0VFxRHvu+xS2AiQWY0H3Qz6Q3O"}
