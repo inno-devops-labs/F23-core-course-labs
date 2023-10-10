@@ -349,7 +349,7 @@ ec2-34-216-206-103.us-west-2.compute.amazonaws.com : ok=11   changed=7    unreac
 ## Task 1
 ## Playbook
 `ansible-playbook playbooks/dev/main.yaml --diff`
-
+```
 PLAY [Deploy image] ************************************************************
 
 TASK [Gathering Facts] *********************************************************
@@ -382,4 +382,93 @@ changed: [localhost]
 
 PLAY RECAP *********************************************************************
 localhost                  : ok=4    changed=2    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0
+```
 
+## Task 2
+.
+|-- defaults
+|   `-- main.yml
+|-- meta
+|   `-- main.yml
+|-- tasks
+|   |-- app_wipe.yml
+|   |-- app_stop.yml
+|   |-- app_deploy.yml
+|   `-- main.yml
+`-- templates
+   `-- docker-compose.yml.j2
+
+`ansible-inventory -i inventory/default_aws_ec2.yml --list`
+
+```
+PLAY [Deploy image] ************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [localhost]
+
+TASK [web_app : Check if Docker Compose exists] ********************************
+skipping: [localhost]
+
+TASK [web_app : Stop Docker Compose if it exists] ******************************
+skipping: [localhost]
+
+TASK [web_app : Check if directory /Users/ann_d/Desktop/app_python exists] *****
+ok: [localhost]
+
+TASK [web_app : Check if Docker Compose exists] ********************************
+ok: [localhost]
+
+TASK [web_app : Remove Docker Compose containers if exists] ********************
+skipping: [localhost]
+
+TASK [web_app : Remove Docker Compose files if they exist] *********************
+skipping: [localhost]
+
+TASK [web_app : Remove app directory /Users/ann_d/Desktop/app_python] **********
+skipping: [localhost]
+
+TASK [web_app : Create directory for app_python] *******************************
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+     "path": "/Users/ann_d/Desktop/app_python",
+-    "state": "absent"
++    "state": "directory"
+ }
+
+changed: [localhost]
+
+TASK [web_app : Create directory for Docker Compose] ***************************
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+     "path": "/Users/ann_d/Desktop/app_python/docker-compose",
+-    "state": "absent"
++    "state": "directory"
+ }
+
+changed: [localhost]
+
+TASK [web_app : Run Docker Compose by template] ********************************
+--- before
++++ after: /Users/ann_d/.ansible/tmp/ansible-local-66969wd7akmj9/tmphq_3f09k/docker-compose.yml.j2
+@@ -0,0 +1,8 @@
++version: '3.8'
++services:
++  app_python:
++    image: "annadluzhinskaya/python-moscow-time:latest"
++    container_name: "app-container"
++    ports:
++      - "8000:8080"
++    restart: unless-stopped
+
+changed: [localhost]
+
+RUNNING HANDLER [web_app : Restart Docker] *************************************
+changed: [localhost]
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=7    changed=4    unreachable=0    failed=0    skipped=5    rescued=0    ignored=0
+```

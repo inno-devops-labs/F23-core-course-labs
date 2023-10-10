@@ -1,0 +1,32 @@
+---
+- name: Application Wipe
+  tags: wipe_web_app
+  when: web_app_wipe
+  block:
+    - name: Check if directory {{ app_dir }} exists
+      stat:
+        path: "{{ app_dir }}"
+      register: web_app_compose_dir
+
+    - name: Check if Docker Compose exists
+      stat:
+        path: "{{ docker_compose_file_path }}"
+      register: compose_file_status
+
+    - name: Remove Docker Compose containers if exists
+      command: docker-compose -p {{ app_name }} down --remove-orphans
+      args:
+            chdir: "{{ docker_compose_path }}"
+      when: compose_file_status.stat.exists == true
+
+    - name: Remove Docker Compose files if they exist
+      file:
+        path: "{{ docker_compose_path }}"
+        state: absent
+      when: compose_file_status.stat.exists == true
+
+    - name: Remove app directory {{ app_dir }}
+      when: web_app_compose_dir.stat.exists
+      file:
+        path: '{{ app_dir }}'
+        state: absent
