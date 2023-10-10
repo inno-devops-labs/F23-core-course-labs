@@ -1,5 +1,5 @@
-- name: Deploy Docker
+- name: Deploy Web App
   hosts: all
   become: true
   roles:
-    - docker
+    - web_app
