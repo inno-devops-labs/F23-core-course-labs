@@ -232,3 +232,6 @@ changed: [ec2-35-89-76-157.us-west-2.compute.amazonaws.com]
 PLAY RECAP *****************************************************************************************************************************************************************************************************
 ec2-35-89-76-157.us-west-2.compute.amazonaws.com : ok=8    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 ```
+
+To test it I opened my public IP via browser and I can see that my app is working correctly:
+![img.png](resources/deployed_app_docker.png)
