@@ -195,3 +195,75 @@ Here is `➜ ansible-inventory --list` output:
     }
 }
 ```
+
+## Deploy web app
+
+```bash
+PLAY [Prepare docker] *************************************************************************************************
+
+TASK [Gathering Facts] ************************************************************************************************
+ok: [146.185.241.88]
+
+TASK [docker : Ensure old versions of Docker are not installed.] ******************************************************
+The following package was automatically installed and is no longer required:
+  wmdocker
+Use 'sudo apt autoremove' to remove it.
+The following packages will be REMOVED:
+  docker
+0 upgraded, 0 newly installed, 1 to remove and 99 not upgraded.
+changed: [146.185.241.88]
+
+TASK [docker : Ensure dependencies are installed.] ********************************************************************
+ok: [146.185.241.88]
+
+TASK [docker : include_tasks] *****************************************************************************************
+included: /Users/kitt/Study/DevOps/core-course-labs/ansible/roles/docker/tasks/install_docker.yml for 146.185.241.88
+
+TASK [docker : Add Docker apt key.] ***********************************************************************************
+ok: [146.185.241.88]
+
+TASK [docker : Add Docker repository.] ********************************************************************************
+ok: [146.185.241.88]
+
+TASK [docker : Install Docker packages.] ******************************************************************************
+ok: [146.185.241.88]
+
+TASK [docker : include_tasks] *****************************************************************************************
+included: /Users/kitt/Study/DevOps/core-course-labs/ansible/roles/docker/tasks/install_compose.yml for 146.185.241.88
+
+TASK [docker : Install docker-compose using pip.] *********************************************************************
+ok: [146.185.241.88]
+
+TASK [docker : Ensure /etc/docker/ directory exists.] *****************************************************************
+skipping: [146.185.241.88]
+
+TASK [docker : Configure Docker daemon options.] **********************************************************************
+skipping: [146.185.241.88]
+
+TASK [docker : Ensure docker users are added to the docker group.] ****************************************************
+ok: [146.185.241.88] => (item=ubuntu)
+
+TASK [docker : Reset ssh connection to apply user changes.] ***********************************************************
+
+TASK [web_app : Ensure that deps are installed.] **********************************************************************
+The following NEW packages will be installed:
+  docker
+0 upgraded, 1 newly installed, 0 to remove and 99 not upgraded.
+changed: [146.185.241.88]
+
+TASK [web_app : Run the app.] *****************************************************************************************
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+-    "exists": false,
+-    "running": false
++    "exists": true,
++    "running": true
+ }
+
+changed: [146.185.241.88]
+
+PLAY RECAP ************************************************************************************************************
+146.185.241.88             : ok=12   changed=3    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0
+```
