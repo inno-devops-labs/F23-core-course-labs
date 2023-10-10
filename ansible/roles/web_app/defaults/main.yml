@@ -2,6 +2,6 @@ image: "bellissimo/devops-inno-daniil-okrug:latest"
 container_name: "web_app"
 ports: "5000:5000"
 
-deployment_way: "docker_compose"
+deployment_way: "docker_compose" # docker | docker_compose
 
 web_app_full_wipe: true
