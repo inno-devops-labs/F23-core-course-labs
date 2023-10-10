@@ -1,7 +1,14 @@
 ---
-- name: Run app_python:latest
-  docker_container:
-    name: app_python
-    image: bobievnodir/app_python:latest
+- name: Pull Docker image from Docker Hub
+  ansible.builtin.docker_image:
+    name: "bobievnodir/app_python:latest"
+    source: pull
+    state: present
+
+- name: Start application container
+  ansible.builtin.docker_container:
+    name: "flask_app"
+    image: "bobievnodir/app_python:latest"
+    state: started
     ports:
       - "5000:5000"
