@@ -1,0 +1,8 @@
+- name: Prepare docker
+  hosts: vkc
+  become: true
+  roles:
+    - docker
+    - role: web_app
+      image_name: sl1depengwyn/elixir_devops
+      ports: "80:4000" 

@@ -100,6 +100,6 @@ jobs:
         with:
           context: ./${{ env.WORKING_DIR }}
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/python_devops:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/elixir_devops:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max

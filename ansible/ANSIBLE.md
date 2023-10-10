@@ -267,3 +267,9 @@ changed: [146.185.241.88]
 PLAY RECAP ************************************************************************************************************
 146.185.241.88             : ok=12   changed=3    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0
 ```
+
+## Deploy elixir app
+ 
+```bash
+
+```
