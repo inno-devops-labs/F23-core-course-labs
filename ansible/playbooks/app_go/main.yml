@@ -6,7 +6,7 @@
   vars:
     app_directory: /opt/app_go
     timezone: UTC
-    wipe_logic: false
+    web_app_full_wipe: false
     image: bobievnodir/app_go:latest
     container_name: app_go
     ports: "8080:8080"
