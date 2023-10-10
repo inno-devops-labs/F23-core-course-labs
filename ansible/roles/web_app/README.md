@@ -11,9 +11,10 @@ The tasks are marked by different tags:
 Possible usage examples of this tags is provided in the section "[Role usage](#Role-usage)".
 
 ## Variables
-The role also has a couple of variables:
+The role also has a few variables:
 Boolean variable `web_app_full_wipe` needs to be set to `true` if user wants to enable the wipe job that stops previously running containers. Not required during the first launch.
 The variable `application_port` must be set to the port on which application runs inside the docker container. This port will be mapped to port `80` so that the client could easily open the page in browser(with default port) and see how the application works.
+The variable `docker_image` sets to the docker image that will be deployed.
 
 
 ## Role usage
