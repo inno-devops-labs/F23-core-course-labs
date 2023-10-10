@@ -1,6 +1,7 @@
-```
-(venv) ➜  ansible git:(lab6) ✗ ansible-playbook -i inventory/yandex.yml  playbooks/web-app/main.yml
 
+<details> <summary> ansible-playbook -i inventory/yandex.yml  playbooks/web-app/main.yml </summary>
+
+```
 PLAY [Lab 6] *************************************************************************************************************************
 
 TASK [Gathering Facts] ***************************************************************************************************************
@@ -26,6 +27,6 @@ changed: [51.250.29.149]
 
 PLAY RECAP ***************************************************************************************************************************
 51.250.29.149              : ok=7    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
-
-
 ```
+
+</details>

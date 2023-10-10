@@ -3,5 +3,4 @@
   hosts:
     yandex
   roles:
-    - docker
     - web_app
