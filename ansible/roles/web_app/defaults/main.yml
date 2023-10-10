@@ -1,0 +1,6 @@
+docker_container: 'app-container'
+docker_image_name: 'annadluzhinskaya/python-moscow-time'
+docker_image_version: 'latest'
+docker_image: "{{ docker_image_name }}:{{ docker_image_version }}"
+internal_port: 8080
+external_port: 8000

@@ -1,7 +1,6 @@
 ---
-- name: Prepare docker
-  hosts: aws_region_us_west_2
-  remote_user: ubuntu
+- name: Deploy image
+  hosts: localhost
   become: yes
   roles:
-    - docker
+    - web_app

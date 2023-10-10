@@ -1,4 +1,4 @@
-# Ansible
+# Ansible 1
 
 ## Playbook
 `ansible-playbook playbooks/dev/main.yaml --diff`
@@ -343,3 +343,43 @@ ec2-34-216-206-103.us-west-2.compute.amazonaws.com : ok=11   changed=7    unreac
     }
 }
 ```
+
+# Ansible 2
+
+## Task 1
+## Playbook
+`ansible-playbook playbooks/dev/main.yaml --diff`
+
+PLAY [Deploy image] ************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [localhost]
+
+TASK [web_app : Check if container exists] *************************************
+ok: [localhost]
+
+TASK [web_app : Stop the container if it exists] *******************************
+skipping: [localhost]
+
+TASK [web_app : Remove the container if it exists] *****************************
+skipping: [localhost]
+
+TASK [web_app : Pull the Docker image] *****************************************
+changed: [localhost]
+
+TASK [web_app : Run the Docker container] **************************************
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+-    "exists": false,
+-    "running": false
++    "exists": true,
++    "running": true
+ }
+
+changed: [localhost]
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=4    changed=2    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0
+

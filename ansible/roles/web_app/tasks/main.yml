@@ -1,0 +1,31 @@
+---
+- name: Check if container exists
+  docker_container_info:
+    name: "{{ docker_container }}"
+  register: container_status
+
+- name: Stop the container if it exists
+  docker_container:
+    name: "{{ docker_container }}"
+    state: stopped
+  when: container_status.exists == true
+
+- name: Remove the container if it exists
+  docker_container:
+    name: "{{ docker_container }}"
+    state: absent
+  when: container_status.exists == true
+
+- name: Pull the Docker image
+  docker_image:
+    name: "{{ docker_image }}"
+    source: pull
+
+- name: Run the Docker container
+  docker_container:
+    name: "{{ docker_container }}"
+    image: "{{ docker_image }}"
+    state: started
+    published_ports:
+      - "{{ external_port }}:{{ internal_port }}"
+    restart_policy: unless-stopped
