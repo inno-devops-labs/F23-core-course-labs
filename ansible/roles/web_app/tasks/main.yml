@@ -1,0 +1,14 @@
+---
+- name: Ensure that deps are installed and run image.
+  block:
+    - name: Ensure that deps are installed.
+      apt:
+        name:
+          - docker
+        state: present
+    - name: Run the app.
+      docker_container:
+        name: app
+        image: sl1depengwyn/python_devops:latest
+        ports:  "80:80"
+
