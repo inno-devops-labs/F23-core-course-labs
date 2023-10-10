@@ -1,0 +1,6 @@
+- hosts: vk_cloud
+  become: true
+  roles:
+    - role: 'web_app'
+      image: "wildqueue/devops-hw:tagname"
+      ports: "8008:8008"

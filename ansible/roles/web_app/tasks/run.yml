@@ -1,0 +1,21 @@
+---
+- name: Create directory if it does not exist
+  become: true
+  tags: create-dir
+  ansible.builtin.file:
+    path: "/opt/compose/wildqueue"
+    state: directory
+
+- name: Create docker-compose
+  become: true
+  tags: create-dir-compose
+  template:
+    src: "{{ role_path }}/templates/docker-compose.yml.j2"
+    dest: "/opt/compose/wildqueue/docker-compose.yml"
+
+- name: Run
+  become: true
+  tags: run-app
+  docker_compose:
+    project_src: "/opt/compose/wildqueue"
+    state: present

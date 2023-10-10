@@ -1,0 +1,24 @@
+---
+- name: Wipe block
+  tags: wipe-block
+  - block: 
+    - name: Stop
+      tags: stop-wipe
+      become: true
+      docker_compose:
+        project_src: "/opt/compose/wildqueue"
+        state: absent
+
+    - name: Delete image from docker
+      tags: delete-wipe
+      become: true
+      docker_image:
+        name: "{{ image }}"
+        state: absent
+
+    - name: Remove compose directory
+      tags: remove-wipe
+      become: true
+      ansible.builtin.file:
+        path: "/opt/compose/wildqueue"
+        state: absent

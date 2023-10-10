@@ -1,0 +1,9 @@
+---
+- name: Install
+  include_tasks: "{{ role_path }}/tasks/run.yml"
+
+- name: Wipe
+  tags: full_wipe
+  include_tasks:
+    file: "{{ role_path }}/tasks/wipe.yml"
+  when: web_app_wipe
