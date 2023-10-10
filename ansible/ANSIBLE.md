@@ -540,3 +540,199 @@ Task does not require to write Best practices
 8. Have default behaviour in case some crucial options aren't filled in playbook
 9. Check available plugins and roles not only in local paths but in global too
 10. Failure on parsing errors to force developers fix the problem and not lost it in tons of logs
+11. Utilize blocks to group related tasks
+12. Utilize tags for separating sequences
+13. Use templates for creating general description for a very specific files
+-------
+# LAB 6
+
+
+# Task Lists
+## Pyhthon app
+```
+playbook: playbooks/dev/app_python/main.yml
+
+  play #1 (all): Ansible Python TAGS: [web_app_python]
+    tasks:
+      docker : Apt update and install docker    TAGS: [docker, web_app_python]
+      geerlingguy.pip : Ensure Pip is installed.        TAGS: [docker, web_app_python]
+      geerlingguy.pip : Ensure pip_install_packages are installed.      TAGS: [docker, web_app_python]
+      geerlingguy.docker : Load OS-specific vars.       TAGS: [docker, web_app_python]
+      include_tasks     TAGS: [docker, web_app_python]
+      include_tasks     TAGS: [docker, web_app_python]
+      geerlingguy.docker : Install Docker packages.     TAGS: [docker, web_app_python]
+      geerlingguy.docker : Install Docker packages (with downgrade option).     TAGS: [docker, web_app_python]
+      geerlingguy.docker : Install docker-compose plugin.       TAGS: [docker, web_app_python]
+      geerlingguy.docker : Install docker-compose-plugin (with downgrade option).       TAGS: [docker, web_app_python]
+      geerlingguy.docker : Ensure /etc/docker/ directory exists.        TAGS: [docker, web_app_python]
+      geerlingguy.docker : Configure Docker daemon options.     TAGS: [docker, web_app_python]
+      geerlingguy.docker : Ensure Docker is started and enabled at boot.        TAGS: [docker, web_app_python]
+      geerlingguy.docker : Ensure handlers are notified now to avoid firewall conflicts.        TAGS: [docker, web_app_python]
+      include_tasks     TAGS: [docker, web_app_python]
+      geerlingguy.docker : Get docker group info using getent.  TAGS: [docker, web_app_python]
+      geerlingguy.docker : Check if there are any users to add to the docker group.     TAGS: [docker, web_app_python]
+      include_tasks     TAGS: [docker, web_app_python]
+      web_app : Check build root        TAGS: [web_app, web_app_python, web_app_wipe]
+      web_app : Check docker-compose.yml        TAGS: [web_app, web_app_python, web_app_wipe]
+      web_app : Remove Compose  TAGS: [web_app, web_app_python, web_app_wipe]
+      web_app : Remove buildRoot        TAGS: [web_app, web_app_python, web_app_wipe]
+      web_app : Allocate build root     TAGS: [web_app, web_app_deployment, web_app_python]
+      web_app : Create Compose  TAGS: [web_app, web_app_deployment, web_app_python]
+      web_app : Pull imgs       TAGS: [web_app, web_app_deployment, web_app_python]
+```
+
+## App CPLUSPLUS
+
+```
+playbook: playbooks/dev/app_cplusplus/main.yml
+
+  play #1 (all): Ansible C++    TAGS: [web_app_cplusplus]
+    tasks:
+      docker : Apt update and install docker    TAGS: [docker, web_app_cplusplus]
+      geerlingguy.pip : Ensure Pip is installed.        TAGS: [docker, web_app_cplusplus]
+      geerlingguy.pip : Ensure pip_install_packages are installed.      TAGS: [docker, web_app_cplusplus]
+      geerlingguy.docker : Load OS-specific vars.       TAGS: [docker, web_app_cplusplus]
+      include_tasks     TAGS: [docker, web_app_cplusplus]
+      include_tasks     TAGS: [docker, web_app_cplusplus]
+      geerlingguy.docker : Install Docker packages.     TAGS: [docker, web_app_cplusplus]
+      geerlingguy.docker : Install Docker packages (with downgrade option).     TAGS: [docker, web_app_cplusplus]
+      geerlingguy.docker : Install docker-compose plugin.       TAGS: [docker, web_app_cplusplus]
+      geerlingguy.docker : Install docker-compose-plugin (with downgrade option).       TAGS: [docker, web_app_cplusplus]
+      geerlingguy.docker : Ensure /etc/docker/ directory exists.        TAGS: [docker, web_app_cplusplus]
+      geerlingguy.docker : Configure Docker daemon options.     TAGS: [docker, web_app_cplusplus]
+      geerlingguy.docker : Ensure Docker is started and enabled at boot.        TAGS: [docker, web_app_cplusplus]
+      geerlingguy.docker : Ensure handlers are notified now to avoid firewall conflicts.        TAGS: [docker, web_app_cplusplus]
+      include_tasks     TAGS: [docker, web_app_cplusplus]
+      geerlingguy.docker : Get docker group info using getent.  TAGS: [docker, web_app_cplusplus]
+      geerlingguy.docker : Check if there are any users to add to the docker group.     TAGS: [docker, web_app_cplusplus]
+      include_tasks     TAGS: [docker, web_app_cplusplus]
+      web_app : Check build root        TAGS: [web_app, web_app_cplusplus, web_app_wipe]
+      web_app : Check docker-compose.yml        TAGS: [web_app, web_app_cplusplus, web_app_wipe]
+      web_app : Remove Compose  TAGS: [web_app, web_app_cplusplus, web_app_wipe]
+      web_app : Remove buildRoot        TAGS: [web_app, web_app_cplusplus, web_app_wipe]
+      web_app : Allocate build root     TAGS: [web_app, web_app_cplusplus, web_app_deployment]
+      web_app : Create Compose  TAGS: [web_app, web_app_cplusplus, web_app_deployment]
+      web_app : Pull imgs       TAGS: [web_app, web_app_cplusplus, web_app_deployment]
+```
+
+# Playbooks run 
+## Python
+`ansible-playbook playbooks/dev/app_python/main.yml -e web_app_full_wipe=true `
+
+50 lines
+```
+TASK [geerlingguy.docker : Ensure /etc/docker/ directory exists.] **************
+skipping: [test-name-updated]
+
+TASK [geerlingguy.docker : Configure Docker daemon options.] *******************
+skipping: [test-name-updated]
+
+TASK [geerlingguy.docker : Ensure Docker is started and enabled at boot.] ******
+ok: [test-name-updated]
+
+TASK [geerlingguy.docker : Ensure handlers are notified now to avoid firewall conflicts.] ***
+
+TASK [geerlingguy.docker : include_tasks] **************************************
+skipping: [test-name-updated]
+
+TASK [geerlingguy.docker : Get docker group info using getent.] ****************
+ok: [test-name-updated]
+
+TASK [geerlingguy.docker : Check if there are any users to add to the docker group.] ***
+skipping: [test-name-updated] => (item=ubuntu) 
+
+TASK [geerlingguy.docker : include_tasks] **************************************
+skipping: [test-name-updated]
+
+TASK [web_app : Check build root] **********************************************
+ok: [test-name-updated]
+
+TASK [web_app : Check docker-compose.yml] **************************************
+ok: [test-name-updated]
+
+TASK [web_app : Remove Compose] ************************************************
+changed: [test-name-updated]
+
+TASK [web_app : Remove buildRoot] **********************************************
+changed: [test-name-updated]
+
+TASK [web_app : Allocate build root] *******************************************
+changed: [test-name-updated]
+
+TASK [web_app : Create Compose] ************************************************
+changed: [test-name-updated]
+
+TASK [web_app : Pull imgs] *****************************************************
+changed: [test-name-updated]
+
+RUNNING HANDLER [web_app : Docker Compose restart] *****************************
+changed: [test-name-updated]
+
+PLAY RECAP *********************************************************************
+test-name-updated          : ok=22   changed=8    unreachable=0    failed=0    skipped=12   rescued=0    ignored=0   
+```
+
+## C++
+`ansible-playbook playbooks/dev/app_cplusplus/main.yml -e web_app_full_wipe=true`
+
+50 lines
+```
+TASK [geerlingguy.docker : Ensure /etc/docker/ directory exists.] **************
+skipping: [test-name-updated]
+
+TASK [geerlingguy.docker : Configure Docker daemon options.] *******************
+skipping: [test-name-updated]
+
+TASK [geerlingguy.docker : Ensure Docker is started and enabled at boot.] ******
+ok: [test-name-updated]
+
+TASK [geerlingguy.docker : Ensure handlers are notified now to avoid firewall conflicts.] ***
+
+TASK [geerlingguy.docker : include_tasks] **************************************
+skipping: [test-name-updated]
+
+TASK [geerlingguy.docker : Get docker group info using getent.] ****************
+ok: [test-name-updated]
+
+TASK [geerlingguy.docker : Check if there are any users to add to the docker group.] ***
+skipping: [test-name-updated] => (item=ubuntu) 
+
+TASK [geerlingguy.docker : include_tasks] **************************************
+skipping: [test-name-updated]
+
+TASK [web_app : Check build root] **********************************************
+ok: [test-name-updated]
+
+TASK [web_app : Check docker-compose.yml] **************************************
+ok: [test-name-updated]
+
+TASK [web_app : Remove Compose] ************************************************
+changed: [test-name-updated]
+
+TASK [web_app : Remove buildRoot] **********************************************
+changed: [test-name-updated]
+
+TASK [web_app : Allocate build root] *******************************************
+changed: [test-name-updated]
+
+TASK [web_app : Create Compose] ************************************************
+changed: [test-name-updated]
+
+TASK [web_app : Pull imgs] *****************************************************
+changed: [test-name-updated]
+
+RUNNING HANDLER [web_app : Docker Compose restart] *****************************
+changed: [test-name-updated]
+
+PLAY RECAP *********************************************************************
+test-name-updated          : ok=22   changed=8    unreachable=0    failed=0    skipped=12   rescued=0    ignored=0   
+```
+
+# Results:
+By using terraform outputs we know IP of vm, so we can connect to our machine, or we can look at applications
+## Containers
+![img_6.png](img_6.png)
+## Python
+![img_5.png](img_5.png)
+## C++
+![img_7.png](img_7.png)

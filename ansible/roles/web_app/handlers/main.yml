@@ -1,0 +1,11 @@
+- name: Docker Compose restart
+  become: true
+  listen: restart_compose
+  community.docker.docker_compose:
+    state: present
+    project_src: '{{ buildroot }}'
+    recreate: smart
+    build: true
+    remove_orphans: true
+    restarted: true
+

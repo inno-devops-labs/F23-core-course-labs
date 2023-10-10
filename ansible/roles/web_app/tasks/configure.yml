@@ -1,0 +1,27 @@
+- name: Configure and run application
+  tags: [web_app_deployment]
+  when: configure_and_run
+
+  block:
+    - name: Allocate build root
+      ansible.builtin.file:
+        state: directory
+        path: '{{ buildroot }}'
+        mode: '0755'
+
+    - name: Create Compose
+      ansible.builtin.template:
+        dest: '{{ buildroot }}/docker-compose.yml'
+        src: docker-compose.yml.j2
+        mode: '0644'
+      notify:
+        - restart_compose
+
+    - name: Pull imgs
+      community.docker.docker_compose:
+        state: present
+        project_src: '{{ buildroot }}'
+        pull: true
+      notify:
+        - restart_compose
+

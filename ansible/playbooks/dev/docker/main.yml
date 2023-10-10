@@ -1,4 +1,5 @@
-- name: ansibleLab5
+- name: Docker deployment
+  tags: [docker]
   hosts: all
   become: true
   roles:

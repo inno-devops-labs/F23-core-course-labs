@@ -1,0 +1,11 @@
+- name: Application Deployment management role
+  become: true
+  tags: [web_app]
+  block:
+    - name: Acquire wiper tasks
+      ansible.builtin.import_tasks:
+            wiper.yml
+
+    - name: Acquire "configure and run" tasks
+      ansible.builtin.import_tasks:
+            configure.yml

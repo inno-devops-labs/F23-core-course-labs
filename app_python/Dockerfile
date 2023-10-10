@@ -1,6 +1,7 @@
 FROM python:3.10-alpine3.18
 
 WORKDIR /usr/src/app
+RUN apk --no-cache add curl
 
 COPY requirements.txt /usr/src/app/
 RUN adduser --disabled-password app && pip install --no-cache-dir -r requirements.txt

@@ -1,0 +1,31 @@
+- name: App full wiper
+  tags: [web_app_wipe]
+  when: web_app_full_wipe
+  block:
+    - name: Check build root
+      ansible.builtin.stat:
+        path: '{{ buildroot }}'
+      register:
+        buildroot_result
+
+    - name: Check docker-compose.yml
+      ansible.builtin.stat:
+        path: '{{ buildroot }}/docker-compose.yml'
+      register:
+        compose_result
+
+    - name: Remove Compose
+      when: compose_result.stat.exists
+      community.docker.docker_compose:
+        state: absent
+        project_src: '{{ buildroot }}'
+        remove_volumes: true
+        remove_orphans: true # delete  objects created at previous up that wasn't shut down on previous down
+        remove_images: all
+
+    - name: Remove buildRoot
+      when: buildroot_result.stat.exists
+      ansible.builtin.file:
+        state: absent
+        path: '{{ buildroot }}'
+

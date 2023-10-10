@@ -1,0 +1,13 @@
+- name: Ansible Python
+  hosts: all
+  tags: [web_app_python]
+  roles:
+    - name: web_app
+      tags: [web_app_python]
+      vars:
+        app_image: docker.io/dashvayet/python_app:latest
+        app_name: app_python
+        internal_port: 5000
+        external_port: 5000
+        buildroot: /app_python
+

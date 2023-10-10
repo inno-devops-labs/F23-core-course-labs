@@ -1,0 +1,12 @@
+- name: Ansible C++
+  hosts: all
+  tags: [web_app_cplusplus]
+  roles:
+    - name: web_app
+      tags: [web_app_cplusplus]
+      vars:
+        app_image: docker.io/dashvayet/app_cplusplus:latest
+        app_name: app_cplusplus
+        internal_port: 10000
+        external_port: 10000
+        buildroot: /app_cplusplus
