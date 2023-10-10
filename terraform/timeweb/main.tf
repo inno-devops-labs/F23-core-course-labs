@@ -49,7 +49,7 @@ resource "twc_server" "cygnus" {
     configurator_id = data.twc_configurator.configurator.id
     disk            = 1024 * 50
     cpu             = 2
-    ram             = 1024 * 4
+    ram             = 1024 * 2
   }
 
   ssh_keys_ids = [twc_ssh_key.timeweb-0xf.id]
