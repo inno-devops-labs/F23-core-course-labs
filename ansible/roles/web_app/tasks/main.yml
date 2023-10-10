@@ -1,0 +1,10 @@
+---
+
+- name: "Bootstrap deployment environment"
+  import_tasks: "0-checkout.yml"
+
+- name: "Teardown existing application"
+  import_tasks: "1-wipe.yml"
+
+- name:  "Deploy application"
+  import_tasks: "2-deploy.yml"

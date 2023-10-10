@@ -1,0 +1,3 @@
+docker_registry: "{{ lookup('env', 'DOCKER_REGISTRY') or 'docker.io' }}"
+docker_username: "{{ lookup('env', 'DOCKER_USERNAME') }}"
+docker_password: "{{ lookup('env', 'DOCKER_PASSWORD') }}"

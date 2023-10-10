@@ -1,0 +1,9 @@
+---
+
+version: "3.5"
+
+services:
+  {{ web_app_name }}:
+    image: {{ web_app_container_image }}
+    ports:
+      - {{ web_app_port_host }}:{{ web_app_port_docker }}

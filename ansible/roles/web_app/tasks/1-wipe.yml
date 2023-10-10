@@ -1,0 +1,24 @@
+---
+
+- name: Tear down existing services
+  community.docker.docker_compose:
+    project_src: "{{ web_app_deploy_dir }}"
+    state: absent
+    remove_orphans: true
+  when: compose_stat.stat.exists
+
+- name: Remove application image
+  community.docker.docker_image:
+    name: "{{ web_app_container_image }}"
+    state: absent
+  tags: [ 'never', 'web_app_full_wipe' ]
+
+# Note that wiping of application data is heavily
+# application-specific process. Attempts to generalize
+# it via 'web_app' role will lead to the non reusable 
+# results and overcomplication. However, it still should be done
+# according to task specification. Since both of my application are
+# stateless, it might be sufficient to remove images for the purpose
+# of full-wipe. In more complex environment application specific wipe
+# roles should be created.
+

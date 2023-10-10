@@ -1,0 +1,23 @@
+---
+
+ # TODO instead ensure that file exist to avoid overhead
+
+- name: Ensure the application directory is present
+  file: 
+    path: "{{ web_app_deploy_dir }}"
+    state: directory
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+
+- name: Authorize into container registry 
+  community.docker.docker_login:
+    registry_url: "{{ docker_registry }}"
+    username: "{{ docker_username }}"
+    password: "{{ docker_password }}"
+    # reauthorize: true
+
+- name: Check whether the docker-compose exists
+  stat:
+    path: "{{ web_app_deploy_dir }}/docker-compose.yml"
+  register: compose_stat
+    
