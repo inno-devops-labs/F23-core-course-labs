@@ -1,0 +1,6 @@
+- name: Install app
+  include_tasks: "{{ role_path }}/tasks/install.yaml"
+
+- name: Remove app
+  include_tasks:
+    file: "{{ role_path }}/tasks/remove.yaml"

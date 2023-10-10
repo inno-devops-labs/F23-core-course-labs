@@ -3,3 +3,9 @@
   become: true
   roles:
     - docker
+
+- name: Deploy Python App
+  hosts: all
+  become: true
+  roles:
+    - web_app
