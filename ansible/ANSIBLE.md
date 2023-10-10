@@ -1,6 +1,8 @@
 # Ansible overview
 
-## Task 1
+## Lab 5
+
+### Task 1
 
 Here I just used a role which was suggested with a local playbook and inventory file. So, I connected to my local virtual machine via ssh and run the playbook.
 
@@ -96,7 +98,7 @@ PLAY RECAP *********************************************************************
 virtual_machine_1          : ok=12   changed=2    unreachable=0    failed=0    skipped=12   rescued=0    ignored=0 
 ```
 
-## Results of task 2
+### Results of task 2
 
 ```bash
 
@@ -146,3 +148,14 @@ virtual_machine_1          : ok=10   changed=0    unreachable=0    failed=0    s
 
 ```
 
+## Lab 6
+
+Web_app role - Role for deploying web application using docker. There are variables for setting a docker image name, docker user and wipe option.
+
+### Results
+
+Running a command provides the following results:
+
+```bash
+    PLAY [Deploy Dockerized app]
+```
