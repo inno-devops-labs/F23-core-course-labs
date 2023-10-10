@@ -1,5 +1,6 @@
 ---
 - name: Stop role
+  tags: stop-process
   block:
     - name: Check if Docker Compose directory exists
       ansible.builtin.stat:

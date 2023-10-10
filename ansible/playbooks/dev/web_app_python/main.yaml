@@ -9,6 +9,7 @@
   become: yes
   roles:
     - web_app
+# This is the toel for the bonus app basically change the default variables
 # - name: Deploy web_app rust
 #   hosts: all
 #   become: yes
