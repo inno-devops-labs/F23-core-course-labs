@@ -1,0 +1,13 @@
+---
+- name: Deploy c# app in docker
+  hosts: localhost
+  become: yes
+  roles:
+    - name: web_app
+      vars:
+        docker_container: 'app_c_sharp'
+        docker_image_name: 'annadluzhinskaya/pet-app'
+        docker_image_version: 'latest'
+        internal_port: 80
+        external_port: 8088
+        app_name: 'app_c_sharp'

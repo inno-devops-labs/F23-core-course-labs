@@ -1,0 +1,13 @@
+---
+- name: Deploy python app in docker
+  hosts: localhost
+  become: yes
+  roles:
+    - name: web_app
+      vars:
+        docker_container: 'app_python'
+        docker_image_name: 'annadluzhinskaya/python-moscow-time'
+        docker_image_version: 'latest'
+        internal_port: 8080
+        external_port: 8000
+        app_name: 'app_python'

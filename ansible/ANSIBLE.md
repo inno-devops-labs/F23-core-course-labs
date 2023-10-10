@@ -472,3 +472,169 @@ changed: [localhost]
 PLAY RECAP *********************************************************************
 localhost                  : ok=7    changed=4    unreachable=0    failed=0    skipped=5    rescued=0    ignored=0
 ```
+
+## Bonus task
+### Python
+
+```
+PLAY [Deploy python app in docker] *********************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [localhost]
+
+TASK [web_app : Check if directory /Users/ann_d/Desktop/app_python exists] *****
+ok: [localhost]
+
+TASK [web_app : Check if Docker Compose exists] ********************************
+ok: [localhost]
+
+TASK [web_app : Remove Docker Compose containers if exists] ********************
+changed: [localhost]
+
+TASK [web_app : Remove Docker Compose files if they exist] *********************
+--- before
++++ after
+@@ -1,10 +1,4 @@
+ {
+     "path": "/Users/ann_d/Desktop/app_python/docker-compose",
+-    "path_content": {
+-        "directories": [],
+-        "files": [
+-            "/Users/ann_d/Desktop/app_python/docker-compose/docker-compose.yml"
+-        ]
+-    },
+-    "state": "directory"
++    "state": "absent"
+ }
+
+changed: [localhost]
+
+TASK [web_app : Remove app directory /Users/ann_d/Desktop/app_python] **********
+--- before
++++ after
+@@ -1,8 +1,4 @@
+ {
+     "path": "/Users/ann_d/Desktop/app_python",
+-    "path_content": {
+-        "directories": [],
+-        "files": []
+-    },
+-    "state": "directory"
++    "state": "absent"
+ }
+
+changed: [localhost]
+
+TASK [web_app : Create directory for app_python] *******************************
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+     "path": "/Users/ann_d/Desktop/app_python",
+-    "state": "absent"
++    "state": "directory"
+ }
+
+changed: [localhost]
+
+TASK [web_app : Create directory for Docker Compose] ***************************
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+     "path": "/Users/ann_d/Desktop/app_python/docker-compose",
+-    "state": "absent"
++    "state": "directory"
+ }
+
+changed: [localhost]
+
+TASK [web_app : Run Docker Compose by template] ********************************
+--- before
++++ after: /Users/ann_d/.ansible/tmp/ansible-local-6906979iol37q/tmpuylvdzzf/docker-compose.yml.j2
+@@ -0,0 +1,8 @@
++version: '3.8'
++services:
++  app_python:
++    image: "annadluzhinskaya/python-moscow-time:latest"
++    container_name: "app_python"
++    ports:
++      - "8000:8080"
++    restart: unless-stopped
+
+changed: [localhost]
+
+RUNNING HANDLER [web_app : Restart Docker] *************************************
+changed: [localhost]
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=10   changed=7    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0  
+```
+
+### C#
+```
+PLAY [Deploy c# app in docker] ********************************************************************************************************
+
+TASK [Gathering Facts] ****************************************************************************************************************
+ok: [localhost]
+
+TASK [web_app : Check if directory /Users/ann_d/Desktop/app_c_sharp exists] ***********************************************************
+ok: [localhost]
+
+TASK [web_app : Check if Docker Compose exists] ***************************************************************************************
+ok: [localhost]
+
+TASK [web_app : Remove Docker Compose containers if exists] ***************************************************************************
+skipping: [localhost]
+
+TASK [web_app : Remove Docker Compose files if they exist] ****************************************************************************
+skipping: [localhost]
+
+TASK [web_app : Remove app directory /Users/ann_d/Desktop/app_c_sharp] ****************************************************************
+skipping: [localhost]
+
+TASK [web_app : Create directory for app_c_sharp] *************************************************************************************
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+     "path": "/Users/ann_d/Desktop/app_c_sharp",
+-    "state": "absent"
++    "state": "directory"
+ }
+
+changed: [localhost]
+
+TASK [web_app : Create directory for Docker Compose] **********************************************************************************
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+     "path": "/Users/ann_d/Desktop/app_c_sharp/docker-compose",
+-    "state": "absent"
++    "state": "directory"
+ }
+
+changed: [localhost]
+
+TASK [web_app : Run Docker Compose by template] ***************************************************************************************
+--- before
++++ after: /Users/ann_d/.ansible/tmp/ansible-local-69366rrzhic1t/tmprxy71ad2/docker-compose.yml.j2
+@@ -0,0 +1,8 @@
++version: '3.8'
++services:
++  app_c_sharp:
++    image: "annadluzhinskaya/pet-app:latest"
++    container_name: "app_c_sharp"
++    ports:
++      - "8088:80"
++    restart: unless-stopped
+
+changed: [localhost]
+
+RUNNING HANDLER [web_app : Restart Docker] ********************************************************************************************
+changed: [localhost]
+
+PLAY RECAP ****************************************************************************************************************************
+localhost                  : ok=7    changed=4    unreachable=0    failed=0    skipped=3    rescued=0    ignored=0 
+```

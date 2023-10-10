@@ -1,5 +1,5 @@
-# ---
-# dependencies:
-#   - role: docker
-#     become: true
-#     allow_duplicates: false
+ ---
+ dependencies:
+   - role: docker
+     become: true
+     allow_duplicates: false
