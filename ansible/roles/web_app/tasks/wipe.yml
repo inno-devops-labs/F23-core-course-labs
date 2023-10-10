@@ -13,7 +13,7 @@
       register: web_app_compose_dir
 
     - name: Remove docker compose
-      command: docker-compose down
+      command: docker-compose -p {{ web_app_name }} down --remove-orphans
       args:
             chdir: "{{ docker_compose_path }}"
       when: compose_file_status.stat.exists == true

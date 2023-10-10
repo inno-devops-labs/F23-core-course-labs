@@ -10,20 +10,15 @@ Role uses `docker` role as dependency for installing pip, docker-compose and so 
 
 Before usage setup next variables:
 ```
-docker_container:
-docker_image_name:
-docker_image_version:
-docker_image: "{{ docker_image_name }}:{{ docker_image_version }}" # DO NOT CHANGE
+docker_container
+docker_image_name
+docker_image_version
 
-docker_compose_path:
-docker_compose_file:
-docker_compose_file_path: "{{ docker_compose_path }}/{{ docker_compose_file }}" # DO NOT CHANGE
-
-internal_port:
-external_port:
+internal_port
+external_port
 
 web_app_full_wipe: <true/false>
-web_app_dir:
+web_app_name
 ```
 
 ### Usage 
