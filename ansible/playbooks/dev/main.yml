@@ -5,7 +5,5 @@
   serial: 1
   force_handlers: true
   roles:
-    - role: docker
-      tags: docker
     - role: web_app
       tags: web_app
