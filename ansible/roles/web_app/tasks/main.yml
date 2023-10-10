@@ -1,3 +1,9 @@
 - name: Deploy web app
-  ansible.builtin.shell:
-    docker pull klemencja/app_python && docker run -d -p 80:8000 klemencja/app_python
+  block:
+    - name: Pull docker image
+      ansible.builtin.shell:
+        docker pull klemencja/app_python
+
+    - name: Run docker container
+      ansible.builtin.shell:
+        docker run -d -p 80:8000 klemencja/app_python
