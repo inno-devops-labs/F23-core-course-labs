@@ -29,10 +29,3 @@
     (docker_compose_current_version is not defined)
     or (docker_compose_current_version | length == 0)
     or (docker_compose_current_version is version((docker_compose_version | regex_replace('v', '')), '<'))
-
-- name: install docker-compose via pip
-  become: true
-  pip:
-    name:
-      - docker-compose
-    state: latest
