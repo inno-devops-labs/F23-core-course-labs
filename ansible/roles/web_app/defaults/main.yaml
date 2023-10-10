@@ -1,0 +1,5 @@
+container_name: "devops_msk_time"
+image: "kurohata7/devops_msk_time"
+
+app_name: "app"
+web_app_full_wipe: true
