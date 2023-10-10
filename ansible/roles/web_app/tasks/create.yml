@@ -1,0 +1,16 @@
+- name: Create container directory
+  file:
+    path: "/src/{{ directory_name }}"
+    state: directory
+  tags: directory
+
+- name: Create docker-compose template
+  template:
+    src: "roles/web_app/templates/docker-compose.yml.j2"
+    dest: "/src/{{ directory_name }}/docker-compose.yml"
+  tags: template
+
+- name: Run docker compose
+  docker_compose:
+    project_src: /src/{{ directory_name }}
+  tags: docker_compose
