@@ -70,3 +70,51 @@ vm-app-python              : ok=10   changed=7    unreachable=0    failed=0    s
 ```
 
 For generation of inventory i used terraform `local_file` with `templatefile`, so inventory resources are synced with terraform state.
+
+# Last 50 lines of the output from Ansible 2
+
+```bash
+PLAY [Deploys app_python on Yandex Cloud] **************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [vm-app-python]
+
+TASK [docker : ansible.builtin.include_tasks] **********************************
+included: /Users/alexstrnik/Downloads/core-course-labs/ansible/roles/docker/tasks/install_docker_runtime.yaml for vm-app-python
+
+TASK [docker : Install required system packages] *******************************
+ok: [vm-app-python]
+
+TASK [docker : Add Docker GPG apt Key] *****************************************
+ok: [vm-app-python]
+
+TASK [docker : Add Docker Repository] ******************************************
+ok: [vm-app-python]
+
+TASK [docker : Update apt and install docker-ce] *******************************
+ok: [vm-app-python]
+
+TASK [docker : ansible.builtin.include_tasks] **********************************
+included: /Users/alexstrnik/Downloads/core-course-labs/ansible/roles/docker/tasks/install_pip_package.yaml for vm-app-python
+
+TASK [docker : Install Docker Module for Python] *******************************
+changed: [vm-app-python]
+
+TASK [web_app : Install application] *******************************************
+included: /Users/alexstrnik/Downloads/core-course-labs/ansible/roles/web_app/tasks/run.yaml for vm-app-python
+
+TASK [web_app : Create a directory if it does not exist] ***********************
+ok: [vm-app-python]
+
+TASK [web_app : Create docker-compose] *****************************************
+ok: [vm-app-python]
+
+TASK [web_app : Run application] ***********************************************
+changed: [vm-app-python]
+
+TASK [web_app : Wipe appliction] ***********************************************
+skipping: [vm-app-python]
+
+PLAY RECAP *********************************************************************
+vm-app-python              : ok=12   changed=2    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0
+```
