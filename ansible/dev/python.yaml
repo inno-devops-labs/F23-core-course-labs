@@ -1,0 +1,9 @@
+---
+- name: Deploy python app
+  hosts: vk_cloud
+  become: true
+  roles:
+    - role: roles/web_app
+      image: dyllasdek/app_python:latest
+      ports:
+        - "8000:8000"

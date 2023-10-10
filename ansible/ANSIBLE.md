@@ -88,7 +88,7 @@ PLAY RECAP *********************************************************************
 ubuntu@212.233.95.21       : ok=12   changed=7    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 ```
 
-## Inventory
+# Inventory
 
 ```
 dyllas@DyllasDekWork:/mnt/d/git/core-course-labs/ansible$ ansible-inventory -i ./inventory/inv.yaml --list
@@ -120,4 +120,169 @@ https://docs.ansible.com/ansible/devel/reference_appendices/config.html#cfg-in-w
     }
 }
 
+```
+
+# Deploying app\_\*
+
+```
+dyllas@DyllasDekWork:/mnt/d/git/core-course-labs/ansible$ ansible-playbook main.yaml -i ./inventory/inv.yaml --diff
+[WARNING]: Ansible is being run in a world writable directory (/mnt/d/git/core-course-
+labs/ansible), ignoring it as an ansible.cfg source. For more information see
+https://docs.ansible.com/ansible/devel/reference_appendices/config.html#cfg-in-world-
+writable-dir
+
+PLAY [Deploy python app] ***************************************************************
+
+TASK [Gathering Facts] *****************************************************************
+ok: [ubuntu@212.233.95.21]
+
+TASK [docker : include_tasks] **********************************************************
+included: /mnt/d/git/core-course-labs/ansible/roles/docker/tasks/deps.yaml for ubuntu@212.233.95.21
+
+TASK [docker : Ensure dependencies are installed.] *************************************
+The following additional packages will be installed:
+  python3-wheel
+Recommended packages:
+  build-essential python3-dev
+The following NEW packages will be installed:
+  python3-pip python3-wheel
+0 upgraded, 2 newly installed, 0 to remove and 0 not upgraded.
+changed: [ubuntu@212.233.95.21]
+
+TASK [docker : include_tasks] **********************************************************
+included: /mnt/d/git/core-course-labs/ansible/roles/docker/tasks/repo.yaml for ubuntu@212.233.95.21
+
+TASK [docker : Install keys] ***********************************************************
+changed: [ubuntu@212.233.95.21]
+
+TASK [docker : Add docker repo] ********************************************************
+--- before: /dev/null
++++ after: /etc/apt/sources.list.d/docker.list
+@@ -0,0 +1 @@
++deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/docker.asc] https://download.docker.com/linux/ubuntu jammy stable
+
+changed: [ubuntu@212.233.95.21]
+
+TASK [docker : include_tasks] **********************************************************
+included: /mnt/d/git/core-course-labs/ansible/roles/docker/tasks/install.yaml for ubuntu@212.233.95.21
+
+TASK [docker : Check if old deps are absent] *******************************************
+ok: [ubuntu@212.233.95.21]
+
+TASK [docker : Install docker] *********************************************************
+Suggested packages:
+  aufs-tools cgroupfs-mount | cgroup-lite
+Recommended packages:
+  docker-ce-rootless-extras libltdl7 pigz docker-compose-plugin
+The following NEW packages will be installed:
+  containerd.io docker-buildx-plugin docker-ce docker-ce-cli
+0 upgraded, 4 newly installed, 0 to remove and 216 not upgraded.
+changed: [ubuntu@212.233.95.21]
+
+TASK [docker : Install pip packets] ****************************************************
+changed: [ubuntu@212.233.95.21]
+
+TASK [web_app : Install application] ***************************************************
+included: /mnt/d/git/core-course-labs/ansible/roles/web_app/tasks/run.yaml for ubuntu@212.233.95.21
+
+TASK [web_app : Create a directory if it does not exist] *******************************
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+     "path": "/opt/composes/dyllasdek/app_python:latest",
+-    "state": "absent"
++    "state": "directory"
+ }
+
+changed: [ubuntu@212.233.95.21]
+
+TASK [web_app : Create docker-compose] *************************************************
+--- before
++++ after: /home/dyllas/.ansible/tmp/ansible-local-1412nnut3k9q/tmp7kaufvc5/docker-compose.yml.j2
+@@ -0,0 +1,6 @@
++version: "3"
++services:
++  app:
++    image: dyllasdek/app_python:latest
++    ports:
++      - "8000:8000"
+
+changed: [ubuntu@212.233.95.21]
+
+TASK [web_app : Run application] *******************************************************
+changed: [ubuntu@212.233.95.21]
+
+TASK [web_app : Wipe appliction] *******************************************************
+skipping: [ubuntu@212.233.95.21]
+
+PLAY [Deploy ktor app] *****************************************************************
+
+TASK [Gathering Facts] *****************************************************************
+ok: [ubuntu@212.233.95.21]
+
+TASK [docker : include_tasks] **********************************************************
+included: /mnt/d/git/core-course-labs/ansible/roles/docker/tasks/deps.yaml for ubuntu@212.233.95.21
+
+TASK [docker : Ensure dependencies are installed.] *************************************
+ok: [ubuntu@212.233.95.21]
+
+TASK [docker : include_tasks] **********************************************************
+included: /mnt/d/git/core-course-labs/ansible/roles/docker/tasks/repo.yaml for ubuntu@212.233.95.21
+
+TASK [docker : Install keys] ***********************************************************
+ok: [ubuntu@212.233.95.21]
+
+TASK [docker : Add docker repo] ********************************************************
+ok: [ubuntu@212.233.95.21]
+
+TASK [docker : include_tasks] **********************************************************
+included: /mnt/d/git/core-course-labs/ansible/roles/docker/tasks/install.yaml for ubuntu@212.233.95.21
+
+TASK [docker : Check if old deps are absent] *******************************************
+ok: [ubuntu@212.233.95.21]
+
+TASK [docker : Install docker] *********************************************************
+ok: [ubuntu@212.233.95.21]
+
+TASK [docker : Install pip packets] ****************************************************
+ok: [ubuntu@212.233.95.21]
+
+TASK [web_app : Install application] ***************************************************
+included: /mnt/d/git/core-course-labs/ansible/roles/web_app/tasks/run.yaml for ubuntu@212.233.95.21
+
+TASK [web_app : Create a directory if it does not exist] *******************************
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+     "path": "/opt/composes/dyllasdek/app_kotlin:latest",
+-    "state": "absent"
++    "state": "directory"
+ }
+
+changed: [ubuntu@212.233.95.21]
+
+TASK [web_app : Create docker-compose] *************************************************
+--- before
++++ after: /home/dyllas/.ansible/tmp/ansible-local-1412nnut3k9q/tmpdqvxbx51/docker-compose.yml.j2
+@@ -0,0 +1,6 @@
++version: "3"
++services:
++  app:
++    image: dyllasdek/app_kotlin:latest
++    ports:
++      - "8080:8080"
+
+changed: [ubuntu@212.233.95.21]
+
+TASK [web_app : Run application] *******************************************************
+changed: [ubuntu@212.233.95.21]
+
+TASK [web_app : Wipe appliction] *******************************************************
+skipping: [ubuntu@212.233.95.21]
+
+PLAY RECAP *****************************************************************************
+ubuntu@212.233.95.21       : ok=28   changed=11   unreachable=0    failed=0    skipped=2
+    rescued=0    ignored=0
 ```

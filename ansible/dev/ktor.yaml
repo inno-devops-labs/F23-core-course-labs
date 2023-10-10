@@ -1,0 +1,9 @@
+---
+- name: Deploy ktor app
+  hosts: vk_cloud
+  become: true
+  roles:
+    - role: roles/web_app
+      image: dyllasdek/app_kotlin:latest
+      ports:
+        - "8080:8080"

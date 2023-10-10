@@ -1,7 +1,0 @@
----
-- name: Run python app
-  docker_container:
-    name: app
-    image: dyllasdek/app_python:latest
-    ports:
-      - "5000:5000"
