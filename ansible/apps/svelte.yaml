@@ -1,0 +1,9 @@
+---
+- name: Deploy svelte time app
+  hosts: vk_cloud
+  become: true
+  roles:
+   - role: roles/web_app
+     image: relisqu/svelte-app:latest
+     ports:
+      - "5173:5173"

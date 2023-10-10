@@ -57,3 +57,23 @@ resource "vkcs_networking_port_secgroup_associate" "port" {
     vkcs_networking_secgroup.secgroup.id,
   ]
 }
+
+resource "vkcs_networking_secgroup_rule" "secgroup_rule_python_app" {
+  direction         = "ingress"
+  ethertype         = "IPv4"
+  port_range_max    = 5000
+  port_range_min    = 5000
+  remote_ip_prefix  = "0.0.0.0/0"
+  protocol          = "tcp"
+  security_group_id = vkcs_networking_secgroup.secgroup.id
+}
+
+resource "vkcs_networking_secgroup_rule" "secgroup_rule_js_app" {
+  direction         = "ingress"
+  ethertype         = "IPv4"
+  port_range_max    = 5173
+  port_range_min    = 5173
+  remote_ip_prefix  = "0.0.0.0/0"
+  protocol          = "tcp"
+  security_group_id = vkcs_networking_secgroup.secgroup.id
+}

@@ -1,0 +1,9 @@
+---
+- name: Deploy python time app
+  hosts: vk_cloud
+  become: true
+  roles:
+   - role: roles/web_app
+     image: relisqu/python-app:latest
+     ports:
+      - "5000:5000"

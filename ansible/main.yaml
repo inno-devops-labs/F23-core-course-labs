@@ -1,7 +1,5 @@
 ---
-- name: VK Cluud config
-  hosts: vk_cloud
-  become: true
-  roles:
-    - docker
-    - apps
+- name: VK Cloud python
+  import_playbook: "{{ playbook_dir }}/apps/python.yaml"
+- name: VK Cloud svelte
+  import_playbook: "{{ playbook_dir }}/apps/svelte.yaml"
