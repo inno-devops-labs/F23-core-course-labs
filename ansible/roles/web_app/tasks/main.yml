@@ -1,31 +1,8 @@
-# https://docs.ansible.com/ansible/2.9/modules/docker_container_info_module.html
-# https://docs.ansible.com/archive/ansible/2.3/docker_container_module.html
-- name: Get info about container
-  docker_container_info:
-    name: "{{ docker_container }}"
-  register: container_info
-
-- name: Stop the container 
-  docker_container:
-    name: "{{ docker_container }}"
-    state: stopped
-  when: container_info.exists == true
-
-- name: Remove the container
-  docker_container:
-    name: "{{ docker_container }}"
-    state: absent
-  when: container_info.exists == true
-
-- name: Pull the Docker image
-  docker_image:
-    name: "{{ docker_image }}"
-    source: pull
-
-- name: Run the Docker container
-  docker_container:
-    name: "{{ docker_container }}"
-    image: "{{ docker_image }}"
-    state: started
-    published_ports:
-      - "{{ external_port }}:{{ internal_port }}"
+- name: Web App role
+  block:
+    - name: stop 
+      import_tasks: stop.yml
+    - name: wipe
+      import_tasks: wipe.yml
+    - name: deploy
+      import_tasks: deploy_web.yml
