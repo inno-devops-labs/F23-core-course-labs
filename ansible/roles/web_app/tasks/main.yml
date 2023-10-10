@@ -1,0 +1,10 @@
+---
+
+- include_tasks: deps.yml
+
+- name: Run application
+  docker_container:
+    name: app
+    image: nikitosing/app_python:latest
+    ports:
+      - "80:1010"

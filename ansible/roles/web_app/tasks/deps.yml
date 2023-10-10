@@ -1,0 +1,6 @@
+---
+- name: check deps
+  pip:
+    name:
+      - docker
+    state: latest
