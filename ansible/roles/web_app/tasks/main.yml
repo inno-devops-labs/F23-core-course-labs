@@ -1,0 +1,16 @@
+- name: Deploy application
+  tags: app
+  block:
+    - name: Import wipe
+      ansible.builtin.include_tasks:
+        file: wipe_docker.yml
+    
+    - name: Import build and run docker image
+      ansible.builtin.include_tasks:
+        file: build_docker.yml
+  
+    - name: Deliver docker-compose
+      tags: deliver
+      template:
+        src: docker-compose.yml.j2
+        dest: "{{ app_folder_path }}/docker-compose.yml"

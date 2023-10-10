@@ -1,0 +1,5 @@
+web_app_full_wipe: no
+app_folder_path: "home/{{ ansible_ssh_user }}/app"
+docker_image_name: "time_app:latest"
+docker_container_name: "time_app"
+docker_ports: "80:5000"

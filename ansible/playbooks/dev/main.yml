@@ -2,4 +2,4 @@
   hosts: yandex_cloud_01
   become: yes
   roles:
-    - docker
+    - web_app
