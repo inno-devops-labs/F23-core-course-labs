@@ -3,12 +3,12 @@
     - start_container
   block:
     - name: pull image
-      my_image:
+      docker_image:
         name: "{{ my_image }}"
         source: pull
 
     - name: start app
-      container_name:
+      docker_container:
         name: "{{ container_name }}"
         image: "{{ my_image }}"
         state: started

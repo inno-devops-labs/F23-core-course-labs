@@ -3,7 +3,7 @@
     - wipe
   block:
     - name: remove Docker container
-      container_name:
+      docker_container:
         name: "{{ container_name }}"
         state: absent
     - name: remove Docker image
