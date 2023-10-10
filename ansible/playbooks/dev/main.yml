@@ -1,5 +1,5 @@
-- name: Deploy Docker
+- name: Deploy Docker image
   hosts: yandex-cloud
   become: true
   roles:
-     - docker
+    - web_app

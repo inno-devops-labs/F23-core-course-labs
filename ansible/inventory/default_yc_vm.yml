@@ -1,7 +1,7 @@
 yandex-cloud:
   hosts:
     vm:
-      ansible_host: "51.250.71.117"
+      ansible_host: "84.201.132.81"
       ansible_user: rakavaqaflow
       ansible_ssh_private_key_file: ~/.ssh/id_ed25519
       ansible_become: true

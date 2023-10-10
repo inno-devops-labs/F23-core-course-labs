@@ -1,0 +1,6 @@
+docker_container: 'app-python'
+docker_image_name: 'rakavaqaflow/app-python'
+docker_image_version: 'latest'
+docker_image: "{{ docker_image_name }}:{{ docker_image_version }}"
+internal_port: 5000
+external_port: 5000

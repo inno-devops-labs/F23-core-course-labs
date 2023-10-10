@@ -1,0 +1,8 @@
+---
+- name: Web App role
+  block:
+    - name: Pull container
+      include_tasks: pull_image.yml
+    - name: Run container
+      include_tasks: run_image.yml
+  
