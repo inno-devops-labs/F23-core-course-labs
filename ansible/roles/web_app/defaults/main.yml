@@ -1,0 +1,16 @@
+---
+docker_container: 'my-container'
+docker_image_name: 'dshamik/moscow-time-flask-app'
+docker_image_version: 'latest'
+docker_image: "{{ docker_image_name }}:{{ docker_image_version }}"
+internal_port: 8090
+external_port: 8090
+
+web_app_full_wipe: true
+web_app_stop: false
+app_name: 'my-app'
+app_dir: "/{{ app_name }}"
+
+docker_compose_path: "{{ app_dir }}/docker-compose"
+docker_compose_file: 'docker-compose.yml'
+docker_compose_file_path: "{{ docker_compose_path }}/{{ docker_compose_file }}"

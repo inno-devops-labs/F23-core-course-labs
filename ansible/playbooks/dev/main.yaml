@@ -1,5 +1,5 @@
 ---
- - name: Playbook with existing Ansible role
-   hosts: devhost
+ - name: Deploy docker image
+   hosts: localhost
    roles:
-     - docker
+     - web_app
