@@ -1,11 +1,8 @@
-- name: Create the application directory
-  ansible.builtin.file:
-    path: "{{ app_path }}"
-    state: directory
-    mode: a+rw
+---
+- name: Install Docker
+  include_tasks: install_docker.yml
 
-- name: Copy over the Docker Compose configuration
-  ansible.builtin.copy:
-    src: "{{ install_compose_path }}"
-    dest: "{{ app_path }}/install_compose.yaml"
-    mode: preserve
+- name: Install Docker Compose
+  include_tasks: install_compose.yml
+  when: docker_compose_install
+

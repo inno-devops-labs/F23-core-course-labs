@@ -1,8 +1,4 @@
-
-plugin: aws_ec2
-
+plugin: amazon.aws.aws_ec2
+aws_profile: default
 regions:
-  - us-east-1
-  
-filters:
-  tag:ControlledBy: ansible
+  - us-west-2
