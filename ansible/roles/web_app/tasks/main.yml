@@ -8,10 +8,7 @@
       community.docker.docker_image:
         name: "{{ docker_full_image_name }}"
         source: pull
-        force_source: true
-        state: present
-        pull_timeout: 120
-        timeout: 120
+      
     - name: Deploy container
       tags: run
       community.docker.docker_container:
