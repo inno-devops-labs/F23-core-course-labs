@@ -11,6 +11,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 RUN pip3 install poetry
 RUN poetry config virtualenvs.create false 
+RUN poetry install
 
 USER appUser
 
