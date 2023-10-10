@@ -11,5 +11,5 @@
         src: docker-compose.yml.j2
         dest: "/{{app_name}}/docker-compose.yml"
 
-    - name: Copy Docker
+    - name: Run Docker compose
       shell: "cd /{{app_name}} && docker-compose -p {{ app_name }} up -d"
