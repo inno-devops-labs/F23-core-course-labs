@@ -6,6 +6,12 @@
         file: wipe.yml
   when: web_app_wipe == true
 
+- name: Deliver docker-compose to the target
+  tags: deliver
+  template:
+    src: docker-compose.yml.j2
+    dest: ~/docker-compose.yml
+
 - name: Deploy docker image
   block:
   - name: Pull docker image
