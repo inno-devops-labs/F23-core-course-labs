@@ -3,3 +3,4 @@ timezone: UTC
 wipe_logic: false
 image: bobievnodir/app_python:latest
 container_name: web_app
+ports: "5000:5000"

@@ -4,6 +4,6 @@ services:
     container_name: {{ container_name }}
     image: {{ image }}
     ports:
-        - "5000:5000"
+        - {{ ports }}
     environment:
         - TZ={{ timezone }}

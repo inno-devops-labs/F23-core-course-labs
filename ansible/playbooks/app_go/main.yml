@@ -1,0 +1,15 @@
+---
+- name: Deploy App go on Yandex Cloud Virtual Machine
+  hosts: inventory/dev
+  become: true
+
+  vars:
+    app_directory: /opt/app_go
+    timezone: UTC
+    wipe_logic: false
+    image: bobievnodir/app_go:latest
+    container_name: app_go
+    ports: "8080:8080"
+
+  roles:
+    - web_app
