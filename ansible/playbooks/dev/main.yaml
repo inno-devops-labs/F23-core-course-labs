@@ -1,6 +1,14 @@
 ---
-- name: Deploy Docker
+- name: Deploy Web Application
   hosts: localhost
   become: yes
-  roles:
-    - geerlingguy.docker
+  vars:
+    web_app_full_wipe: true
+
+- name: Wipe Web Application
+  hosts: localhost
+  become: yes
+  vars:
+    web_app_full_wipe: true
+
+ 
