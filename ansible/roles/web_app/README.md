@@ -17,6 +17,8 @@ This Ansible role is designed to deploy and manage a Dockerized web application 
 
 Here's an example of how to use this role in an Ansible playbook:
 
+To run a specific role in terminal: ansible-playbook -i inventory/aws_ec2.yaml ansible/playbooks/dev/main.yaml --diff --key-file ~/.ssh/my_secret_key.pem
+
 ```yaml
 - name: Deploy and Manage Web Application
   hosts: localhost
@@ -27,4 +29,3 @@ Here's an example of how to use this role in an Ansible playbook:
   roles:
     - web_app
 
-To run a specific role in terminal: ansible-playbook -i inventory/aws_ec2.yaml ansible/playbooks/dev/main.yaml --diff --key-file ~/.ssh/my_secret_key.pem
