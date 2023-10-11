@@ -137,3 +137,90 @@ Output for ` ansible-inventory -i inventory/default_yacloud.yml --list` command
 ```
 
 </details>
+
+## Lab 6
+
+In this lab we have default parameter `web_app_full_wipe: false` in
+in `roles/web_app/defaults/main.yml` file. To enable the wipe
+process write `true` instead of `false`.
+
+### app_python
+
+Output for `ansible-playbook --ask-become-pass playbooks/dev/app_python/main.yml` command
+
+<details>
+
+```
+BECOME password: 
+
+PLAY [deploy py in Docker] *************************************************************************************************************************************************
+
+TASK [docker : Install pip] ************************************************************************************************************************************************
+ok: [server]
+
+TASK [docker : Include install_docker] *************************************************************************************************************************************
+included: /ansible/roles/docker/tasks/install_docker.yml for server
+
+TASK [docker : Install docker] *********************************************************************************************************************************************
+ok: [server]
+
+TASK [docker : Include install_compose] ************************************************************************************************************************************
+included: /ansible/roles/docker/tasks/install_compose.yml for server
+
+TASK [docker : install docker-compose] *************************************************************************************************************************************
+ok: [server]
+
+TASK [web_app : Create new dir] ********************************************************************************************************************************************
+ok: [server]
+
+TASK [web_app : Create a docker-compose.yml file] **************************************************************************************************************************
+--- before
++++ after: /root/.ansible/tmp/ansible-local-96517lu1j55w/tmp70i3m57h/docker-compose.yml.j2
+@@ -0,0 +1,8 @@
++version: '3.8'
++services:
++    app_python:
++        image: lizavetta/devops-python:latest
++        container_name: app_python
++        restart: unless-stopped
++        ports:
++             - "8082:80"
+\ No newline at end of file
+
+changed: [server]
+
+TASK [web_app : Run the app using docker-compose] ********************************************************************************************************************************************
+ok: [server]
+
+
+TASK [web_app : Stop docker-container] *************************************************************************************************************************************
+ok: [server]
+
+TASK [web_app : Remove the application directory] **************************************************************************************************************************
+--- before
++++ after
+@@ -1,10 +1,4 @@
+ {
+     "path": "new-dir-py/",
+-    "path_content": {
+-        "directories": [],
+-        "files": [
+-            "new-dir-py/docker-compose.yml"
+-        ]
+-    },
+-    "state": "directory"
++    "state": "absent"
+ }
+
+changed: [server]
+
+PLAY RECAP *****************************************************************************************************************************************************************
+server                     : ok=9    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+```
+
+
+</details>
+
+
+
