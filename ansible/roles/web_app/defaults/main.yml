@@ -1,6 +1,16 @@
+# Docker image config 
 docker_container: 'app-python'
 docker_image_name: 'rakavaqaflow/app-python'
 docker_image_version: 'latest'
 docker_image: "{{ docker_image_name }}:{{ docker_image_version }}"
 internal_port: 5000
 external_port: 5000
+
+# Wipe
+web_app_full_wipe: true
+app_name: 'app-python'
+app_dir: "/{{ app_name }}"
+
+# Docker-Compose 
+docker_compose_file: 'docker-compose.yml'
+docker_compose_path: "{{ app_dir }}/{{ docker_compose_file }}"

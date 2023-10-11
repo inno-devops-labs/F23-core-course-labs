@@ -1,0 +1,18 @@
+---
+- name: Deploy python app
+  hosts: yandex-cloud
+  become: true
+  become_method: sudo
+  roles:
+    - name: web_app
+      vars:
+        docker_container: 'app-python'
+        docker_image_name: 'rakavaqaflow/app-python'
+        docker_image_version: 'latest'
+        internal_port: 5000
+        external_port: 5000
+
+        web_app_full_wipe: true
+        app_name: 'app-python'
+
+        docker_compose_file: 'docker-compose.yml'

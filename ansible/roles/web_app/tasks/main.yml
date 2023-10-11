@@ -1,8 +1,9 @@
 ---
-- name: Web App role
+- name: Deploy web app docker container
   block:
-    - name: Pull container
-      include_tasks: pull_image.yml
-    - name: Run container
-      include_tasks: run_image.yml
-  
+    - name: Wipe web app
+      tags: wipe
+      include_tasks: wipe_web_app.yml
+    - name: Deploy web app
+      tags: deploy
+      include_tasks: push_docker_compose.yml
