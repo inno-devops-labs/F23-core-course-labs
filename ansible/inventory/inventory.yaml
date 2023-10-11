@@ -7,4 +7,4 @@ type_vkcs_compute_floatingip_associate
 ansible_user=ubuntu
 
 [vk_cloud]
-ubuntu@212.233.94.42 ansible_ssh_private_key_file=~/.ssh/id_rsa
+ubuntu@87.239.106.11 ansible_ssh_private_key_file=~/.ssh/id_rsa

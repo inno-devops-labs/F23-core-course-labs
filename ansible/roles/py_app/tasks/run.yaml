@@ -1,7 +1,0 @@
----
-- name: Run python app
-  docker_container:
-    name: app
-    image: dmitriypru/core_course_labs_python:latest
-    ports:
-      - "8000:8000"

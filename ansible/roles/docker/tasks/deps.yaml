@@ -1,5 +1,5 @@
 ---
-- name: Check required dependencies
+- name: Chekc to have needable deps.
   apt:
     name:
       - apt-transport-https
