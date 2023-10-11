@@ -1,4 +1,8 @@
-- name: Install Docker
-  hosts: yacloud-vm
-  roles:
-    - docker
+---
+ - name: Install docker
+   hosts: all
+   become: true
+   become_method: sudo
+   roles:
+     - ../../roles/docker
+ 

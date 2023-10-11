@@ -1,5 +1,11 @@
 ---
-- include_tasks: setup_debian.yml
-  when: ansible_os_family == 'Debian'
-
+- name: Ensure old versions of Docker are not installed.
+  package:
+    name:
+      - docker
+      - docker-engine
+    state: absent
+  become: true
 - include_tasks: install_docker.yml
+- include_tasks: install_pip.yml
+- include_tasks: install_docker_compose.yml
