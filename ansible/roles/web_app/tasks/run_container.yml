@@ -1,0 +1,8 @@
+---
+ - name: Run Docker container
+   community.docker.docker_container:
+     name: "{{ docker_container_name }}"
+     image: "{{ docker_image_name }}:{{ docker_image_tag }}"
+     state: started
+     ports:
+       - "{{ internal_port }}:{{ external_port }}"

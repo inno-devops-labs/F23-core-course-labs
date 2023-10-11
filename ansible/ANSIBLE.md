@@ -18,7 +18,7 @@
  TASK [geerlingguy.docker : include_tasks] ************************************************************************************
  skipping: [158.158.92.112]
  TASK [geerlingguy.docker : include_tasks] ************************************************************************************
- included: /home/edikgoose/.ansible/roles/geerlingguy.docker/tasks/setup-Debian.yml for 158.158.92.112
+ included: /home/k-tyulebaeva/.ansible/roles/geerlingguy.docker/tasks/setup-Debian.yml for 158.158.92.112
  TASK [geerlingguy.docker : Ensure old versions of Docker are not installed.] *************************************************
  ok: [158.158.92.112]
  TASK [geerlingguy.docker : Ensure dependencies are installed.] ***************************************************************
@@ -115,3 +115,47 @@
      }
  }
  ```
+
+ # Lab6
+ ```
+ ok: [k-tyulebaeva-instance]
+ TASK [docker : Ensure old versions of Docker are not installed.] *************************************************************
+ ok: [k-tyulebaeva-instance]
+ TASK [docker : Install docker] ***********************************************************************************************
+ included: /home/ktyulebaeva/devops/core-course-labs/ansible/roles/docker/tasks/install_docker.yml for k-tyulebaeva-instance
+ TASK [docker : Install packages required by docker] **************************************************************************
+ ok: [k-tyulebaeva-instance]
+ TASK [docker : Add docker GPG key] *******************************************************************************************
+ ok: [k-tyulebaeva-instance]
+ TASK [docker : Add docker apt repo] ******************************************************************************************
+ ok: [k-tyulebaeva-instance]
+ TASK [docker : Install docker] ***********************************************************************************************
+ ok: [k-tyulebaeva-instance]
+ TASK [docker : Install 'Docker SDK for Python'] ******************************************************************************
+ ok: [k-tyulebaeva-instance]
+ TASK [docker : Install pip] **************************************************************************************************
+ included: /home/ktyulebaeva/devops/core-course-labs/ansible/roles/docker/tasks/install_pip.yml for k-tyulebaeva-instance
+ TASK [docker : Install pip] **************************************************************************************************
+ ok: [k-tyulebaeva-instance]
+ TASK [docker : Install docker_compose] ***************************************************************************************
+ included: /home/ktyulebaeva/devops/core-course-labs/ansible/roles/docker/tasks/install_docker_compose.yml for k-tyulebaeva-instance
+ TASK [docker : Install Docker Compose] ***************************************************************************************
+ ok: [k-tyulebaeva-instance]
+ TASK [web_app : Wipe web app] ************************************************************************************************
+ included: /home/ktyulebaeva/devops/core-course-labs/ansible/roles/web_app/tasks/wipe_web_app.yml for k-tyulebaeva-instance
+ TASK [web_app : Remove moscow-time-app directory] ****************************************************************************
+ changed: [k-tyulebaeva-instance]
+ TASK [web_app : Remove Docker container] *************************************************************************************
+ changed: [k-tyulebaeva-instance]
+ TASK [web_app : Remove Docker image] *****************************************************************************************
+ changed: [k-tyulebaeva-instance]
+ TASK [web_app : Deploy web app] **********************************************************************************************
+ included: /home/ktyulebaeva/devops/core-course-labs/ansible/roles/web_app/tasks/deliver_docker_compose_file.yml for k-tyulebaeva-instance
+ TASK [web_app : Create moscow-time-app directory] ****************************************************************************
+ changed: [k-tyulebaeva-instance]
+ TASK [web_app : Deliver docker compose file to /home/ubuntu/moscow-time-app] *************************************************
+ changed: [k-tyulebaeva-instance]
+ RUNNING HANDLER [web_app : Restart Docker Compose] ***************************************************************************
+ changed: [k-tyulebaeva-instance]
+ PLAY RECAP *******************************************************************************************************************
+ k-tyulebaeva-instance : ok=20   changed=6    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   

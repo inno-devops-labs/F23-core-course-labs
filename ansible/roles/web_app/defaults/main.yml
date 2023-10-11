@@ -1,0 +1,16 @@
+---
+docker_image_name: tcarinaa/current_time
+docker_image_tag: latest
+
+docker_container_name: current_time
+
+app_directory: "/home/ubuntu/{{ app_name }}"
+docker_compose_file: docker-compose.yml
+docker_compose_file_path: "{{ app_directory }}/{{ docker_compose_file }}"
+
+internal_port: 80
+external_port: 8080
+
+web_app_full_wipe: true
+
+app_name: current_time

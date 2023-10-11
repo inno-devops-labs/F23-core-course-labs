@@ -1,0 +1,12 @@
+---
+ - name: Write docker compose file using jinja2
+   block:
+     - name: Create {{ app_name }} directory
+       file:
+         path: "{{ app_directory }}"
+         state: directory
+     - name: Deliver docker compose file to {{ app_directory }}
+       notify: docker_compose_restart_handler
+       template:
+         src: docker-compose.yml.j2
+         dest: "{{ docker_compose_file_path }}"

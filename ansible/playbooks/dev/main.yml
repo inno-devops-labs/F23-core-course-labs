@@ -1,8 +1,9 @@
 ---
- - name: Install docker
+
+ - name: Deploy dockerized app
    hosts: all
    become: true
    become_method: sudo
    roles:
-     - ../../roles/docker
+     - web_app
  

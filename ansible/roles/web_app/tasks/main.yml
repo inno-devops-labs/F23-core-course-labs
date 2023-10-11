@@ -1,0 +1,8 @@
+---
+- name: Deploy web app docker container
+  tags: deploy
+  block:
+    - name: Wipe web app
+      include_tasks: wipe_web_app.yml
+    - name: Deploy web app
+      include_tasks: deliver_docker_compose.yml

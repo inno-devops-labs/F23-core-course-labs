@@ -1,0 +1,7 @@
+---
+ - name: Pull Docker image
+   community.docker.docker_image:
+     name: "{{ docker_image_name }}"
+     tag: "{{ docker_image_tag }}"
+     source: pull
+     state: present
