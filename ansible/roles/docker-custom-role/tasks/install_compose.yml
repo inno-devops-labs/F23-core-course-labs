@@ -5,3 +5,6 @@
   vars:
     pip_install_packages:
       - name: docker-compose
+  tags:
+    - installation
+    - dockercompose

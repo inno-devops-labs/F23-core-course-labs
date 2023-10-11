@@ -5,3 +5,6 @@
     docker_install_compose_plugin: false
   ansible.builtin.import_role:
     name: geerlingguy.docker
+  tags:
+    - installation
+    - docker

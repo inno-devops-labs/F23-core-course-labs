@@ -7,3 +7,4 @@
       image: arseniy5443/randomquote:latest
       ports:
         - "80:3000"
+      web_app_full_wipe: true

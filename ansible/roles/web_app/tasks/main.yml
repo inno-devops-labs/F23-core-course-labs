@@ -1,15 +1,11 @@
 ---
-- name: Pull Docker image
-  docker_image:
-    name: "{{ image }}"
-    source: pull
-  become: yes
+- name: Wipe application
+  tags: wipe
+  include_tasks:
+    file: "{{ role_path }}/tasks/0-wipe.yml"
+  when: web_app_full_wipe | bool
 
-- name: Run Docker container
-  docker_container:
-    name: "moscowtime"
-    image: "{{ image }}"
-    state: started
-    ports:
-      - "80:5000"
-  become: yes
+- name: Install application
+  tags: install
+  include_tasks: "{{ role_path }}/tasks/1-install.yml"
+

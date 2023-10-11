@@ -7,3 +7,5 @@
       image: arseniy5443/moscowtime:latest
       ports:
         - "80:5000"
+      web_app_full_wipe: true
+      

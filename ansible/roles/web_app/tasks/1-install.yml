@@ -1,0 +1,18 @@
+---
+- name: Install App
+  tags: install
+  block:
+    - name: Creating a directory for docker-compose
+      ansible.builtin.file:
+        path: "/opt/composes/{{ image }}"
+        state: directory
+
+    - name: Creating docker-compose from template
+      template:
+        src: "{{ role_path }}/templates/docker-compose.yml.j2"
+        dest: "/opt/composes/{{ image }}/docker-compose.yml"
+
+    - name: Running application
+      docker_compose:
+        project_src: "/opt/composes/{{ image }}"
+        state: present
