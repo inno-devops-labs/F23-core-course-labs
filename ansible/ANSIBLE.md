@@ -109,3 +109,62 @@ changed: [virtual_machine_1]
 PLAY RECAP *******************************************************************************************************************************************************
 virtual_machine_1          : ok=10   changed=7    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 ```
+
+## Web_app role
+I created a role that deploys and runs a spercified docker image.
+The last lines of deployment command:
+
+```
+TASK [web_app : Stop app] ****************************************************************************************************************************************
+changed: [virtual_machine_1]
+
+TASK [web_app : delete image] ************************************************************************************************************************************
+changed: [virtual_machine_1]
+
+TASK [web_app : Remove compose directory] ************************************************************************************************************************
+--- before
++++ after
+@@ -1,10 +1,4 @@
+ {
+     "path": "/opt/composes/rentacat45/python-web-app",
+-    "path_content": {
+-        "directories": [],
+-        "files": [
+-            "/opt/composes/rentacat45/python-web-app/docker-compose.yml"
+-        ]
+-    },
+-    "state": "directory"
++    "state": "absent"
+ }
+
+changed: [virtual_machine_1]
+
+TASK [web_app : Create a directory if it does not exist] *********************************************************************************************************
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+     "path": "/opt/composes/rentacat45/python-web-app",
+-    "state": "absent"
++    "state": "directory"
+ }
+
+changed: [virtual_machine_1]
+
+TASK [web_app : Create docker-compose] ***************************************************************************************************************************
+--- before
++++ after: /Users/r-shakirova/.ansible/tmp/ansible-local-17830w0btclym/tmp7m8ia74f/docker-compose.yml.j2
+@@ -0,0 +1,4 @@
++version: "3"
++services:
++  app:
++    image: rentacat45/python-web-app
+
+changed: [virtual_machine_1]
+
+TASK [web_app : Run application] *********************************************************************************************************************************
+changed: [virtual_machine_1]
+
+PLAY RECAP *******************************************************************************************************************************************************
+virtual_machine_1          : ok=15   changed=6    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+```
