@@ -9,7 +9,7 @@ ENV PYTHONUNBUFFERED 1
 RUN apk update && \
     apk --no-cache add \
         gcc=12.2.1_git20220924-r10 \
-        musl-dev=1.2.4-r1
+        musl-dev=1.2.4-r2
 
 COPY requirements-base.txt .
 RUN pip wheel --no-cache-dir --no-deps --wheel-dir /app/wheels -r requirements-base.txt
