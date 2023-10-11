@@ -1,0 +1,26 @@
+---
+- name: Stop container, delete container, delete image
+  become: true 
+  block:
+    - name: Stop Docker container
+      tags: deploy
+      community.docker.docker_container:
+        name: "{{app_container_name}}"
+        state: stopped
+      ignore_errors: true
+
+    - name: Delete Docker container
+      community.docker.docker_container:
+        name: "{{app_container_name}}"
+        state: absent
+
+    - name: Delete Docker image
+      community.docker.docker_image:
+        name: "{{app_docker_image}}"
+        state: absent
+    
+    - name: Delete docker-compose.yml
+      tags: docker_compose
+      file:
+        state: absent
+        dest: docker-compose.yml

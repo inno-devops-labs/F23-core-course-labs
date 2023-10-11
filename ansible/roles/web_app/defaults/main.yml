@@ -1,0 +1,7 @@
+app_docker_image_version: latest
+app_docker_image: nzgeg3s0/doe-lab2:{{app_docker_image_version}}
+app_port: 8090
+app_container_name: doe-lab
+  
+app_wipe: false
+  
