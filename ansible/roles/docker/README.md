@@ -1,14 +1,14 @@
-# Docker role
+# Docker Role
 
-This role installs Docker on Ubuntu 22.04 Jammy according to the official tutorial.
+This role installs Docker on Ubuntu 22.04 Jammy according to official tutorial
 
 ## Requirements:
 
-- Ubuntu 22.04 on machine.
+- Ubuntu 22.04 on machine
 
 ## How to use:
 
-Use the role, no extra actions required.
+Just use the role, no extra actions required
 
 ```
 - name: Example of usage the role

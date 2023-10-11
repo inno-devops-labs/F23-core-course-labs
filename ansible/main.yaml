@@ -1,7 +1,5 @@
 ---
-- name: VK Cloud config
-  hosts: vk_cloud
-  become: true
-  roles:
-    - docker
-    - app_python
+- name: VK Cloud python
+  import_playbook: "{{ playbook_dir }}/dev/python.yaml"
+- name: VK Cloud js
+  import_playbook: "{{ playbook_dir }}/dev/js.yaml"

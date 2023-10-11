@@ -1,0 +1,9 @@
+---
+- name: Deploy js app to host
+  hosts: vk_cloud
+  become: true
+  roles:
+    - role: roles/web_app
+      image: purfreak/lab2_devops:latest-js
+      ports:
+        - "3000:3000"
