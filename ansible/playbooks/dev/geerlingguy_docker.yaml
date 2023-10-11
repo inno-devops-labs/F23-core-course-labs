@@ -1,0 +1,5 @@
+- name: Deploy geerlingguy
+  hosts: all
+  become: yes
+  roles:
+    - role: geerlingguy.docker

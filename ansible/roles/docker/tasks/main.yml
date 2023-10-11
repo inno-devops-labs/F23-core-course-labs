@@ -1,11 +1,52 @@
-- name: Install pip
-  ansible.builtin.include_tasks:
-    file: install_pip.yml
+---
+- name: Check old versions of Docker are not installed
+  package:
+    name:
+      - docker
+      - docker-engine
+    state: absent
 
-- name: Install Docker
-  ansible.builtin.include_tasks:
-    file: install_docker.yml
+- name: Check dependencies are installed
+  apt:
+    name:
+      - apt-transport-https
+      - ca-certificates
+    state: present
 
-- name: Install Docker Compose
-  ansible.builtin.include_tasks:
-    file: install_compose.yml
+- name: Check additional dependencies are installed
+  apt:
+    name: gnupg
+    state: present
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version is version('20.04', '>=')
+
+- name: Check curl is present
+  package:
+    name: curl
+    state: present
+
+- include_tasks: install_docker.yml
+
+- name: Check handlers are notified now to avoid firewall conflicts
+  meta: flush_handlers
+
+- include_tasks: install_compose.yml
+
+- include_tasks: install_docker_python.yml
+
+- name: Get docker group info using getent
+  getent:
+    database: group
+    key: docker
+    split: ':'
+  when: docker_users | length > 0
+
+- name: Ensure docker users are added to the docker group
+  user:
+    name: "{{ item }}"
+    groups: docker
+    append: true
+  with_items: "{{ docker_users }}"
+  when: docker_users | length > 0
+
+- name: Reset ssh connection to apply user changes
+  meta: reset_connection
