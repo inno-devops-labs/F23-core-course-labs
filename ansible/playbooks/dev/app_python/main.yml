@@ -1,0 +1,41 @@
+---
+- name: Deploying a python web application to our server
+  hosts: server 
+  become: yes
+
+  vars:
+      container_name: "python_time_app"
+      image: "m4k4rich/time-python-app"
+      app_name: "python_app"
+      app_port: 8080
+      server_ip: 158.160.118.69
+
+  pre_tasks:
+    - name: Check for the existance of /{{app_name}} repository.
+      ansible.builtin.stat:
+        path: "/{{app_name}}/docker-compose"
+      register: compose_dir_status
+    
+    - name: Stoping Docker compose if the directory exists
+      command: docker-compose -p {{ app_name }} stop 
+      args:
+        chdir: "/{{app_name}}/docker-compose"
+      when: compose_dir_status.stat.exists
+
+  roles: 
+    - web_app
+
+  post_tasks:
+    - name: Check if the service is healthy
+      uri:
+        url: http://{{server_ip}}:{{app_port}}
+        status_code: 200  # The expected HTTP status code for a healthy service
+        timeout: 5       # Maximum time to wait for a response in seconds
+      register: health_check_result
+      ignore_errors: yes  # If the health check fails, the playbook will continue
+
+    - name: Handle the health check result
+      fail:
+        msg: "Service is not healthy. Please investigate."
+      when: health_check_result.status != 200
+...
