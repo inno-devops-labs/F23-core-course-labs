@@ -1,0 +1,26 @@
+- name: Deploy web-app.
+  block:
+    - name: Create dir.
+      tags: create-dir
+      file:
+        state: directory
+        path: "/web_apps/{{ image_name }}"
+
+
+    - name: Download docker-compose.yml
+      tags: deploy-complose
+      template:
+        src: "{{ role_path }}/templates/docker-compose.yml.j2"
+        dest: "/web_apps/{{ image_name }}/docker-compose.yml"
+
+    - name: Pull image
+      docker_compose:
+        state: present
+        project_src: '/web_apps/'
+        pull: true
+
+    - name: Run docker-compose.
+      tags: deploy-run
+      docker_compose:
+        state: present
+        project_src: "/web_apps/{{ image_name }}"

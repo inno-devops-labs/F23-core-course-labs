@@ -1,0 +1,2 @@
+- ansible.builtin.import_playbook: web_app_cpp.yml
+- ansible.builtin.import_playbook: web_app_python.yml

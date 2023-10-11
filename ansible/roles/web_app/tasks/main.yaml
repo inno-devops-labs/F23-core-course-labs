@@ -1,0 +1,9 @@
+- name: WebApp role
+  tags: [webapp]
+  become: true
+  block:
+    - name: Deploy
+      ansible.builtin.import_tasks: others/deploy.yml
+
+    - name: Import Wipe
+      ansible.builtin.import_tasks: others/wipe.yml
