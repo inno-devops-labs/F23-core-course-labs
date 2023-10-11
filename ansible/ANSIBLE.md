@@ -1,6 +1,6 @@
 ## Install requirements
 ```bash
-ansible-galaxy install --force -r requirements.yml
+ansible-galaxy install --force -r requirements.yaml
 ```
 
 ## Run geerlingguy_docker playbook
@@ -231,3 +231,180 @@ ansible-inventory -i inventory/default_yacloud_compute.yml --list
 ## Dynamic inventory
 
 I set up dynamc inventory for yandex cloud
+
+
+# Usage of playbooks
+## Python app
+### Example  of commands
+```bash
+ansible-playbook -i inventory/default_yacloud_compute.yml playbooks/dev/app_python/main.yaml --diff --private-key=~/.ssh/ublunta_2
+```
+
+```bash
+ansible-playbook -i inventory/default_yacloud_compute.yml playbooks/dev/app_python/main.yaml --diff --private-key=~/.ssh/ublunta_2 --extra-vars "web_app_full_wipe=1" --tags wipe
+```
+
+### Example  of output for following command
+
+```bash
+ansible-playbook -i inventory/default_yacloud_compute.yml playbooks/dev/app_python/main.yaml --diff --private-key=~/.ssh/ublunta_2
+```
+<details>
+    <summary> Output</summary>
+
+```bash
+
+PLAY [Deploy Python app] *******************************************************************************************************************************************************************************************************************
+
+TASK [Gathering Facts] *********************************************************************************************************************************************************************************************************************
+ok: [terraform-vm-1]
+
+TASK [docker : Install pip] ****************************************************************************************************************************************************************************************************************
+included: /home/ublunta/Projects/core-course-labs/ansible/roles/docker/tasks/install_pip.yaml for terraform-vm-1
+
+TASK [docker : Update apt] *****************************************************************************************************************************************************************************************************************
+ok: [terraform-vm-1]
+
+TASK [docker : Install python] *************************************************************************************************************************************************************************************************************
+ok: [terraform-vm-1]
+
+TASK [docker : Install pip] ****************************************************************************************************************************************************************************************************************
+ok: [terraform-vm-1]
+
+TASK [docker : Install docker] *************************************************************************************************************************************************************************************************************
+included: /home/ublunta/Projects/core-course-labs/ansible/roles/docker/tasks/install_docker.yaml for terraform-vm-1
+
+TASK [docker : Install docker] *************************************************************************************************************************************************************************************************************
+ok: [terraform-vm-1]
+
+TASK [docker : Install docker-compose] *****************************************************************************************************************************************************************************************************
+included: /home/ublunta/Projects/core-course-labs/ansible/roles/docker/tasks/install_docker_compose.yaml for terraform-vm-1
+
+TASK [docker : Install docker-compose via pip] *********************************************************************************************************************************************************************************************
+ok: [terraform-vm-1]
+
+TASK [web_app : Install] *******************************************************************************************************************************************************************************************************************
+included: /home/ublunta/Projects/core-course-labs/ansible/roles/web_app/tasks/install_app.yaml for terraform-vm-1
+
+TASK [web_app : Create a directory if it does not exist] ***********************************************************************************************************************************************************************************
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+     "path": "/opt/seakysneka1/webserv_python",
+-    "state": "absent"
++    "state": "directory"
+ }
+
+changed: [terraform-vm-1]
+
+TASK [web_app : Create docker-compose] *****************************************************************************************************************************************************************************************************
+--- before
++++ after: /home/ublunta/.ansible/tmp/ansible-local-4877666bz81qj/tmpl5pejjg0/docker-compose.yml.j2
+@@ -0,0 +1,6 @@
++version: "3.7"
++services:
++  app:
++    image: seakysneka1/webserv_python
++    ports:
++      - "8000:8000"
+
+changed: [terraform-vm-1]
+
+TASK [web_app : Run application] ***********************************************************************************************************************************************************************************************************
+changed: [terraform-vm-1]
+
+TASK [web_app : Wipe] **********************************************************************************************************************************************************************************************************************
+skipping: [terraform-vm-1]
+
+PLAY RECAP *********************************************************************************************************************************************************************************************************************************
+terraform-vm-1             : ok=13   changed=3    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+```
+</details>
+
+## Javascript app
+### Example  of commands
+```bash
+ansible-playbook -i inventory/default_yacloud_compute.yml playbooks/dev/app_javascript/main.yaml --diff --private-key=~/.ssh/ublunta_2
+```
+
+```bash
+ansible-playbook -i inventory/default_yacloud_compute.yml playbooks/dev/app_javascript/main.yaml --diff --private-key=~/.ssh/ublunta_2 --extra-vars "web_app_full_wipe=1" --tags wipe
+```
+### Example  of output for following command
+
+```bash
+ansible-playbook -i inventory/default_yacloud_compute.yml playbooks/dev/app_javascript/main.yaml --diff --private-key=~/.ssh/ublunta_2
+```
+<details>
+    <summary> Output</summary>
+
+```bash
+
+PLAY [Deploy javasprict web app] *******************************************************************************************************************************************************************************************************************************
+
+TASK [Gathering Facts] *****************************************************************************************************************************************************************************************************************************************
+ok: [terraform-vm-1]
+
+TASK [docker : Install pip] ************************************************************************************************************************************************************************************************************************************
+included: /home/ublunta/Projects/core-course-labs/ansible/roles/docker/tasks/install_pip.yaml for terraform-vm-1
+
+TASK [docker : Update apt] *************************************************************************************************************************************************************************************************************************************
+ok: [terraform-vm-1]
+
+TASK [docker : Install python] *********************************************************************************************************************************************************************************************************************************
+ok: [terraform-vm-1]
+
+TASK [docker : Install pip] ************************************************************************************************************************************************************************************************************************************
+ok: [terraform-vm-1]
+
+TASK [docker : Install docker] *********************************************************************************************************************************************************************************************************************************
+included: /home/ublunta/Projects/core-course-labs/ansible/roles/docker/tasks/install_docker.yaml for terraform-vm-1
+
+TASK [docker : Install docker] *********************************************************************************************************************************************************************************************************************************
+ok: [terraform-vm-1]
+
+TASK [docker : Install docker-compose] *************************************************************************************************************************************************************************************************************************
+included: /home/ublunta/Projects/core-course-labs/ansible/roles/docker/tasks/install_docker_compose.yaml for terraform-vm-1
+
+TASK [docker : Install docker-compose via pip] *****************************************************************************************************************************************************************************************************************
+ok: [terraform-vm-1]
+
+TASK [web_app : Install] ***************************************************************************************************************************************************************************************************************************************
+included: /home/ublunta/Projects/core-course-labs/ansible/roles/web_app/tasks/install_app.yaml for terraform-vm-1
+
+TASK [web_app : Create a directory if it does not exist] *******************************************************************************************************************************************************************************************************
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+     "path": "/opt/seakysneka1/webserv_js",
+-    "state": "absent"
++    "state": "directory"
+ }
+
+changed: [terraform-vm-1]
+
+TASK [web_app : Create docker-compose] *************************************************************************************************************************************************************************************************************************
+--- before
++++ after: /home/ublunta/.ansible/tmp/ansible-local-5141446guceyw/tmp192qauda/docker-compose.yml.j2
+@@ -0,0 +1,6 @@
++version: "3.7"
++services:
++  app:
++    image: seakysneka1/webserv_js
++    ports:
++      - "5000:5000"
+
+changed: [terraform-vm-1]
+
+TASK [web_app : Run application] *******************************************************************************************************************************************************************************************************************************
+changed: [terraform-vm-1]
+
+TASK [web_app : Wipe] ******************************************************************************************************************************************************************************************************************************************
+skipping: [terraform-vm-1]
+
+PLAY RECAP *****************************************************************************************************************************************************************************************************************************************************
+terraform-vm-1             : ok=13   changed=3    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0  
+```
+</details>
