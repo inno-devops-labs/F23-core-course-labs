@@ -1,0 +1,6 @@
+version: '3.7'
+services:
+    {{ service_name }}:
+    image: {{ image_name }}
+    ports:
+      - "{{ host_port }}:{{ internal_port }}"

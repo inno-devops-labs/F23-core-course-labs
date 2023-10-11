@@ -1,0 +1,4 @@
+service_name: myapp_python
+image_name: myapp
+host_port: 2000
+internal_port: 8080
