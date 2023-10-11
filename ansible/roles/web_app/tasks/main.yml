@@ -1,0 +1,26 @@
+- block:
+    - name: Ensure docker is installed
+      package:
+        name: docker
+        state: present
+
+    - name: Pull the Docker image for the web application
+      community.docker.docker_image:
+        name: aisenbeast/my_web_app:latest
+        source: pull
+
+    - name: Ensure web app container is running
+      community.docker.docker_container:
+        name: web_app_container
+        image: aisenbeast/my_web_app:latest
+        state: started
+        ports:
+          - "80:5000"
+  tags: deploy
+
+
+- name: Deliver docker-compose.yml to target
+  template:
+    src: docker-compose.yml.j2
+    dest: ~/devOps/docker-compose.yml
+  tags: template_delivery
