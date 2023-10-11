@@ -1,0 +1,15 @@
+---
+- name: Wipe application.
+  block:
+    - name: Stop docker-compose containers and remove images.
+      tags: wipe-stop-compose
+      docker_compose:
+        project_src: "/apps/{{ image_name }}"
+        remove_images: all
+        state: absent
+
+    - name: Remove application directory.
+      tags: wipe-remove-dir
+      file:
+        path: "/apps/{{ image_name }}"
+        state: absent

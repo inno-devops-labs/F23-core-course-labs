@@ -1,5 +1,0 @@
-- name: lab5
-  hosts: devopscourse
-  become: true
-  roles:
-    - docker_custom

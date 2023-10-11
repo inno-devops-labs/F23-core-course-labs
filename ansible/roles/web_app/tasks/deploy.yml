@@ -1,0 +1,20 @@
+---
+- name: Deploy application.
+  block:
+    - name: Create application directory.
+      tags: deploy-create-dir
+      file:
+        path: "/apps/{{ image_name }}"
+        state: directory
+
+    - name: Fill template and transfer docker-compose.yml .
+      tags: deploy-template-compose
+      template:
+        src: "{{ role_path }}/templates/docker-compose.yml.j2"
+        dest: "/apps/{{ image_name }}/docker-compose.yml"
+
+    - name: Run docker-compose.
+      tags: deploy-run-compose
+      docker_compose:
+        project_src: "/apps/{{ image_name }}"
+        state: present
