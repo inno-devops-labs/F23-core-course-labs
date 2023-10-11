@@ -2,4 +2,4 @@
   hosts: host
   become: true
   roles:
-    - docker
+    - app_python
