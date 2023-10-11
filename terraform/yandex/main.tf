@@ -6,7 +6,7 @@ terraform {
   }
   required_version = ">= 0.13"
 
-  backend "s3" {
+    backend "s3" {
     endpoint = "storage.yandexcloud.net"
     bucket   = "chiplinka-default-backet"
     region   = "ru-central1"
@@ -21,7 +21,7 @@ provider "yandex" {
   token     = var.token
   cloud_id  = var.cloud_id
   folder_id = var.folder_id
-  zone      = "ru-central1-a"
+  zone = "ru-central1-a"
 }
 resource "yandex_compute_image" "ubuntu_2004" {
   source_family = "ubuntu-2004-lts"
@@ -47,9 +47,9 @@ resource "yandex_compute_instance" "vm_1" {
   }
   
   metadata = {
-    ssh-keys  = "ubuntu:${file("~/.ssh/try2.pub")}"
-    user-data = "${file("/home/arodef/Projects/core-course-labs/terraform/yandex/meta.txt")}"
-    serial-port-enable    = 1
+    ssh-keys           = "ubuntu:${file("~/.ssh/ublunta_2.pub")}"
+    user-data          = "${file("~/Projects/core-course-labs/terraform/yandex/meta.txt")}"
+    serial-port-enable = 1
   }
 }
 

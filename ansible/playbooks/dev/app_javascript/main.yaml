@@ -1,0 +1,8 @@
+- name: Deploy javasprict web app
+  hosts: all
+  become: true
+  roles:
+    - role: web_app
+      image: seakysneka1/webserv_js
+      ports:
+        - "5000:5000"
