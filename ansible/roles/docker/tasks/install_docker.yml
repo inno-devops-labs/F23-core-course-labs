@@ -1,0 +1,12 @@
+### Docker SDK for Python ###
+# https://pypi.org/project/docker/
+# A Python library for the Docker Engine API.
+# It lets you do anything the docker command does,
+#  but from within Python apps – run containers, manage containers, manage Swarms, etc.
+
+# Uses 'pip' package manager to install docker as python module
+- name: Install docker
+  # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/pip_module.html#ansible-collections-ansible-builtin-pip-module
+  ansible.builtin.pip:
+    name: "docker=={{pip_docker_version}}"
+    state: present

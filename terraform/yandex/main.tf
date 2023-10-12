@@ -4,7 +4,8 @@ provider "yandex" {
 }
 
 resource "yandex_compute_instance" "my_vm" {
-  name = var.my_vm_name
+  name                      = var.my_vm_name
+  allow_stopping_for_update = true
 
   resources {
     cores         = var.my_vm_cores_number
@@ -21,6 +22,18 @@ resource "yandex_compute_instance" "my_vm" {
 
   network_interface {
     subnet_id = yandex_vpc_subnet.my_subnetwork.id
+    nat       = true
+  }
+
+  scheduling_policy {
+    preemptible = true
+  }
+
+  metadata = {
+    ssh-keys              = "ubuntu:${file("~/.ssh/yandex_vm_ed25519.pub")}"
+    user-data             = file("./cloud-config.yml")
+    serial-port-enable    = 1
+    install-unified-agent = 0
   }
 }
 
