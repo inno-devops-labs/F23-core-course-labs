@@ -81,7 +81,7 @@ This command maps port 5000 on your local machine to port 5000 within the Docker
 
 ## Continuous Integration (CI) Workflowusername
 
-[![CI Status](https://github.com/KhaysK/core-course-labs/workflows/CI/badge.svg)](https://github.com/KhaysK/core-course-labs/actions)
+![CI Status](https://github.com/KhaysK/core-course-labs/workflows/CI/badge.svg)
 
 This project includes a Continuous Integration (CI) workflow to ensure code quality and consistency. The CI workflow performs the following steps:
 
