@@ -16,7 +16,6 @@ func NewTimeHandler() *TimeHandler {
 func (t *TimeHandler) CurrentTime(w http.ResponseWriter, r *http.Request) {
 	timeZone := "Europe/Moscow"
 	location, err := time.LoadLocation(timeZone)
-
 	if err != nil {
 		err_text := fmt.Sprintf("load location: %v", err)
 		log.Print(err_text)
