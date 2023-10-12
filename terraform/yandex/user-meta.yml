@@ -1,0 +1,8 @@
+#cloud-config
+users:
+  - name: devopsuser
+    groups: sudo
+    shell: /bin/bash
+    sudo: 'ALL=(ALL) NOPASSWD:ALL'
+    ssh-authorized-keys:
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICK6C5v1QIkWMI8ip2vaWmdyRUl3vvud6rvMS6moP0Py bobievnodir@bobievnodir-nu
