@@ -1,0 +1,7 @@
+---
+- name: Deploy web application on Yandex Cloud Virtual Machine
+  hosts: yandex-cloud
+  become: yes
+  roles:
+    - docker
+    - web_app

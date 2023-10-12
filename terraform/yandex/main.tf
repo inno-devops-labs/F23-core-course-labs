@@ -14,15 +14,17 @@ provider "yandex" {
 resource "yandex_compute_instance" "devops-vm" {
   name      = "devops-vm"
   folder_id = var.default_folder
+  allow_stopping_for_update = true
 
   resources {
     cores  = 2
-    memory = 2
+    memory = 4
   }
 
   boot_disk {
     initialize_params {
       image_id = "fd864gbboths76r8gm5f"
+      size = 20
     }
   }
 
