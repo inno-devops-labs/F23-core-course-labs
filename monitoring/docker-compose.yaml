@@ -6,7 +6,9 @@ networks:
 
 services:
   app:
-    image: el3os/moscow_time_python
+    image: el3os/moscow_time_python:latest
+    expose:
+      - 5000
     ports:
       - "5000:5000"
     networks:
@@ -19,15 +21,15 @@ services:
   #   networks:
   #     - loki
 
-  # prometheus:
-  #   image: prom/prometheus:latest
-  #   ports:
-  #     - "9090:9090"
-  #   volumes:
-  #     - ./config:/mnt/config
-  #   command: --config.file=/mnt/config/prometheus-config.yaml
-  #   networks:
-  #     - loki
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./config:/mnt/config
+    command: --config.file=/mnt/config/prometheus-config.yaml
+    networks:
+      - loki
 
   loki:
     image: grafana/loki:latest

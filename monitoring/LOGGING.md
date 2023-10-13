@@ -10,6 +10,8 @@
 
    1.3. [Promtail](#13-Promtail)
 
+   1.4. [Prometheus](#14-Prometheus)
+
 2. [Goal](#2-Goal)
 
 3. [Steps](#3-Steps)
@@ -38,11 +40,17 @@
 - A monitoring solution like Prometheus, but focused on application **logs** (collected by **[clients](https://grafana.com/docs/loki/latest/clients/)**) instead of general metrics.
 - Logs are stored as compressed objects and indexed for high efficiency, they can be queried using **LogQL**.
 
-### 1.3 Promtail
+### 1.3 .Promtail
+
+###  1.4.Prometheus
+
+- A monitoring system that pulls (retrieves) **metrics** data (entries of [types](https://prometheus.io/docs/concepts/metric_types/) **counter**, **gauge**, **histogram**, and **summary**) by running a **job** against one or more **instances** and stores these data in a **time-series** database.
+- **[Client libraries](https://prometheus.io/docs/instrumenting/clientlibs/)** written in different programming languages can be used to export application metrics while [**exporters**](https://prometheus.io/docs/instrumenting/exporters/) export metrics data from different systems (e.g., a Linux server or a database).
+- Metrics database can be queried (using **PromQL**) manually through the web UI or automatically by a visualization and analytics system (e.g., Grafana) or used to configure **alerting rules** that are handled by the **alert manager**.
 
 ## 2. Goal
 
-- Prepare a monitoring and visualization environment for the apps as a network of containers (application + Grafana + Loki with Promtail client).
+- Prepare a monitoring and visualization environment for the apps as a network of containers (application + Grafana + Prometheus + Loki with Promtail client).
 - Configure Loki to monitor logs from all running containers.
 - Create a Grafana dashboard to visualize the scraped data.
 
@@ -57,6 +65,7 @@
 ### 3.2. Exporting logs
 
 - An HTTP endpoint for application logs by Loki
+- We can define our own metrics and export them using [client libraries for Python](https://prometheus.io/docs/instrumenting/clientlibs/), or use 3rd party exporters like [prometheus-flask-exporter](https://github.com/rycus86/prometheus_flask_exporter) for Python app.
 
 ### 3.3. Preparing Environment
 
@@ -64,7 +73,8 @@
 - Write [configuration files](../monitoring/config) for Loki [[ref.](https://grafana.com/docs/loki/latest/configuration/examples/)], Promtail [[ref.](https://grafana.com/docs/loki/latest/clients/promtail/configuration/)].
   - **Loki configuration** specifies internal settings for Loki server and where to store logs (locally or remotely).
   - **Promtail configuration** contains information on the Promtail server, where positions are stored, and how to scrape logs from files.
-- Run the 2 containers with a `command` that specifies config file location.
+  - **Prometheus configuration** defines target endpoints to scrape and how often to scrape them.
+- Run the 3 containers with a `command` that specifies config file location.
 
 ### 3.4. Demo
 
@@ -84,9 +94,15 @@
 
     ![grafana_port](./images/grafana_port.png)
 
+- Verify Prometheus UI is accessible at <http://localhost:9090> and all targets are up in status tab, you can also run queries with autocompletion.
+
+![monitoring-1](./images/monitoring-1.png)
+
 - Configuration &rarr; Data source &rarr; Add data source
 
   - &rarr; Loki &rarr; URL = `http://loki:3100` &rarr; Save and test.
+  - &rarr; Prometheus &rarr; URL = `http://prometheus:9090` &rarr; Save and test.
+    - We can also add built-in Prometheus stats dashboard.
 
 - Explore &rarr; Loki &rarr; Add query &rarr; Write PromQL query or use UI builder.
 
@@ -98,6 +114,14 @@
 
 
 ### 3.5. Dashboards
+
+- Now we can create interesting dashboards from data collected by Prometheus and Loki and export them as reusable JSON.
+
+- We can also import ready-to-use dashboards for monitoring [loki](https://grafana.com/grafana/dashboards/13407) and [prometheus](https://grafana.com/grafana/dashboards/3662)
+
+  - Dashboards &rarr; New &rarr; Import &rarr; Upload JSON File.
+
+- 
 
 - Now we can create interesting dashboards from data collected by Loki and export them as reusable JSON.
 
