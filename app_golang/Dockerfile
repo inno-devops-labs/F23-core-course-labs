@@ -18,7 +18,7 @@ FROM golang:1.19.13-alpine3.18
 
 RUN apk --no-cache add libc6-compat=1.2.4-r2 \
     && adduser myuser -D && chown -R myuser . \
-    && apk --no-cache add curl=8.3.0-r0
+    && apk --no-cache add curl=8.4.0-r0
 
 USER myuser
 
