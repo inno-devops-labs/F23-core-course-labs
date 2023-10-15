@@ -40,6 +40,9 @@ configuration file:
 
 ## Screenshots
 
+I ran my docker container via `docker compose up`:
+![running_docker_containers.png](resources/running_docker_containers.png)
+
 My grafana provides a choice of container to view the logs from. I have 2 applications running and my logging stack
 supports both of them at the same time:
 ![grafana_container_choice.png](grafana_container_choice.png)
