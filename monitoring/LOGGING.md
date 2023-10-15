@@ -40,6 +40,14 @@ configuration file:
 
 ## Screenshots
 
+My grafana provides a choice of container to view the logs from. I have 2 applications running and my logging stack
+supports both of them at the same time:
+![grafana_container_choice.png](grafana_container_choice.png)
+
+### Python app logging
+
+I opened my `localhost` page few times to create logs from my application.
+
 My grafana is running on `localhost:3000` and provides for me logs of my application:
 ![main_page.png](resources/main_page.png)
 
@@ -49,3 +57,11 @@ In this example I asked for all the logs from my `python_app` container and here
 Also, I tried to play with LogQL and draw the graph that counts all the successful responses (with `200` code) of my
 application over time. Each point aggregates data within last 10 seconds:
 ![graph_query.png](resources/graph_query.png)
+
+### Kotlin app logging
+
+I choose `kotlin_app` for the label `container`:
+![kotlin_app_logging_example.png](resources/kotlin_app_logging_example.png)
+
+As a result I can see all the logs from my Spring kotlin application:
+![kotlin_app_logs.png](kotlin_app_logs.png)
