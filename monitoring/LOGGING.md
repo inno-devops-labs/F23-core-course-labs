@@ -45,7 +45,7 @@ I ran my docker container via `docker compose up`:
 
 My grafana provides a choice of container to view the logs from. I have 2 applications running and my logging stack
 supports both of them at the same time:
-![grafana_container_choice.png](grafana_container_choice.png)
+![grafana_container_choice.png](resources/grafana_container_choice.png)
 
 ### Python app logging
 
@@ -67,4 +67,4 @@ I choose `kotlin_app` for the label `container`:
 ![kotlin_app_logging_example.png](resources/kotlin_app_logging_example.png)
 
 As a result I can see all the logs from my Spring kotlin application:
-![kotlin_app_logs.png](kotlin_app_logs.png)
+![kotlin_app_logs.png](resources/kotlin_app_logs.png)
