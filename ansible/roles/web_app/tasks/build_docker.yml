@@ -1,0 +1,22 @@
+- name: Deploy docker image
+  block:
+    - name: Pull docker image from Docker Hub
+      tags: pull
+      # Pull the Docker image from Docker Hub
+      community.docker.docker_image:
+        name: "{{docker_image}}"
+        source: pull
+
+    - name: Deploy docker container
+      tags: deploy
+      # Deploy the Docker container
+      community.docker.docker_container:
+        name: "{{container_name}}"
+        image: "{{docker_image}}"
+        ports:
+          - "{{web_app_port}}:{{web_app_port}}"
+        publish_all_ports: true
+        recreate: true
+        restart: true
+        restart_policy: "always"
+        state: started

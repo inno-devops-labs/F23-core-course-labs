@@ -1,0 +1,6 @@
+- name: Install Docker Compose using pip
+  # Use 'ansible.builtin.pip' to ensure Docker Compose is installed with the specified version.
+  ansible.builtin.pip:
+    name: "docker-compose=={{compose_version}}"
+    state: present
+  become: yes  # Execute with elevated privileges.

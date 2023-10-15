@@ -1,0 +1,14 @@
+- name: Remove conflicting package containerd.io
+  apt:
+    name: containerd.io
+    state: absent
+  become: yes
+
+- name: Install Docker using apt
+  # Install Docker with the specified version using APT package manager.
+  apt:
+    name: "docker.io={{docker_version}}-0ubuntu1~22.04.1"
+    state: present
+    allow_change_held_packages: true
+    allow_downgrade: true
+  become: yes  # Execute with elevated privileges.

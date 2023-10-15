@@ -1,0 +1,7 @@
+- name: Install docker and docker compose [custom-role]
+  hosts: yandex_instance
+  become: yes
+  roles:
+    - role: '../../roles/web_app'
+      vars:
+        web_app_full_wipe: true
