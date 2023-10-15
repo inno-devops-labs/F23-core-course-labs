@@ -1,0 +1,4 @@
+- hosts: yandex_instance
+  become: yes
+  roles:
+    - role: geerlingguy.docker

@@ -1,0 +1,4 @@
+---
+# defaults file for ./roles/docker
+docker_version: 24.0.5
+compose_version: 1.29.2

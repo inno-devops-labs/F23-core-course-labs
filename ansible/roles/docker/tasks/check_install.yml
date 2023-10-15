@@ -1,0 +1,24 @@
+- name: Check if Docker is installed
+  # Use the 'stat' module to check if the '/usr/bin/docker' binary exists.
+  stat:
+    path: /usr/bin/docker
+  register: docker_installed
+  ignore_errors: yes
+
+- name: Check if Docker Compose is installed
+  # Use the 'command' module to check the Docker Compose version.
+  command: docker-compose --version
+  register: compose_installed
+  ignore_errors: yes
+
+- name: Print Docker installation status
+  # Print a message indicating that Docker is installed if the binary exists.
+  debug:
+    msg: "Docker is installed"
+  when: docker_installed.stat.exists
+
+- name: Print Docker Compose installation status
+  # Print a message indicating that Docker Compose is installed if the command exits with a return code of 0.
+  debug:
+    msg: "Docker Compose is installed"
+  when: compose_installed.rc == 0

@@ -1,0 +1,5 @@
+- name: Install docker and docker compose [custom-role]
+  hosts: yandex_instance
+  become: yes
+  roles:
+    - role: '../../roles/docker'

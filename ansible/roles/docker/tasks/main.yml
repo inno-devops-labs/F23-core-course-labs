@@ -1,0 +1,26 @@
+---
+# tasks file for ./roles/docker
+- name: Include update_apt
+  # Include a task file to update APT
+  ansible.builtin.include_tasks:
+    file: update_apt.yml
+
+- name: Include install_pip
+  # Include a task file to install pip
+  ansible.builtin.include_tasks:
+    file: install_pip.yml
+
+- name: Include install_docker
+  # Include a task file to install Docker
+  ansible.builtin.include_tasks:
+    file: install_docker.yml
+
+- name: Include install_compose
+  # Include a task file to install Docker Compose
+  ansible.builtin.include_tasks:
+    file: install_compose.yml
+
+- name: Include check_install
+  # Include a task file to check Docker and Docker Compose installation
+  ansible.builtin.include_tasks:
+    file: check_install.yml
