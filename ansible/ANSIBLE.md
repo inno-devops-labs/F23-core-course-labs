@@ -190,3 +190,85 @@ The JSON inventory file defines how Ansible connects to hosts and organizes them
     - `yandex_cloud`: Group containing the `yandex_instance` host.
 
 3. **yandex_cloud**: Group with hosts (e.g., `yandex_instance`).
+
+## Output from web_app
+
+```bash
+    PLAY [Install docker and docker compose [custom-role]] *******************************************************************************************
+
+    TASK [Gathering Facts] ***************************************************************************************************************************
+    ok: [yandex_instance]
+
+    TASK [../../roles/docker : Include update_apt] ***************************************************************************************************
+    included: /home/khays/DevOps/core-course-labs/ansible/roles/docker/tasks/update_apt.yml for yandex_instance
+
+    TASK [../../roles/docker : Update and upgrade apt packages] **************************************************************************************
+    ok: [yandex_instance]
+
+    TASK [../../roles/docker : Include install_pip] **************************************************************************************************
+    included: /home/khays/DevOps/core-course-labs/ansible/roles/docker/tasks/install_pip.yml for yandex_instance
+
+    TASK [../../roles/docker : Install python3 and pip] **********************************************************************************************
+    ok: [yandex_instance]
+
+    TASK [../../roles/docker : Include install_docker] ***********************************************************************************************
+    included: /home/khays/DevOps/core-course-labs/ansible/roles/docker/tasks/install_docker.yml for yandex_instance
+
+    TASK [../../roles/docker : Remove conflicting package containerd.io] *****************************************************************************
+    ok: [yandex_instance]
+
+    TASK [../../roles/docker : Install Docker using apt] *********************************************************************************************
+    ok: [yandex_instance]
+
+    TASK [../../roles/docker : Include install_compose] **********************************************************************************************
+    included: /home/khays/DevOps/core-course-labs/ansible/roles/docker/tasks/install_compose.yml for yandex_instance
+
+    TASK [../../roles/docker : Install Docker Compose using pip] *************************************************************************************
+    ok: [yandex_instance]
+
+    TASK [../../roles/docker : Include check_install] ************************************************************************************************
+    included: /home/khays/DevOps/core-course-labs/ansible/roles/docker/tasks/check_install.yml for yandex_instance
+
+    TASK [../../roles/docker : Check if Docker is installed] *****************************************************************************************
+    ok: [yandex_instance]
+
+    TASK [../../roles/docker : Check if Docker Compose is installed] *********************************************************************************
+    changed: [yandex_instance]
+
+    TASK [../../roles/docker : Print Docker installation status] *************************************************************************************
+    ok: [yandex_instance] => {
+        "msg": "Docker is installed"
+    }
+
+    TASK [../../roles/docker : Print Docker Compose installation status] *****************************************************************************
+    ok: [yandex_instance] => {
+        "msg": "Docker Compose is installed"
+    }
+
+    TASK [../../roles/web_app : Include wipe_containers] *********************************************************************************************
+    included: /home/khays/DevOps/core-course-labs/ansible/roles/web_app/tasks/wipe_containers.yml for yandex_instance
+
+    TASK [../../roles/web_app : Stop container] ******************************************************************************************************
+    changed: [yandex_instance]
+
+    TASK [../../roles/web_app : Delete container] ****************************************************************************************************
+    changed: [yandex_instance]
+
+    TASK [../../roles/web_app : Delete image] ********************************************************************************************************
+    changed: [yandex_instance]
+
+    TASK [../../roles/web_app : Move docker-compose to the target] ***********************************************************************************
+    ok: [yandex_instance]
+
+    TASK [../../roles/web_app : Include build_docker] ************************************************************************************************
+    included: /home/khays/DevOps/core-course-labs/ansible/roles/web_app/tasks/build_docker.yml for yandex_instance
+
+    TASK [../../roles/web_app : Pull docker image from docker hub] ***********************************************************************************
+    changed: [yandex_instance]
+
+    TASK [../../roles/web_app : Deploy docker container] *********************************************************************************************
+    changed: [yandex_instance]
+
+    PLAY RECAP ***************************************************************************************************************************************
+    yandex_instance            : ok=23   changed=6    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0  
+```

@@ -2,4 +2,6 @@
   hosts: yandex_instance
   become: yes
   roles:
-    - role: '../../roles/docker'
+    - role: '../../roles/web_app'
+      vars:
+        web_app_full_wipe: true

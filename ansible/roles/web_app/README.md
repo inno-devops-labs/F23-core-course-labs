@@ -1,38 +1,39 @@
-Role Name
-=========
+# web_app Ansible Role
 
-A brief description of the role goes here.
+## Description
 
-Requirements
-------------
+The **web_app** Ansible role simplifies the deployment of a Docker container for your Python application. It automates the process of building and running the container, providing flexibility in configuring container-related parameters.
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+## Requirements
 
-Role Variables
---------------
+This role requires the following prerequisites:
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+- **Docker Role**: Ensure the Docker role is available. You can use the "docker" role from Ansible Galaxy or any other role that sets up Docker on the target machine.
 
-Dependencies
-------------
+## Role Variables
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+The role utilizes the following variables, which can be customized in your playbook or inventory:
 
-Example Playbook
-----------------
+- `docker_image`: The Docker image to be used for the container. Specify the image name, including the repository if necessary (e.g., `username/repo:tag`).
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+- `container_name`: The name assigned to the Docker container when created.
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+- `web_app_port`: The host port mapped to the container.
 
-License
--------
+- `web_app_full_wipe`: A boolean (true/false) indicating whether to perform a full wipe of the container if it already exists.
 
-BSD
+## Usage
 
-Author Information
-------------------
+Include this role in your Ansible playbook to deploy your Python application in a Docker container:
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+```yaml
+- hosts: your_target_host
+  roles:
+    - role: web_app
+      docker_image: your-docker-image
+      container_name: your-container-name
+      web_app_port: 5000
+      web_app_full_wipe: true
+```
+
+Replace the variables with your specific values. This role will build and run the Docker container for your application.
