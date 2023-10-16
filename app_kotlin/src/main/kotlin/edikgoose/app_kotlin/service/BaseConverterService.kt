@@ -15,6 +15,7 @@ class BaseConverterService(
             throw IllegalBaseException()
         }
         try {
+            logger.info("Value $value is converting to base $base")
             return value.toString(base)
         } catch (e: IllegalArgumentException) {
             logger.error("Error during converting value $value to base $base: $e")
