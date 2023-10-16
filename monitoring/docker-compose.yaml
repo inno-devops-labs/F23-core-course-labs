@@ -1,0 +1,53 @@
+version: "3"
+
+networks:
+  loki:
+
+services:
+  promtail:
+    image: grafana/promtail:2.9.1
+    volumes:
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - ./configs/promtail.yml:/etc/promtail/config.yml
+    command: -config.file=/etc/promtail/config.yml
+    networks:
+      - loki
+    logging: &default-logging
+      driver: "json-file"
+      options:
+        tag: "{{.ImageName}}|{{.Name}}|{{.ImageFullID}}|{{.FullID}}"
+
+  loki:
+    image: grafana/loki:2.9.1
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
+    networks:
+      - loki
+    logging: *default-logging
+
+  grafana:
+    image: grafana/grafana:latest
+    environment:
+      - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+    volumes:
+      - ./configs/grafana-datasources.yml:/etc/grafana/provisioning/datasources/datasources.yaml
+    ports:
+      - "3000:3000"
+    networks:
+      - loki
+    logging: *default-logging
+
+  timeapp_go:
+    image: vladspigin/timeapp-go:latest
+    ports:
+      - "5001:8080"
+    logging: *default-logging
+
+  timeapp_python:
+    image: vladspigin/timeapp:latest
+    ports:
+      - "5002:8080"
+    logging: *default-logging
