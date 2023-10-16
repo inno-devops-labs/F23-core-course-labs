@@ -45,7 +45,7 @@ resource "yandex_compute_instance" "vm_1" {
     subnet_id = yandex_vpc_subnet.subnet_1.id
     nat       = true
   }
-
+  
   metadata = {
     ssh-keys  = "ubuntu:${file("~/.ssh/try2.pub")}"
     user-data = "${file("/home/arodef/Projects/core-course-labs/terraform/yandex/meta.txt")}"
