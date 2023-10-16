@@ -1,0 +1,9 @@
+github_repository.devops-course: Importing from ID "devops-course"...
+github_repository.devops-course: Import prepared!
+  Prepared github_repository for import
+github_repository.devops-course: Refreshing state... [id=devops-course]
+
+Import successful!
+
+The resources that were imported are shown above. These resources are now in
+your Terraform state and will henceforth be managed by Terraform.
