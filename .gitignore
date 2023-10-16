@@ -8,4 +8,4 @@ app_python/.vscode/settings.json
 *.tfstate
 *.tfstate*.lock*
 *.tfstate*.backup
-
+geerlingguy.docker

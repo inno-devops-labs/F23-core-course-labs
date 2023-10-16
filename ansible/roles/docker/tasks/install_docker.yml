@@ -1,0 +1,38 @@
+---
+- name: Install Docker and dependencies
+  become: true
+  apt:
+    pkg:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - software-properties-common
+      - gnupg
+      - lsb-release
+    state: present
+    update_cache: true
+
+- name: Add Docker GPG key
+  become: true
+  apt_key:
+    url: "{{docker_key}}"
+    state: present
+
+- name: Add Docker repository
+  become: true
+  apt_repository:
+    repo: deb {{docker_repo}}
+    state: present
+
+- name: Install Docker
+  become: true
+  apt:
+    name: docker-ce={{docker_ce_version}}
+    state: present
+    update_cache: true
+    allow_downgrades: true
+
+- name: Install Docker Module for Python
+  pip:
+    name: docker
+    state: present
