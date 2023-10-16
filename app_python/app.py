@@ -1,8 +1,8 @@
 from datetime import datetime
+import logging
 from flask import Flask, render_template
 import pytz
 from waitress import serve
-import logging
 
 logging.basicConfig(
     format='%(levelname)-8s -- %(asctime)-s -- Message: \t%(message)s',
