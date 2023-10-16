@@ -2,6 +2,15 @@ import argparse
 from datetime import datetime, timezone, timedelta
 from flask import Flask, render_template
 from waitress import serve
+import logging
+
+logging.basicConfig(
+    format='[%(levelname)-8s] %(asctime)-s:\t%(message)s',
+    datefmt='%Y-%m-%dT%H:%M:%S'
+)
+
+logger = logging.getLogger("waitress")
+logger.setLevel(logging.INFO)
 
 MSK_TIMEZONE = timezone(timedelta(hours=3))
 
@@ -15,6 +24,7 @@ parser.add_argument("-prod", "--production", action='store_true')
 def show_time():
     # Get current time in Moscow timezone
     time_now = datetime.now(MSK_TIMEZONE).strftime('%H:%M:%S')
+    logger.info(msg=f'Method: GET Response: {time_now}')
     return render_template('index.html', current_time=time_now)
 
 
