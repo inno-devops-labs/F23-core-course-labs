@@ -2,14 +2,17 @@ package main
 
 import (
     "fmt"
-    "log"
+	"github.com/fatih/color"
     "net/http"
     "time"
 )
 
+
 func main() {
+    color.Yellow("Before server started")
     http.HandleFunc("/", handler)
-    log.Fatal(http.ListenAndServe(":8008", nil))
+    color.Yellow("Server started")
+    http.ListenAndServe(":8008", nil)
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
@@ -30,5 +33,6 @@ func getMoscowTime() (string, error) {
 
     currentTime := time.Now().In(moscow)
 
+    color.Yellow("Current Moscow time: " + currentTime.Format(time.RFC3339) + "\n")
     return currentTime.Format(time.RFC3339), nil
 }

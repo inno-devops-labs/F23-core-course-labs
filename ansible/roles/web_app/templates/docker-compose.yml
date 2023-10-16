@@ -1,6 +1,6 @@
 version: "3.5"
 services:
-  time_app:
-    build: .
+  web_app:
+    image: "wildqueue/devops-hw:tagname"
     ports: 
       - "8008:8008"

@@ -1,7 +1,9 @@
 import datetime
 import http.server
 import socketserver
+import logging
 
+log = logging.getLogger(__name__)
 
 class TimeServer(http.server.SimpleHTTPRequestHandler):
     def do_GET(self):
@@ -24,7 +26,7 @@ if __name__ == '__main__':
     PORT = 8008
 
     with socketserver.TCPServer(('', PORT), TimeServer) as httpd:
-        print(f'Server started on port {PORT}')
+        log.info(f'Server started on port {PORT}')
         try:
             httpd.serve_forever()
         except KeyboardInterrupt:
