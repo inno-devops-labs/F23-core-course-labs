@@ -22,7 +22,7 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 	data := TimeData{
 		MoscowTime: moscowTime,
 	}
-
+	color.Green("Request from " + r.RemoteAddr)
 	tpl.Execute(w, data)
 }
 
