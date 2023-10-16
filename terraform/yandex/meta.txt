@@ -1,0 +1,7 @@
+users:
+  - name: ubuntu
+    groups: sudo
+    shell: /bin/bash
+    sudo: 'ALL=(ALL) NOPASSWD:ALL'
+    ssh-authorized-keys:
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINdITD4jO7xqpcAQFXil4tF5hpfesuPSs0ApjZAx18Sw arodef@fedora
