@@ -172,3 +172,43 @@ kube-system   service/kube-dns         ClusterIP      10.96.0.10       <none>   
 Working:
 
 ![](img/1.png)
+
+## Bonus
+
+### Manifests for Rust application created
+
+### Minikube Ingress addon
+
+```bash
+[user@fedora core-course-labs]$ minikube addons enable ingress
+💡  ingress is an addon maintained by Kubernetes. For any concerns contact minikube on GitHub.
+You can view the list of minikube maintainers at: https://github.com/kubernetes/minikube/blob/master/OWNERS
+    ▪ Using image registry.k8s.io/ingress-nginx/kube-webhook-certgen:v20230407
+    ▪ Using image registry.k8s.io/ingress-nginx/kube-webhook-certgen:v20230407
+    ▪ Using image registry.k8s.io/ingress-nginx/controller:v1.8.1
+🔎  Verifying ingress addon...
+🌟  The 'ingress' addon is enabled
+```
+
+### Ingress manifest apply
+
+```bash
+[user@fedora rust]$ kubectl apply -f ingress.yaml 
+ingress.networking.k8s.io/rust-ingress created
+[user@fedora rust]$ cd ../python/
+[user@fedora python]$ kubectl apply -f ingress.yaml 
+ingress.networking.k8s.io/python-ingress created
+[user@fedora python]$ kubectl get ingress -A
+NAMESPACE   NAME             CLASS   HOSTS        ADDRESS        PORTS   AGE
+default     python-ingress   nginx   python.app   192.168.49.2   80      5s
+default     rust-ingress     nginx   rust.app     192.168.49.2   80      45s
+```
+
+### Verifying
+
+```bash
+[user@fedora python]$ curl -H "Host: rust.app" http://192.168.49.2
+2023-10-17T12:43:17.761483316+03:00[user@fedora python]$ 
+[user@fedora python]$ curl -H "Host: python.app" http://192.168.49.2
+2023-10-17T12:43:23.186752+03:00[user@fedora python]$
+```
