@@ -10,6 +10,7 @@ import (
 const timeFormat = "2006-01-02 15:04:05"
 
 func currentMoscowTimeHandler(w http.ResponseWriter, r *http.Request) {
+	log.Println("GET / HTTP")
 	location, err := time.LoadLocation("Europe/Moscow")
 	if err != nil {
 		log.Println(err)
