@@ -1,0 +1,219 @@
+version: '3.7'
+
+x-logging: &loki-logging
+  driver: json-file
+  options:
+    tag: "{{.ImageName}}|{{.Name}}|{{.ImageFullID}}|{{.FullID}}"
+
+services:
+  traefik:
+    hostname: traefik
+    container_name: traefik_monitoring
+    image: traefik:2.10.4
+
+    command:
+      # Set to INFO in production
+      - --log.level=DEBUG
+      - --log.filePath=/traefik/logs/traefik.log
+
+      - --entrypoints.http.address=:80
+      - --providers.docker=true
+      - --api=true
+
+      - --metrics.prometheus=true
+      - --metrics.prometheus.entryPoint=metrics
+      - --entryPoints.metrics.address=:8082
+      - --metrics.prometheus.buckets=0.1,0.3,1.2,5.0
+
+      - --accesslog=true
+      - --accesslog.filepath=/traefik/logs/access.log
+      - --accesslog.bufferingsize=100
+
+    labels:
+      - traefik.http.routers.traefik.rule=Host(`traefik.${DOCKER_ENV_DOMAIN}`)
+      - traefik.http.routers.traefik.middlewares=auth
+      - traefik.http.routers.traefik.service=api@internal
+
+    ports:
+      - 81:80
+    volumes:
+      - ./traefik/letsencrypt:/letsencrypt
+      - ./traefik/logs:/traefik/logs
+      #- ./traefik/traefik.toml:/etc/traefik/traefik.toml
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - external_network
+      - internal_network
+    restart: unless-stopped
+    logging: *loki-logging
+  
+
+  # Since the Loki containers are running as user 10001 and the mounted data volume is owned by root,
+  # Loki would not have permissions to create the directories.
+  # Therefore the init container changes permissions of the mounted directory.
+  # https://github.com/grafana/loki/blob/main/production/docker/docker-compose.yaml
+  loki_init:
+    image: &lokiImage grafana/loki:2.9.2
+    user: root
+    entrypoint:
+      - "chown"
+      - "10001:10001"
+      - "/loki"
+    volumes:
+      - loki-storage:/loki
+    networks:
+      - internal_network
+
+
+
+  grafana:
+    hostname: grafana
+    container_name: grafana
+    image: grafana/grafana:10.0.5
+    depends_on:
+      - traefik
+      # - prometheus
+    volumes:
+      - grafana-storage:/var/lib/grafana
+      - ./grafana/settings/:/etc/grafana/provisioning/
+    labels:
+      - traefik.http.routers.grafana.rule=Host(`grafana.${DOCKER_ENV_DOMAIN}`)
+      - traefik.http.routers.grafana.service=grafana
+      - traefik.http.routers.grafana.middlewares=auth
+      - traefik.http.services.grafana.loadbalancer.server.port=3000
+      - traefik.http.routers.grafana.entrypoints=http
+    networks:
+      - internal_network
+    restart: unless-stopped
+    logging: *loki-logging
+
+  loki:
+    hostname: loki
+    container_name: loki
+    image: *lokiImage
+    command: -config.file=/etc/loki/loki-config.yml
+    restart: unless-stopped
+    volumes:
+      - loki-storage:/loki
+      - ./loki/settings/loki-config.yml:/etc/loki/loki-config.yml
+    networks:
+      - internal_network
+    labels:
+      - traefik.http.routers.loki.rule=Host(`loki.${DOCKER_ENV_DOMAIN}`)
+      - traefik.http.routers.loki.service=loki
+      - traefik.http.routers.loki.middlewares=auth
+      - traefik.http.services.loki.loadbalancer.server.port=3100
+      - traefik.http.routers.loki.entrypoints=http
+    logging: *loki-logging
+    depends_on:
+      - loki_init
+
+  promtail:
+    hostname: promtail
+    container_name: promtail
+    restart: unless-stopped
+    image: grafana/promtail:2.9.0
+    volumes:
+      # logs for linux host only
+      #- /var/log:/host/log
+      - /var/lib/docker/containers:/host/containers
+      - ./promtail/settings/:/etc/promtail
+    command: -config.file /etc/promtail/promtail-config.yaml
+    networks:
+      - internal_network
+    logging: *loki-logging
+
+
+
+  app_python:
+    hostname: app_python
+    container_name: app_python
+    build: ../app_python
+    networks:
+      - internal_network
+    labels:
+      - traefik.http.routers.app_python.rule=Host(`app_python.${DOCKER_ENV_DOMAIN}`)
+      - traefik.http.routers.app_python.entrypoints=http            
+      - traefik.http.services.app_python.loadbalancer.server.port=8000
+    logging: *loki-logging  
+
+  app_go:
+    hostname: app_go
+    container_name: app_go
+    build: ../app_go
+    networks:
+      - internal_network
+    labels:
+      - traefik.http.routers.app_go.rule=Host(`app_go.${DOCKER_ENV_DOMAIN}`)
+      - traefik.http.routers.app_go.entrypoints=http            
+      - traefik.http.services.app_go.loadbalancer.server.port=8080
+    logging: *loki-logging  
+
+
+  # Uncomment prometheus with nodeexporter on demand
+
+  # prometheus:
+  #   user: "0:0"
+  #   hostname: prometheus
+  #   container_name: prometheus
+  #   image: prom/prometheus:v2.47.0
+  #   depends_on:
+  #     - traefik
+  #   volumes:
+  #     - ./prometheus/settings/:/etc/prometheus/
+  #     - prometheus-storage:/prometheus
+  #   command:
+  #     - --config.file=/etc/prometheus/prometheus.yml
+  #     - --storage.tsdb.path=/prometheus
+  #     - --storage.tsdb.retention.size=256MB
+  #   labels:
+  #     - traefik.http.routers.prometheus.rule=Host(`prometheus.${DOCKER_ENV_DOMAIN}`)
+  #     - traefik.http.routers.prometheus.service=prometheus
+  #     - traefik.http.routers.prometheus.middlewares=auth
+  #     - traefik.http.routers.prometheus.entrypoints=http
+  #     - traefik.http.services.prometheus.loadbalancer.server.port=9090
+  #   networks:
+  #     - internal_network
+  #   restart: unless-stopped
+  #   logging: *loki-logging
+
+  # nodeexporter:
+  # user: "0:0"
+  #   image: prom/node-exporter:v1.6.1
+  #   container_name: nodeexporter
+  #   hostname: nodeexporter
+  #   restart: unless-stopped
+  #   volumes:
+  #     - /proc:/host/proc:ro
+  #     - /sys:/host/sys:ro
+  #     - /:/rootfs:ro
+  #   command:
+  #     - '--path.procfs=/host/proc'
+  #     - '--path.rootfs=/rootfs'
+  #     - '--path.sysfs=/host/sys'
+  #     - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+  #   expose:
+  #     - 9100
+  #   networks:
+  #     - internal_network
+  #   logging: *loki-logging
+
+networks:
+
+  external_network:
+    name: external_network
+    driver: bridge
+    internal: false
+    attachable: false
+
+  internal_network:
+    name: internal_network
+    driver: bridge
+    internal: true
+    attachable: true
+
+
+volumes:
+  grafana-storage: {}
+  loki-storage: {}
+  # prometheus-storage: {}

@@ -1,0 +1,7 @@
+.env
+grafana/data/*
+prometheus/data/*
+traefik/letsencrypt/*
+traefik/logs/*
+loki/data/*
+
