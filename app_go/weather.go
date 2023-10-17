@@ -7,6 +7,6 @@ import (
 
 func main() {
 	http.HandleFunc("/", handler.IndexHandler)
-	err := http.ListenAndServe(":3000", nil)
+	err := http.ListenAndServe(":8081", nil)
 	handler.Error(err)
 }
