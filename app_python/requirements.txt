@@ -1,5 +1,4 @@
-# TODO add versions
-flask
-pytest==7.4.1
+flask==2.0.1
 pytz==2022.1
 gunicorn==21.2.0
+Werkzeug==2.2.2
