@@ -1,0 +1,22 @@
+- name: Wipe docker compose containers from system
+  tags: wipe
+  block:
+    - name: Check directory exists
+      stat:
+        path: "/src/{{ directory_name }}"
+      register: directory_stats
+  
+    - name: Stop docker-container and remove directory
+      block:
+      - name: Stop docker-container
+        docker_compose:
+          project_src: "/src/{{ directory_name }}"
+          state: absent
+
+      - name: Remove container directory
+        file:
+          path: "/src/{{ directory_name }}"
+          state: absent
+        tags: directory
+      when: directory_stats.stat.exists
+  when: wipe_docker_compose
