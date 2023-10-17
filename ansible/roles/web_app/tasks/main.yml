@@ -1,0 +1,17 @@
+- name: Add app path
+  file:
+    path: "/opt/web_app"
+    state: directory
+    mode: 0755
+
+- name: Add docker-compose
+  template:
+    src: docker-compose.yml.j2
+    dest: "/opt/web_app/docker-compose.yml"
+
+- name: Run docker-compose
+  docker_compose:
+    project_src: "/opt/web_app"
+    state: present
+    pull: yes
+    restarted: yes

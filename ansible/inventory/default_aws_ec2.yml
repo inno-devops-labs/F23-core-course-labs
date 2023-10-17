@@ -1,5 +1,5 @@
 all:
   hosts:
     vk-cloud:
-      ansible_host: 192.168.199.23
-      ansible_user: ubuntu
+      ansible_host:
+      ansible_user:

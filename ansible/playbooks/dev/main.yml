@@ -2,4 +2,4 @@
   hosts: vk-cloud
   become: true
   roles:
-    - docker
+    - web_app

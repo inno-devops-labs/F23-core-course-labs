@@ -1,0 +1,8 @@
+services:
+  web_app:
+    hostname: web_app
+    image: ign19ht/dev-ops-labs:latest
+    restart: always
+    ports:
+      - "8000:8000"
+    command: "python3 main.py"
