@@ -30,7 +30,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: Vulnerability check
-        uses: snyk/actions/python@master
+        uses: snyk/actions/python-3.10@master
         continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
@@ -39,6 +39,13 @@ jobs:
             --file=app_python/requirements.txt
             --package-manager=pip
             --skip-unresolved
+            --allow-missing
+
+      - name: Vulnerability report
+        continue-on-error: true
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+            sarif_file: python_snyk.sarif
 
       - name: Linter
         run: |
