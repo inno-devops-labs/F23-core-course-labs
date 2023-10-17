@@ -1,0 +1,54 @@
+version: "3"
+
+networks:
+  loki:
+
+services:
+  python_app:
+    image: dshamik/dshamik_msk_time:latest
+    container_name: python_app
+    ports:
+      - "8000:8000"
+    logging: &logger
+      driver: "json-file"
+      options:
+        tag: "{{.ImageName}}|{{.Name}}|{{.ImageFullID}}|{{.FullID}}"
+
+  loki:
+    image: grafana/loki:2.9.1
+    container_name: loki
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
+    networks:
+      - loki
+    logging:
+      <<: *logger
+
+  promtail:
+    image: grafana/promtail:2.9.1
+    container_name: promtail
+    volumes:
+      - /var/lib/docker/containers:/var/lib/docker/containers
+      - ./configs/promtail:/etc/promtail/configs
+    command: -config.file=/etc/promtail/configs/promtail.yaml
+    networks:
+      - loki
+    logging:
+      <<: *logger
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+    volumes:
+      - ./configs/grafana/datasources:/etc/grafana/provisioning/datasources
+    networks:
+      - loki
+    logging:
+      <<: *logger
