@@ -1,0 +1,15 @@
+---
+- name: Stop the running web application
+  docker_compose:
+    project_src: "{{ python_web_app_path }}"
+    state: absent
+
+- name: Delete image from remote docker
+  docker_image:
+    name: "{{ python_web_app_path }}"
+    state: absent
+
+- name: Remove docker-compose directory
+  ansible.builtin.file:
+    path: "{{ python_web_app_path }}"
+    state: absent
