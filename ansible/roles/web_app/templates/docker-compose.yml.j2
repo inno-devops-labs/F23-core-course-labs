@@ -6,6 +6,7 @@ x-logging: &default-logging
     options:
       max-size: "50m"
       max-file: "4"
+    tag: "{{.ImageName}}|{{.Name}}|{{.ImageFullID}}|{{.FullID}}"
 
 services:
   '{{ app_name }}':
