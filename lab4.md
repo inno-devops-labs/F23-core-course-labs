@@ -74,6 +74,12 @@ In this lab assignment, you will explore Infrastructure as Code (IAC) using Terr
    - Extend your Terraform configuration to add several teams to your GitHub repository, each with different levels of access.
    - Apply the changes and ensure they take effect in your GitHub repository.
 
+
+- GitHub includes teams only in the context of organizations. However, our projects are already managed within the context of the current user. Additionally, the Terraform GitHub module can be used only for either user or organization. Therefore, the entire Terraform infrastructure needs to be replicated for the organization.
+- When transferring a large project with a significant number of issues, artifacts, etc., from the user to the organization, we first need to transfer the project on GitHub and then import it into Terraform using `terraform import`. However, in our case, a simple empty project is used for testing team permissions. Therefore, it will be sufficient to create a new project in the organization.
+
+- Task implementation is provided in the TF.md
+
 ### Guidelines
 
 - Use proper Markdown formatting and structure for documentation files.
