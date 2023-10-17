@@ -19,7 +19,7 @@ but while creating datasources: http url: http://loki:3100
 
 ## Structure of logs:
 
-```
+```json
 {
   "log": "message",
   "stream": "stream",
