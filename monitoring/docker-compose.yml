@@ -1,0 +1,30 @@
+version: "3"
+
+services:
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    networks:
+      - monitoring
+
+  loki:
+    image: grafana/loki:latest
+    ports:
+      - "3100:3100"
+    networks:
+      - monitoring
+
+  promtail:
+    image: grafana/promtail:latest
+    volumes:
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - ./promtail-config.yaml:/mnt/promtail-config.yaml:ro
+    command: -config.file=/mnt/promtail-config.yaml
+    ports:
+      - "9080:9080"
+    networks:
+      - monitoring
+
+networks:
+  monitoring:
