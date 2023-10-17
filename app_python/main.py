@@ -11,6 +11,7 @@ logging.basicConfig(
 logger = logging.getLogger("waitress")
 logger.setLevel(logging.INFO)
 
+
 @app.route('/')
 def current_time():
     # Get time in Moscow
