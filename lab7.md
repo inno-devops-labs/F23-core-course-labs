@@ -49,7 +49,7 @@ In this lab, you will become familiar with a logging stack that includes Promtai
 **2.5 Points:**
 
 1. Integrating Your Extra App:
-   - Extend the `docker-compose.yml` configuration to include your additional application.
+   - Extend the `docker-compose.yml` configuration t o include your additional application.
 
 2. Configure Stack for Comprehensive Logging:
    - Modify the logging stack's configuration to collect logs from all containers defined in the `docker-compose.yml`.
