@@ -1,0 +1,66 @@
+version: "3.7"
+
+networks:
+  loki_network:
+
+services:
+  python_app:
+    platform: linux/x86_64
+    container_name: python_app
+    image: IlyaMirzazhanov/app_python
+    labels:
+      logging: "promtail"
+      logging_jobname: "containerlogs"
+    ports:
+      - "80:8000"
+    networks:
+      - loki_network
+
+  kotlin_app:
+    platform: linux/x86_64
+    container_name: go_app
+    image: IlyaMirzazhanov/app_go
+    labels:
+      logging: "promtail"
+      logging_jobname: "containerlogs"
+    ports:
+      - "81:8080"
+    networks:
+      - loki_network
+
+  loki:
+    image: grafana/loki:2.9.1
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
+    networks:
+      - loki_network
+
+  promtail:
+    image: grafana/promtail:2.9.1
+    volumes:
+      - ${PWD}/config/promtail.yml:/etc/promtail/config.yml
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: -config.file=/etc/promtail/config.yml
+    networks:
+      - loki_network
+    depends_on:
+      - loki
+
+  grafana:
+    environment:
+      - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+    entrypoint:
+      - sh
+      - -euc
+      - /run.sh
+    volumes:
+      - ./config/grafana-datasources.yml:/etc/grafana/provisioning/datasources/datasources.yaml
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    networks:
+      - loki_network
