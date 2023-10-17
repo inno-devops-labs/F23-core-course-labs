@@ -1,5 +1,11 @@
 name: CI
 
+on:
+  push:
+    paths:
+      - 'app_python/**'
+      - '.github/workflows/CI.yaml'
+
 defaults:
   run:
     working-directory: ./app_python
@@ -35,7 +41,7 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          args: 
+          args:
             --file=app_python/requirements.txt
             --package-manager=pip
             --skip-unresolved
