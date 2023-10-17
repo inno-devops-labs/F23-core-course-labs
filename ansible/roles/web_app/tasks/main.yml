@@ -1,5 +1,5 @@
 ---
-- name: Deploy web app docker container
+- name: Docker container web app 
   block:
     - name: Wipe web app
       tags: wipe
