@@ -25,3 +25,6 @@ To choose city you should write name of the city on url, then the app will retur
 ### CI workflow
 The CI workflow will be triggered when we push to github repository. There are 2 jobs, such as build and security.
 The build job will check linter, test and security after installing dependencies. The docker job will automatically push change to a docker hub.
+
+### UPD
+Due to conflict port on lab7, ports changed from 3000 to 8081

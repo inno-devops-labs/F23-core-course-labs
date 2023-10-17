@@ -21,6 +21,6 @@ RUN adduser -D user1
 
 USER user1
 
-EXPOSE 3000
+EXPOSE 8081 8081
 
 CMD ["./go_app"]
