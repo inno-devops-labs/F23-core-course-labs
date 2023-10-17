@@ -70,3 +70,10 @@ two application services, app_python and app_elixir, which are running Python an
 6. Grafana provides a web-based interface for querying the log data stored in Loki, creating dashboards, and setting up alerts.
 
 
+## Screenshotes
+
+![image](https://github.com/nikitosing/core-course-labs/assets/32202610/02add985-59aa-41b3-8f96-222653f98857)
+![image](https://github.com/nikitosing/core-course-labs/assets/32202610/7b558d12-9d96-4b55-98c4-7c2e843cf59b)
+![image](https://github.com/nikitosing/core-course-labs/assets/32202610/ead53ff4-b841-4a01-a553-6569c7c7349d)
+![image](https://github.com/nikitosing/core-course-labs/assets/32202610/c1c29bcd-5e9a-4d82-9f00-1b5788097886)
+
