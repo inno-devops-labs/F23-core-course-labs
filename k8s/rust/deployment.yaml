@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-rust
+  labels:
+    app: rust
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: rust
+  template:
+    metadata:
+      labels:
+        app: rust
+    spec:
+      containers:
+      - name: rust-app
+        image: dvechtomova/rust_app:latest
+        ports:
+        - containerPort: 8080
