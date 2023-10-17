@@ -20,8 +20,12 @@ COPY . /app/
 # Change ownership of the copied files and directories to 'cooluser'
 RUN chown -R cooluser /app
 
+EXPOSE 8000
+
+
 # Switch to the 'cooluser' user
 USER cooluser
+
 
 # Specify the command to run when the container starts
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
