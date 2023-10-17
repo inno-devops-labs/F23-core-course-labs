@@ -1,0 +1,8 @@
+---
+
+- hosts: vm_1
+  become: true
+  roles:
+    - docker
+  vars_files:
+    - ../../host_vars/yacloud.yml

@@ -1,0 +1,23 @@
+---
+
+- name: Ensure that conflicting Docker versions are absent
+  apt:
+    name:
+      - docker-doc
+      - podman-docker
+      - docker-ee
+      - docker-ce
+      - containerd.io 
+    state: absent
+
+
+# Note: pip installation was omited since docker is installed via 
+# package manager. Carrying unused dependencies is not considered
+# as best practice.
+
+- name: "Install docker"
+  import_tasks: "install_docker.yml"
+
+- name: "Install docker-compose"
+  import_tasks: "install_compose.yml"
+  when: docker_install_compose | bool
