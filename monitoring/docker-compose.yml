@@ -20,7 +20,7 @@ services:
     image: rkbekzat/weather:latest
     container_name: app_go
     ports:
-      - "8000:8000"
+      - "8081:8081"
     logging: *logging
     networks:
       - loki
