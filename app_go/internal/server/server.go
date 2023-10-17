@@ -3,6 +3,7 @@ package server
 import (
 	"app/internal/exchange"
 	"fmt"
+	"log"
 	"net/http"
 )
 
@@ -38,8 +39,10 @@ func (s *Server) serverMux(serverPort string) error {
 func (s *Server) requestHandler(res http.ResponseWriter, req *http.Request) {
 	switch req.Method {
 	case http.MethodGet:
+		log.Println("Get Request from", req.Host)
 		s.get(res, req)
 	default:
+		log.Println("Get Request for unsupported method with key:", req.Method)
 		res.Write([]byte(fmt.Sprintf("Unsupported method with key: [%s]\n", req.Method)))
 	}
 }
