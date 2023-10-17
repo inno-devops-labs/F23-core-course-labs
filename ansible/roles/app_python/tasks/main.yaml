@@ -1,0 +1,3 @@
+---
+- include: roles/app_python/tasks/deps.yaml
+- include: roles/app_python/tasks/run.yaml

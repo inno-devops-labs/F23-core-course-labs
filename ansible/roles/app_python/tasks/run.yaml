@@ -1,0 +1,7 @@
+---
+- name: Run python app
+  docker_container:
+    name: app
+    image: purfreak/lab2_devops:latest
+    ports:
+      - "8000:8000"
