@@ -4,3 +4,9 @@ app_python/venv
 tests/.pytest_cache
 
 app_golang/.idea
+
+*/.terraform
+*/.terraform.lock.hcl
+*/terraform.tfstate
+*/terraform.tfstate.backup
+*/terraform.tfvars
