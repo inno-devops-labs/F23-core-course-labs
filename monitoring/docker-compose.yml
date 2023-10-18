@@ -1,12 +1,24 @@
-version: "3"
+version: "3.9"
+
+name: monitoring
 
 networks:
   loki:
 
 services:
   app_python:
+    container_name: app_python
     build:
       context: ../lab01/app_python
+    ports:
+      - 8001:8000
+
+  app_rust:
+    container_name: app_rust
+    build:
+      context: ../lab01/app_rust
+    ports:
+      - 8002:8000
 
   loki:
     image: grafana/loki:latest
@@ -22,6 +34,8 @@ services:
     networks:
       - loki
     volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/lib/docker/containers:/var/lib/docker/containers
       - ./promtail:/etc/promtail
     ports:
       - 9080:9080
