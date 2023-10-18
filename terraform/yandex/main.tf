@@ -11,11 +11,7 @@ provider "yandex" {
   zone = "ru-central1-a"
 }
 
-data "yandex_compute_image" "container-optimized-image" {
-  family = "container-optimized-image"
-}
-
-resource "yandex_compute_instance" "app-python-vm" {
+resource "yandex_compute_instance" "vm-app-python" {
   name = "app-python-vm"
 
   resources {
@@ -25,7 +21,7 @@ resource "yandex_compute_instance" "app-python-vm" {
 
   boot_disk {
     initialize_params {
-      image_id = data.yandex_compute_image.container-optimized-image.id
+      image_id = "fd808e721rc1vt7jkd0o"
     }
   }
 
@@ -35,9 +31,7 @@ resource "yandex_compute_instance" "app-python-vm" {
   }
 
   metadata = {
-    user-data                    = file("user-data.yaml")
-    docker-container-declaration = file("docker.yaml")
-    serial-port-enable           = 1
+    user-data = "${file("user-data.yaml")}"
   }
 }
 
