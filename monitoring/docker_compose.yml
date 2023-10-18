@@ -1,0 +1,65 @@
+version: "3.7"
+
+networks:
+  loki:
+
+services:
+  moscow-time-app:
+    image: edikgoose/moscow-time-app:latest
+    container_name: moscow-time-app
+    ports:
+      - "8080:80"
+    logging: &logging
+      driver: "json-file"
+      options:
+        max-size: "100m"
+        tag: '{{.ImageName}}|{{.Name}}|{{.ImageFullID}}|{{.FullID}}'
+    networks:
+      - loki
+
+  base-converter-app:
+    image: tcarinaa/current_time:latest
+    container_name: base-converter-app
+    ports:
+      - "8081:8080"
+    logging: *logging
+    networks:
+      - loki
+
+  promtail:
+    image: grafana/promtail:2.9.1
+    container_name: promtail
+    ports:
+      - "9080:9080"
+    volumes:
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - ${PWD}/promtail/config.yml:/etc/promtail/config.yml:ro
+    command: -config.file=etc/promtail/config.yml
+    logging: *logging
+    networks:
+      - loki
+
+  loki:
+    container_name: loki
+    image: grafana/loki:2.9.1
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
+    logging: *logging
+    networks:
+      - loki
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+    volumes:
+      - ${PWD}/grafana:/etc/grafana/provisioning/datasources:ro
+    logging: *logging
+    networks:
+      - loki 
