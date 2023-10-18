@@ -3,20 +3,17 @@ version: "3"
 networks:
   loki:
 
-x-logging: &logging
-  driver: "json-file"
-  options:
-    max-size: "10m"
-    max-file: "10"
-    tag: "{{.ImageName}}/{{.Name}}/{{.ID}}/{{.Index}}}"
-
 services:
   app_python:
     image: max3k/app_python:latest
     ports:
       - "8000:8000"
-    logging:
-      <<: *logging
+    logging: &logging
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "10"
+        tag: "{{.ImageName}}/{{.Name}}/{{.ID}}}"
       
   loki:
     image: grafana/loki:2.9.2
@@ -36,6 +33,8 @@ services:
     command: -config.file=/etc/promtail/config.yml
     networks:
       - loki
+    logging:
+      <<: *logging
     
 
   grafana:
