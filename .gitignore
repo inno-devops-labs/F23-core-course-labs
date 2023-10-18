@@ -6,3 +6,5 @@ terraform.tfstate
 .terraform.lock.hcl
 terraform.tfstate.backup
 .DS_Store
+.vscode
+ansible/roles/geerlingguy.docker/
