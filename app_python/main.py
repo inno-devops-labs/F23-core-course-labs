@@ -1,6 +1,9 @@
 from fastapi import FastAPI, Request
 from fastapi.templating import Jinja2Templates
 from datetime import datetime, timedelta
+import logging
+
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s %(message)s')
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
