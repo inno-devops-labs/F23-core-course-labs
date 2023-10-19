@@ -1,8 +1,8 @@
 from datetime import datetime
 
 from fastapi import FastAPI
-from pytz import timezone
 from prometheus_fastapi_instrumentator import Instrumentator
+from pytz import timezone
 
 app = FastAPI()
 Instrumentator().instrument(app).expose(app)
@@ -15,7 +15,7 @@ def get_time():
     return {"time": moscow_time.strftime("%Y-%m-%d %H:%M:%S")}
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     import uvicorn
 
     uvicorn.run(app)
