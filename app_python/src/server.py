@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.responses import JSONResponse
 
 from src.time_api.time_router import time_api_router
 
@@ -22,3 +23,8 @@ app = FastAPI(
 )
 
 app.include_router(time_api_router)
+
+
+@app.get("/healthcheck")
+async def healthcheck():
+    return JSONResponse(content={"message": "OK"}, status_code=200)
