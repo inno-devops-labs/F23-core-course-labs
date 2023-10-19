@@ -1,0 +1,6 @@
+- name: Copy docker-compose.yml for web app
+  template:
+    src: docker-compose.yml.j2
+    dest: /home/ubuntu/docker-compose.yml
+  notify:
+    - Start web app container
