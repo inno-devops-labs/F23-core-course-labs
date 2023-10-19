@@ -6,32 +6,44 @@ networks:
 services:
   time_python:
     image: "kernie/time-python:latest"
+    mem_limit: 256m
+    networks:
+      - monitoring
     ports:
       - "8000:8000"
+    healthcheck:
+      test: curl -f http://localhost:8000 || exit 1
 
   joke_js:
     image: "kernie/joke-js:latest"
     ports:
       - "8001:3000"
     stop_signal: SIGKILL
+    networks:
+      - monitoring
+    mem_limit: 256m
+    healthcheck:
+      test: curl -f http://localhost:3000 || exit 1
 
   loki:
     image: grafana/loki:latest
     networks:
       - monitoring
+    mem_limit: 512m
 
   promtail:
     image: grafana/promtail:latest
     ports:
       - "9080:9080"
     volumes:
-      - ./promtail-config:/etc/promtail
+      - ./promtail:/etc/promtail
       - /var/run/docker.sock:/var/run/docker.sock
     command: -config.file=/etc/promtail/config.yml
     depends_on:
       - loki
     networks:
       - monitoring
+    mem_limit: 512m
 
   grafana:
     image: grafana/grafana:latest
@@ -46,3 +58,21 @@ services:
       - ./grafana/provisioning:/etc/grafana/provisioning
     networks:
       - monitoring
+    mem_limit: 1g
+
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./prometheus:/etc/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=200h'
+      - '--web.enable-lifecycle'
+    ports:
+      - "9090:9090"
+    networks:
+      - monitoring
+    mem_limit: 1g
