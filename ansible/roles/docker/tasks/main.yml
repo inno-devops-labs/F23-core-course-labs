@@ -1,0 +1,4 @@
+# Running tasks one by one
+- include_tasks: ../../roles/docker/tasks/pip_task.yml
+- include_tasks: ../../roles/docker/tasks/docker_task.yml
+- include_tasks: ../../roles/docker/tasks/compose_task.yml

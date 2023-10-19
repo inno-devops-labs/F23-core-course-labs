@@ -1,0 +1,4 @@
+- name: Docker installation
+  pip:
+    name: docker
+    state: present
