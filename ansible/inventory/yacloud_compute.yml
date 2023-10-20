@@ -1,0 +1,4 @@
+plugin: yacloud_compute
+yacloud_clouds: cloud-andreykey4568
+yacloud_folders: default
+yacloud_token_file: yacloud.token

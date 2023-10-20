@@ -140,3 +140,95 @@
         }
     }
     ```
+
+## Dynamic inventory
+
+1. Make sure, you put `yacloud_compute.py` file in ansible plugins
+
+1. Check if dynamic inventory works:
+
+   ```shell
+   ansible-inventory -i inventory/yacloud_compute.yml --graph
+   ```
+   
+   Output:
+   ```text
+   @all:
+     |--@ungrouped:
+     |--@yacloud:
+     |  |--my-vm-2
+     |  |--my-vm-1
+   ```
+   
+   If you have problems with it, check if this command contains path to plugin `yacloud_compute.py`:
+   ```shell
+   ansible-config dump | grep DEFAULT_INVENTORY_PLUGIN_PATH
+   ```
+   If output doesn't contain path to the plugin then put this plugin into one of the paths in output.
+
+1. To use dynamic inventory for yandex cloud, use the following command:
+
+   ```shell
+   ansible-playbook -i inventory/yacloud_compute.yml playbooks/dev/main.yaml
+   ```
+
+## Deploy app_python to Yandex cloud
+
+To deploy app_python application you should use `web_app` role which runs within `app_python` playbook:
+```shell
+ansible-playbook -i inventory/yacloud_compute.yml playbooks/dev/app_python/main.yaml
+```
+
+Output:
+```text
+...
+TASK [docker : include_tasks] ***************************************************************************************
+included: /home/yesliesnayder/PycharmProjects/devops-course-labs/ansible/roles/docker/tasks/install_compose.yml for my-vm-2, my-vm-1
+
+TASK [docker : Check current docker-compose version.] ***************************************************************
+ok: [my-vm-1]
+ok: [my-vm-2]
+
+TASK [docker : set_fact] ********************************************************************************************
+ok: [my-vm-2]
+ok: [my-vm-1]
+
+TASK [docker : Delete existing docker-compose version if it's different.] *******************************************
+skipping: [my-vm-2]
+skipping: [my-vm-1]
+
+TASK [docker : Install Docker Compose (if configured).] *************************************************************
+skipping: [my-vm-2]
+skipping: [my-vm-1]
+
+TASK [docker : Get docker group info using getent.] *****************************************************************
+ok: [my-vm-1]
+ok: [my-vm-2]
+
+TASK [docker : Ensure docker users are added to the docker group.] **************************************************
+ok: [my-vm-1] => (item=ubuntu)
+ok: [my-vm-2] => (item=ubuntu)
+
+TASK [docker : Reset ssh connection to apply user changes.] *********************************************************
+
+TASK [docker : Reset ssh connection to apply user changes.] *********************************************************
+
+TASK [web_app : Pull application Docker image] **********************************************************************
+ok: [my-vm-2]
+ok: [my-vm-1]
+
+TASK [web_app : Create and Start the container] *********************************************************************
+changed: [my-vm-1]
+changed: [my-vm-2]
+
+TASK [web_app : include_tasks] **************************************************************************************
+included: /home/yesliesnayder/PycharmProjects/devops-course-labs/ansible/roles/web_app/tasks/0-wipe.yml for my-vm-2, my-vm-1
+
+TASK [web_app : Stop and Delete the container] **********************************************************************
+skipping: [my-vm-2]
+skipping: [my-vm-1]
+
+PLAY RECAP **********************************************************************************************************
+my-vm-1                    : ok=18   changed=1    unreachable=0    failed=0    skipped=5    rescued=0    ignored=0   
+my-vm-2                    : ok=18   changed=1    unreachable=0    failed=0    skipped=5    rescued=0    ignored=0   
+```
