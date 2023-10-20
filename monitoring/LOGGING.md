@@ -10,4 +10,4 @@ File `promtail-config.yml` contains configuration settings for promtail to colle
 
 ## Functionality
 
-![Grafana_logs](./images/logs.png)
+![Grafana_dashboard](./images/loki_dash.png)
