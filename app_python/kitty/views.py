@@ -5,6 +5,11 @@ import pytz
 
 # Create your views here.
 
+from prometheus_client import Counter, Histogram
+
+request_latency = Histogram("request_latency_seconds", "Request latency in seconds")
+request_count = Counter("request_count", "Request Count")
+
 
 def get_moscow_time():
     moscow_timezone = pytz.timezone("Europe/Moscow")
@@ -12,7 +17,9 @@ def get_moscow_time():
     return moscow_time.strftime("%Y-%m-%d %H:%M:%S")
 
 
+@request_latency.time()
 def show_time(request):
+    request_count.inc()
     context = {"moscow_time": get_moscow_time()}
     return render(request, "index.html", context)
 
