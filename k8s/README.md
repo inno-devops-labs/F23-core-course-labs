@@ -75,5 +75,70 @@ It will create new services to access the applications:
 
     ```shell
     kubectl delete svc app-python app-golang
-    kubectl delete deployment app-python app-golang
+    kubectl delete deployment --all
     ```
+
+## Declarative deployment
+
+1. Apply manifests:
+
+   ```shell
+   kubectl apply -f app_python/deployment.yml
+   kubectl apply -f app_python/service.yml
+   kubectl apply -f app_golang/deployment.yml
+   kubectl apply -f app_golang/service.yml
+   ```
+   ```text
+   deployment.apps/app-python-deployment created
+   service/app-python-service created
+   deployment.apps/app-golang-deployment created
+   service/app-golang-service created
+   ```
+
+1. Show running pods and services:
+
+   ```shell
+   kubectl get pods,svc
+   ```
+   ```text
+   NAME                                         READY   STATUS    RESTARTS   AGE
+   pod/app-golang-deployment-6c4b77f59d-99ln7   1/1     Running   0          45s
+   pod/app-golang-deployment-6c4b77f59d-d8r4p   1/1     Running   0          45s
+   pod/app-golang-deployment-6c4b77f59d-nftqd   1/1     Running   0          45s
+   pod/app-python-deployment-5c6b8f9f68-5msvr   1/1     Running   0          4m16s
+   pod/app-python-deployment-5c6b8f9f68-9dgb2   1/1     Running   0          4m16s
+   pod/app-python-deployment-5c6b8f9f68-svksv   1/1     Running   0          4m16s
+   
+   NAME                         TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+   service/app-golang-service   LoadBalancer   10.96.217.132   <pending>     8000:32310/TCP   42s
+   service/app-python-service   LoadBalancer   10.105.196.82   <pending>     8000:32026/TCP   2m8s
+   service/kubernetes           ClusterIP      10.96.0.1       <none>        443/TCP          50m
+   ```
+
+1. Check availability of the services:
+
+   ```shell
+   minikube service --all
+   ```
+   ```text
+   |-----------|--------------------|-------------|---------------------------|
+   | NAMESPACE |        NAME        | TARGET PORT |            URL            |
+   |-----------|--------------------|-------------|---------------------------|
+   | default   | app-golang-service |        8000 | http://192.168.49.2:32310 |
+   |-----------|--------------------|-------------|---------------------------|
+   |-----------|--------------------|-------------|---------------------------|
+   | NAMESPACE |        NAME        | TARGET PORT |            URL            |
+   |-----------|--------------------|-------------|---------------------------|
+   | default   | app-python-service |        8000 | http://192.168.49.2:32026 |
+   |-----------|--------------------|-------------|---------------------------|
+   |-----------|------------|-------------|--------------|
+   | NAMESPACE |    NAME    | TARGET PORT |     URL      |
+   |-----------|------------|-------------|--------------|
+   | default   | kubernetes |             | No node port |
+   |-----------|------------|-------------|--------------|
+   😿  service default/kubernetes has no node port
+   🎉  Opening service default/app-golang-service in default browser...
+   🎉  Opening service default/app-python-service in default browser...
+   ```
+   
+   ![Running services](./images/running_services_manifest.png)
