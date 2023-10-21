@@ -142,3 +142,58 @@ It will create new services to access the applications:
    ```
    
    ![Running services](./images/running_services_manifest.png)
+
+## Ingress
+
+1. Enable ingress controller
+
+   ```shell
+   minikube addons enable ingress
+   ```
+   
+1. Apply ingress manifests:
+
+   ```shell
+   kubectl apply -f app_python/ingress.yml
+   kubectl apply -f app_golang/ingress.yml
+   kubectl get ingress
+   ```
+   ```text
+   ingress.networking.k8s.io/app-python-ingress created
+   ingress.networking.k8s.io/app-golang-ingress created
+   NAME                 CLASS   HOSTS        ADDRESS        PORTS   AGE
+   app-golang-ingress   nginx   app-golang   192.168.49.2   80      41s
+   app-python-ingress   nginx   app-python   192.168.49.2   80      41s
+   ```
+   
+1. Check availability of the applications:
+
+   **Python**
+   
+   ```shell
+   curl --resolve "app-python:80:$(minikube ip)" -i http://app-python
+   ```
+   ```text
+   HTTP/1.1 200 OK
+   Date: Sat, 21 Oct 2023 21:43:27 GMT
+   Content-Type: application/json
+   Content-Length: 39
+   Connection: keep-alive
+   
+   {"current_time":"22.10.2023, 00:43:27"}
+   ```
+   
+   **Golang**
+   
+   ```shell
+   curl --resolve "app-golang:80:$(minikube ip)" -i http://app-golang/home
+   ```
+   ```text
+   HTTP/1.1 200 OK
+   Date: Sat, 21 Oct 2023 21:56:19 GMT
+   Content-Type: application/json
+   Content-Length: 56
+   Connection: keep-alive
+   
+   {"buildTime":"unset","commit":"unset","release":"unset"}
+   ```
