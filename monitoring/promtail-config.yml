@@ -8,6 +8,7 @@ clients:
   - url: http://loki:3100/loki/api/v1/push
 
 scrape_configs:
+
 - job_name: system
   static_configs:
   - targets:
@@ -24,6 +25,7 @@ scrape_configs:
     labels:
       job: containerlogs
       __path__: /var/lib/docker/containers/*/*log
+
   pipeline_stages:
 
   - json:
@@ -31,15 +33,15 @@ scrape_configs:
         stream: stream
         attrs: attrs
         tag: attrs.tag
-  
+
   - regex:
-      expression: ^(?P<image_name>([^|]+))\|(?P<container_name>([^|]+))$
+      expression: (?P<image_name>(?:[^|]*[^|])).(?P<container_name>(?:[^|]*[^|])).(?P<image_id>(?:[^|]*[^|])).(?P<container_id>(?:[^|]*[^|]))
       source: "tag"
 
   - labels:
-      tag:
-      stream:
+      container_name:
       image_id:
       container_id:
+      tag:
+      stream:
       image_name:
-      container_name:

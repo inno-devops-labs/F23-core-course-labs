@@ -3,16 +3,32 @@ version: "3"
 networks:
   loki:
 
+x-healthcheck: &healthcheck
+  interval: 10s
+  timeout: 5s
+  retries: 3
+  start_period: 5s
+
 services:
   app_python:
     image: seakysneka1/webserv_python:latest
     ports:
       - "8000:8000"
-    
+
     logging: &system-log
       driver: "json-file"
       options:
-        tag: "{{.ImageName}}|{{.Name}}|{{.ImageFullID}}|{{.FullID}}"
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: curl -f http://localhost:8000 || exit 1
+      <<: *healthcheck
+    networks:
+      - loki
+    deploy:
+      resources:
+        limits:
+          memory: 1g
 
   app_javascript:
     image: seakysneka1/webserv_js:latest
@@ -20,6 +36,15 @@ services:
       - "5000:5000"
     logging:
       <<: *system-log
+    healthcheck:
+      test: curl -f http://localhost:5000 || exit 1
+      <<: *healthcheck
+    networks:
+      - loki
+    deploy:
+      resources:
+        limits:
+          memory: 1g
 
   loki:
     image: grafana/loki:latest
@@ -28,6 +53,13 @@ services:
       - loki
     logging:
       <<: *system-log
+    healthcheck:
+      test: curl -f http://localhost:3100 || exit 1
+      <<: *healthcheck
+    deploy:
+      resources:
+        limits:
+          memory: 1g
 
   promtail:
     image: grafana/promtail:latest
@@ -39,8 +71,17 @@ services:
       - loki
     logging:
       <<: *system-log
+    healthcheck:
+      test: curl -f http://localhost:9080 || exit 1
+      <<: *healthcheck
+    deploy:
+      resources:
+        limits:
+          memory: 1g
 
   grafana:
+    # volumes:
+    #   - ./grafana/provisioning:/etc/grafana/provisioning
     environment:
       - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
       - GF_AUTH_ANONYMOUS_ENABLED=true
@@ -62,6 +103,10 @@ services:
           isDefault: true
           version: 1
           editable: false
+        - name: Prometheus
+          type: prometheus
+          access: proxy
+          url: http://prometheus:9090
         EOF
         /run.sh
     image: grafana/grafana:latest
@@ -71,3 +116,34 @@ services:
       - loki
     logging:
       <<: *system-log
+    healthcheck:
+      test: curl -f http://localhost:3000 || exit 1
+      <<: *healthcheck
+    deploy:
+      resources:
+        limits:
+          memory: 1g
+
+  prometheus:
+    image: prom/prometheus:latest
+    restart: always
+    volumes:
+      - ./prometheus-config.yml:/etc/prometheus/prometheus-config.yml
+    command:
+      - '--config.file=/etc/prometheus/prometheus-config.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=200h'
+      - '--web.enable-lifecycle'
+    ports:
+      - "9090:9090"
+    networks:
+      - loki
+    healthcheck:
+      test: curl -f http://localhost:9090 || exit 1
+      <<: *healthcheck
+    deploy:
+      resources:
+        limits:
+          memory: 1g
