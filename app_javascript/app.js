@@ -1,6 +1,8 @@
-const http = require('http')
+// app.js
+const express = require('express');
+const app = express();
 
-const server = http.createServer(function (req, res) {
+app.get('/', (req, res) => {
   if (req.url === '/') {
     res.writeHead(200, { 'Content-Type': 'text/html' })
     const moscowDatetimeStr = new Date().toLocaleString('en-US', { timeZone: 'Europe/Moscow' })
@@ -9,6 +11,6 @@ const server = http.createServer(function (req, res) {
   } else {
     res.end('Invalid Request!')
   }
-})
+});
 
-module.exports = server
+module.exports = app;
