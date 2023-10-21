@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/gorilla/mux"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
 func Router(buildTime, commit, release string) *mux.Router {
@@ -20,6 +21,10 @@ func Router(buildTime, commit, release string) *mux.Router {
 	}()
 
 	r := mux.NewRouter()
+
+    // Prometheus metrics
+	r.Path("/metrics").Handler(promhttp.Handler())
+
 	r.HandleFunc("/home", home(buildTime, commit, release)).Methods("GET")
 	r.HandleFunc("/healthz", healthz)
 	r.HandleFunc("/readyz", readyz(isReady))

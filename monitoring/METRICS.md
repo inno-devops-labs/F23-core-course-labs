@@ -8,6 +8,8 @@ Prometheus is successfully scraping metrics from 4 apps:
 - App Python
 - App Golang
 
+Targets: `http://localhost:9090/targets`
+
 ![Prometheus targets](./images/prometheus_targets.png)
 
 ## Grafana dashboards
@@ -55,3 +57,29 @@ deploy:
       memory: 256m
 ```
 
+## Application metrics
+
+Python application contains metrics to count amount of requests:
+
+![Python metrics](./images/app_python_metrics.png)
+
+Golang application also contains metrics for amount of requests:
+
+![Golang metrics](./images/app_golang_metrics.png)
+
+Totally, I have dashboard in Grafana to see amount of requests:
+
+![Metrics dashboard](./images/requests_total.png)
+
+## Health Checks
+
+Each service in `docker-compose.yml` file has healthcheck:
+
+- **app_python**: `/healthz`
+- **app_golang**: `/healthz`
+- **loki**: `/ready`
+- **promtail**: use root path `/`
+- **grafana**: `/api/health`
+- **prometheus**: `/healthy`
+
+Docker compose checks endpoint by using `curl` and `wget` commands.

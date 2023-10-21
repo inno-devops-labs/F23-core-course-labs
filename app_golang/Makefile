@@ -28,7 +28,7 @@ run: container
 	docker stop $(APP):$(RELEASE) || true && docker rm $(APP):$(RELEASE) || true
 	docker run --name ${APP} -p ${PORT}:${PORT} --rm \
 			-e "PORT=${PORT}" \
-			$(APP):$(RELEASE)
+			$(CONTAINER_IMAGE):$(RELEASE)
 
 test:
 	go test -v -race ./...

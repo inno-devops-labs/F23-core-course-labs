@@ -15,4 +15,4 @@ ENV PYTHONPATH=/usr/local/lib/python3.11/site-packages
 ENV PORT 8000
 EXPOSE $PORT
 
-ENTRYPOINT ["python", "-m", "uvicorn", "app_python.src.main:app", "--port", "8000"]
+ENTRYPOINT ["python", "-m", "uvicorn", "app_python.src.main:app", "--host", "0.0.0.0", "--port", "8000"]
