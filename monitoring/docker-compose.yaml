@@ -13,6 +13,8 @@ services:
       driver: "json-file"
       options:
         tag: "{{.ImageName}}|{{.Name}}|{{.ImageFullID}}|{{.FullID}}"
+    healthcheck:
+      test: curl -f http://localhost:8000 || exit 1
 
   typescript_app:
     image: rametago/my-first-repo:svelte
@@ -21,6 +23,8 @@ services:
       - "5173:5173"
     logging:
       <<: *logger
+    healthcheck:
+      test: curl -f http://localhost:5173 || exit 1
 
   loki:
     image: grafana/loki:2.9.1
@@ -61,7 +65,6 @@ services:
     image: prom/prometheus:latest
     container_name: prometheus
     volumes:
-      # - prometheus-data:/prometheus
       - ./config/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
