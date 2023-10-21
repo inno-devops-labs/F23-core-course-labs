@@ -1,7 +1,7 @@
 version: "3"
 
 networks:
-  loki:
+  monitoring:
 
 services:
   app_python:
@@ -19,7 +19,13 @@ services:
     ports:
       - "3000:3000"
     networks:
-      - loki
+      - monitoring
+    mem_limit: 300M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "1"
 
   promtail:
     image: grafana/promtail:2.6.1
@@ -30,16 +36,46 @@ services:
       - "9080:9080"
     command: -config.file=/etc/promtail/promtail.yaml
     networks:
-      - loki
+      - monitoring
 
   loki:
-    image: grafana/loki:2.7.0
+    image: grafana/loki:2.6.1
     ports:
-      - "3100:3100"
+      - "3100"
+      - "7946"
 
     command: "-config.file=/etc/loki/local-config.yaml"
     networks:
-      - loki
+      - monitoring
+    mem_limit: 300M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "1"
+
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./config/prometheus.yaml:/etc/prometheus/prometheus.yml
+      - prometheus:/prometheus
+    command:
+      [
+        "--log.level=debug",
+        "--config.file=/etc/prometheus/prometheus.yml",
+        "--query.lookback-delta=30s",
+      ]
+    networks:
+      - monitoring
+    mem_limit: 300M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "1"
 
 volumes:
   grafana:
+  prometheus:
