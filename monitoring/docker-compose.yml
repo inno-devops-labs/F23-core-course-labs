@@ -8,16 +8,26 @@ services:
     image: yesliesnayder/app_python:1.0.3
     ports:
       - "8000:8000"
+    deploy:
+      resources:
+        limits:
+          memory: 256m
 
     logging: &logging
       driver: "json-file"
       options:
+        max-size: "100m"
+        max-file: "2"
         tag: "{{.ImageName}}|{{.Name}}|{{.ImageFullID}}|{{.FullID}}"
 
   app_golang:
     image: yesliesnayder/webservicego:0.0.2
     ports:
       - "8001:8000"
+    deploy:
+      resources:
+        limits:
+          memory: 256m
     logging:
       <<: *logging
 
@@ -26,6 +36,10 @@ services:
     command: -config.file=/etc/loki/local-config.yaml
     networks:
       - monitoring
+    deploy:
+      resources:
+        limits:
+          memory: 512m
     logging:
       <<: *logging
 
@@ -39,6 +53,10 @@ services:
       - loki
     networks:
       - monitoring
+    deploy:
+      resources:
+        limits:
+          memory: 512m
     logging:
       <<: *logging
 
@@ -55,6 +73,10 @@ services:
       - "3000:3000"
     networks:
       - monitoring
+    deploy:
+      resources:
+        limits:
+          memory: 1g
     logging:
       <<: *logging
 
@@ -67,5 +89,9 @@ services:
       - "9090:9090"
     networks:
       - monitoring
+    deploy:
+      resources:
+        limits:
+          memory: 1g
     logging:
       <<: *logging
