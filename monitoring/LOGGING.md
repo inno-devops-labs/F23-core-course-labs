@@ -11,4 +11,4 @@ Use `docker-compose up` in the monitoring directory, then go to:
 
 ## Screenshot
 
-![](/monitoring/screen.png)
+![](/monitoring/screenshots/logging_grafana.png)
