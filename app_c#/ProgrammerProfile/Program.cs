@@ -1,5 +1,6 @@
-using Microsoft.Extensions.DependencyInjection;
 using ProgrammerProfile.Clients;
+using ProgrammerProfile.Models;
+using Prometheus;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddHttpClient();
 builder.Services.AddScoped<IGitHubApiClient, GitHubApiClient>();
+builder.Services.AddHealthChecks()
+    .AddCheck<HealthCheckModel>(nameof(HealthCheckModel));
 
 var app = builder.Build();
 
@@ -25,8 +28,13 @@ app.UseRouting();
 
 app.UseAuthorization();
 
+app.UseMetricServer();
+app.UseHttpMetrics();
+
 app.MapControllerRoute(
     name: "single",
     pattern: "{controller=Profile}/{action=Index}/{userName?}");
+
+app.MapHealthChecks("/healthz");
 
 app.Run();

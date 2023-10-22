@@ -2,6 +2,7 @@
 using ProgrammerProfile.Clients;
 using ProgrammerProfile.Mappers;
 using ProgrammerProfile.Models;
+using Prometheus;
 
 namespace ProgrammerProfile.Controllers;
 
@@ -9,6 +10,7 @@ public class ProfileController : Controller
 {
     private const string MainUser = "DamirNabiull";
     private readonly IGitHubApiClient _client;
+    private readonly Counter _indexCounter = Metrics.CreateCounter("index_page_counter", "Index page counter");
 
     public ProfileController(IGitHubApiClient client)
     {
@@ -17,6 +19,7 @@ public class ProfileController : Controller
 
     public async Task<ActionResult> Index()
     {
+        _indexCounter.Inc();
         return await GetPageInfo(MainUser);
     }
 
