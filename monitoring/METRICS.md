@@ -110,9 +110,9 @@
 
     ![containerlogs](./images/containerlogs.png)
 
-    Example query showing application endpoint responses: `flask_exporter_info`
+    Example query showing application endpoint responses: `flask_http_request_total`
 
-    ![query-1](./images/query-1.png)
+    ![monitoring](./images/monitoring.jpg)
 
 ### 3.5. Dashboards
 
