@@ -1,4 +1,4 @@
-version: "3.7"
+version: "3"
 
 networks:
   loki:
@@ -6,35 +6,27 @@ networks:
 services:
   app_python:
     image: hephzibah301/app_python:latest
-    container_name: app_python
     ports:
-      - "80:3000"
+      - "8000:5000"
     logging: &logging
       driver: "json-file"
       options:
-        tag: '{{.ImageName}}|{{.Name}}|{{.ImageFullID}}|{{.FullID}}'
-    networks:
-      - loki
+        tag: "{{.ImageName}}|{{.Name}}|{{.ImageFullID}}|{{.FullID}}"
 
   loki:
-    container_name: loki
-    image: grafana/loki:2.9.1
-    ports:
-      - "3100:3100"
+    image: grafana/loki:2.9.0
     command: -config.file=/etc/loki/local-config.yaml
     logging: *logging
     networks:
       - loki
 
+
   promtail:
-    image: grafana/promtail:2.9.1
-    container_name: promtail
-    ports:
-      - "9080:9080"
+    image: grafana/promtail:2.9.0
     volumes:
-      - /var/lib/docker/containers:/var/lib/docker/containers:ro
-      - ${PWD}/promtail/config.yml:/etc/promtail/config.yml:ro
-    command: -config.file=etc/promtail/config.yml
+      - /var/lib/docker/containers:/var/lib/docker/containers
+      - ./promtail/config.yml:/etc/promtail/config.yml
+    command: -config.file=/etc/promtail/config.yml
     logging: *logging
     networks:
       - loki
