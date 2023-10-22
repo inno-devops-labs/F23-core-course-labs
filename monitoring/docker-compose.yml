@@ -120,8 +120,8 @@ services:
   prometheus:
     image: prom/prometheus:latest
     volumes:
-      - ./prometheus:/etc/prometheus
-    command: -config.file=/etc/prometheus/prometheus.yml
+      - ./prometheus/prometheus.yml:/etc/prometheus/config.yml
+    command: '--config.file=/etc/prometheus/config.yml'
     ports:
       - "9090:9090"
     networks:
