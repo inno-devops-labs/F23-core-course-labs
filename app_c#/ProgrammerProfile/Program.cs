@@ -1,5 +1,5 @@
-using Microsoft.Extensions.DependencyInjection;
 using ProgrammerProfile.Clients;
+using Prometheus;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +24,9 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.UseMetricServer();
+app.UseHttpMetrics();
 
 app.MapControllerRoute(
     name: "single",

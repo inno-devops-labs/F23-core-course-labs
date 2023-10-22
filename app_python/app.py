@@ -1,8 +1,9 @@
 import argparse
 from datetime import datetime, timezone, timedelta
-from flask import Flask, render_template
-from waitress import serve
 import logging
+from flask import Flask, render_template
+from prometheus_flask_exporter import PrometheusMetrics
+from waitress import serve
 
 logging.basicConfig(
     format='[%(levelname)-8s] %(asctime)-s:\t%(message)s',
@@ -15,12 +16,15 @@ logger.setLevel(logging.INFO)
 MSK_TIMEZONE = timezone(timedelta(hours=3))
 
 app = Flask(__name__)
+metrics = PrometheusMetrics(app)
+
 parser = argparse.ArgumentParser()
 
 parser.add_argument("-prod", "--production", action='store_true')
 
 
 @app.route('/')
+@metrics.counter('index_page_counter', 'Index page counter')
 def show_time():
     # Get current time in Moscow timezone
     time_now = datetime.now(MSK_TIMEZONE).strftime('%H:%M:%S')
