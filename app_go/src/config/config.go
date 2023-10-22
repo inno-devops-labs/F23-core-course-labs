@@ -17,7 +17,7 @@ func NewConfig() *ServerCfg {
 
 	host, ok := os.LookupEnv("SERVER_HOST")
 	if !ok {
-		host = "127.0.0.1"
+		host = "0.0.0.0"
 	}
 
 	return &ServerCfg{ServerHost: host, ServerPort: port}
