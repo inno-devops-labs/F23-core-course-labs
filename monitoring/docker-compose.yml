@@ -60,7 +60,8 @@ services:
       - -euc
       - /run.sh
     volumes:
-      - ./config/grafana-datasources.yml:/etc/grafana/provisioning/datasources/datasources.yaml
+      - ./config/grafana/grafana-datasources.yml:/etc/grafana/provisioning/datasources/datasources.yaml
+      - ./config/grafana/dashboards:/etc/grafana/provisioning/dashboards
     image: grafana/grafana:latest
     ports:
       - "3000:3000"
