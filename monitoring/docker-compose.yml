@@ -42,6 +42,8 @@ services:
       - ${PWD}/config/promtail.yml:/etc/promtail/config.yml
       - /var/lib/docker/containers:/var/lib/docker/containers:ro
       - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - "9080:9080"
     command: -config.file=/etc/promtail/config.yml
     networks:
       - app_network
@@ -62,5 +64,19 @@ services:
     image: grafana/grafana:latest
     ports:
       - "3000:3000"
+    networks:
+      - app_network
+
+  prometheus:
+    image: prom/prometheus
+    hostname: prometheus-host
+    user: root
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus:/prometheus
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     networks:
       - app_network
