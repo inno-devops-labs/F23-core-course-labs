@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: app_kotlin
+
+
+server:
+  port: 8080
