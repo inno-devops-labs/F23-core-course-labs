@@ -4,8 +4,8 @@ scrape_configs:
     metrics_path: '/metrics'
     static_configs:
       - targets: ['host.docker.internal:3100']
-  - job_name: 'promtail_monitoring'
+  - job_name: 'prometheus_monitoring'
     scrape_interval: 5s
     metrics_path: '/metrics'
     static_configs:
-      - targets: [ 'host.docker.internal:9080' ]
+      - targets: [ 'host.docker.internal:9090' ]

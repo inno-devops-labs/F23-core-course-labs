@@ -8,4 +8,4 @@
 
 
 ### Scraped Promtail metrics:
-![scraped_promtail_metrics.png](scraped_promtail_metrics.png)
+![scraped_prometheus_metrics.png](resources/scraped_prometheus_metrics.png)
