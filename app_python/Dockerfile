@@ -16,4 +16,4 @@ EXPOSE 5000
 
 USER app
 
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "interface"]
+CMD [ "gunicorn", "-b", "0.0.0.0:5000", "--access-logfile", "-", "interface" ]

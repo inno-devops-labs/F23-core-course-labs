@@ -42,7 +42,7 @@
 
 ### 1.3 .Promtail
 
-###  1.4.Prometheus
+### 1.4.Prometheus
 
 - A monitoring system that pulls (retrieves) **metrics** data (entries of [types](https://prometheus.io/docs/concepts/metric_types/) **counter**, **gauge**, **histogram**, and **summary**) by running a **job** against one or more **instances** and stores these data in a **time-series** database.
 - **[Client libraries](https://prometheus.io/docs/instrumenting/clientlibs/)** written in different programming languages can be used to export application metrics while [**exporters**](https://prometheus.io/docs/instrumenting/exporters/) export metrics data from different systems (e.g., a Linux server or a database).
@@ -84,7 +84,7 @@
 
   ![app_port](./images/app_port.png)
 
-- Verify that the additional app is running on <http://localhost:8080> 
+- Verify that the additional app is running on <http://localhost:8080>
 
   ![app2_port](./images/app2_port.png)
 
@@ -111,9 +111,8 @@
     ![containerlogs](./images/containerlogs.png)
 
     Example query showing application endpoint responses: `flask_exporter_info`
-    
-    ![query-1](./images/query-1.png)
 
+    ![query-1](./images/query-1.png)
 
 ### 3.5. Dashboards
 
@@ -128,9 +127,9 @@
   ![monitoring-4](./images/monitoring-4.png)
 
   **Dashboards for Prometheus and Loki**
-  
+
   - Note that metrics names or Grafana dashboard types may change over time, rendering panels with no data. Queries need to be modified accordingly to reflect latest changes.
-  
+
   ![monitoring-5](./images/monitoring-5.png)
 
 ![monitoring-7](./images/monitoring-7.png)
