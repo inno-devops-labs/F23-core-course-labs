@@ -1,7 +1,7 @@
 import argparse
 from datetime import datetime, timezone, timedelta
 import logging
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template
 from prometheus_flask_exporter import PrometheusMetrics
 from waitress import serve
 
