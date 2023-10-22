@@ -22,6 +22,12 @@ services:
       - 5000
     ports:
       - "5000:5000"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000"]
+      interval: 10s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
     networks:
       - loki
 
@@ -42,6 +48,12 @@ services:
     volumes:
       - ./config:/mnt/config
     command: --config.file=/mnt/config/prometheus-config.yaml
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9090"]
+      interval: 10s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
     networks:
       - loki
 
@@ -53,6 +65,12 @@ services:
     volumes:
       - ./config:/mnt/config
     command: -config.file=/mnt/config/loki-config.yaml
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://loki:3100/loki/api/v1/push"]
+      interval: 10s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
     networks:
       - loki
 
@@ -71,5 +89,11 @@ services:
     image: grafana/grafana:latest
     ports:
       - "3000:3000"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      interval: 10s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
     networks:
       - loki

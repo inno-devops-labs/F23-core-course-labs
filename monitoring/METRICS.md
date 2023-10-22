@@ -94,6 +94,9 @@
 
     ![grafana_port](./images/grafana_port.png)
 
+  - Verify health checks
+  - ![checks](./images/checks.png)
+
 - Verify Prometheus UI is accessible at <http://localhost:9090/targets> and all targets are up in status tab, you can also run queries with autocompletion.
 
 ![monitoring-1](./images/monitoring-1.png)
@@ -135,6 +138,10 @@
 ![monitoring-7](./images/monitoring-7.png)
 
 ![monitoring-6](./images/monitoring-6.png)
+
+
+
+
 
 ## 4. Best Practices
 

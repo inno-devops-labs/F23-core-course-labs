@@ -96,6 +96,9 @@
 
 - Verify Prometheus UI is accessible at <http://localhost:9090/targets> and all targets are up in status tab, you can also run queries with autocompletion.
 
+- Verify health checks
+  - ![checks](./images/checks.png)
+
 ![monitoring-1](./images/monitoring-1.png)
 
 - Configuration &rarr; Data source &rarr; Add data source
