@@ -19,7 +19,29 @@
 ![loki_grafana_dashboard_2.png](resources/loki_grafana_dashboard_2.png)
 
 
-
 ### Prometheus Grafana Dashboard:
 ![prometheus_grafana_dashboard.png](prometheus_grafana_dashboard.png)
 ![prometheus_grafana_dashboard_2.png](prometheus_grafana_dashboard_2.png)
+
+## Log rotation
+For log rotation I used options for docker default json-file logging driver:
+```
+logging:
+  driver: "json-file"
+  options:
+    max-size: "100k"
+    max-file: "10"
+```
+which means that docker will store all the logs in files of maximum 100KB.
+
+## Memory limits
+To limit resources for each container I used docker-compose `deploy` option:
+```
+deploy:
+  resources:
+    limits:
+      memory: 100M
+```
+This option also supports CPU limits.
+
+I chose different values of memory limit for different containers appropriately by their needs.

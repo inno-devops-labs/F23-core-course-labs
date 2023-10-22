@@ -15,6 +15,15 @@ services:
       - "80:8000"
     networks:
       - app_network
+    deploy:
+      resources:
+        limits:
+          memory: 200M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100k"
+        max-file: "10"
 
   kotlin_app:
     platform: linux/x86_64
@@ -27,6 +36,15 @@ services:
       - "81:8080"
     networks:
       - app_network
+    deploy:
+      resources:
+        limits:
+          memory: 200M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100k"
+        max-file: "10"
 
   loki:
     image: grafana/loki:2.9.1
@@ -35,6 +53,15 @@ services:
     command: -config.file=/etc/loki/local-config.yaml
     networks:
       - app_network
+    deploy:
+      resources:
+        limits:
+          memory: 500M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100k"
+        max-file: "10"
 
   promtail:
     image: grafana/promtail:2.9.1
@@ -49,6 +76,15 @@ services:
       - app_network
     depends_on:
       - loki
+    deploy:
+      resources:
+        limits:
+          memory: 100M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100k"
+        max-file: "10"
 
   grafana:
     environment:
@@ -67,6 +103,15 @@ services:
       - "3000:3000"
     networks:
       - app_network
+    deploy:
+      resources:
+        limits:
+          memory: 500M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100k"
+        max-file: "10"
 
   prometheus:
     image: prom/prometheus
@@ -81,3 +126,12 @@ services:
       - "host.docker.internal:host-gateway"
     networks:
       - app_network
+    deploy:
+      resources:
+        limits:
+          memory: 100M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100k"
+        max-file: "10"
