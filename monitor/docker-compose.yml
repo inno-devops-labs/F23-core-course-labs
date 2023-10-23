@@ -15,12 +15,21 @@ services:
     networks:
       - app_loki
         
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - 9090:9090
+    networks:
+      - app_loki
+        
   grafana:
     image: grafana/grafana:latest
     ports:
       - 3000:3000
     volumes:
-      - ./grafana-datasources.yml:/etc/grafana/provisioning/datasources/datasources.yaml
+      - ./config/grafana-datasources.yml:/etc/grafana/provisioning/datasources/datasources.yaml
     environment:
       - GF_AUTH_ANONYMOUS_ENABLED=true
       - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
@@ -40,7 +49,7 @@ services:
     image:  grafana/promtail:latest
     container_name: promtail
     volumes:
-      - ./promtail.yml:/etc/promtail/docker-config.yaml
+      - ./config/promtail.yml:/etc/promtail/docker-config.yaml
       - /var/lib/docker/containers:/var/lib/docker/containers:ro
       - /var/run/docker.sock:/var/run/docker.sock
     command: -config.file=/etc/promtail/docker-config.yaml
