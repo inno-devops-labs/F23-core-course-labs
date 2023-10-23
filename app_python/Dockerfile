@@ -32,7 +32,7 @@ ENV APP_HOST ${APP_HOST:-"0.0.0.0"}
 EXPOSE ${APP_PORT}
 
 HEALTHCHECK  --interval=10s --timeout=3s \
-  CMD wget --no-verbose --tries=1 --spider http://${APP_HOST}:${APP_PORT}/ || exit 1
+  CMD wget --no-verbose --tries=1 --spider http://${APP_HOST}:${APP_PORT}/health || exit 1
 
 RUN adduser --system \
             --disabled-password \
