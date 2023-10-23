@@ -26,6 +26,11 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 	tpl.Execute(w, data)
 }
 
+func healthHandler(w http.ResponseWriter, r *http.Request) {
+	color.Green("Health check from " + r.RemoteAddr + " OK")
+	w.WriteHeader(http.StatusOK)
+}
+
 func main() {
 	port := os.Getenv("APP_PORT")
 	if port == "" {
@@ -34,5 +39,6 @@ func main() {
 	mux := http.NewServeMux()
 	color.Cyan("Listening on port " + port)
 	mux.HandleFunc("/", indexHandler)
+	mux.HandleFunc("/health", healthHandler)
 	http.ListenAndServe(":"+port, mux)
 }
