@@ -21,3 +21,9 @@ Use docker' deploy.resource.limit param and storage.tsdb.retention.time
 
 
 # Bonus
+For FastAPI it's necessary just to add 'Instrumentator().instrument(app).expose(app)'
+to app initialization:
+![python-target](screenshots/python-target.png)
+
+For Kotlin it's needed to add actuator:
+![kotlin-target](screenshots/kotlin+python-target.png)
