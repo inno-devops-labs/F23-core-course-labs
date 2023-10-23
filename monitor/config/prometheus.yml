@@ -21,4 +21,4 @@ scrape_configs:
     - localhost:9090   # prometheus
     - loki:3100        # loki
     - grafana:3000     # grafana
-    - app_python:8080  # python app
+    - app_python:8010  # python app

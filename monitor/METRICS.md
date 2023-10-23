@@ -35,3 +35,11 @@
 3. Added grafana as datasource.
 
 # Bonus
+
+1. Using `prometheus_client` library I added basic metrics to the app.
+
+2. Added necessary changes to docker-compose and Prometheus config to expose the metrics.
+
+   ![Alt text](prom2.png)
+
+3. Added `healthcheck` to docker compose services.
