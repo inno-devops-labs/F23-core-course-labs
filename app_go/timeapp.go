@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/fatih/color"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
 type TimeData struct {
@@ -40,5 +41,6 @@ func main() {
 	color.Cyan("Listening on port " + port)
 	mux.HandleFunc("/", indexHandler)
 	mux.HandleFunc("/health", healthHandler)
+	mux.Handle("/metrics", promhttp.Handler())
 	http.ListenAndServe(":"+port, mux)
 }
