@@ -1,0 +1,56 @@
+---
+version: "3.6"
+
+networks:
+  loki:
+
+services:
+  app:
+    image: m4k4rich/app-python-time:arm64-tag
+    ports:
+      - "8080:8080"
+    networks:
+      - loki
+
+  app2:
+    image: m4k4rich/app-node-random:arm64-tag
+    ports:
+      - "3001:3000"
+    networks:
+      - loki
+
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./config:/mnt/config
+    command: --config.file=/mnt/config/prometheus.yml
+    networks:
+      - loki
+
+  loki:
+    image: grafana/loki:latest
+    ports:
+      - "3100:3100"
+    volumes:
+      - ./config:/mnt/config
+    command: -config.file=/mnt/config/loki.yml
+    networks:
+      - loki
+
+  promtail:
+    image: grafana/promtail:2.5.0
+    volumes:
+      - /var/lib/docker/containers:/var/lib/docker/containers
+      - ./config:/mnt/config
+    command: -config.file=/mnt/config/promtail.yml
+    networks:
+      - loki
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "8081:3000"
+    networks:
+      - loki
