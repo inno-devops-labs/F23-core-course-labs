@@ -63,3 +63,16 @@ services:
     logging: *logging
     networks:
       - loki
+
+  prometheus:
+    image: prom/prometheus:v2.47.2
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ${PWD}/prometheus:/etc/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    logging: *logging
+    networks:
+      - loki
