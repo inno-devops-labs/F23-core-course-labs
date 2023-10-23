@@ -3,14 +3,17 @@
   apt:
     name: "{{ docker_dependencies }}"
     update_cache: yes
+    state: present
 
 - name: Add docker GPG key
   apt_key:
     url: "{{ docker_gpg_key }}"
+    state: present
 
 - name: Add docker apt repo
   apt_repository:
     repo: " {{ docker_repo }}"
+    state: present
 
 - name: Install docker
   apt:
@@ -18,4 +21,9 @@
     state: "{{ docker_packages_state }}"
     name: "{{ docker_packages }}"
   notify: Restart docker
+
+- name: Install 'Docker SDK for Python'
+  pip:
+    name: docker
+    state: present
 ...

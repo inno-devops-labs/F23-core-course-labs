@@ -1,0 +1,23 @@
+---
+- name: Deploy dockerized kotlin app
+  hosts: all
+  become: true
+  become_method: sudo
+  roles:
+    - name: web_app
+      vars:
+        docker_image_name: edikgoose/base-converter
+        docker_image_tag: latest
+        docker_container_name: base-converter
+
+        app_directory: "/home/ubuntu/{{ app_name }}"
+        docker_compose_file: docker-compose.yml
+        docker_compose_file_path: "{{ app_directory }}/{{ docker_compose_file }}"
+
+        internal_port: 8080
+        external_port: 8080
+
+        web_app_full_wipe: true
+
+        app_name: base-converter
+...
