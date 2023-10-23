@@ -2,6 +2,7 @@
 This module configures the BlackSheep application before it starts.
 """
 from blacksheep import Application
+from blacksheep_prometheus import use_prometheus_metrics
 
 from app.docs import configure_docs
 from app.errors import configure_error_handlers
@@ -19,3 +20,4 @@ def configure_application(
 
 
 app = configure_application(load_settings())
+use_prometheus_metrics(app)
