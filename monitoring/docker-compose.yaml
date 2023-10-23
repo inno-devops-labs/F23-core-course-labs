@@ -3,6 +3,33 @@ version: "3"
 networks:
   loki:
 
+x-healthcheck: &default-healthcheck
+  interval: 5s
+  timeout: 5s
+  retries: 5
+
+x-logging: &default-logging
+  driver: "json-file"
+  options:
+    tag: "{{.ImageName}}|{{.Name}}|{{.ImageFullID}}|{{.FullID}}"
+    max-size: "20m"
+    max-file: "3"
+
+x-small-resources: &small-resources
+  limits:
+    cpus: "0.25"
+    memory: 256M
+
+x-medium-resources: &medium-resources
+  limits:
+    cpus: "0.5"
+    memory: 512M
+
+x-large-resources: &large-resources
+  limits:
+    cpus: "1"
+    memory: 1G
+
 services:
   promtail:
     image: grafana/promtail:2.9.1
@@ -12,10 +39,13 @@ services:
     command: -config.file=/etc/promtail/config.yml
     networks:
       - loki
-    logging: &default-logging
-      driver: "json-file"
-      options:
-        tag: "{{.ImageName}}|{{.Name}}|{{.ImageFullID}}|{{.FullID}}"
+    logging: *default-logging
+    deploy:
+      mode: global
+      resources: *medium-resources
+    healthcheck:
+      test: ["CMD-SHELL", "timeout 5 bash -c 'cat < /dev/null > /dev/tcp/localhost/9080' || exit 1"]
+      <<: *default-healthcheck
 
   loki:
     image: grafana/loki:2.9.1
@@ -25,6 +55,28 @@ services:
     networks:
       - loki
     logging: *default-logging
+    deploy:
+      mode: global
+      resources: *medium-resources
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider http://localhost:3100/ready || exit 1"]
+      <<: *default-healthcheck
+
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./configs/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    ports:
+      - "9090:9090"
+    networks:
+      - loki
+    logging: *default-logging
+    deploy:
+      mode: global
+      resources: *medium-resources
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider http://localhost:9090/-/ready || exit 1"]
+      <<: *default-healthcheck
 
   grafana:
     image: grafana/grafana:latest
@@ -33,21 +85,39 @@ services:
       - GF_AUTH_ANONYMOUS_ENABLED=true
       - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
     volumes:
-      - ./configs/grafana-datasources.yml:/etc/grafana/provisioning/datasources/datasources.yaml
+      - ./configs/grafana-datasources.yml:/etc/grafana/provisioning/datasources/datasources.yaml:ro
     ports:
       - "3000:3000"
     networks:
       - loki
     logging: *default-logging
+    deploy:
+      mode: global
+      resources: *large-resources
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:3000/api/health || exit 1"]
+      <<: *default-healthcheck
 
   timeapp_go:
     image: vladspigin/timeapp-go:latest
     ports:
       - "5001:8080"
+    networks:
+      - loki
     logging: *default-logging
+    deploy:
+      resources: *small-resources
+    healthcheck:
+      <<: *default-healthcheck # uses the default healthcheck test endpoint from Dockerfile
 
   timeapp_python:
     image: vladspigin/timeapp:latest
     ports:
       - "5002:8080"
+    networks:
+      - loki
     logging: *default-logging
+    deploy:
+      resources: *small-resources
+    healthcheck:
+      <<: *default-healthcheck # uses the default healthcheck test endpoint from Dockerfile
