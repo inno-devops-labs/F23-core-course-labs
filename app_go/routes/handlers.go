@@ -29,6 +29,7 @@ func MainHandler(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			return
 		}
+		w.WriteHeader(http.StatusOK)
 		err = t.Execute(w, &entity.Page{Title: "DevOps lab", Msg: "Hello! This is DevOps course lab by Safina Alina", Href: "/joke", LinkMsg: "Read Chuck Norris joke"})
 		if err != nil {
 			return
@@ -53,6 +54,7 @@ func JokeHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		return
 	}
+	w.WriteHeader(http.StatusOK)
 	err = t.Execute(w, &entity.Page{Title: "DevOps lab", Msg: joke.Value, Href: "/", LinkMsg: "Main page"})
 	if err != nil {
 		return

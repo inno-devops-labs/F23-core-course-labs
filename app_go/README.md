@@ -11,6 +11,9 @@ Go 1.19
 1. Install requirements:
     ```
    go install github.com/joho/godotenv/cmd/godotenv@latest
+   go install github.com/prometheus/client_golang@latest
+   go install github.com/gorilla/mux@latest
+
     ```
 2. Create `.env` file with the following content (or you can change parameters):
    ```

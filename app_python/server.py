@@ -1,13 +1,23 @@
 from datetime import datetime
 from zoneinfo import ZoneInfo
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Response, status
+from fastapi.responses import ORJSONResponse
 from starlette.requests import Request
 from app_python.config import config
+from prometheus_fastapi_instrumentator import Instrumentator
+
 
 app = FastAPI()
 
 FORMAT = '%H:%M:%S'
+
+instrumentator = Instrumentator().instrument(app)
+
+
+@app.on_event('startup')
+async def startup():
+    instrumentator.expose(app)
 
 
 @app.get("/")
@@ -31,3 +41,9 @@ async def time(request: Request):
                                                       "Href": "/",
                                                       "LinkMsg": "Main page"},
                                              status_code=200)
+
+
+@app.get("/health")
+async def healthcheck(response: Response):
+    response.status_code =  status.HTTP_200_OK
+    return ORJSONResponse([{"status": "Ok"}])

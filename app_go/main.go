@@ -5,16 +5,31 @@ import (
 	"app_go/routes"
 	"log"
 	"net/http"
+
+	"github.com/gorilla/mux"
+
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
 func main() {
 	cfg := config.NewConfig()
-	mux := http.NewServeMux()
+	r := mux.NewRouter()
 
-	mux.HandleFunc("/", routes.MainHandler)
-	mux.HandleFunc("/joke", routes.JokeHandler)
+	r.Path("/metrics").Handler(promhttp.Handler())
+
+	r.HandleFunc("/health", routes.HealthHandler)
+	r.HandleFunc("/", routes.MainHandler).Methods("GET")
+	r.HandleFunc("/joke", routes.JokeHandler).Methods("GET")
+
 	log.Print("App started")
-	err := http.ListenAndServe(cfg.ServerHost+":"+cfg.ServerPort, mux)
+	srv := http.Server{
+		Addr:    cfg.ServerHost + ":" + cfg.ServerPort,
+		Handler: r,
+	}
+	err := srv.ListenAndServe()
+	if err != nil {
+		return
+	}
 
 	if err != nil {
 		return
