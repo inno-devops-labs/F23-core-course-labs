@@ -9,7 +9,7 @@ services:
     volumes:
       - ./logs/:/code/log/
     ports:
-      - "5000:5000"
+      - "7000:7000"
 
   loki:
     image: grafana/loki:2.9.2
@@ -22,7 +22,7 @@ services:
   promtail:
     image: grafana/promtail:2.9.2
     ports:
-      - "9800:9800"
+      - "9080:9080"
     volumes:
       - /var/log:/var/log
     command: -config.file=/etc/promtail/config.yml
@@ -56,5 +56,40 @@ services:
     image: grafana/grafana:latest
     ports:
       - "3000:3000"
+    networks:
+      - loki
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./prometheus:/etc/prometheus/
+    container_name: prometheus
+    hostname: prometheus
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+    ports:
+      - 9090:9090
+    restart: unless-stopped
+    environment:
+      TZ: "Europe/Moscow"
+    networks:
+      - loki
+  node-exporter:
+    image: prom/node-exporter
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    container_name: exporter
+    hostname: exporter
+    command:
+      - --path.procfs=/host/proc
+      - --path.sysfs=/host/sys
+      - --collector.filesystem.ignored-mount-points
+      - ^/(sys|proc|dev|host|etc|rootfs/var/lib/docker/containers|rootfs/var/lib/docker/overlay2|rootfs/run/docker/netns|rootfs/var/lib/docker/aufs)($$|/)
+    ports:
+      - 9100:9100
+    restart: unless-stopped
+    environment:
+      TZ: "Europe/Moscow"
     networks:
       - loki
