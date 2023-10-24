@@ -1,6 +1,7 @@
 from datetime import datetime
 import logging
 from flask import Flask, render_template
+from prometheus_flask_exporter import PrometheusMetrics
 import pytz
 from waitress import serve
 
@@ -20,13 +21,24 @@ def get_timezone(name):
 
 # Создаем Flask app
 app = Flask(__name__)
+metrics = PrometheusMetrics(app)
 
 
 @app.route('/')
+@metrics.counter('index_counter', 'Counter of index page visits')
 def main():
     current_time = get_timezone('Europe/Moscow')
-    logger.info(msg=f'Route: /')
+    logger.info(msg='Route: /')
     return render_template('index.html', current_time=current_time)
+
+
+@app.route("/healthz")
+def health_check():
+    return app.response_class(
+        response="OK",
+        status=200,
+        mimetype="text/plain"
+    )
 
 
 if __name__ == '__main__':

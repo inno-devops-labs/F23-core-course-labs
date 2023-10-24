@@ -1,7 +1,12 @@
+using PetApp.Models;
+using Prometheus;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddHealthChecks()
+    .AddCheck<Healthcheck>(nameof(Healthcheck));
 
 var app = builder.Build();
 
@@ -23,5 +28,9 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Dog}/{action=Index}/{id?}");
+
+app.UseMetricServer();
+app.UseHttpMetrics();
+app.MapHealthChecks("/healthz");
 
 app.Run();

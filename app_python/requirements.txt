@@ -2,3 +2,4 @@ pytz~=2023.3
 flask~=2.3.3
 waitress~=2.1.2
 pylint~=2.17.5
+prometheus-flask-exporter~=0.22.4
