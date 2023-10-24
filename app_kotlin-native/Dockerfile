@@ -21,6 +21,10 @@ RUN mkdir /user && \
 FROM gcr.io/distroless/base-debian12:nonroot as run
 WORKDIR /app
 
+# Tool for healthcheck
+COPY --from=ghcr.io/tarampampam/curl:8.0.1 /bin/curl /bin/curl
+
+# Binary itself
 COPY --from=build \
                   /usr/lib/x86_64-linux-gnu/libcrypt.so.1 \
                   /usr/lib/x86_64-linux-gnu/libgcc_s.so.1 \
