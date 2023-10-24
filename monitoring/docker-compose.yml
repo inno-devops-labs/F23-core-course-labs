@@ -6,18 +6,38 @@ networks:
 services:
   app_python:
     image: wildqueue/devops-hw:tagname
+    networks:
+      - loki
     ports:
       - "8008:8008"
     logging: &logger
       driver: "json-file"
       options:
         tag: "{{.ImageName}}|{{.Name}}|{{.ImageFullID}}|{{.FullID}}"
+        max-size: "15m"
+        max-file: "5"
+    healthcheck:
+      test: curl http://localhost:8008/healthcheck || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          memory: 1g
 
   app_golang:
     image: wildqueue/devops-hw-golang:tagname
+    networks:
+      - loki
     ports:
       - "8010:8008"
     logging: *logger
+    healthcheck:
+      test: curl http://localhost:8008/healthcheck || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   loki:
     image: grafana/loki:2.9.1
@@ -28,9 +48,21 @@ services:
       - loki
     logging:
       <<: *logger
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 -O /dev/null http://localhost:3100/ready || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          memory: 1g
+
 
   promtail:
     image: grafana/promtail:2.9.1
+    ports:
+      - "9080:9080"
     volumes:
       - /var/lib/docker/containers:/var/lib/docker/containers
       - ./promtail_config.yml:/etc/promtail/config.yml
@@ -39,6 +71,15 @@ services:
       - loki
     logging:
       <<: *logger
+    healthcheck:
+      test: ["CMD-SHELL", "timeout 5 bash -c 'cat < /dev/null > /dev/tcp/localhost/9080' || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          memory: 1g
 
   grafana:
     environment:
@@ -62,6 +103,15 @@ services:
           isDefault: true
           version: 1
           editable: false
+
+        - name: Prometheus
+          type: prometheus
+          access: proxy 
+          orgId: 1
+          url: http://prometheus:9090
+          basicAuth: false
+          version: 1
+          editable: false
         EOF
         /run.sh
     image: grafana/grafana:latest
@@ -71,3 +121,33 @@ services:
       - loki
     logging:
       <<: *logger
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:3000/api/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          memory: 1g
+
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./prometheus/config.yml:/etc/prometheus/config.yml
+    command: '--config.file=/etc/prometheus/config.yml'
+    ports:
+      - "9090:9090"
+    networks:
+      - loki
+    logging:
+      <<: *logger
+    healthcheck:
+      test: [ "CMD-SHELL", "wget --no-verbose --tries=1 -O /dev/null http://localhost:9090/-/healthy || exit 1" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          memory: 1g

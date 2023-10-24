@@ -14,7 +14,7 @@
 
 # To build
 ```
-docker run -p 8008:8008 --user 1001 app_python
+docker build -t wildqueue/devops-hw-golang:tagname .
 ```
 
 # To run
