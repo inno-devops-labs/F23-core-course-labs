@@ -18,7 +18,7 @@ RUN mvn -f /home/testuser/pom.xml clean package
 #
 FROM openjdk:17-alpine
 
-RUN apt-get -y update && apt-get install -y curl
+RUN apk add --update curl
 COPY --from=build /home/testuser/target/lab1-0.0.1-SNAPSHOT.jar /usr/local/lib/lab1.jar
 EXPOSE 8080
 ENTRYPOINT ["java","-jar","/usr/local/lib/lab1.jar"]
