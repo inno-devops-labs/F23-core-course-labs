@@ -22,6 +22,15 @@ defmodule DevopsWeb.Application do
       # {DevopsWeb.Worker, arg}
     ]
 
+    require Prometheus.Registry
+    DevopsWeb.PhoenixInstrumenter.setup()
+    DevopsWeb.PipelineInstrumenter.setup()
+
+    if :os.type() == {:unix, :linux} do
+      Prometheus.Registry.register_collector(:prometheus_process_collector)
+    end
+
+    DevopsWeb.Exporter.setup()
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: DevopsWeb.Supervisor]

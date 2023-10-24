@@ -24,7 +24,6 @@ scrape_configs:
     #        max-file: "10"
     #        tag: "{{:ImageName}}|{{:Name}}"
 
-
     pipeline_stages:
       - json:
           expressions:
@@ -42,5 +41,5 @@ scrape_configs:
           source: "tag"
 
       - labels:
-        image_name:
-        container_name:
+          image_name:
+          container_name:

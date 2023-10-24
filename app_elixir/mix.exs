@@ -47,7 +47,13 @@ defmodule DevopsWeb.MixProject do
       {:telemetry_poller, "~> 1.0"},
       {:gettext, "~> 0.20"},
       {:jason, "~> 1.2"},
-      {:plug_cowboy, "~> 2.5"}
+      {:plug_cowboy, "~> 2.5"},
+      {:prometheus, "~> 4.0", override: true},
+      {:prometheus_ex,
+       git: "https://github.com/lanodan/prometheus.ex", branch: "fix/elixir-1.14", override: true},
+      {:prometheus_phoenix, "~> 1.2"},
+      {:prometheus_plugs, "~> 1.0"},
+      {:prometheus_process_collector, "~> 1.3"}
     ]
   end
 
