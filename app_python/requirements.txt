@@ -16,3 +16,4 @@ python-dotenv==1.0.0
 tomli==2.0.1
 typing-extensions==4.7.1
 pytest-aiohttp==1.0.4
+aiohttp-prometheus-exporter==0.2.4

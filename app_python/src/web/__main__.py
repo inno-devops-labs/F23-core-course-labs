@@ -1,6 +1,7 @@
 from aiohttp import web
 import logging
 
+
 from src.config import Config
 from src.web.app import init_app
 

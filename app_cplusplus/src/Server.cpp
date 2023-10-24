@@ -33,7 +33,12 @@ std::cout << "Connected to: " << endpoint.address() << ':' << endpoint.port() <<
         request_stream >> method >> path >> http_version;
 std::cout << method << '\n' << path << "\n\n";
 
-        std::string response = "HTTP/1.1 200 OK\r\n"
+        if (path.find("/metrics") != std::string::npos) {
+            std::string response = "HTTP/1.1 200 OK\r\n"
+                               "Content-Type: text/html\r\n\r\n # HELP process_cpu_seconds_total Descriotion\n # TYPE process_cpu_seconds_total gauge\n\nprocess_cpu_seconds_total 1.01";
+            boost::asio::write(socket, boost::asio::buffer(response));
+        } else {
+            std::string response = "HTTP/1.1 200 OK\r\n"
                                "Content-Type: text/html\r\n\r\n";
 
 
@@ -65,5 +70,6 @@ std::cout << method << '\n' << path << "\n\n";
         }
 
         boost::asio::write(socket, boost::asio::buffer(response));
+        }
     }
 }

@@ -18,11 +18,17 @@ services:
     image: dashvayet/app_python:latest
     ports:
       - "5000:5000"
+    networks:
+      - loki
     healthcheck:
       test: [ "CMD-SHELL", "curl --fail http://localhost:5000 || exit 1" ]
       interval: 10s
       timeout: 5s
       retries: 5
+    deploy: &limiter
+      resources:
+        limits:
+          memory: 200M
     <<: *default-logger
 
   app_cplusplus:
@@ -31,12 +37,45 @@ services:
     image: dashvayet/app_cplusplus:latest
     ports:
        - "10000:10000"
+    networks:
+      - loki
     healthcheck:
       test: [ "CMD-SHELL", "curl --fail http://localhost:10000 || exit 1" ]
       interval: 10s
       timeout: 5s
       retries: 5
+    deploy:
+      <<: *limiter
     <<: *default-logger
+
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    restart: always
+    volumes:
+      - prometheus-data:/prometheus
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+      - '--web.enable-lifecycle'
+      - '--web.enable-admin-api'
+      - '--storage.tsdb.retention.time=7d'
+    ports:
+      - '9090:9090'
+    networks:
+      - loki
+    healthcheck:
+      test: [ "CMD-SHELL", " wget --no-verbose --tries=1 -O /dev/null http://localhost:9090/-/healthy || exit 1" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    deploy:
+      <<: *limiter
+    <<: *default-logger
+
 
   promtail:
     container_name: promtail
@@ -53,6 +92,8 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    deploy:
+      <<: *limiter
     <<: *default-logger
 
   grafana:
@@ -63,6 +104,8 @@ services:
       - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
       - GF_AUTH_ANONYMOUS_ENABLED=true
       - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+    volumes:
+        - ./prometeus-setup.yml:/etc/grafana/provisioning/datasources/prometeus.yml:ro
     entrypoint:
       - sh
       - -euc
@@ -88,10 +131,12 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    deploy:
+      <<: *limiter
     <<: *default-logger
 
   loki:
-    image: grafana/loki:2.9.0
+    image: grafana/loki:2.0.0
     restart: always
     command: -config.file=/etc/loki/local-config.yaml
     networks:
@@ -103,4 +148,9 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    deploy:
+      <<: *limiter
     <<: *default-logger
+
+volumes:
+  prometheus-data:

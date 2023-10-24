@@ -11,6 +11,7 @@ class TimeWebHandler(WebHandler):
 
         self._time_tracker = time_tracker(time_shift_delta=shift_delta)
         self._time_format = "%Y-%m-%d %H:%M:%S:%f"
+        self.calls = 0
 
         super().__init__()
 
@@ -23,3 +24,7 @@ class TimeWebHandler(WebHandler):
     async def get_time(self, request) -> web.Response:
         time: str = await self._get_formatted_time(self._time_tracker.get_timezoned_current_time())
         return web.Response(text=f'{time}')
+
+    async def get_calls(self, request) -> web.Response:
+        self.calls += 1
+        return web.Response(text="{ \"calls\": " + f"{self.calls}" + "}")
