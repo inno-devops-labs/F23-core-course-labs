@@ -71,6 +71,12 @@ services:
           isDefault: true
           version: 1
           editable: false
+        
+        - name: Prometheus
+          type: prometheus
+          url: http://prometheus:9090 
+          access: proxy
+          editable: true
         EOF
         /run.sh
     image: grafana/grafana:latest
@@ -82,3 +88,21 @@ services:
       driver: "json-file"
       options:
         tag: "{{.ImageName}}|{{.Name}}"
+
+  prometheus:
+    image: prom/prometheus
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus:/etc/prometheus
+      - ./prom_data:/prometheus
+    networks:
+      - loki
+    logging:
+      driver: "json-file"
+      options:
+        tag: "{{.ImageName}}|{{.Name}}"
+
+    
