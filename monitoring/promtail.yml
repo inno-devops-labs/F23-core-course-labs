@@ -1,12 +1,13 @@
 server:
-  http_listen_port: 80
+  http_listen_port: 9080
   grpc_listen_port: 0
 
 positions:
   filename: /var/lib/promtail/positions/positions.yaml
 
 client:
-  url: http://loki:3100/api/v1/push
+  - url: http://loki:3100/api/prom/push
+    tenant_id: docker
 
 limits_config:
   reject_old_samples: true
@@ -23,8 +24,8 @@ scrape_configs:
       - targets:
           - localhost
         labels:
-          job: docker
-          __path__: /var/lib/docker/containers/*/*log
+          job: logs
+          __path__: /var/log/logs.log
 
     pipeline_stages:
       - json:
@@ -46,7 +47,7 @@ scrape_configs:
           image_name:
           container_name:
 
-      - match:
-          selector: '{job="docker",container_name="",image_name=""}'
-          action: drop
+      # - match:
+      #     selector: '{job="docker",container_name="",image_name=""}'
+      #     action: drop
           
