@@ -6,6 +6,7 @@ import pytz
 app = Flask(__name__)
 metrics = PrometheusMetrics(app)
 
+
 @app.route('/')
 # Get current time in Moscow
 def current_time_moscow():
