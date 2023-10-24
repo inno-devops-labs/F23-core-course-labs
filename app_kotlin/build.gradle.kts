@@ -27,6 +27,9 @@ dependencies {
     implementation("io.ktor:ktor-server-netty-jvm")
     implementation("ch.qos.logback:logback-classic:$logbackVersion")
     implementation("io.ktor:ktor-server-html-builder:$ktorVersion")
+    
+    implementation("io.ktor:ktor-server-metrics-micrometer:$ktor_version")
+    implementation("io.micrometer:micrometer-registry-prometheus:$prometheus_version")
 
     testImplementation("io.ktor:ktor-server-tests:$ktorVersion")
     testImplementation("io.kotest:kotest-runner-junit5:5.5.5")

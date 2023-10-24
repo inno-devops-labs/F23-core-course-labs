@@ -1,9 +1,10 @@
 from flask import Flask
 from datetime import datetime
+from prometheus_flask_exporter import PrometheusMetrics
 import pytz
 
 app = Flask(__name__)
-
+metrics = PrometheusMetrics(app)
 
 @app.route('/')
 # Get current time in Moscow
