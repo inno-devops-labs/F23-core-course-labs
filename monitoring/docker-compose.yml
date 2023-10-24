@@ -1,7 +1,14 @@
 version: "2.9"
 
 networks:
-  loki:
+  monitoring:
+
+x-logger: &logging
+  driver: "json-file"
+  options:
+    max-size: "15m"
+    max-file: "3"
+    tag: "{{.ImageName}}|{{.Name}}"
 
 services:
   web_application:
@@ -9,9 +16,11 @@ services:
     ports:
       - "8080:8080"
     logging:
-      driver: "json-file"
-      options:
-        tag: "{{.ImageName}}|{{.Name}}"
+      <<: *logging
+    deploy:
+      resources:
+        limits:
+          memory: 512M
 
   loki:
     image: grafana/loki:2.9.2
@@ -19,7 +28,13 @@ services:
       - "3100:3100"
     command: -config.file=/etc/loki/local-config.yaml
     networks:
-      - loki
+      - monitoring
+    logging:
+      <<: *logging
+    deploy:
+      resources:
+        limits:
+          memory: 512M
 
   promtail:
     image: grafana/promtail:2.9.2
@@ -28,34 +43,44 @@ services:
       - ./promtail.yml:/etc/promtail/config.yml
     command: -config.file=/etc/promtail/config.yml
     networks:
-      - loki
+      - monitoring
+    logging:
+      <<: *logging
+    deploy:
+      resources:
+        limits:
+          memory: 512M
 
   grafana:
     environment:
       - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
       - GF_AUTH_ANONYMOUS_ENABLED=true
       - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
-    entrypoint:
-      - sh
-      - -euc
-      - |
-        mkdir -p /etc/grafana/provisioning/datasources
-        cat <<EOF > /etc/grafana/provisioning/datasources/ds.yaml
-        apiVersion: 1
-        datasources:
-        - name: Loki
-          type: loki
-          access: proxy 
-          orgId: 1
-          url: http://loki:3100
-          basicAuth: false
-          isDefault: true
-          version: 1
-          editable: false
-        EOF
-        /run.sh
     image: grafana/grafana:latest
+    volumes:
+      - ./datasources.yml:/etc/grafana/provisioning/datasources/datasources.yaml
     ports:
       - "3000:3000"
     networks:
-      - loki
+      - monitoring
+    logging:
+      <<: *logging
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - monitoring
+    logging:
+      <<: *logging
+    deploy:
+      resources:
+        limits:
+          memory: 512M
