@@ -38,7 +38,14 @@ defmodule Watch.MixProject do
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
       {:tz, "~> 0.3.0"},
-      {:credo, "~> 1.7", only: [:dev, :test], runtime: false}
+      {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
+      {:prometheus, "~> 4.0", override: true},
+      {:prometheus_ex,
+       git: "https://github.com/lanodan/prometheus.ex", branch: "fix/elixir-1.14", override: true},
+      {:prometheus_ecto, "~> 1.0"},
+      {:prometheus_phoenix, "~> 1.2"},
+      {:prometheus_plugs, "~> 1.0"},
+      {:prometheus_process_collector, git: "https://github.com/grzegorzlyczba/prometheus_process_collector/", branch: "port_compiler", override: true},
     ]
   end
 

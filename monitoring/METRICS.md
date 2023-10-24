@@ -26,35 +26,54 @@ that limits container memory usage to 500MB
 
 All containers are added to Prometheus scrape config like this:
 
-````yaml
+```yaml
 scrape_configs:
-- job_name: prometheus
-  honor_timestamps: true
-  scrape_interval: 15s
-  scrape_timeout: 10s
-  metrics_path: /metrics
-  scheme: http
-  static_configs:
-  - targets:
-    - localhost:9090
+  - job_name: prometheus
+    honor_timestamps: true
+    scrape_interval: 15s
+    scrape_timeout: 10s
+    metrics_path: /metrics
+    scheme: http
+    static_configs:
+      - targets:
+          - localhost:9090
 
-- job_name: 'loki'
-  static_configs:
-  - targets: ['loki:3100']
+  - job_name: "loki"
+    static_configs:
+      - targets: ["loki:3100"]
 
-- job_name: 'python'
-  static_configs:
-  - targets: ['app_python:80']
+  - job_name: "python"
+    static_configs:
+      - targets: ["app_python:80"]
 
-- job_name: 'elixir'
-  static_configs:
-  - targets: ['app_elixir:4000']
+  - job_name: "elixir"
+    static_configs:
+      - targets: ["app_elixir:4000"]
 
-- job_name: 'promtail'
-  static_configs:
-  - targets: ['promtail:9080']
+  - job_name: "promtail"
+    static_configs:
+      - targets: ["promtail:9080"]
 
-- job_name: 'grafana'
-  static_configs:
-    - targets: ['grafana:3000']
-````
+  - job_name: "grafana"
+    static_configs:
+      - targets: ["grafana:3000"]
+```
+
+## Application Metrics:
+
+I've used [Prometheus FastAPI Instrumentator](https://github.com/trallnag/prometheus-fastapi-instrumentator) for my python app and [Prometheus.ex](https://github.com/deadtrickster/prometheus.ex) for my elixir app.
+
+
+
+## Health Checks:
+
+Health checks are implemented using following snippet in docker compose:
+
+```yaml
+healthcheck:
+  test: ["CMD", "curl", "-f", "http://localhost:80"]
+  interval: 1m30s
+  timeout: 10s
+  retries: 3
+  start_period: 40s
+```

@@ -40,5 +40,6 @@ defmodule WatchWeb.Endpoint do
   plug Plug.MethodOverride
   plug Plug.Head
   plug Plug.Session, @session_options
+  plug Watch.Prometheus.Exporter
   plug WatchWeb.Router
 end
