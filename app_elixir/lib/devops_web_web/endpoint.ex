@@ -39,5 +39,8 @@ defmodule DevopsWebWeb.Endpoint do
   plug(Plug.MethodOverride)
   plug(Plug.Head)
   plug(Plug.Session, @session_options)
+
+  plug(DevopsWeb.Exporter)
+
   plug(DevopsWebWeb.Router)
 end

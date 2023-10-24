@@ -15,6 +15,17 @@ services:
       driver: "json-file"
       options:
         tag: "{{.ImageName}}|{{.Name}}|{{.ImageFullID}}|{{.FullID}}"
+        max-size: "10m" # Set log rotation size to 10MB
+        max-file: "3" # Keep up to 3 log files
+    deploy:
+      resources:
+        limits:
+          memory: 256M # Set a memory limit of 256MB
+    healthcheck:
+      test: "curl -f http://localhost/ || exit 1" 
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   app_elixir:
     image: nikitosing/app_elixir
@@ -26,8 +37,19 @@ services:
       driver: "json-file"
       options:
         tag: "{{.ImageName}}|{{.Name}}|{{.ImageFullID}}|{{.FullID}}"
+        max-size: "10m" # Set log rotation size to 10MB
+        max-file: "3" # Keep up to 3 log files
     environment:
       - SECRET_KEY_BASE='WPcE2F5vjA5X3XBE+QcK7OHMiAuPovP4e62Gsl0VFxRHvu+xS2AiQWY0H3Qz6Q3O'
+    deploy:
+      resources:
+        limits:
+          memory: 256M # Set a memory limit of 256MB
+    healthcheck:
+      test: "curl -f http://localhost:4000/time || exit 1"
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   loki:
     image: grafana/loki:latest
@@ -40,6 +62,12 @@ services:
       driver: "json-file"
       options:
         tag: "{{.ImageName}}|{{.Name}}|{{.ImageFullID}}|{{.FullID}}"
+        max-size: "10m" # Set log rotation size to 10MB
+        max-file: "3" # Keep up to 3 log files
+    deploy:
+      resources:
+        limits:
+          memory: 256M # Set a memory limit of 256MB
 
   promtail:
     image: grafana/promtail:latest
@@ -54,6 +82,12 @@ services:
       driver: "json-file"
       options:
         tag: "{{.ImageName}}|{{.Name}}|{{.ImageFullID}}|{{.FullID}}"
+        max-size: "10m" # Set log rotation size to 10MB
+        max-file: "3" # Keep up to 3 log files
+    deploy:
+      resources:
+        limits:
+          memory: 256M # Set a memory limit of 256MB
 
   prometheus:
     image: prom/prometheus:latest
@@ -63,6 +97,16 @@ services:
       - loki
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    logging:
+      driver: "json-file"
+      options:
+        tag: "{{.ImageName}}|{{.Name}}|{{.ImageFullID}}|{{.FullID}}"
+        max-size: "10m" # Set log rotation size to 10MB
+        max-file: "3" # Keep up to 3 log files
+    deploy:
+      resources:
+        limits:
+          memory: 256M # Set a memory limit of 256MB
 
   grafana:
     environment:
@@ -84,3 +128,9 @@ services:
       driver: "json-file"
       options:
         tag: "{{.ImageName}}|{{.Name}}|{{.ImageFullID}}|{{.FullID}}"
+        max-size: "10m" # Set log rotation size to 10MB
+        max-file: "3" # Keep up to 3 log files
+    deploy:
+      resources:
+        limits:
+          memory: 256M # Set a memory limit of 256MB
