@@ -8,12 +8,18 @@ services:
     hostname: web_app
     image: docker.io/platun0v/devops-lab2:latest
     restart: always
+    deploy:
+      resources:
+        limits:
+          memory: 256M
     ports:
       - "8000:8000"
     command: gunicorn app.main:app -b 0.0.0.0:8000
     logging: &default_logging
       driver: "json-file"
       options: 
+        max-size: "200k"
+        max-file: "10"
         tag: "{{.ImageName}}|{{.Name}}|{{.ID}}"
 
   loki:
@@ -21,6 +27,10 @@ services:
     ports:
       - "3100:3100"
     command: -config.file=/etc/loki/local-config.yaml
+    deploy:
+      resources:
+        limits:
+          memory: 512M
     networks:
       - loki
     logging:
@@ -28,10 +38,30 @@ services:
 
   promtail:
     image: grafana/promtail:2.9.2
+    deploy:
+      resources:
+        limits:
+          memory: 512M
     volumes:
       - /var/lib/docker/containers:/var/lib/docker/containers
       - ./promtail-config.yaml:/etc/promtail/config.yml
     command: -config.file=/etc/promtail/config.yml
+    networks:
+      - loki
+    logging:
+      <<: *default_logging
+
+  prometheus:
+    image: prom/prometheus:v2.47.2
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    command: --config.file=/etc/prometheus/prometheus.yml
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+    ports:
+      - "9090:9090"
     networks:
       - loki
     logging:
@@ -42,28 +72,16 @@ services:
       - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
       - GF_AUTH_ANONYMOUS_ENABLED=true
       - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
-    entrypoint:
-      - sh
-      - -euc
-      - |
-        mkdir -p /etc/grafana/provisioning/datasources
-        cat <<EOF > /etc/grafana/provisioning/datasources/ds.yaml
-        apiVersion: 1
-        datasources:
-        - name: Loki
-          type: loki
-          access: proxy 
-          orgId: 1
-          url: http://loki:3100
-          basicAuth: false
-          isDefault: true
-          version: 1
-          editable: false
-        EOF
-        /run.sh
+      - GF_AUTH_DISABLE_LOGIN_FORM=true
     image: grafana/grafana:latest
+    deploy:
+      resources:
+        limits:
+          memory: 1024M
     ports:
       - "3000:3000"
+    volumes:
+      - ./datasources.yml:/etc/grafana/provisioning/datasources/ds.yml
     networks:
       - loki
     logging:
