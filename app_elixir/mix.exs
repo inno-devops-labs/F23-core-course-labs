@@ -52,7 +52,7 @@ defmodule DevopsWeb.MixProject do
       {:prometheus_ex,
        git: "https://github.com/lanodan/prometheus.ex", branch: "fix/elixir-1.14", override: true},
       {:prometheus_phoenix, "~> 1.2"},
-      {:prometheus_plugs, "~> 1.0"},
+      {:prometheus_plugs, "~> 1.1"},
       {:prometheus_process_collector, "~> 1.3"}
     ]
   end
