@@ -36,7 +36,7 @@ All these containers generate logs which are fetched by **Promtail**, aggregated
 
 ### How to run?
 ```shell
-docker compose -up -d
+docker-compose up -d
 ```
 
 ## Results

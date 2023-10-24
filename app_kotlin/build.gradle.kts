@@ -25,9 +25,15 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web") {
         exclude(module = "mockito-core")
     }
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
+
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
+
     implementation("io.github.oshai:kotlin-logging-jvm:5.1.0")
+
+    // Metrics
+    implementation("io.micrometer:micrometer-registry-prometheus")
 
     // Get rid of vulnerabilities in transitive dependencies
     implementation(group = "org.yaml", name = "snakeyaml").version {
