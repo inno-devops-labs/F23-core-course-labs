@@ -20,6 +20,12 @@ services:
       resources:
         limits:
           memory: 500M
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
 
   app_elixir:
     image: sl1depengwyn/elixir_devops:latest
@@ -39,6 +45,12 @@ services:
       resources:
         limits:
           memory: 500M
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4000"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
 
   loki:
     image: grafana/loki:latest
@@ -57,6 +69,12 @@ services:
       resources:
         limits:
           memory: 500M
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3100"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
 
   promtail:
     image: grafana/promtail:latest
@@ -76,6 +94,12 @@ services:
       resources:
         limits:
           memory: 500M
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9080"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
 
   grafana:
     environment:
@@ -105,6 +129,12 @@ services:
       resources:
         limits:
           memory: 500M
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
 
   prometheus:
     image: prom/prometheus
@@ -127,3 +157,9 @@ services:
       resources:
         limits:
           memory: 500M
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9090"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s

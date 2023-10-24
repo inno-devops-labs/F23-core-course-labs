@@ -5,6 +5,14 @@ defmodule Watch.Application do
 
   use Application
 
+  alias Watch.Prometheus.{
+    PhoenixInstrumenter,
+    PipelineInstrumenter,
+    Exporter
+  }
+
+  require Prometheus.Registry
+
   @impl true
   def start(_type, _args) do
     children = [
@@ -17,6 +25,15 @@ defmodule Watch.Application do
       # Start a worker by calling: Watch.Worker.start_link(arg)
       # {Watch.Worker, arg}
     ]
+
+    PhoenixInstrumenter.setup()
+    PipelineInstrumenter.setup()
+
+    if :os.type() == {:unix, :linux} do
+      Prometheus.Registry.register_collector(:prometheus_process_collector)
+    end
+
+    Exporter.setup()
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options

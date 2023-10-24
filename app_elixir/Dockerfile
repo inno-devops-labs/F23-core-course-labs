@@ -1,6 +1,6 @@
-FROM elixir:1.14.3-alpine
+FROM elixir:1.14.5
 
-RUN addgroup -S app && adduser -S app -G app
+RUN addgroup --system app && adduser --system app -gecos app
 USER app
 ENV PATH /home/app/.local/bin:${PATH}
 ENV MIX_ENV=prod
@@ -8,7 +8,7 @@ ENV MIX_ENV=prod
 WORKDIR /app
 
 COPY ./mix.exs ./mix.lock /app/
-COPY  ./config /app/config
+COPY ./config /app/config
 COPY ./lib /app/lib
 
 RUN mix local.hex --force
