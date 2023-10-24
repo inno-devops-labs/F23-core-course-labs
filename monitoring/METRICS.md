@@ -63,6 +63,7 @@ scrape_configs:
 
 I've used [Prometheus FastAPI Instrumentator](https://github.com/trallnag/prometheus-fastapi-instrumentator) for my python app and [Prometheus.ex](https://github.com/deadtrickster/prometheus.ex) for my elixir app.
 
+<img width="1478" alt="image" src="https://github.com/sl1depengwyn/core-course-labs/assets/53992153/1164be7c-0e9b-4069-8657-3d6cafaa993c">
 
 
 ## Health Checks:
