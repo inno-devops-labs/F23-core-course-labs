@@ -9,6 +9,8 @@ services:
     container_name: art22m-container-pyapp
     ports:
       - "8000:8000"
+    networks:
+      - netw
     logging:
       driver: "json-file"
       options:
@@ -25,6 +27,8 @@ services:
     container_name: art22m-container-goapp
     ports:
       - "9000:9000"
+    networks:
+      - netw
     logging:
       driver: "json-file"
       options:
