@@ -20,3 +20,35 @@ loki:
 
 
 ![image](https://github.com/nikitosing/core-course-labs/assets/32202610/91dbc6e1-858c-431c-9d37-11af79c359ff)
+
+
+### Health Checks
+
+Enhanced the service configurations in the `docker-compose.yml` file by adding health checks for the containers. Health checks ensure that the containers are running and responding as expected.
+
+Here are the service configurations with added health checks:
+
+```yaml
+services:
+  app_python:
+    # ... (previous configuration)
+    healthcheck:
+      test: "curl -f http://localhost/ || exit 1" 
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  app_elixir:
+    # ... (previous configuration)
+    healthcheck:
+      test: "curl -f http://localhost:4000/time || exit 1"
+      interval: 30s
+      timeout: 10s
+      retries: 3
+```
+
+### prometheus
+
+For python simple total requests counter metric
+
+For elixir: comprehensive prometheus metrics
