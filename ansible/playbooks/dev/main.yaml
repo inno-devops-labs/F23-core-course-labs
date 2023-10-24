@@ -1,0 +1,9 @@
+---
+- name: Prepare docker
+  hosts: localhost
+  connection: local
+  become: yes
+  gather_facts: no
+  roles:
+    - ansible/roles/docker
+    - ansible/roles/web-app
