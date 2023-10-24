@@ -2,6 +2,9 @@
 ### Configured prometheus targets:
 ![prometheus_targets.png](resources/prometheus_targets.png)
 
+Then I also added other services to scrape metrics from:
+![all_services_targets.png](resources/all_services_targets.png)
+
 
 ### Scraped Loki metrics:
 ![scraped_loki_metrics.png](resources/scraped_loki_metrics.png)
