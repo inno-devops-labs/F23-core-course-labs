@@ -11,15 +11,15 @@ alerting:
       api_version: v1
 
 scrape_configs:
-  - job_name: pyapp
+  - job_name: python_app
     static_configs:
       - targets:
-          - localhost:8000
+          - python_app:8000
 
-  - job_name: goapp
+  - job_name: go_app
     static_configs:
       - targets:
-          - localhost:9000
+          - go_app:9000
 
   - job_name: loki
     honor_timestamps: true
