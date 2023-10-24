@@ -11,14 +11,38 @@ services:
     command: -config.file=/etc/loki/local-config.yaml
     networks:
       - loki
+    deploy:
+      resources:
+        limits:
+          memory: 50M
+        reservations:
+          memory: 20M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1k"
+        max-file: "3"
 
   promtail:
     image: grafana/promtail:2.9.2
+    ports:
+      - "9080:9080"
     volumes:
       - /var/log:/var/log
     command: -config.file=/etc/promtail/config.yml
     networks:
       - loki
+    deploy:
+      resources:
+        limits:
+          memory: 50M
+        reservations:
+          memory: 20M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1k"
+        max-file: "3"
 
   grafana:
     environment:
@@ -49,3 +73,35 @@ services:
       - "3000:3000"
     networks:
       - loki
+    deploy:
+      resources:
+        limits:
+          memory: 50M
+        reservations:
+          memory: 20M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1k"
+        max-file: "3"
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: 'prometheus'
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - '9090:9090'
+    networks:
+      - loki
+    deploy:
+      resources:
+        limits:
+          memory: 50M
+        reservations:
+          memory: 20M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1k"
+        max-file: "3"
