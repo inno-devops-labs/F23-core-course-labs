@@ -19,3 +19,8 @@ scrape_configs:
     metrics_path: '/metrics'
     static_configs:
       - targets: [ 'host.docker.internal:3000' ]
+  - job_name: 'python_app_monitoring'
+    scrape_interval: 5s
+    metrics_path: '/metrics'
+    static_configs:
+      - targets: [ 'host.docker.internal:80' ]

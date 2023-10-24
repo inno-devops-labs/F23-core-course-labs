@@ -23,8 +23,8 @@ Then I also added other services to scrape metrics from:
 
 
 ### Prometheus Grafana Dashboard:
-![prometheus_grafana_dashboard.png](prometheus_grafana_dashboard.png)
-![prometheus_grafana_dashboard_2.png](prometheus_grafana_dashboard_2.png)
+![prometheus_grafana_dashboard.png](resources/prometheus_grafana_dashboard.png)
+![prometheus_grafana_dashboard_2.png](resources/prometheus_grafana_dashboard_2.png)
 
 ## Log rotation
 For log rotation I used options for docker default json-file logging driver:
@@ -48,3 +48,14 @@ deploy:
 This option also supports CPU limits.
 
 I chose different values of memory limit for different containers appropriately by their needs.
+
+
+## Python application metrics and dashboard
+
+I used django-prometheus dependency to export default metrics in prometheus view on `/metrics` endpoint.
+
+I setted up my prometheus to scrape metrics from Python application:
+![python_app_prometheus_target.png](resources/python_app_prometheus_target.png)
+
+And build small dashboard with application uptime and RPS on different pages:
+![python_app_grafana_dashboard.png](resources/python_app_grafana_dashboard.png)
