@@ -6,15 +6,25 @@ networks:
 services:
   app_python:
     image: sl1depengwyn/python_devops:latest
+    ports:
+      - "80:80"
     networks:
       - loki
     logging:
       driver: "json-file"
       options:
         tag: "{{.ImageName}}|{{.Name}}"
+        max-size: "10m"
+        max-file: "10"
+    deploy:
+      resources:
+        limits:
+          memory: 500M
 
   app_elixir:
     image: sl1depengwyn/elixir_devops:latest
+    ports:
+      - "4000:4000"
     environment:
       - SECRET_KEY_BASE
     networks:
@@ -23,6 +33,12 @@ services:
       driver: "json-file"
       options:
         tag: "{{.ImageName}}|{{.Name}}"
+        max-size: "10m"
+        max-file: "10"
+    deploy:
+      resources:
+        limits:
+          memory: 500M
 
   loki:
     image: grafana/loki:latest
@@ -35,6 +51,12 @@ services:
       driver: "json-file"
       options:
         tag: "{{.ImageName}}|{{.Name}}"
+        max-size: "10m"
+        max-file: "10"
+    deploy:
+      resources:
+        limits:
+          memory: 500M
 
   promtail:
     image: grafana/promtail:latest
@@ -48,37 +70,22 @@ services:
       driver: "json-file"
       options:
         tag: "{{.ImageName}}|{{.Name}}"
+        max-size: "10m"
+        max-file: "10"
+    deploy:
+      resources:
+        limits:
+          memory: 500M
 
   grafana:
     environment:
       - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
       - GF_AUTH_ANONYMOUS_ENABLED=true
       - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
-    entrypoint:
-      - sh
-      - -euc
-      - |
-        mkdir -p /etc/grafana/provisioning/datasources
-        cat <<EOF > /etc/grafana/provisioning/datasources/ds.yaml
-        apiVersion: 1
-        datasources:
-        - name: Loki
-          type: loki
-          access: proxy 
-          orgId: 1
-          url: http://loki:3100
-          basicAuth: false
-          isDefault: true
-          version: 1
-          editable: false
-        
-        - name: Prometheus
-          type: prometheus
-          url: http://prometheus:9090 
-          access: proxy
-          editable: true
-        EOF
-        /run.sh
+      - GF_LOG_MODE=console file
+      - GF_ANALYTICS_REPORTING_ENABLED=false
+      - GF_ANALYTICS_CHECK_FOR_UPDATES=true
+      - GF_ANALYTICS_CHECK_FOR_PLUGIN_UPDATES=true
     image: grafana/grafana:latest
     ports:
       - "3000:3000"
@@ -88,6 +95,16 @@ services:
       driver: "json-file"
       options:
         tag: "{{.ImageName}}|{{.Name}}"
+        max-size: "10m"
+        max-file: "10"
+    volumes:
+      - ./grafana/data:/var/lib/grafana
+      - ./grafana/config/provisioning:/etc/grafana/provisioning
+      - ./grafana/logs:/var/log/grafana
+    deploy:
+      resources:
+        limits:
+          memory: 500M
 
   prometheus:
     image: prom/prometheus
@@ -104,5 +121,9 @@ services:
       driver: "json-file"
       options:
         tag: "{{.ImageName}}|{{.Name}}"
-
-    
+        max-size: "10m"
+        max-file: "10"
+    deploy:
+      resources:
+        limits:
+          memory: 500M
