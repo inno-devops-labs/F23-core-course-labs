@@ -4,3 +4,4 @@ flake8
 pytest
 pytest-cov
 pylint
+prometheus-flask-exporter==0.22.4
