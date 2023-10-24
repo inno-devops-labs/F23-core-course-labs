@@ -12,6 +12,11 @@ COPY rel ./rel
 COPY *.exs ./
 COPY mix.lock ./
 
+RUN apk add --update git make
+RUN apk --no-cache --update add alpine-sdk gmp-dev automake libtool inotify-tools autoconf python3 file gcompat
+
+RUN set -ex && \
+    apk --update add libstdc++ curl ca-certificates gcompat
 RUN mix local.hex --force
 RUN mix do deps.get, local.rebar --force, deps.compile
 
