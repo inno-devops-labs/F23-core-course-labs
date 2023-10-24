@@ -21,7 +21,7 @@ var (
 const timeFormat = "2006-01-02 15:04:05"
 
 func currentMoscowTimeHandler(w http.ResponseWriter, r *http.Request) {
-	log.Println("GET / HTTP")
+	log.Println("GET TIME / HTTP")
 
 	timeHandlerProcessed.Inc()
 
@@ -35,8 +35,16 @@ func currentMoscowTimeHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, currentTime.Format(timeFormat))
 }
 
+func healthHandler(w http.ResponseWriter, r *http.Request) {
+	log.Println("GET HEALTH / HTTP")
+
+	w.WriteHeader(http.StatusOK)
+	fmt.Fprint(w, "Server is healthy")
+}
+
 func main() {
 	http.Handle("/metrics", promhttp.Handler())
+	http.HandleFunc("/health", healthHandler)
 	http.HandleFunc("/", currentMoscowTimeHandler)
 	if err := http.ListenAndServe(":9000", nil); err != nil {
 		log.Fatal(err)
