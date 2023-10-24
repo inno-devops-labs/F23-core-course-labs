@@ -74,3 +74,9 @@ I setted up my prometheus to scrape metrics from this endpoint:
 And imported dashboard to check my JVM:
 ![kotlin_app_grafana_dashboard.png](resources/kotlin_app_grafana_dashboard.png)
 ![kotlin_app_grafana_dashboard_2.png](resources/kotlin_app_grafana_dashboard_2.png)
+
+## Healthchecks
+
+I added healthchecks for my applications. Both of them make GET request to some endpoint and checking if curl will exit
+with 0 status code. After interval timeout my docker ps shows that both applications are healthy:
+![docker_healthchecks.png](resources/docker_healthchecks.png)

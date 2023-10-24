@@ -24,6 +24,11 @@ services:
       options:
         max-size: "100k"
         max-file: "10"
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -f http://localhost:8000/metrics" ]
+      interval: 10s
+      timeout: 10s
+      retries: 2
 
   kotlin_app:
     platform: linux/x86_64
@@ -45,6 +50,11 @@ services:
       options:
         max-size: "100k"
         max-file: "10"
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -f http://localhost:8080/actuator/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 2
 
   loki:
     image: grafana/loki:2.9.1
