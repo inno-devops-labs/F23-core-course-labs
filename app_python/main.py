@@ -6,12 +6,13 @@ from prometheus_client import start_http_server, Counter, generate_latest
 
 log = logging.getLogger(__name__)
 
-REQUEST_COUNTER = Counter('http_requests_total', 'Total number of HTTP requests')
+REQUEST_COUNTER = Counter('http_requests_total',
+                          'Total number of HTTP requests')
+
 
 class TimeServer(http.server.SimpleHTTPRequestHandler):
     def log_request(self, code='-', size='-'):
         REQUEST_COUNTER.inc()
-
 
     def do_GET(self):
         if self.path == '/':
@@ -41,6 +42,7 @@ class TimeServer(http.server.SimpleHTTPRequestHandler):
             self.send_response(404)
             self.end_headers()
             self.wfile.write("Not Found".encode())
+
 
 if __name__ == '__main__':
     PORT = 8008
