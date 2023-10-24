@@ -6,6 +6,8 @@ FROM maven:3.8.4-openjdk-17-slim AS build
 RUN useradd -ms /bin/bash testuser
 RUN chown testuser /home/testuser
 
+RUN apt-get -y update && apt-get install -y curl
+
 COPY lab1/src /home/testuser/src
 COPY lab1/pom.xml /home/testuser
 

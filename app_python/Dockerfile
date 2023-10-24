@@ -3,6 +3,8 @@ FROM python:3.9.12-slim
 RUN useradd -ms /bin/bash testuser
 RUN chown testuser /home/testuser
 
+RUN apt-get -y update && apt-get install -y curl
+
 WORKDIR /home/testuser
 COPY . /home/testuser
 RUN chown testuser db.sqlite3
