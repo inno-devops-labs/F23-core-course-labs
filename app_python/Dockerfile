@@ -24,7 +24,7 @@ RUN useradd --create-home myuser && chown -R myuser /app
 USER myuser
 
 # Set the port
-EXPOSE 5000
+EXPOSE 8080
 
 # Run the app
 CMD [ "python", "app.py" ]

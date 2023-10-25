@@ -19,7 +19,7 @@ resource "docker_container" "app" {
   name  = var.container_name
 
   ports {
-    internal = 5000
-    external = 5000
+    internal = 8080
+    external = 8080
   }
 }
