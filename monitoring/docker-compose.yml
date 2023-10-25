@@ -1,45 +1,83 @@
 ---
 version: "3.6"
 
+x-common-config: &common
+  logging:
+    driver: json-file
+    options:
+      tag: "{{.Name}}"
+      max-size: "120m"
+      max-file: "3"
+  mem_limit: "512M"
+
 networks:
   loki:
 
 services:
   app:
+    <<: *common
     image: m4k4rich/app-python-time:arm64-tag
     ports:
       - "8080:8080"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080"]
+      interval: 10s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
     networks:
       - loki
 
   app2:
+    <<: *common
     image: m4k4rich/app-node-random:arm64-tag
     ports:
       - "3001:3000"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3001"]
+      interval: 10s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
     networks:
       - loki
 
   prometheus:
+    <<: *common 
     image: prom/prometheus:latest
     ports:
       - "9090:9090"
     volumes:
       - ./config:/mnt/config
     command: --config.file=/mnt/config/prometheus.yml
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9090"]
+      interval: 10s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
     networks:
       - loki
 
   loki:
+    <<: *common
     image: grafana/loki:latest
     ports:
       - "3100:3100"
     volumes:
       - ./config:/mnt/config
     command: -config.file=/mnt/config/loki.yml
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://loki:3100/loki/api/v1/push"]
+      interval: 10s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
     networks:
       - loki
 
   promtail:
+    <<: *common
     image: grafana/promtail:2.5.0
     volumes:
       - /var/lib/docker/containers:/var/lib/docker/containers
@@ -49,8 +87,15 @@ services:
       - loki
 
   grafana:
+    <<: *common
     image: grafana/grafana:latest
     ports:
       - "8081:3000"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8081"]
+      interval: 10s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
     networks:
       - loki
