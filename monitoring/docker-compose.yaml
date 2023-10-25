@@ -12,7 +12,18 @@ services:
     logging: &logging
       driver: "json-file"
       options:
+        max-size: "15m"
+        max-file: "5"
         tag: "{{.ImageName}}|{{.Name}}"
+
+  prometheus:
+     image: prom/prometheus:latest
+     volumes:
+       - ./prometheus/config.yml:/etc/prometheus/prometheus.yml
+     ports:
+       - 9090:9090
+     networks:
+       - loki
       
   loki:
     image: grafana/loki:2.9.2
@@ -54,12 +65,16 @@ services:
         - name: Loki
           type: loki
           access: proxy 
-          orgId: 1
           url: http://loki:3100
           basicAuth: false
           isDefault: true
-          version: 1
           editable: false
+        - name: Prometheus
+          type: prometheus
+          url: http://prometheus:9090 
+          isDefault: false
+          access: proxy
+          editable: true 
         EOF
         /run.sh
     image: grafana/grafana:latest
