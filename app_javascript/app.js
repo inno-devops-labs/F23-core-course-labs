@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const path = require('path')
+const promClient = require('prom-client');
 
 module.exports = {
   app,
@@ -42,12 +43,37 @@ const quotes = [
   "Every day may not be good, but there's something good in every day."
 ]
 
+const register = new promClient.Registry();
+
+const httpRequestCounter = new promClient.Counter({
+  name: 'http_requests_total',
+  help: 'Total HTTP requests',
+  labelNames: ['method', 'route'],
+  registers: [register],
+});
+
+promClient.collectDefaultMetrics({ register });
+
+
 function getRandomQuote () {
   const randomIndex = Math.floor(Math.random() * quotes.length)
   return quotes[randomIndex]
 }
 
+app.get('/metrics', (req, res) => {
+  register.metrics()
+    .then(metricsData => {
+      res.set('Content-Type', register.contentType);
+      res.send(metricsData);
+    })
+    .catch(error => {
+      console.error(error);
+      res.status(500).send('Internal Server Error');
+    });
+});
+
 app.get('/get-quote', (req, res) => {
+  httpRequestCounter.inc({ method: 'GET', route: '/get-quote' });
   const randomQuote = getRandomQuote()
   res.json({ quote: randomQuote })
 })

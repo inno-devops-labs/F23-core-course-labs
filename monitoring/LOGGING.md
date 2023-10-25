@@ -28,7 +28,7 @@ docker-compose -f docker-compose.yaml up
 
 ### 2. app_javascript
 - **Image:** arseniy5443/randomquote:latest
-- **Port:** 6666:3000
+- **Port:** 5000:3000
 
 #### Logging Configuration
 - **Inherited from app_python using an anchor.**

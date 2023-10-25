@@ -3,10 +3,15 @@ from config import DevelopmentConfig
 import click
 from flask.cli import with_appcontext
 import pytest
+from prometheus_client import make_wsgi_app
+from werkzeug.middleware.dispatcher import DispatcherMiddleware
 
 
 def create_app():
     app = Flask(__name__)
+    app.wsgi_app = DispatcherMiddleware(
+        app.wsgi_app, {"/metrics": make_wsgi_app()}
+    )  # noqa: E501
 
     from . import routes
 
