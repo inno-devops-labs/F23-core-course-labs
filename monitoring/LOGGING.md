@@ -1,10 +1,10 @@
 # Graphana
 
-Grafana was run with default parameters.
+Grafana was runned with default parameters.
 
 # Loki
 
-Loki war run with default parameters.
+Loki war runned with default parameters.
 
 # Promtail
 
