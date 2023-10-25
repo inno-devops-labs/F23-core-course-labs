@@ -7,16 +7,28 @@ services:
   web_app:
     hostname: web_app
     image: evalekalek/devops:latest
+    deploy:
+      resources:
+        limits:
+          cpus: '0.2'
+          memory: 256M
     restart: always
     ports:
       - "8000:8000"
     logging: &logger
       driver: "json-file"
       options:
+        max-size: "10m"
+        max-file: 10
         tag: "{{.ImageName}}|{{.Name}}|{{.FullID}}"
 
   loki:
     image: grafana/loki:2.9.2
+    deploy:
+      resources:
+        limits:
+          cpus: '0.2'
+          memory: 256M
     ports:
       - "3100:3100"
     command: -config.file=/etc/loki/local-config.yaml
@@ -27,10 +39,31 @@ services:
 
   promtail:
     image: grafana/promtail:2.9.2
+    deploy:
+      resources:
+        limits:
+          cpus: '0.2'
+          memory: 256M
     volumes:
       - /var/lib/docker/containers:/var/lib/docker/containers
       - ./promtail-config.yaml:/etc/promtail/config.yml
     command: -config.file=/etc/promtail/config.yml
+    networks:
+      - loki
+    logging:
+      <<: *logger
+
+  prometheus:
+    image: prom/prometheus:v2.47.2
+    volumes:
+      - ./prometheus-config.yml:/etc/prometheus/prometheus.yml
+    deploy:
+      resources:
+        limits:
+          cpus: '0.2'
+          memory: 256M
+    ports:
+      - "9090:9090"
     networks:
       - loki
     logging:
@@ -58,9 +91,21 @@ services:
           isDefault: true
           version: 1
           editable: false
+        - name: Prometheus
+          type: prometheus
+          access: proxy
+          url: http://prometheus:9090
+          basicAuth: false
+          isDefault: false
+          editable: true
         EOF
         /run.sh
     image: grafana/grafana:latest
+    deploy:
+      resources:
+        limits:
+          cpus: '0.3'
+          memory: 512M
     ports:
       - "3000:3000"
     networks:
