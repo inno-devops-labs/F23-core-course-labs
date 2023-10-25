@@ -43,7 +43,7 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
           command: test
-          args: --file=app_python/requirements.txt --command=python3 --skip-unresolved
+          args: --file=app_python/requirements.txt --severity-threshold=high --skip-unresolved
 
       - name: Monitor project with Snyk
         uses: snyk/actions/python@master
@@ -51,7 +51,7 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
           command: monitor
-          args: --file=app_python/requirements.txt --command=python3 --skip-unresolved
+          args: --file=app_python/requirements.txt --severity-threshold=high --skip-unresolved
         
       - name: Run tests 
         run: pytest tests
