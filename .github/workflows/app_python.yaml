@@ -38,7 +38,7 @@ jobs:
         working-directory: app_python
 
       - name: Run Snyk Scan
-        uses: snyk/actions/python@0.4.0
+        uses: snyk/actions/python-${{ matrix.python-version }}@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
@@ -46,7 +46,7 @@ jobs:
           args: --file=app_python/requirements.txt --skip-unresolved
 
       - name: Monitor project with Snyk
-        uses: snyk/actions/python@0.4.0
+        uses: snyk/actions/python-${{ matrix.python-version }}@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
