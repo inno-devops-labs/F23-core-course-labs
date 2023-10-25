@@ -18,3 +18,4 @@ def increment_request_counter():
 def metrics():
     """Implementation of GET request for prometheus metrics"""
     return Response(generate_latest(registry), content_type=CONTENT_TYPE_LATEST)
+
