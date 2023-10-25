@@ -5,7 +5,7 @@ metrics_blueprint = Blueprint('metrics', __name__)
 
 registry = CollectorRegistry()
 
-http_request_total = Counter('http_request_total', 'http request counter', registry=registry)
+http_request_total = Counter('http_requests_total', 'Numer of HTTP requests', registry=registry)
 
 
 @metrics_blueprint.before_app_request
