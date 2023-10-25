@@ -1,65 +1,65 @@
-# Containerization Lab - Docker
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
 
-In this lab assignment, you will learn to containerize applications using Docker, while focusing on best practices. Additionally, you will explore Docker multi-stage builds. Follow the tasks below to complete the lab assignment.
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
+import "@openzeppelin/contracts/utils/Counters.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 
-## Task 1: Dockerize Your Application
+contract MarketingToken is ERC721Enumerable, Ownable {
+    using Counters for Counters.Counter;
+    Counters.Counter private _tokenIdCounter;
 
-**To achieve a grade of 6/10**, follow these steps:
+    struct Item {
+        string title;
+        string image;
+        bool isForSale;
+        uint256 price;
+    }
 
-1. Create a `Dockerfile`:
-   - Inside the `app_python` folder, craft a `Dockerfile` for your application.
-   - Research and implement Docker best practices. Utilize a Dockerfile linter for quality assurance.
+    mapping(uint256 => Item) public items;
 
-2. Build and Test Docker Image:
-   - Build a Docker image using your Dockerfile.
-   - Thoroughly test the image to ensure it functions correctly.
+    constructor() ERC721("MarketingToken", "MKT") Ownable(msg.sender) {}
 
-3. Push Image to Docker Hub:
-   - If you lack a public Docker Hub account, create one.
-   - Push your Docker image to your public Docker Hub account.
+    function mintItem(string calldata title, string calldata image) external payable {
+        require(msg.value == 0.001 ether, "Price is 0.001 ether");
+        require(_tokenIdCounter.current() < 1000, "Only 1000 items can be minted");
 
-4. Run and Verify Docker Image:
-   - Retrieve the Docker image from your Docker Hub account.
-   - Execute the image and validate its functionality.
+        _tokenIdCounter.increment();
+        uint256 newItemId = _tokenIdCounter.current();
 
-## Task 2: Docker Best Practices
+        items[newItemId] = Item({
+            title: title,
+            image: image,
+            isForSale: false,
+            price: 0
+        });
 
-**To earn an additional 4 points**, follow these steps:
+        _safeMint(msg.sender, newItemId);
+    }
 
-1. Enhance your docker image by implementing **Docker Security Best Practices**.
-   - No root user inside, or you will get no points at all.
+    function modifyItem(uint256 tokenId, string calldata title, string calldata image) external {
+        require(ownerOf(tokenId) == msg.sender, "Only the owner can modify");
 
-2. Write `DOCKER.md`:
-   - Inside the `app_python` folder, create a `DOCKER.md` file.
-   - Elaborate on the best practices you employed within your Dockerfile.
-   - Implementing and listing numerous Docker best practices will earn you more points.
+        items[tokenId].title = title;
+        items[tokenId].image = image;
+    }
 
-3. Enhance the README.md:
-   - Update the `README.md` file in the `app_python` folder.
-   - Include a dedicated `Docker` section, explaining your containerized application and providing clear instructions for execution.
-     - How to build?
-     - How to pull?
-     - How to run?
-  
-## Bonus Task: Multi-Stage Builds Exploration
+    function listItemForSale(uint256 tokenId, uint256 price) external {
+        require(ownerOf(tokenId) == msg.sender, "Only the owner can list for sale");
 
-**To earn an additional 2.5 points:**
+        items[tokenId].isForSale = true;
+        items[tokenId].price = price;
+    }
 
-1. Dockerize Previous App:
-   - Craft a `Dockerfile` for the application from the prior lab.
-   - Place this Dockerfile within the corresponding `app_*` folder.
+    function buyItem(uint256 tokenId) external payable {
+        require(items[tokenId].isForSale, "Item is not for sale");
+        require(msg.value == items[tokenId].price, "Incorrect Ether sent");
 
-2. Follow Main Task Guidelines:
-   - Apply the same steps and suggestions as in the primary Dockerization task.
+        address currentOwner = ownerOf(tokenId);
+        
+        items[tokenId].isForSale = false;  // Set this first to reduce the risk of re-entrancy attacks
+        payable(currentOwner).transfer(msg.value);
 
-3. Study Docker Multi-Stage Builds:
-   - Familiarize yourself with Docker multi-stage builds.
-   - Consider implementing multi-stage builds, only if they enhance your project's structure and efficiency.
-
-### Guidelines
-
-- Utilize appropriate Markdown formatting and structure for all documentation.
-- Organize files within the lab folder with suitable naming conventions.
-- Create pull requests (PRs) as needed: from your fork to the main branch of this repository, and from your fork's branch to your fork's master branch.
-
-> Note: Utilize Docker to containerize your application, adhering to best practices. Explore Docker multi-stage builds for a deeper understanding, and document your process using Markdown.
+        _transfer(currentOwner, msg.sender, tokenId);
+    }
+}

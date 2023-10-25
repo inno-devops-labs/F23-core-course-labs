@@ -24,3 +24,4 @@ starlette==0.27.0
 tomli==2.0.1
 typing_extensions==4.7.1
 uvicorn==0.23.2
+prometheus-fastapi-instrumentator==6.1.0
