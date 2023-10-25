@@ -4,6 +4,7 @@
 * `promitheus_client` library is used to calculate metrics in python application.
 * `github.com/prometheus/client_golang/prometheus` is used in golang applicaiton.
 
+* The `http_requests_total` metrics is implemented to count the number of HTTP request.
 
 ## Healthcheck
 For my custom services, `app_python` and `app_go`, healthcheck is implemented using `curl`
