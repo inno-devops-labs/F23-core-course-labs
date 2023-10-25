@@ -9,10 +9,16 @@ services:
     image: justsomedude22/app_python:latest
     ports:
       - "5000:5000"
-    logging: &logger
+    logging:
       driver: "json-file"
       options:
         tag: "{{.ImageName}}|{{.Name}}|{{.ImageFullID}}|{{.FullID}}"
+        max-size: "200k"
+        max-file: "10"
+    deploy:
+      resources:
+        limits:
+          memory: 500M
 
   loki:
     image: grafana/loki:2.9.0
@@ -20,7 +26,14 @@ services:
     networks:
       - monitoring
     logging:
-      <<: *logger
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
+    deploy:
+      resources:
+        limits:
+          memory: 500M
 
   promtail:
     image: grafana/promtail:2.9.0
@@ -31,7 +44,14 @@ services:
     networks:
       - monitoring
     logging:
-      <<: *logger
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
+    deploy:
+      resources:
+        limits:
+          memory: 500M
 
   grafana:
     environment:
@@ -63,4 +83,31 @@ services:
     networks:
       - monitoring
     logging:
-      <<: *logger
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
+    deploy:
+      resources:
+        limits:
+          memory: 500M
+  
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    ports:
+      - "9090:9090"
+    networks:
+      - loki
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
+    deploy:
+      resources:
+        limits:
+          memory: 500M
