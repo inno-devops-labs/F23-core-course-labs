@@ -6,27 +6,43 @@ networks:
 services:
   python_app:
     image: wareverdud/lab3:latest
+    deploy:
+      resources:
+        limits:
+          cpus: '0.2'
+          memory: 256M
+    restart: always
     ports:
       - "8000:8000"
-    logging:
+    logging: &logger
       driver: "json-file"
       options:
-        tag: "{{.ImageName}}|{{.Name}}|{{.ImageFullID}}|{{.FullID}}"
+        max-size: "10m"
+        max-file: 10
+        tag: "{{.ImageName}}|{{.Name}}|{{.FullID}}"
 
   loki:
-    image: grafana/loki:2.9.1
+    image: grafana/loki:2.9.2
+    deploy:
+      resources:
+        limits:
+          cpus: '0.2'
+          memory: 256M
     ports:
       - "3100:3100"
     command: -config.file=/etc/loki/local-config.yaml
     networks:
       - loki
     logging:
-      driver: "json-file"
-      options:
-        tag: "{{.ImageName}}|{{.Name}}|{{.ImageFullID}}|{{.FullID}}"
+      <<: *logger
 
   promtail:
-    image: grafana/promtail:2.9.1
+    image: grafana/promtail:2.9.2
+    deploy:
+      resources:
+        limits:
+          cpus: '0.2'
+          memory: 256M
     volumes:
       - /var/lib/docker/containers:/var/lib/docker/containers
       - ./promtail-config.yml:/etc/promtail/config.yml
@@ -34,9 +50,23 @@ services:
     networks:
       - loki
     logging:
-      driver: "json-file"
-      options:
-        tag: "{{.ImageName}}|{{.Name}}|{{.ImageFullID}}|{{.FullID}}"
+      <<: *logger
+
+  prometheus:
+    image: prom/prometheus:v2.47.2
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    deploy:
+      resources:
+        limits:
+          cpus: '0.2'
+          memory: 256M
+    ports:
+      - "9090:9090"
+    networks:
+      - loki
+    logging:
+      <<: *logger
 
   grafana:
     environment:
@@ -50,11 +80,14 @@ services:
     volumes:
       - ./datasources.yaml:/etc/grafana/provisioning/datasources/datasources.yaml
     image: grafana/grafana:latest
+    deploy:
+      resources:
+        limits:
+          cpus: '0.3'
+          memory: 512M
     ports:
       - "3000:3000"
     networks:
       - loki
     logging:
-      driver: "json-file"
-      options:
-        tag: "{{.ImageName}}|{{.Name}}|{{.ImageFullID}}|{{.FullID}}"
+      <<: *logger
