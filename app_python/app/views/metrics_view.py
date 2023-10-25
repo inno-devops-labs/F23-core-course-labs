@@ -16,5 +16,5 @@ def increment_request_counter():
 
 @metrics_blueprint.route('/metrics')
 def metrics():
-    """Implementation of GET request to get prometheus metrics"""
+    """Implementation of GET request to get metrics"""
     return Response(generate_latest(registry), content_type=CONTENT_TYPE_LATEST)
