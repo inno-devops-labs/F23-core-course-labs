@@ -46,10 +46,10 @@ jobs:
           command: test
           args: --file=app_python/requirements.txt --severity-threshold=high --sarif-file-output=snyk-scan.sarif --skip-unresolved
 
-      - name: Upload result of Snyk Scan to GitHub Code Scanning
-        uses: github/codeql-action/upload-sarif@v2
-        with:
-          sarif_file: snyk-scan.sarif
+      # - name: Upload result of Snyk Scan to GitHub Code Scanning
+      #   uses: github/codeql-action/upload-sarif@v2
+      #   with:
+      #     sarif_file: snyk-scan.sarif
 
       - name: Monitor project with Snyk
         uses: snyk/actions/python@master
@@ -60,10 +60,10 @@ jobs:
           command: monitor
           args: --file=app_python/requirements.txt --severity-threshold=high --sarif-file-output=snyk-monitor.sarif --skip-unresolved
 
-      - name: Upload result of Snyk monitor to GitHub Code Scanning
-        uses: github/codeql-action/upload-sarif@v2
-        with:
-          sarif_file: snyk-monitor.sarif
+      # - name: Upload result of Snyk monitor to GitHub Code Scanning
+      #   uses: github/codeql-action/upload-sarif@v2
+      #   with:
+      #     sarif_file: snyk-monitor.sarif
 
       - name: Run tests 
         run: pytest tests
