@@ -10,7 +10,7 @@ import (
 	"time"
 )
 
-func TestCurrentTime(t *testing.T) {
+func TestTimeHandlerServeHTTP(t *testing.T) {
 	timeZone := "Europe/Moscow"
 	location, err := time.LoadLocation(timeZone)
 
