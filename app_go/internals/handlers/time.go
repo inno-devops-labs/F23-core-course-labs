@@ -13,7 +13,7 @@ func NewTimeHandler() *TimeHandler {
 	return &TimeHandler{}
 }
 
-func (t *TimeHandler) CurrentTime(w http.ResponseWriter, r *http.Request) {
+func (t *TimeHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	timeZone := "Europe/Moscow"
 	location, err := time.LoadLocation(timeZone)
 	if err != nil {

@@ -25,7 +25,7 @@ func TestCurrentTime(t *testing.T) {
 	req := httptest.NewRequest(http.MethodGet, "/", nil)
 	rec := httptest.NewRecorder()
 
-	timeHandler.CurrentTime(rec, req)
+	timeHandler.ServeHTTP(rec, req)
 
 	res := rec.Result()
 	body, _ := ioutil.ReadAll(res.Body)
