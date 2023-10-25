@@ -2,7 +2,6 @@ from flask import Flask, render_template
 import datetime
 import pytz
 from prometheus_flask_exporter import PrometheusMetrics
-import prometheus_client
 
 app = Flask(__name__)
 metrics = PrometheusMetrics(app)
@@ -19,5 +18,5 @@ def display_time():
     # Set the current time as a metric
     return render_template('time.html', time=formatted_time)
 
-if __name__ == '__main__':
+if __name__ == '__main__':  
     app.run(host='0.0.0.0', port=8080, debug=False)
