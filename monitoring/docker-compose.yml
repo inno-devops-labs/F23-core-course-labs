@@ -14,6 +14,8 @@ services:
       driver: "json-file"
       options:
         tag: "{{.ImageName}}|{{.Name}}|{{.ImageFullID}}|{{.FullID}}"
+    healthcheck:
+      test: curl -f http://localhost:5000 || exit 1
 
   app_go:
     image: bobievnodir/app_go:latest
@@ -23,6 +25,8 @@ services:
       - loki
     logging:
       <<: *logger
+    healthcheck:
+      test: curl -f http://localhost:8080 || exit 1
 
   loki:
     image: grafana/loki:2.9.0
