@@ -19,7 +19,6 @@ dictConfig({
     }
 })
 
-
 app = Flask(__name__)
 
 configure_routes(app)

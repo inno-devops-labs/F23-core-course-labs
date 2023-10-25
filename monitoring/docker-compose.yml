@@ -4,6 +4,9 @@ x-logging: &loki-logging
   driver: json-file
   options:
     tag: "{{.ImageName}}|{{.Name}}|{{.ImageFullID}}|{{.FullID}}"
+    max-size: "10M"
+    max-file: "7"
+
 
 services:
   traefik:
@@ -18,7 +21,11 @@ services:
 
       - --entrypoints.http.address=:80
       - --providers.docker=true
-      - --api=true
+      - --providers.docker.network=internal_network
+      - --providers.docker.exposedByDefault=true
+      
+      - --api.insecure=true
+      - --api.dashboard=true
 
       - --metrics.prometheus=true
       - --metrics.prometheus.entryPoint=metrics
@@ -31,11 +38,11 @@ services:
 
     labels:
       - traefik.http.routers.traefik.rule=Host(`traefik.${DOCKER_ENV_DOMAIN}`)
-      - traefik.http.routers.traefik.middlewares=auth
       - traefik.http.routers.traefik.service=api@internal
 
     ports:
       - 81:80
+      - 8080:8080
     volumes:
       - ./traefik/letsencrypt:/letsencrypt
       - ./traefik/logs:/traefik/logs
@@ -46,6 +53,10 @@ services:
       - internal_network
     restart: unless-stopped
     logging: *loki-logging
+    deploy:
+      resources:
+        limits:
+          memory: 50M
   
 
   # Since the Loki containers are running as user 10001 and the mounted data volume is owned by root,
@@ -79,13 +90,17 @@ services:
     labels:
       - traefik.http.routers.grafana.rule=Host(`grafana.${DOCKER_ENV_DOMAIN}`)
       - traefik.http.routers.grafana.service=grafana
-      - traefik.http.routers.grafana.middlewares=auth
+      # - traefik.http.routers.grafana.middlewares=auth
       - traefik.http.services.grafana.loadbalancer.server.port=3000
       - traefik.http.routers.grafana.entrypoints=http
     networks:
       - internal_network
     restart: unless-stopped
     logging: *loki-logging
+    deploy:
+      resources:
+        limits:
+          memory: 150M
 
   loki:
     hostname: loki
@@ -101,12 +116,16 @@ services:
     labels:
       - traefik.http.routers.loki.rule=Host(`loki.${DOCKER_ENV_DOMAIN}`)
       - traefik.http.routers.loki.service=loki
-      - traefik.http.routers.loki.middlewares=auth
+      # - traefik.http.routers.loki.middlewares=auth
       - traefik.http.services.loki.loadbalancer.server.port=3100
       - traefik.http.routers.loki.entrypoints=http
     logging: *loki-logging
     depends_on:
       - loki_init
+    deploy:
+      resources:
+        limits:
+          memory: 100M
 
   promtail:
     hostname: promtail
@@ -122,7 +141,56 @@ services:
     networks:
       - internal_network
     logging: *loki-logging
+    deploy:
+      resources:
+        limits:
+          memory: 100M
 
+  prometheus:
+    user: "0:0"
+    hostname: prometheus
+    container_name: prometheus
+    image: prom/prometheus:v2.47.0
+    depends_on:
+      - traefik
+    volumes:
+      - ./prometheus/settings/:/etc/prometheus/
+      - prometheus-storage:/prometheus
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.path=/prometheus
+      - --storage.tsdb.retention.size=256MB
+    labels:
+      - traefik.http.routers.prometheus.rule=Host(`prometheus.${DOCKER_ENV_DOMAIN}`)
+      - traefik.http.routers.prometheus.service=prometheus
+      # - traefik.http.routers.prometheus.middlewares=auth
+      - traefik.http.routers.prometheus.entrypoints=http
+      - traefik.http.services.prometheus.loadbalancer.server.port=9090
+    networks:
+      - internal_network
+    restart: unless-stopped
+    logging: *loki-logging
+
+  nodeexporter:
+    user: "0:0"
+    image: prom/node-exporter:v1.6.1
+    container_name: nodeexporter
+    hostname: nodeexporter
+    restart: unless-stopped
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.rootfs=/rootfs'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+    expose:
+      - 9100
+    networks:
+      - internal_network
+    logging: *loki-logging
 
 
   app_python:
@@ -136,6 +204,10 @@ services:
       - traefik.http.routers.app_python.entrypoints=http            
       - traefik.http.services.app_python.loadbalancer.server.port=8000
     logging: *loki-logging  
+    deploy:
+      resources:
+        limits:
+          memory: 20M
 
   app_go:
     hostname: app_go
@@ -148,55 +220,11 @@ services:
       - traefik.http.routers.app_go.entrypoints=http            
       - traefik.http.services.app_go.loadbalancer.server.port=8080
     logging: *loki-logging  
+    deploy:
+      resources:
+        limits:
+          memory: 20M
 
-
-  # Uncomment prometheus with nodeexporter on demand
-
-  # prometheus:
-  #   user: "0:0"
-  #   hostname: prometheus
-  #   container_name: prometheus
-  #   image: prom/prometheus:v2.47.0
-  #   depends_on:
-  #     - traefik
-  #   volumes:
-  #     - ./prometheus/settings/:/etc/prometheus/
-  #     - prometheus-storage:/prometheus
-  #   command:
-  #     - --config.file=/etc/prometheus/prometheus.yml
-  #     - --storage.tsdb.path=/prometheus
-  #     - --storage.tsdb.retention.size=256MB
-  #   labels:
-  #     - traefik.http.routers.prometheus.rule=Host(`prometheus.${DOCKER_ENV_DOMAIN}`)
-  #     - traefik.http.routers.prometheus.service=prometheus
-  #     - traefik.http.routers.prometheus.middlewares=auth
-  #     - traefik.http.routers.prometheus.entrypoints=http
-  #     - traefik.http.services.prometheus.loadbalancer.server.port=9090
-  #   networks:
-  #     - internal_network
-  #   restart: unless-stopped
-  #   logging: *loki-logging
-
-  # nodeexporter:
-  # user: "0:0"
-  #   image: prom/node-exporter:v1.6.1
-  #   container_name: nodeexporter
-  #   hostname: nodeexporter
-  #   restart: unless-stopped
-  #   volumes:
-  #     - /proc:/host/proc:ro
-  #     - /sys:/host/sys:ro
-  #     - /:/rootfs:ro
-  #   command:
-  #     - '--path.procfs=/host/proc'
-  #     - '--path.rootfs=/rootfs'
-  #     - '--path.sysfs=/host/sys'
-  #     - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
-  #   expose:
-  #     - 9100
-  #   networks:
-  #     - internal_network
-  #   logging: *loki-logging
 
 networks:
 
@@ -216,4 +244,4 @@ networks:
 volumes:
   grafana-storage: {}
   loki-storage: {}
-  # prometheus-storage: {}
+  prometheus-storage: {}

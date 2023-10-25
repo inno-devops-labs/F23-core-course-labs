@@ -1,13 +1,13 @@
 package routes
 
 import (
-    "github.com/gin-gonic/gin"
+	"github.com/gin-gonic/gin"
 )
 
 // Aggregates routes of the application
 func NewRouter() *gin.Engine {
-    router := gin.Default()
+	router := gin.Default()
 	router.GET("/", RedirectRequestHandler)
-    
-    return router
+
+	return router
 }
