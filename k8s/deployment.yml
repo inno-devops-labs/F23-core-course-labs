@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: doe-deployment
+  labels:
+    app: doe-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: doe-app
+  template:
+    metadata:
+      labels:
+        app: doe-app
+    spec:
+      containers:
+      - name: doe-app
+        image: nzgeg3s0/doe-lab2
+        ports:
+        - containerPort: 8000
