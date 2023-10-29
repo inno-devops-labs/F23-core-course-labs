@@ -70,5 +70,6 @@ jobs:
           file: ./app_kotlin/Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/app_kotlin:latest
+          platforms: linux/amd64,linux/arm64
           cache-from: type=gha
           cache-to: type=gha,mode=max
