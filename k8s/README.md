@@ -54,7 +54,7 @@ kubectl delete deployment web-app-node
 
 ---
 
-After cleaning up service and deployment, it is also possible to deploy our container using container files (see `deployment.yml` and `service.yml`). There are 3 replicas are specified.
+After cleaning up service and deployment, it is also possible to deploy our container using config files (see `deployment.yml` and `service.yml`). There are 3 replicas are specified.
 
 ```
 kubectl apply -f deployment.yml
