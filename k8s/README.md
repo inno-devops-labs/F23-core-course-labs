@@ -3,12 +3,14 @@
 ## Kubernetes Basic Deployment
 
 * Create deployments
+
 ```shell
 kubectl create deployment app-python --image=quiner/app-python:latest
 kubectl create deployment app-go --image=quiner/app-go:latest
 ```
 
 * Get deployments
+
 ```shell
 quiner@quiner-MaiBook-X-series:~/innopolis/dev-ops-course-labs/k8s$ kubectl get deployments
 NAME         READY   UP-TO-DATE   AVAILABLE   AGE
@@ -35,6 +37,13 @@ NAME                 TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)      
 service/app-go       LoadBalancer   10.98.152.204    <pending>     8070:30841/TCP   71s
 service/app-python   LoadBalancer   10.107.231.188   <pending>     8080:31576/TCP   81s
 service/kubernetes   ClusterIP      10.96.0.1        <none>        443/TCP          51m
+```
+
+* Clear deployments, services
+
+```shell
+kubectl delete svc python-service go-service
+kubectl delete deployment --all
 ```
 
 ## Kubernetes Declarative Deployment
@@ -106,6 +115,7 @@ minikube addons enable ingress
 ```
 
 * Apply ingress
+
 ```shell
 quiner@quiner-MaiBook-X-series:~/innopolis/dev-ops-course-labs/k8s$ kubectl apply -f app_python/ingress.yaml
 ingress.networking.k8s.io/python-ingress created
