@@ -236,4 +236,4 @@ For Rust application I have created separated `values.rust.yaml` file
 
 ### Helm Library
 
-![Chart](library-chart/)
+[Chart](library-chart/)
