@@ -45,6 +45,9 @@ kubectl delete deployment test-node
 
 ```
 kubectl apply -f deployment.yml 
+
+
+minikube service --all
 ```
 
 
@@ -57,12 +60,39 @@ kubectl apply -f deployment.yml
 ![](/assets/screenshots/2023-10-29-19-05-32.png)
 
 
-### Events
 
-kubectl get events
+# Bonus
 
-### Logs
+## 1. Additional application
 
-kubectl logs test-node-7c6767d9f6-94k2f
+![](/assets/screenshots/2023-10-29-19-16-36.png)
+![](/assets/screenshots/2023-10-29-19-16-20.png)
+
+## 2. Ingress controller
+
+```
+minikube addons enable ingress
+```
 
 
+![](/assets/screenshots/2023-10-29-19-29-40.png)
+
+![](/assets/screenshots/2023-10-29-19-30-11.png)
+
+
+### Verifying applications availability
+
+```
+curl --resolve "app-python.gigachaddevelopment:80:$( minikube ip )" -i app-python.gigachaddevelopment
+```
+
+![](/assets/screenshots/2023-10-29-19-41-50.png)
+
+![](/assets/screenshots/2023-10-29-19-44-33.png)
+
+
+- Note that the response has `google.com` since app-go is responsible for performing redirects according to user's query
+
+## References
+https://kubernetes.io/docs/concepts/services-networking/service/
+https://kubernetes.io/docs/tasks/access-application-cluster/ingress-minikube/
