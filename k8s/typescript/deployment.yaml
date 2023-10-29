@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: typescript-app
+  labels:
+    app: typescript
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: typescript
+  template:
+    metadata:
+      labels:
+        app: typescript
+    spec:
+      containers:
+      - name: app-typescript
+        image: nikolina2k/cat-pics:latest
+        ports:
+        - containerPort: 8080

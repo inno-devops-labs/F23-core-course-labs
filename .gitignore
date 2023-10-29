@@ -142,3 +142,7 @@ cython_debug/
 terraform.tfstate
 terraform.tfstate.backup
 .terraform.lock.hcl
+
+kubectl
+kubectl.sha256
+minikube-linux-amd64
