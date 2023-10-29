@@ -235,3 +235,5 @@ I have used `"helm.sh/hook-delete-policy": hook-succeeded` as a hook delete poli
 For Rust application I have created separated `values.rust.yaml` file
 
 ### Helm Library
+
+![Chart](library-chart/)
