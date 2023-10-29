@@ -1,7 +1,9 @@
 from flask import Flask
 from datetime import datetime, timezone, timedelta
+from prometheus_flask_exporter import PrometheusMetrics
 
 app = Flask(__name__)
+metrics = PrometheusMetrics(app)
 
 
 @app.route("/")
@@ -16,3 +18,7 @@ def moscow_time():
     msk_time_str = msk_time.strftime("%Y-%m-%d %H:%M:%S")
 
     return f"Current Time in MSK: {msk_time_str}"
+
+
+if __name__ == "main":
+    app.run(debug=True, host="0.0.0.0", port=5000)
