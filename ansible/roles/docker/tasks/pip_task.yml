@@ -1,4 +1,4 @@
-- name: Update cache
+- name: Update apt
   apt:
     update_cache: true
 

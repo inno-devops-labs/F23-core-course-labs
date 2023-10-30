@@ -1,4 +1,5 @@
 - name: Docker-compose installation
-  pip:
-    name: docker-compose
-    state: present
+  get_url:
+    url: "{{ docker_compose_url }}"
+    dest: "{{ docker_compose_path }}"
+    mode: "{{ docker_compose_mode }}"
