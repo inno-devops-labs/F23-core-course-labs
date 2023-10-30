@@ -16,7 +16,7 @@ RUN mvn -f /home/testuser/pom.xml clean package
 #
 # Run stage
 #
-FROM openjdk:17-alpine
+FROM openjdk:17-jdk-slim
 
 RUN apk add --update curl
 COPY --from=build /home/testuser/target/lab1-0.0.1-SNAPSHOT.jar /usr/local/lib/lab1.jar
