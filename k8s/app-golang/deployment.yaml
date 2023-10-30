@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-golang
+  labels:
+    app: golang
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: golang
+  template:
+    metadata:
+      labels:
+        app: golang
+    spec:
+      containers:
+      - name: golang-app
+        image: wildqueue/devops-hw-golang:tagname
+        ports:
+        - containerPort: 8008
