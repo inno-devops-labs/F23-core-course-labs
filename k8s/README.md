@@ -293,10 +293,10 @@ default     python-ingress   nginx   python.wq   192.168.49.2   80      86s
 ### Verification 
 
 ```bash
-egor@egor-Swift-SF314-43:~/InnoSubjects/F23/DevOps/devops-core-course-labs/k8s/app-python$ curl -H "Host: golang.wq" http://192.168.49.2:80
+egor@egor-Swift-SF314-43:~/InnoSubjects/F23/DevOps/devops-core-course-labs/k8s/app-python$ curl -H "Host: python.wq" http://192.168.49.2:80
 Current time in Moscow: 2023-10-31T02:00:09+03:00
 
-egor@egor-Swift-SF314-43:~/InnoSubjects/F23/DevOps/devops-core-course-labs/k8s/app-python$ curl -H "Host: python.wq" http://192.168.49.2:80
+egor@egor-Swift-SF314-43:~/InnoSubjects/F23/DevOps/devops-core-course-labs/k8s/app-python$ curl -H "Host: golang.wq" http://192.168.49.2:80
 The current time in Moscow is 2023-10-31 02:00:53 UTC+3.
 ```
 
