@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-cpp
+  labels:
+    app: app-cpp
+spec:
+  selector:
+    matchLabels:
+      app: app-cpp
+  template:
+    metadata:
+      labels:
+        app: app-cpp
+    spec:
+      containers:
+      - name: app-cpp
+        image: dashvayet/app_cplusplus:latest
+        ports:
+        - containerPort: 10000
+  replicas: 3

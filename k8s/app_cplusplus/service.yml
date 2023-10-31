@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-cpp
+  labels:
+    app: app-cpp
+spec:
+  type: LoadBalancer
+  selector:
+    app: app-cpp
+  ports:
+  - protocol: TCP
+    port: 10000
+    targetPort: 10000
