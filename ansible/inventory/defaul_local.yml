@@ -1,8 +1,8 @@
 vms:
   hosts:
-    # vm01:
-    #   ansible_host: 10.244.1.86
+    vm01:
+      ansible_host: 10.244.1.39
     vm02:
-      ansible_host: 10.244.1.87
+      ansible_host: 10.244.1.41
   vars:
     ansible_user: doe

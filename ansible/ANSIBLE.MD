@@ -1,3 +1,4 @@
+
 # Lab 5
 
 ## Task 1
@@ -9,15 +10,18 @@
 pipx install ansible-core
 ```
 
-3. Using the example role: geerlingguy.docker.
+
+3.  Using the example role: geerlingguy.docker.
 
 ```bash
 ansible-galaxy install geerlingguy.docker
 ```
 
+
 4. The inventory (default\_local.yml) includes 2 VMs.\
    The VM was setup with the DOE labs ssh key using ssh-copy-id.\
    The playbook:
+
 
 ```yaml
 - name: Deploy Docker
@@ -37,6 +41,7 @@ ansible-playbook playbooks/dev/main.yml  --ask-become-pass
 Result:
 `vm01 : ok=12   changed=5    unreachable=0    failed=0    skipped=12   rescued=0    ignored=0`
 
+
 ## Task 2
 
 1. Custom Docker role includes 3 tasks:
@@ -46,6 +51,7 @@ Result:
 2. Created this and `ansible/roles/docker/README.md` files
 
 3. I added a second VM at this step.
+
 
 ```yaml
  ______________________ 
@@ -128,7 +134,8 @@ vm01                       : ok=10   changed=0    unreachable=0    failed=0    s
 vm02                       : ok=10   changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 ```
 
-4. :
+
+4.  :
 
 ```json
 {
