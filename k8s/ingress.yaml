@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: my-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+    - host: my-lab9.info
+      http:
+        paths:
+          - path: /kotlin
+            pathType: Prefix
+            backend:
+              service:
+                name: lab-node-python
+                port:
+                  number: 8080
+          - path: /python
+            pathType: Prefix
+            backend:
+              service:
+                name: lab-node-python
+                port:
+                  number: 8000

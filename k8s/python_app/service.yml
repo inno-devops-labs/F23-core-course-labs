@@ -21,8 +21,8 @@ items:
   kind: Service
   metadata:
     labels:
-      app: lab-node
-    name: lab-node
+      app: lab-node-python
+    name: lab-node-python
   spec:
     allocateLoadBalancerNodePorts: true
     ports:
@@ -31,7 +31,7 @@ items:
       protocol: TCP
       targetPort: 8000
     selector:
-      app: lab-node
+      app: lab-node-python
     sessionAffinity: None
     type: LoadBalancer
   status:

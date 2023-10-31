@@ -93,3 +93,58 @@ service/lab-node     LoadBalancer   10.108.150.168   <pending>     8080:30130/TC
 ```
 
 ![running_kotlin_application_from_configs.png](resources/running_kotlin_application_from_configs.png)
+
+
+## Ingress
+
+I updated my deployment names to different names to `lab-node-python` and `lab-node-kotlin`.
+
+I added configuration for ingress into `ingress.yaml` where I mapped `/python` endpoint to `lab-node-python` service, and `/kotlin` endpoint to `lab-node-kotlin`.
+
+Applied it via `kubectl apply -f ingress.yaml`.
+
+I also added string `192.168.49.2 my-lab9.info` to my `/etc/hosts`
+
+Here is what I achieved:
+
+`kubectl get ingress my-ingress`
+```
+NAME         CLASS    HOSTS          ADDRESS        PORTS   AGE
+my-ingress   <none>   my-lab9.info   192.168.49.2   80      68m
+```
+
+
+`kubectl describe ingress my-ingress`
+```
+Name:             my-ingress
+Labels:           <none>
+Namespace:        default
+Address:          192.168.49.2
+Ingress Class:    <none>
+Default backend:  <default>
+Rules:
+  Host          Path  Backends
+  ----          ----  --------
+  my-lab9.info
+                /kotlin   lab-node-kotlin:8080 (10.244.0.44:8080)
+                /python   lab-node-python:8000 (10.244.0.45:8000)
+Annotations:    nginx.ingress.kubernetes.io/rewrite-target: /
+```
+
+### Checking ingress via curl
+Checking python application:
+```
+$ curl http://my-lab9.info/python
+2023-10-31 22:19:12.982984+03:00
+```
+
+Checking kotlin application:
+```
+$ curl http://my-lab9.info/kotlin
+Воу, Вы открывали эту страницу уже 6 раз!
+
+
+$ curl http://my-lab9.info/kotlin/time
+22:21:22.000305930+03:00
+```
+

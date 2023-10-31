@@ -10,7 +10,7 @@ spec:
   revisionHistoryLimit: 10
   selector:
     matchLabels:
-      app: lab-node
+      app: lab-node-kotlin
   strategy:
     rollingUpdate:
       maxSurge: 25%
@@ -20,7 +20,7 @@ spec:
     metadata:
       creationTimestamp: null
       labels:
-        app: lab-node
+        app: lab-node-kotlin
     spec:
       containers:
       - image: klemencja/app_kotlin

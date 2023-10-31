@@ -2,15 +2,15 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: lab-node
-  name: lab-node
+    app: lab-node-python
+  name: lab-node-python
 spec:
   progressDeadlineSeconds: 600
   replicas: 3
   revisionHistoryLimit: 10
   selector:
     matchLabels:
-      app: lab-node
+      app: lab-node-python
   strategy:
     rollingUpdate:
       maxSurge: 25%
@@ -20,7 +20,7 @@ spec:
     metadata:
       creationTimestamp: null
       labels:
-        app: lab-node
+        app: lab-node-python
     spec:
       containers:
       - image: klemencja/app_python
