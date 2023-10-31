@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: main-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  rules:
+  - http:
+      paths:
+        - path: /python
+          pathType: Prefix
+          backend:
+            service:
+              name: python-web-app
+              port:
+                number: 8000
+        - path: /bash
+          pathType: Prefix
+          backend:
+            service:
+              name: bash-web-app
+              port: 
+                number: 9000
