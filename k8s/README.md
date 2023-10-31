@@ -70,3 +70,5 @@ service/python-service   LoadBalancer   10.106.39.41   <pending>     80:32023/TC
 |-----------|----------------|-------------|----------------------------|
 🎉  Opening service default/python-service in default browser...
 ```
+<img width="1740" alt="Снимок экрана 2023-10-31 в 21 19 38" src="https://github.com/nikitosing/core-course-labs/assets/32202610/e3eaed56-4273-4ac2-9469-4f5a41f32109">
+
