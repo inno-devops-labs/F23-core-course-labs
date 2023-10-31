@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: khays-deployment
+spec:
+  replicas: 3 
+  selector:
+    matchLabels:
+      app: khays-app
+  template:
+    metadata:
+      labels:
+        app: khays-app
+    spec:
+      containers:
+      - name: khays-app
+        image: khays/khays-python-app 
+        ports:
+        - containerPort: 5000
