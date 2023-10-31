@@ -41,3 +41,29 @@ After successfull test I cleaned my service and deployment with commands:
 kubectl delete service lab-node
 kubectl delete deployment lab-node
 ```
+
+
+## Apply from configuration files
+I added configuration files for deployment and service and started them by command:
+`kubectl apply -f python_app`
+The output is:
+```
+deployment.apps/lab-node created
+service/kubernetes configured
+service/lab-node created
+```
+
+Getting pods and services `kubectl get pods,svc`:
+```
+NAME                           READY   STATUS    RESTARTS   AGE
+pod/lab-node-f6f6c9c48-jklsv   1/1     Running   0          8m11s
+pod/lab-node-f6f6c9c48-k7x88   1/1     Running   0          8m11s
+pod/lab-node-f6f6c9c48-mrp58   1/1     Running   0          8m11s
+
+NAME                 TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+service/kubernetes   ClusterIP      10.96.0.1       <none>        443/TCP          31h
+service/lab-node     LoadBalancer   10.105.180.38   <pending>     8000:31793/TCP   8m11s
+```
+
+Running the services `minikube service --all`:
+![kubectl_service_all.png](resources/kubectl_service_all.png)
