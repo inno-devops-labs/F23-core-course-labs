@@ -67,3 +67,29 @@ service/lab-node     LoadBalancer   10.105.180.38   <pending>     8000:31793/TCP
 
 Running the services `minikube service --all`:
 ![kubectl_service_all.png](resources/kubectl_service_all.png)
+
+
+## Apply k8s configuration files for Kotlin application
+
+
+`kubectl apply -f kotlin_app/`
+```
+deployment.apps/lab-node created
+service/kubernetes unchanged
+service/lab-node created
+```
+
+Getting pods and services `kubectl get pods,svc`:
+```
+kubectl get pods,svc
+NAME                            READY   STATUS    RESTARTS   AGE
+pod/lab-node-6d795f4486-8d7r8   1/1     Running   0          42s
+pod/lab-node-6d795f4486-fgjkr   1/1     Running   0          42s
+pod/lab-node-6d795f4486-jr9ls   1/1     Running   0          42s
+
+NAME                 TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
+service/kubernetes   ClusterIP      10.96.0.1        <none>        443/TCP          2d5h
+service/lab-node     LoadBalancer   10.108.150.168   <pending>     8080:30130/TCP   42s
+```
+
+![running_kotlin_application_from_configs.png](resources/running_kotlin_application_from_configs.png)

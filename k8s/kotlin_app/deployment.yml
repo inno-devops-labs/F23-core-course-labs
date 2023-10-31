@@ -23,6 +23,6 @@ spec:
         app: lab-node
     spec:
       containers:
-      - image: klemencja/app_python
+      - image: klemencja/app_kotlin
         imagePullPolicy: Always
-        name: app-python
+        name: app-kotlin
