@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: my-app-cpp-ingress
+spec:
+  rules:
+  - host: my.app.cpp.ingress.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: my-app-cpp
+            port:
+              number: 8080
