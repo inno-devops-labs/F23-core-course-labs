@@ -234,14 +234,6 @@ https://github.com/orgs/i-nafikov-terraform-org/teams
   ```
 * Output of `terraform show`
   ```
-  github_branch_default.main
-  github_branch_protection.default
-  github_repository.iu-devops-course-3
-  github_team.team1
-  github_team.team2
-  github_team_repository.team1_repo
-  github_team_repository.team2_repo
-  i.nafikov@macbook-C02FH1KGMD6R github % terraform show
   # github_branch_default.main:
   resource "github_branch_default" "main" {
   branch     = "main"
