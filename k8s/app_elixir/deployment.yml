@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-elixir-deployment
+  labels:
+    app: app-elixir
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app-elixir
+  template:
+    metadata:
+      labels:
+        app: app-elixir
+    spec:
+      containers:
+        - name: app-elixir
+          image: nikitosing/app_elixir:arm_64
+          ports:
+            - containerPort: 4000
+          env:
+            - name: SECRET_KEY_BASE
+              value: "WPcE2F5vjA5X3XBE+QcK7OHMiAuPovP4e62Gsl0VFxRHvu+xS2AiQWY0H3Qz6Q3O"
