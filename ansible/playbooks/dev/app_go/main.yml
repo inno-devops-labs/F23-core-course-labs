@@ -1,0 +1,12 @@
+- name: Deploy Go Application
+  hosts: all
+  become: true
+  roles:
+    - name: web_app
+      vars:
+        app_name: app_go
+        docker_image_name: IlyaMirzazhanov/app_go
+        docker_image_version: 1.0.0
+        docker_container_name: app_go_container
+        internal_port: 8080
+        external_port: 8080
