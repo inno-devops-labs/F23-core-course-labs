@@ -72,3 +72,29 @@ service/python-service   LoadBalancer   10.106.39.41   <pending>     80:32023/TC
 ```
 <img width="1740" alt="Снимок экрана 2023-10-31 в 21 19 38" src="https://github.com/nikitosing/core-course-labs/assets/32202610/e3eaed56-4273-4ac2-9469-4f5a41f32109">
 
+## Bonus
+
+```bash
+minikube addons enable ingress
+```
+
+```bash
+❯ curl --resolve "app-python.info:80:$( minikube ip )" -i http://app-python.info
+HTTP/1.1 200 OK
+Date: Tue, 31 Oct 2023 18:50:15 GMT
+Content-Type: application/json
+Content-Length: 28
+Connection: keep-alive
+
+{"message":"Hello, World!"}
+```
+
+```bash
+❯ curl --resolve "app-elixir.info:80:$( minikube ip )" -i http://app-elixir.info/time
+HTTP/1.1 200 OK
+Date: Tue, 31 Oct 2023 18:59:57 GMT
+Content-Length: 38
+Connection: keep-alive
+
+{"time":"2023-10-31 21:59:57.457805Z"}
+```
