@@ -37,3 +37,30 @@ service/kubernetes   ClusterIP      10.96.0.1       <none>          443/TCP     
 🎉  Opening service default/app-python in default browser...
 ```
 <img width="1872" alt="image" src="https://github.com/sl1depengwyn/core-course-labs/assets/53992153/987baeb4-7fd4-443b-bf64-03db6df53b0e">
+
+## Ingress:
+```bash
+➜ curl --resolve "python.app:80:$( minikube ip )" -i http://python.app
+
+HTTP/1.1 200 OK
+Date: Tue, 31 Oct 2023 21:38:27 GMT
+Content-Type: application/json
+Content-Length: 34
+Connection: keep-alive
+
+"2023-11-01T00:38:27.336980+03:00"%
+
+➜ curl --resolve "elixir.app:80:$( minikube ip )" -i http://elixir.app
+
+HTTP/1.1 200 OK
+Date: Tue, 31 Oct 2023 21:38:39 GMT
+Content-Type: text/html; charset=utf-8
+Content-Length: 195
+Connection: keep-alive
+cache-control: max-age=0, private, must-revalidate
+x-request-id: bc379c38601f5bf05b1a5840ddd1d0df
+
+  <p>Ect/UTC time is 2023-10-31 21:38:39.254451Z</p>
+  <p>To know your time reload the page</p>
+  <script>document.cookie = "timezone="+Intl.DateTimeFormat().resolvedOptions().timeZone;</script>
+```
