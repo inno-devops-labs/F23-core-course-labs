@@ -1,11 +1,15 @@
-# Task 1
 
-1.  Created file structure.
-2.  Installed Ansible and followed the getting started guide.
+# Lab 5
+
+## Task 1
+
+1. Created file structure.
+2. Installed Ansible and followed the getting started guide.
 
 ```bash
 pipx install ansible-core
 ```
+
 
 3.  Using the example role: geerlingguy.docker.
 
@@ -13,9 +17,11 @@ pipx install ansible-core
 ansible-galaxy install geerlingguy.docker
 ```
 
-4.  The inventory (default\_local.yml) includes 2 VMs.\
-    The VM was setup with the DOE labs ssh key using ssh-copy-id.\
-    The playbook:
+
+4. The inventory (default\_local.yml) includes 2 VMs.\
+   The VM was setup with the DOE labs ssh key using ssh-copy-id.\
+   The playbook:
+
 
 ```yaml
 - name: Deploy Docker
@@ -35,15 +41,17 @@ ansible-playbook playbooks/dev/main.yml  --ask-become-pass
 Result:
 `vm01 : ok=12   changed=5    unreachable=0    failed=0    skipped=12   rescued=0    ignored=0`
 
-# Task 2
 
-1.  Custom Docker role includes 3 tasks:
-    install docker, install docker-compose and main (which incudes installing pip).
-    The deployment is successfull.
+## Task 2
 
-2.  Created this and `ansible/roles/docker/README.md` files
+1. Custom Docker role includes 3 tasks:
+   install docker, install docker-compose and main (which incudes installing pip).
+   The deployment is successfull.
 
-3.  I added a second VM at this step.
+2. Created this and `ansible/roles/docker/README.md` files
+
+3. I added a second VM at this step.
+
 
 ```yaml
  ______________________ 
@@ -126,6 +134,7 @@ vm01                       : ok=10   changed=0    unreachable=0    failed=0    s
 vm02                       : ok=10   changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 ```
 
+
 4.  :
 
 ```json
@@ -156,3 +165,64 @@ vm02                       : ok=10   changed=3    unreachable=0    failed=0    s
     }
 }
 ```
+
+# Lab 6
+
+## Task 1
+
+1. The web\_app role deploys app, it has a few configuration options. It expects docker role to be present.
+2. Added web\_app role to the playbook.
+3. Output:
+
+```
+PLAY [Deploy Dockerized app] ***********************************************************************************************************************************************************************************************
+
+TASK [Gathering Facts] *****************************************************************************************************************************************************************************************************
+ok: [vm02]
+
+TASK [docker : Install pip] ************************************************************************************************************************************************************************************************
+ok: [vm02]
+
+TASK [docker : include_tasks] **********************************************************************************************************************************************************************************************
+included: /home/tea/Documents/inno5/DOE/DOE-course-labs/ansible/roles/docker/tasks/install_docker.yml for vm02
+
+TASK [docker : Install Docker and dependencies] ****************************************************************************************************************************************************************************
+ok: [vm02]
+
+TASK [docker : Add Docker GPG key] *****************************************************************************************************************************************************************************************
+ok: [vm02]
+
+TASK [docker : Add Docker repository] **************************************************************************************************************************************************************************************
+ok: [vm02]
+
+TASK [docker : Install Docker] *********************************************************************************************************************************************************************************************
+ok: [vm02]
+
+TASK [docker : Install Docker Module for Python] ***************************************************************************************************************************************************************************
+ok: [vm02]
+
+TASK [docker : include_tasks] **********************************************************************************************************************************************************************************************
+included: /home/tea/Documents/inno5/DOE/DOE-course-labs/ansible/roles/docker/tasks/install_compose.yml for vm02
+
+TASK [docker : Install Docker Compose] *************************************************************************************************************************************************************************************
+ok: [vm02]
+
+TASK [web_app : Deploy docker image] ***************************************************************************************************************************************************************************************
+changed: [vm02]
+
+PLAY RECAP *****************************************************************************************************************************************************************************************************************
+vm02                       : ok=11   changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0  
+```
+
+Docker image was deployed.
+
+## Task 2
+
+1. Organized tasks using blocks.
+
+2. Set dependecy using meta/main.yml file.
+
+3. Added tags (docker, pull, deploy) to tasks and blocks.
+
+4. 3 step wipe process: stop container, delete container, delete image.
+   Applying when directive to the block based on the app\_wipe var.
