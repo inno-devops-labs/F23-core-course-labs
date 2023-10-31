@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app_python
+  labels:
+    app: app_python
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app_python
+  template:
+    metadata:
+      labels:
+        app: app_python
+    spec:
+      containers:
+      - name: app_python
+        image: max/app_python:latest
+        ports:
+        - containerPort: 80
+        
