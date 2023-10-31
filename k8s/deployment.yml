@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: python-web-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: python-app
+  template:
+    metadata:
+      labels:
+        app: python-app
+    spec:
+      containers:
+        - name: moscow_time
+          image: rkbekzat/moscow_time:latest
+          ports:
+            - containerPort: 5000
