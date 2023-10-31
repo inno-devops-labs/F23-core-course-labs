@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: python-web-serv-name
+  labels:
+    app: python-web-serv
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: python-web-serv
+  template:
+    metadata:
+      labels:
+        app: python-web-serv
+    spec:
+      containers:
+      - name: python-web-serv
+        image: seakysneka1/webserv_python:latest
+        ports:
+        - containerPort: 8000
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: js-web-serv-name
+  labels:
+    app: js-web-serv
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: js-web-serv
+  template:
+    metadata:
+      labels:
+        app: js-web-serv
+    spec:
+      containers:
+      - name: js-web-serv
+        image: seakysneka1/webserv_js:latest
+        ports:
+        - containerPort: 5000
