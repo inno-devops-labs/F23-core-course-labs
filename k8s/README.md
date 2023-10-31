@@ -36,3 +36,4 @@ service/kubernetes   ClusterIP      10.96.0.1       <none>          443/TCP     
 😿  service default/kubernetes has no node port
 🎉  Opening service default/app-python in default browser...
 ```
+<img width="1872" alt="image" src="https://github.com/sl1depengwyn/core-course-labs/assets/53992153/987baeb4-7fd4-443b-bf64-03db6df53b0e">
