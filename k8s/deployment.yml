@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: python-web-app
+  labels:
+    app: python-web
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: python-web
+  template:
+    metadata:
+      labels:
+        app: python-web
+    spec:
+      containers:
+      - name: python-web
+        image: kinjalik/devops-course-app:python
+        ports:
+        - containerPort: 8000
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kotlin-native-web-app
+  labels:
+    app: kotlin-native-web
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: kotlin-native-web
+  template:
+    metadata:
+      labels:
+        app: kotlin-native-web
+    spec:
+      containers:
+      - name: kotlin-native-web
+        image: kinjalik/devops-course-app:kotlin-native
+        ports:
+        - containerPort: 8080
