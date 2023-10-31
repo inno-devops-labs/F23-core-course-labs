@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
         - name: python-moscow-time
-          image: el3os/moscow_time_python
+          image: el3os/moscow_time_python:latest
           ports:
             - containerPort: 5000

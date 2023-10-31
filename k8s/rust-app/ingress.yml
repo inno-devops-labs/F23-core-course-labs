@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: rust-moscow-time-ingress
+  annotations:
+    # Use nginx as ingress controller
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+    - host: rust-moscow-time.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: rust-moscow-time-service
+                port:
+                  number: 5000
