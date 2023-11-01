@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-js
+  labels:
+    app: app-js
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app-js
+  template:
+    metadata:
+      labels:
+        app: app-js
+    spec:
+      containers:
+        - name: app-js
+          image: purfreak/lab2_devops:latest-js
+          ports:
+            - containerPort: 8000
+              name: app-js-port
