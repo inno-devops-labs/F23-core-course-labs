@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-python-time
+  labels:
+    app: app-python-time
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: app-python-time
+  template:
+    metadata:
+      labels:
+        app: app-python-time
+    spec:
+      containers:
+        - name: app-python-time
+          image: m4k4rich/app-python-time:latest
+          ports:
+            - containerPort: 8080

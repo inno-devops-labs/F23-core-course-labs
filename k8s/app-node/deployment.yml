@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-node-random
+  labels:
+    app: app-node-random
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: app-node-random
+  template:
+    metadata:
+      labels:
+        app: app-node-random
+    spec:
+      containers:
+        - name: app-node-random
+          image: m4k4rich/app-node-random
+          ports:
+            - containerPort: 3000
