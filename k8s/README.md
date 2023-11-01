@@ -69,3 +69,7 @@ Output of command `minikube service --all`:
 🎉  Opening service default/kubernetes in default browser...
 🎉  Opening service default/app-python-service in default browser...
 ```
+
+And we can see that application is running:
+
+![app-python](images/Снимок%20экрана%202023-11-01%20в%2014.49.56.png)
