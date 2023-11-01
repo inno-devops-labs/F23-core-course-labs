@@ -2,3 +2,5 @@ flask
 pytz
 pytest
 flake8
+waitress
+prometheus-flask-exporter
