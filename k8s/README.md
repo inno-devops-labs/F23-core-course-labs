@@ -5,7 +5,7 @@
 kubectl create deployment app-python --image=rinnatova/docker_lab:latest
 kubectl expose deployment app-python --type=NodePort --port=8080
 ``````
-## Kubectl get pods,svc command
+Kubectl get pods,svc command
 
 ``````NAME                                   READY   STATUS    RESTARTS   AGE
 pod/coredns-5d78c9869d-274gs           1/1     Running   0          23m
