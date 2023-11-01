@@ -4,9 +4,11 @@ Main file for Moscow Time application
 
 from datetime import datetime
 from flask import Flask, render_template
+from prometheus_flask_exporter import PrometheusMetrics
 import pytz
 
 app = Flask(__name__)
+metrics = PrometheusMetrics(app)
 
 @app.route('/')
 def index():
