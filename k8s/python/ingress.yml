@@ -3,7 +3,6 @@ kind: Ingress
 metadata:
   name: app-python-ingress
   annotations:
-    # Use nginx as ingress controller
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
