@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-typescript
+  labels:
+    app: app-typescript
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: app-typescript
+  template:
+    metadata:
+      labels:
+        app: app-typescript
+    spec:
+      containers:
+        - name: app-typescript
+          image: bellissimo/devops-inno-daniil-okrug:latest-typescript
+          ports:
+            - containerPort: 3000
