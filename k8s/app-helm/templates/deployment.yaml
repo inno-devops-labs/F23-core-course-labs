@@ -41,11 +41,7 @@ spec:
               containerPort: {{ .Values.service.port }}
               protocol: TCP
           env:
-            - name: PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  key: password
-                  name: secret-base
+            {{- include "app-helm.mapenvsecrets" . | indent 12 }}
           livenessProbe:
             httpGet:
               path: /
