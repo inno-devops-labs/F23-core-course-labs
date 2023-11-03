@@ -73,11 +73,7 @@ Define secret envs
       key: {{ .Values.password.existingSecretKey }}
 {{- else }}
 - name: PASSWORD
-  valueFrom:
-    secretKeyRef:
-      name: {{ include "app-helm.fullname" . }}
-      key: password
-{{- end }}
+  value: ""
 {{- end }}
 {{- if .Values.token.existingSecret }}
 - name: TOKEN
@@ -87,10 +83,6 @@ Define secret envs
       key: {{ .Values.token.existingSecretKey }}
 {{- else }}
 - name: TOKEN
-  valueFrom:
-    secretKeyRef:
-      name: {{ include "app-helm.fullname" . }}
-      key: token
+  value: ""
 {{- end }}
 {{- end	}}
-{{- end }}
