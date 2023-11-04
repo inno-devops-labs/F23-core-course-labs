@@ -1,0 +1,10 @@
+- name: Deploy App Golang
+  hosts: all
+  become: true
+  roles:
+    - role: web_app
+      vars:
+        app_container_name: app_golang
+        app_container_image: "yesliesnayder/webservicego:0.0.2"
+        app_container_ports:
+          - "8001:8000"

@@ -10,3 +10,5 @@ app_golang/.idea
 */terraform.tfstate
 */terraform.tfstate.backup
 */terraform.tfvars
+
+*.token

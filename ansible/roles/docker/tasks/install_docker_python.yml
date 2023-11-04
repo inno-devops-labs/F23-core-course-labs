@@ -1,0 +1,16 @@
+---
+- name: Install Docker for Python
+  block:
+    - name: Install required system packages
+      apt:
+        pkg:
+          - python3-pip
+          - python3-setuptools
+
+    - name: Install Docker module for Python
+      pip:
+        name: docker
+
+    - name: Install Docker Compose module for Python
+      pip:
+        name: docker-compose
