@@ -54,11 +54,49 @@
     🎉  Opening service default/python-app-python in default browser...
     ```
    
+## App golang
+
+1. **Installation**
+
+   To install this application correctly, I changed liveness and readyness probes in `templates/deployment.yaml` file.
+   
+   ```shell
+   helm install go app-golang/
+   ```
+   ```text
+   NAME: go
+   LAST DEPLOYED: Sun Nov  5 17:02:43 2023
+   NAMESPACE: default
+   STATUS: deployed
+   REVISION: 1
+   NOTES:
+   1. Get the application URL by running these commands:
+     http://app-golang/
+   ```
+
+1. **Check if it works**
+
+   ```shell
+   curl -H "Host: app-golang" 192.168.49.2/home
+   ```
+   ```text
+   {"buildTime":"unset","commit":"unset","release":"unset"}
+   ```
+
 ## Minikube dashboard
+
+To check dashboard, run the command:
+```shell
+minikube dashboard
+```
 
 ### App Python
 
 ![Dashboard with Python application](./images/helm_k8s_dashboard_python.png)
+
+### Both applications (App python, App golang)
+
+![Dashboard with applications](./images/helm_k8s_dashboard.png)
 
 ## Helm Chart Hooks
 
