@@ -1,6 +1,11 @@
 # Display Current Time in Moscow
 
+---------------------------------------------------------------
+[![Python application](https://github.com/aibek99/core-course-labs/actions/workflows/app_python.yml/badge.svg?branch=lab3)](https://github.com/aibek99/core-course-labs/actions/workflows/app_python.yml)
+
 Hi :wave:, this is a simple app's repository that displays the current time in Moscow.
+
+---------------------------------------------------------------
 
 ## Table of Contents
 
@@ -9,7 +14,7 @@ Hi :wave:, this is a simple app's repository that displays the current time in M
 - [Getting Started](#getting-started)
   - [Installation](#installation)
 - [Usage](#usage)
-- [Tests](#tests)
+- [Unit Tests](#unit-tests)
 - [Linter, Auto Formatter](#linter-auto-formatter)
 
 ## About
@@ -74,7 +79,7 @@ python3 app.py
 
 It should run on localhost: http://127.0.0.1:5000/
 
-## Tests
+## Unit Tests
 
 ---------------------------------------------------------------
 
@@ -117,3 +122,14 @@ docker run -d -p 5000:5000 aibekbakirov/devops_lab2:1.0
 ```
 
 link: http://localhost:5000/
+
+## CI workflow
+
+---------------------------------------------------------------
+
+### Steps: 
+- Environment Setup and Dependency Caching
+- Python Dependency Installation and Security Scanning
+- Code Linting and Testing
+- Docker Login
+- Docker Build and Push

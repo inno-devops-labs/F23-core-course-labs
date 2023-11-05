@@ -50,6 +50,17 @@ We have a well-defined `.gitignore` file in place to exclude unnecessary files a
 
 Testing is a crucial aspect of our development process. We use [Pytest](https://pytest.org/) as our testing framework. This allows us to write comprehensive unit tests, integration tests, and end-to-end tests to verify the functionality and reliability of our code.
 
+> ### Unit tests
+> 1. Unit test to check the content of the webpage
+> 2. Unit test to check, if time updates on refresh
+> ### Best practices applied
+> - Written appropriate test names
+> - Created simple unit tests
+> - Each unit tests addressed a single use-case
+> - Test coverage is higher than 90%
+> - Unit tests designed to be fast
+
+
 ### 6. Requirements
 
 We maintain a `requirements.txt` file to list all the project's dependencies and their respective versions. This practice offers several benefits:
