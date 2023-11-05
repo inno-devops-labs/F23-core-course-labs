@@ -6,6 +6,9 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: "1.0.5"
 
+# Specifies sleep time for pre-hook and post-hook
+sleepyTime: 5
+
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
