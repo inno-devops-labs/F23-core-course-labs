@@ -1,51 +1,71 @@
 version: "3"
 
 networks:
-  loki:
+  monitoring:
+    name: "monitoring"
 
 services:
+  app_python:
+    image: rentacat45/python_web_app:latest
+    build: ../app_python
+    ports:
+      - "8000:8000"
+    logging: &logger
+      driver: "json-file"
+      options:
+        tag: "{{.ImageName}}|{{.Name}}|{{.ImageFullID}}|{{.FullID}}"
+        max-size: "100m"
+    networks:
+      - monitoring
+
   loki:
-    image: grafana/loki:2.9.2
+    image: grafana/loki:2.9.0
+    command: -config.file=/etc/loki/local-config.yaml
     ports:
       - "3100:3100"
-    command: -config.file=/etc/loki/local-config.yaml
     networks:
-      - loki
+      - monitoring
+    logging:
+      <<: *logger
 
   promtail:
-    image: grafana/promtail:2.9.2
+    image: grafana/promtail:2.9.0
     volumes:
-      - /var/log:/var/log
+      - /var/lib/docker/containers:/var/lib/docker/containers
+      - ./promtail-config.yaml:/etc/promtail/config.yml
     command: -config.file=/etc/promtail/config.yml
     networks:
-      - loki
+      - monitoring
+    logging:
+      <<: *logger
 
   grafana:
     environment:
-      - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
       - GF_AUTH_ANONYMOUS_ENABLED=true
       - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
-    entrypoint:
-      - sh
-      - -euc
-      - |
-        mkdir -p /etc/grafana/provisioning/datasources
-        cat <<EOF > /etc/grafana/provisioning/datasources/ds.yaml
-        apiVersion: 1
-        datasources:
-        - name: Loki
-          type: loki
-          access: proxy
-          orgId: 1
-          url: http://loki:3100
-          basicAuth: false
-          isDefault: true
-          version: 1
-          editable: false
-        EOF
-        /run.sh
     image: grafana/grafana:latest
     ports:
-      - "3000:3000"
+      - "4000:3000"
     networks:
-      - loki
+      - monitoring
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning
+      - ./grafana/dashboards:/var/lib/grafana/dashboards
+    logging:
+      <<: *logger
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--web.enable-lifecycle'
+      - '--storage.tsdb.retention.time=7d'
+    logging:
+      <<: *logger
+    networks:
+      - monitoring
