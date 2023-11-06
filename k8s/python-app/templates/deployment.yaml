@@ -3,14 +3,14 @@ kind: Deployment
 metadata:
   name: {{ include "python-app.fullname" . }}
   labels:
-    {{- include "python-app.labels" . | nindent 4 }}
+    {{- include "mylibchart.labels" . | indent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "python-app.selectorLabels" . | nindent 6 }}
+      {{- include "mylibchart.selectorLabels" . | indent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -18,10 +18,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "python-app.labels" . | nindent 8 }}
-	{{- with .Values.podLabels }}
-        {{- toYaml . | nindent 8 }}
-        {{- end }}
+        {{- include "mylibchart.labels" . | indent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:

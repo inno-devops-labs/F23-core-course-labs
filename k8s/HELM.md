@@ -10,7 +10,7 @@
 helm create app-python
 ```
 
-Then replace the default repository and tag inside the values.yaml 
+Then replace the default repository and tag inside the values.yaml
 file with your repository name, update liveness/readiness probe path in
 `tepmlates/deployment.yaml`
 
@@ -261,4 +261,26 @@ pod/python-python-app-f68f8ffb4-wxswh   1/1     Running   0          100s
 NAME                        TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
 service/kubernetes          ClusterIP      10.96.0.1       <none>        443/TCP          2m10s
 service/python-python-app   LoadBalancer   10.111.155.80   <pending>     8080:31367/TCP   100s
+```
+
+## Chart library
+
+1) Create library chart
+
+```shell
+quiner@quiner-MaiBook-X-series:~/innopolis/dev-ops-course-labs/k8s$ helm dependency update python-app/
+Hang tight while we grab the latest from your chart repositories...
+...Successfully got an update from the "bitnami" chart repository
+Update Complete. ⎈Happy Helming!⎈
+Saving 1 charts
+Deleting outdated charts
+```
+
+```shell
+quiner@quiner-MaiBook-X-series:~/innopolis/dev-ops-course-labs/k8s$ helm dependency update go-app/
+Hang tight while we grab the latest from your chart repositories...
+...Successfully got an update from the "bitnami" chart repository
+Update Complete. ⎈Happy Helming!⎈
+Saving 1 charts
+Deleting outdated charts
 ```
