@@ -3,6 +3,8 @@ extern crate rocket;
 use chrono::{DateTime, FixedOffset, Local};
 use clap::Parser;
 use rocket::Config;
+use prometheus::gather;
+
 
 pub fn current_time() -> DateTime<Local>  {
     let msk_timezone = FixedOffset::east_opt(3 * 3600).unwrap();
@@ -18,6 +20,20 @@ fn time() -> String {
 #[get("/health")]
 fn healthcheck() -> &'static str {
     "OK"
+}
+
+#[get("/metrics")]
+fn metrics() -> String {
+    let encoder = prometheus::TextEncoder::new();
+
+    match encoder.encode_to_string(&gather()) {
+        Ok(data) => {
+            data
+        },
+        Err(e) => {
+            e.to_string()
+        }
+    }
 }
 
 #[derive(Parser, Debug)]
@@ -38,7 +54,7 @@ fn rocket() -> _ {
         ..Default::default()
     };
 
-    rocket::build().configure(config).mount("/", routes![time, healthcheck])
+    rocket::build().configure(config).mount("/", routes![time, healthcheck, metrics])
 }
 
 

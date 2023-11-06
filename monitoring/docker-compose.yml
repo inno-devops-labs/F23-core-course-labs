@@ -2,43 +2,71 @@ version: "3.9"
 
 name: monitoring
 
-networks:
-  loki:
-
 services:
   app_python:
     container_name: app_python
     build:
       context: ../lab01/app_python
+    mem_limit: 100Mb
     ports:
       - 8001:8000
+    healthcheck:
+      test: 'curl -f localhost:8000/health || exit 1'
+      interval: 5s
+      retries: 5
+      start_period: 5s
+      timeout: 5s
+    logging: &default-logging
+      driver: "json-file"
+      options:
+            max-size: "1k"
+            max-file: "2"
 
   app_rust:
     container_name: app_rust
     build:
       context: ../lab01/app_rust
+    mem_limit: 100Mb
     ports:
       - 8002:8000
+    healthcheck:
+      test: 'curl -f localhost:8000/health || exit 1'
+      interval: 5s
+      retries: 5
+      start_period: 5s
+      timeout: 5s
+    logging: *default-logging
 
   loki:
     image: grafana/loki:latest
     ports:
       - "3100:3100"
     command: -config.file=/etc/loki/local-config.yaml
-    networks:
-      - loki
+    healthcheck:
+      test: 'wget -O - localhost:3100/ready || exit 1'
+      interval: 5s
+      retries: 5
+      start_period: 5s
+      timeout: 30s
+    logging: *default-logging
 
   promtail:
     image: grafana/promtail:latest
     command: -config.file=/etc/promtail/config.yml
-    networks:
-      - loki
+    mem_limit: 1Gb
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /var/lib/docker/containers:/var/lib/docker/containers
       - ./promtail:/etc/promtail
     ports:
       - 9080:9080
+    healthcheck:
+      test: 'wget -O - localhost:9080/ready || exit 1'
+      interval: 5s
+      retries: 5
+      start_period: 5s
+      timeout: 5s
+    logging: *default-logging
 
   grafana:
     environment:
@@ -62,20 +90,45 @@ services:
           isDefault: true
           version: 1
           editable: false
+        - name: Prometheus
+          type: prometheus
+          orgId: 1
+          url: http://prometheus:9090
+          basicAuth: false
+          version: 1
+          editable: true
         EOF
         /run.sh
     image: grafana/grafana:latest
+    mem_limit: 1Gb
     volumes:
       - ./grafana:/etc/grafana
+      - ./grafana_volume:/var/lib/grafana
     ports:
       - "3000:3000"
-    networks:
-      - loki
+    healthcheck:
+      test: 'curl -f localhost:3000/api/health || exit 1'
+      interval: 5s
+      retries: 5
+      start_period: 5s
+      timeout: 5s
+    logging: *default-logging
 
   prometheus:
     image: prom/prometheus:latest
+    user: nobody:999
+    mem_limit: 1Gb
     volumes:
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
       - ./prometheus_volume:/prometheus
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/lib/docker/containers:/var/lib/docker/containers
     ports:
       - "9090:9090"
+    healthcheck:
+      test: 'wget -O - localhost:9090/-/ready || exit 1'
+      interval: 5s
+      retries: 5
+      start_period: 5s
+      timeout: 5s
+    logging: *default-logging
