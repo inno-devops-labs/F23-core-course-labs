@@ -88,7 +88,10 @@ def healthcheck():
 
 @app.get('/metrics')
 def metrics():
-    return Response(prometheus_client.generate_latest(), media_type=prometheus_client.CONTENT_TYPE_LATEST)
+    return Response(
+        prometheus_client.generate_latest(),
+        media_type=prometheus_client.CONTENT_TYPE_LATEST
+    )
 
 class StoreNoteRequest(BaseModel):
     text: str
