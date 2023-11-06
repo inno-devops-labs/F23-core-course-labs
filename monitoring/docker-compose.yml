@@ -71,3 +71,11 @@ services:
       - "3000:3000"
     networks:
       - loki
+
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus_volume:/prometheus
+    ports:
+      - "9090:9090"
