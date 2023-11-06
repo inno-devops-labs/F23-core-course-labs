@@ -10,7 +10,7 @@ RUN rustup target add ${TARGET_PLATFORM}
 WORKDIR /app_rust
 
 COPY Cargo.toml Cargo.lock ./
-RUN RUSTFLAGS=${RUSTFLAGS} cargo build --release --target ${TARGET_PLATFORM}
+RUN RUSTFLAGS=${RUSTFLAGS} cargo fetch
 COPY src src
 RUN RUSTFLAGS=${RUSTFLAGS} cargo build --release --target ${TARGET_PLATFORM}
 
