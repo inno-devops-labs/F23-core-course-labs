@@ -4,7 +4,7 @@ WORKDIR /app_python
 
 COPY requirements.txt requirements.txt
 RUN apt-get update && \
-    apt-get --no-install-recommends install -y curl=7.64.0-4+deb10u6 && \
+    apt-get --no-install-recommends install -y curl && \
     rm -rf /var/lib/apt/lists/* && \
     pip install --no-cache-dir -r requirements.txt
 
