@@ -17,6 +17,11 @@ class BaseConverterController(
 
     @GetMapping
     fun health(): String {
-        return "healthy"
+        return Constants.HEALTHY_ANSWER
     }
+}
+
+
+object Constants {
+    const val HEALTHY_ANSWER = "healthy"
 }
