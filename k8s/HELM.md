@@ -131,4 +131,9 @@ Note that ID of the pre-install-hook is different since screenshot was made at o
 ![](/assets/screenshots/2023-11-06-03-09-57.png)
 
 
-## Bonus
+## Library chart
+
+
+```
+helm dep update helm
+```
