@@ -32,5 +32,5 @@ A Pod in Kubernetes is the smallest deployable unit, consisting of one or more c
 ![pythonbrowser](./images/pythonbrowser.png)
 ![curlpython](./images/curlpython.png)
 #### GO:
-![pythonbrowser](./images/pythonbrowser.png)
-![curlpython](./images/curlpython.png)
+![gobrowser](./images/gobrowser.png)
+![curlgo](./images/curlgo.png)
