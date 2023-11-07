@@ -1,0 +1,6 @@
+dependencies:
+- name: libchart-helm
+  repository: file://../libchart-helm
+  version: 1.0.0
+digest: sha256:440808a28f9d429d84c957dc4eb21ed044541a684d549dfadf5351433228f914
+generated: "2023-11-07T17:31:36.828091863+03:00"
