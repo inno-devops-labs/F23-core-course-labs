@@ -1,4 +1,4 @@
-## Outputs of the kubectl get pods,svc
+## kubectl get pods,svc
 ``````
 NAME                         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)                                     AGE
 service/app-python-service   NodePort    10.99.220.102   <none>        80:30155/TCP,443:32041/TCP,8080:30427/TCP   6d17h       
