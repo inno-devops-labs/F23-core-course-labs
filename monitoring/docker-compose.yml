@@ -1,4 +1,4 @@
-version: "3.7"
+version: "3"
 
 networks:
   loki:
@@ -16,6 +16,10 @@ services:
         tag: '{{.ImageName}}|{{.Name}}|{{.ImageFullID}}|{{.FullID}}'
     networks:
       - loki
+    deploy:
+      resources:
+        limits:
+          memory: 256m
 
   base-converter-app:
     image: edikgoose/base-converter:latest
@@ -25,6 +29,10 @@ services:
     logging: *logging
     networks:
       - loki
+    deploy:
+      resources:
+        limits:
+          memory: 512m
 
   promtail:
     image: grafana/promtail:2.9.1
@@ -38,6 +46,10 @@ services:
     logging: *logging
     networks:
       - loki
+    deploy:
+      resources:
+        limits:
+          memory: 512m
 
   loki:
     container_name: loki
@@ -48,6 +60,10 @@ services:
     logging: *logging
     networks:
       - loki
+    deploy:
+      resources:
+        limits:
+          memory: 512m
 
   grafana:
     image: grafana/grafana:latest
@@ -55,11 +71,35 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
+#      - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
       - GF_AUTH_ANONYMOUS_ENABLED=true
       - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
     volumes:
-      - ${PWD}/grafana:/etc/grafana/provisioning/datasources:ro
+      - ${PWD}/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ${PWD}/grafana/dashboards:/var/lib/grafana/dashboards
     logging: *logging
     networks:
       - loki
+    deploy:
+      resources:
+        limits:
+          memory: 1g
+
+  prometheus:
+    image: prom/prometheus:v2.47.2
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ${PWD}/prometheus:/etc/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--web.enable-lifecycle'
+      - '--storage.tsdb.retention.time=7d'
+    logging: *logging
+    networks:
+      - loki
+    deploy:
+      resources:
+        limits:
+          memory: 1g

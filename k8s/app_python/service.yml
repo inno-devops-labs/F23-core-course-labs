@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-python
+spec:
+  type: NodePort
+  selector:
+    app: app-python
+  ports:
+    - nodePort: 31685 # access service via this port
+      port: 80 # internally in cluster
+      targetPort: 80 # container listening
