@@ -180,3 +180,57 @@ The result was quite strange, most likely due to the fact that I used VK Сloud
 https://docs.ansible.com/ansible/2.8/user_guide/playbooks_best_practices.html
 
 I was following the best practices from the official documentation and because of that I decided to store playbooks in the root of project
+
+##Deployment Output for Lab6
+```
+ok: [---]
+
+TASK [docker : include_tasks] **************************************************
+included: /home/adachi/core-course-labs/ansible/roles/docker/tasks/deps.yaml for ---
+
+TASK [docker : Ensure dependencies are installed.] *****************************
+ok: [---]
+
+TASK [docker : include_tasks] **************************************************
+included: /home/adachi/core-course-labs/ansible/roles/docker/tasks/repo.yaml for ---
+
+TASK [docker : Install keys] ***************************************************
+ok: [---]
+
+TASK [docker : Add docker repo] ************************************************
+ok: [---]
+
+TASK [docker : include_tasks] **************************************************
+included: /home/adachi/core-course-labs/ansible/roles/docker/tasks/install.yaml for ---
+
+TASK [docker : Ensure unnecessary, unofficial or old packages are removed] *****
+ok: [---]
+
+TASK [docker : Install docker] *************************************************
+ok: [---]
+
+TASK [docker : Install pip packets] ********************************************
+ok: [---]
+
+TASK [web_app : Install application] *******************************************
+included: /home/adachi/core-course-labs/ansible/roles/web_app/tasks/run.yaml for ---
+
+TASK [web_app : Create a directory if it does not exist] ***********************
+changed: [---]
+
+TASK [web_app : Create docker-compose] *****************************************
+changed: [---]
+
+TASK [web_app : Run application] ***********************************************
+changed: [---]
+
+TASK [web_app : Wipe appliction] ***********************************************
+skipping: [---]
+
+PLAY RECAP *********************************************************************
+---             : ok=28   changed=6    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0   
+
+
+EXIT NOTICE [Playbook execution success] **************************************
+===============================================================================
+```
