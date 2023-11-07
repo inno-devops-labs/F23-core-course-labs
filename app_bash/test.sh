@@ -2,9 +2,9 @@
 set -m
 
 test_base() {
-    ./main.sh "$1" 7001 &
+    ./main.sh "$1" &
     sleep 1
-    curl http://localhost:7001 --http0.9 | grep "$2"
+    curl http://localhost:8000 --http0.9 | grep "$2"
 }
 
 test_yes () {
