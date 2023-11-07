@@ -16,4 +16,4 @@ spec:
         - name: minikube
           image: rinnatova/docker_lab:latest
           ports:
-            - containerPort: 80
+            - containerPort: 8080
