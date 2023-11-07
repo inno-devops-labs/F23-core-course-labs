@@ -1,6 +1,6 @@
 #!/bin/bash
-HOST=$1
-PORT=8000
+HOST="moodle.innopolis.university"
+PORT=9000
 
 if [[ "$HOST" == "" ]]; then
     echo "Please, specify host"

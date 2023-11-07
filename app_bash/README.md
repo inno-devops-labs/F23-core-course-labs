@@ -34,9 +34,9 @@ docker pull zrrrget/app_bash
 docker pull zrrrget/app_bash_test
 ```
 ### Run
-Port 8000 is exposed.
+Port 9000 is exposed.
 ```
-docker run -p 8000:8000 zrrrget/app_bash
+docker run -p 9000:9000 zrrrget/app_bash
 ```
 ```
 docker run zrrrget/app_bash_test
