@@ -15,9 +15,9 @@ NOTES:
   echo http://$SERVICE_IP:5000
 ```
 
-pic 1
-pic 2
-pic 3
+![pic1](./images/pic1.png)
+![pic2](./images/pic2.png)
+![pic3](./images/pic3.png)
 
 
 ### minikube service python-helm-python
@@ -32,7 +32,7 @@ pic 3
 Failed to load module: /home/iviosab/snap/code/common/.cache/gio-modules/libgiolibproxy.so
 ```
 
-pic 4
+![pic4](./images/pic4.png)
 
 
 ### kubectl get pods,svc
@@ -375,4 +375,10 @@ Events:
 ```
 
 
+## Bonus: 
 
+### Helm chart for extra app
+[Extra App Chart](helm-go/)
+
+### Create a Library Chart
+[Library Chart](library-chart/)
