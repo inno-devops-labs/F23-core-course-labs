@@ -1,11 +1,11 @@
-# Default values for app-python.
+# Default values for app-elixir.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
 replicaCount: 1
 
 image:
-  repository: sl1depengwyn/python_devops
+  repository: sl1depengwyn/elixir_devops
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "arm64"
@@ -38,7 +38,7 @@ securityContext: {}
 
 service:
   type: LoadBalancer
-  port: 80
+  port: 4000
 
 ingress:
   enabled: false
@@ -80,3 +80,6 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+config:
+  secretKeyBase: "5Ms9YbqJi6VZzMIuKPXZVbwEGC8VM0DVDHsz6BTHQTR2wXikxC8gJiwNCHlTkGBW"
