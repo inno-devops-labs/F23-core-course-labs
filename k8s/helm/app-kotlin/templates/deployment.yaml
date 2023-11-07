@@ -3,14 +3,14 @@ kind: Deployment
 metadata:
   name: {{ include "app-kotlin.fullname" . }}
   labels:
-    {{- include "app-kotlin.labels" . | nindent 4 }}
+    {{- include "library-chart.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "app-kotlin.selectorLabels" . | nindent 6 }}
+      {{- include "library-chart.labels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -18,7 +18,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "app-kotlin.labels" . | nindent 8 }}
+        {{- include "library-chart.labels" . | nindent 8 }}
 	{{- with .Values.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
@@ -42,14 +42,16 @@ spec:
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: /convert?value=10&base=10
-              port: http
+              path: /
+              port: 8080
             initialDelaySeconds: 150
+            periodSeconds: 200
           readinessProbe:
             httpGet:
-              path: /convert?value=10&base=10
-              port: http
+              path: /
+              port: 8080
             initialDelaySeconds: 150
+            periodSeconds: 200
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           {{- with .Values.volumeMounts }}

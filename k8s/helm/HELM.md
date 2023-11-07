@@ -164,6 +164,29 @@ Events:
   Normal  Started    2m30s  kubelet            Started container post-install-container
 ```
 
+## Bonus task
+I used library chart named by "library-chart.labels".
+It substitute all labels blocks
+![bonus-dashboard](pics/bonus-task-dashboard.png)
+
+```
+~/iu-devops/k8s/helm$ kubectl get pods
+NAME                          READY   STATUS    RESTARTS        AGE
+app-kotlin-5fc4dbd899-8vqk9   1/1     Running   1 (8m1s ago)    10m
+app-kotlin-5fc4dbd899-r8r6v   1/1     Running   1 (8m1s ago)    10m
+app-kotlin-5fc4dbd899-zpz87   1/1     Running   2 (5m54s ago)   10m
+app-python-56df6c55f5-4txpl   1/1     Running   0               10m
+app-python-56df6c55f5-xsp44   1/1     Running   0               10m
+app-python-56df6c55f5-zw4pg   1/1     Running   0               10m
+```
+
+```
+~/iu-devops/k8s/helm$ kubectl get svc
+NAME         TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
+app-kotlin   NodePort    10.104.110.151   <none>        8080:32658/TCP   10m
+app-python   NodePort    10.106.139.201   <none>        80:30428/TCP     10m
+kubernetes   ClusterIP   10.96.0.1        <none>        443/TCP          8d
+```
 
 Useful resources:
 - https://opensource.com/article/20/5/helm-charts

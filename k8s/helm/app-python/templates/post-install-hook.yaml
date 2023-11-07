@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: postinstall-hook
+  name: postinstall-hook-python
   annotations:
     "helm.sh/hook": "post-install"
     "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
@@ -10,6 +10,6 @@ spec:
     - name: post-install-container
       image: busybox
       imagePullPolicy: Always
-      command: [ 'sh', '-c', 'echo The post-install hook is running && sleep 15' ]
+      command: [ 'sh', '-c', 'echo The post-install hook is running && sleep 1' ]
   restartPolicy: Never
   terminationGracePeriodSeconds: 0
