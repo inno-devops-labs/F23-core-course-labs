@@ -30,7 +30,7 @@ service/kubernetes   ClusterIP      10.96.0.1       <none>        443/TCP       
 service/python-app   LoadBalancer   10.111.93.111   <pending>     80:32398/TCP   23m
 ```
 
-![Deployed pyhton app](./images/pyhton-app.png
+![Deployed pyhton app](./images/pyhton-app.png)
 
 ## Task 2
 
