@@ -12,6 +12,7 @@ spec:
   selector:
     matchLabels:
       {{- include "python-app.selectorLabels" . | nindent 6 }}
+      {{- include "library-chart.labels" . | indent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -20,6 +21,7 @@ spec:
       {{- end }}
       labels:
         {{- include "python-app.labels" . | nindent 8 }}
+        {{- include "library-chart.labels" . | indent 8 }}
 	{{- with .Values.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}

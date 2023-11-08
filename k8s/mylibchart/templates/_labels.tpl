@@ -4,5 +4,5 @@ app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
 app.kubernetes.io/instance: {{ .Release.Name }}
-custom: "SuperLabel"
+absolutely_not_default: "super_label"
 {{- end }}

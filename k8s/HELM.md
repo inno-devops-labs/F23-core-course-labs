@@ -332,65 +332,40 @@ Deleting outdated charts
 5. Install chart with dependencies and add to ```labes:``` part in deployment script
 
 ### Results
-As a result we starting to receive custom labels and ```kubectl describe po``` starts to return huge amount of data, so I mention only a part below
 ```
-ruslan@Elestrias:~/Downloads/devops/core-course-labs/k8s/python-app$  kubectl describe po
-Name:             cpp-python-app-7f6569d454-s8k9v
+kubectl describe po
+```
+Part  with python labels
+```
+Name:             python-python-app-5484f6dbb8-xrjtf
 Namespace:        default
 Priority:         0
-Service Account:  cpp-python-app
+Service Account:  python-python-app
 Node:             minikube/192.168.49.2
-Start Time:       Tue, 07 Nov 2023 22:38:47 +0300
-Labels:           app.kubernetes.io/instance=cpp
+Start Time:       Wed, 08 Nov 2023 22:51:07 +0300
+Labels:           absolutely_not_default=super_label
+                  app.kubernetes.io/instance=python
                   app.kubernetes.io/managed-by=Helm
                   app.kubernetes.io/name=python-app
                   app.kubernetes.io/version=1.16.0
                   helm.sh/chart=python-app-0.1.0
-                  pod-template-hash=7f6569d454
-Annotations:      <none>
-Status:           Running
-IP:               10.244.0.70
-IPs:
-  IP:           10.244.0.70
-Controlled By:  ReplicaSet/cpp-python-app-7f6569d454
-Containers:
-  python-app:
-    Container ID:   docker://f41135a434e898e4cc1ee78374964ab8eb7480dd9a9fd50ce934a21cedb63bc8
-    Image:          dashvayet/app_cplusplus:latest
-    Image ID:       docker-pullable://dashvayet/app_cplusplus@sha256:7bb9894706d119b3ece605181ccb54a306fee4d6c2a6394a8453feab0e738ed7
-    Port:           10000/TCP
-    Host Port:      0/TCP
-    State:          Running
-      Started:      Tue, 07 Nov 2023 22:38:50 +0300
-    Ready:          True
-    Restart Count:  0
-    Liveness:       http-get http://:http/ delay=0s timeout=1s period=10s #success=1 #failure=3
-    Readiness:      http-get http://:http/ delay=0s timeout=1s period=10s #success=1 #failure=3
-    Environment:    <none>
-    Mounts:
-      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-g2k2g (ro)
-Conditions:
-  Type              Status
-  Initialized       True 
-  Ready             True 
-  ContainersReady   True 
-  PodScheduled      True 
-Volumes:
-  kube-api-access-g2k2g:
-    Type:                    Projected (a volume that contains injected data from multiple sources)
-    TokenExpirationSeconds:  3607
-    ConfigMapName:           kube-root-ca.crt
-    ConfigMapOptional:       <nil>
-    DownwardAPI:             true
-QoS Class:                   BestEffort
-Node-Selectors:              <none>
-Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
-                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
-Events:
-  Type    Reason     Age   From               Message
-  ----    ------     ----  ----               -------
-  Normal  Scheduled  2m3s  default-scheduler  Successfully assigned default/cpp-python-app-7f6569d454-s8k9v to minikube
-  Normal  Pulled     2m2s  kubelet            Container image "dashvayet/app_cplusplus:latest" already present on machine
-  Normal  Created    2m1s  kubelet            Created container python-app
-  Normal  Started    2m1s  kubelet            Started container python-app
+                  pod-template-hash=5484f6dbb8
+
+```
+Part with cpp labels
+```
+Name:             cpp-python-app-7d48b9ddcd-t2zhb
+Namespace:        default
+Priority:         0
+Service Account:  cpp-python-app
+Node:             minikube/192.168.49.2
+Start Time:       Wed, 08 Nov 2023 22:54:40 +0300
+Labels:           absolutely_not_default=super_label
+                  app.kubernetes.io/instance=cpp
+                  app.kubernetes.io/managed-by=Helm
+                  app.kubernetes.io/name=python-app
+                  app.kubernetes.io/version=1.16.0
+                  helm.sh/chart=python-app-0.1.0
+                  pod-template-hash=7d48b9ddcd
+
 ```
