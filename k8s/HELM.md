@@ -115,15 +115,145 @@ helm-hooks-python-app-864679bc9-zvrzj   1/1     Running     0          83s
 postinstall-hook                        0/1     Completed   0          83s
 preinstall-hook                         0/1     Completed   0          106s
 ```
+
+```
+kubectl describe po preinstall-hook
+```
+```
+Name:             preinstall-hook
+Namespace:        default
+Priority:         0
+Service Account:  default
+Node:             minikube/192.168.49.2
+Start Time:       Wed, 08 Nov 2023 21:30:10 +0300
+Labels:           <none>
+Annotations:      helm.sh/hook: pre-install
+Status:           Succeeded
+IP:               10.244.0.73
+IPs:
+  IP:  10.244.0.73
+Containers:
+  pre-install-container:
+    Container ID:  docker://5831edc136137a5f7349cb5c9efe055d91868b97dadb9147903142a750892881
+    Image:         busybox
+    Image ID:      docker-pullable://busybox@sha256:3fbc632167424a6d997e74f52b878d7cc478225cffac6bc977eedfe51c7f4e79
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      sh
+      -c
+      echo The pre-install hook is running && sleep 20
+    State:          Terminated
+      Reason:       Completed
+      Exit Code:    0
+      Started:      Wed, 08 Nov 2023 21:30:11 +0300
+      Finished:     Wed, 08 Nov 2023 21:30:31 +0300
+    Ready:          False
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-kdxcq (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             False 
+  ContainersReady   False 
+  PodScheduled      True 
+Volumes:
+  kube-api-access-kdxcq:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  6m4s  default-scheduler  Successfully assigned default/preinstall-hook to minikube
+  Normal  Pulled     6m4s  kubelet            Container image "busybox" already present on machine
+  Normal  Created    6m4s  kubelet            Created container pre-install-container
+  Normal  Started    6m4s  kubelet            Started container pre-install-container
+
+```
+```
+kubectl describe po postinstall-hook
+```
+
+```
+Name:             postinstall-hook
+Namespace:        default
+Priority:         0
+Service Account:  default
+Node:             minikube/192.168.49.2
+Start Time:       Wed, 08 Nov 2023 21:30:33 +0300
+Labels:           <none>
+Annotations:      helm.sh/hook: post-install
+Status:           Succeeded
+IP:               10.244.0.77
+IPs:
+  IP:  10.244.0.77
+Containers:
+  post-install-container:
+    Container ID:  docker://9476bdaf9ab32c8d77fff18d6b209ec0d80cc73555ca1a2bb086e1f78cb255fb
+    Image:         busybox
+    Image ID:      docker-pullable://busybox@sha256:3fbc632167424a6d997e74f52b878d7cc478225cffac6bc977eedfe51c7f4e79
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      sh
+      -c
+      echo The post-install hook is running && sleep 15
+    State:          Terminated
+      Reason:       Completed
+      Exit Code:    0
+      Started:      Wed, 08 Nov 2023 21:30:39 +0300
+      Finished:     Wed, 08 Nov 2023 21:30:54 +0300
+    Ready:          False
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-pcdrr (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             False 
+  ContainersReady   False 
+  PodScheduled      True 
+Volumes:
+  kube-api-access-pcdrr:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type    Reason     Age    From               Message
+  ----    ------     ----   ----               -------
+  Normal  Scheduled  4m34s  default-scheduler  Successfully assigned default/postinstall-hook to minikube
+  Normal  Pulling    4m32s  kubelet            Pulling image "busybox"
+  Normal  Pulled     4m29s  kubelet            Successfully pulled image "busybox" in 3.502129762s (3.502170728s including waiting)
+  Normal  Created    4m28s  kubelet            Created container post-install-container
+  Normal  Started    4m28s  kubelet            Started container post-install-container
+```
 As we can see - hooks are completed, so we achieve desired results
+
 5. delete policy
-Provided policy is enough
+
+- Provided policy is enough
  ``` 
 "helm.sh/hook-delete-policy": hook-succeeded
 ```
 # Bonus task
 ## Extending for app_cpp
-### Istall
+### Install
 ```
 helm install cpp ./python-app/ --values python-app/values.cpp.yml
 ```
