@@ -1,0 +1,6 @@
+app_directory: /opt/web_app
+timezone: UTC
+web_app_full_wipe: false
+image: bobievnodir/app_python:latest
+container_name: web_app
+ports: "5000:5000"
