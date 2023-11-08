@@ -40,8 +40,6 @@ In this lab, you will become familiar with Helm, set up a local development envi
 8. Pull Request in Your Repository:
    - Create a PR in your repository, connecting the lab10 branch to the main or lab9 branch.
 
-## Task 2: Helm Chart Hooks
-
 **4 Points:**
 
 1. Learn About Chart Hooks:
