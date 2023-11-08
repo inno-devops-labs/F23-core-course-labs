@@ -39,7 +39,7 @@ kubernetes   ClusterIP   10.96.0.1       <none>        443/TCP          12m
 python-app   NodePort    10.101.229.91   <none>        80:31111/TCP     8m27s
 
 
-PS D:\study\core-course-labs> minikube service --all
+PS C:\Users\MSI-PC> minikube service --all
 |-----------|------------|-------------|---------------------------|
 | NAMESPACE |    NAME    | TARGET PORT |            URL            |
 |-----------|------------|-------------|---------------------------|
