@@ -60,6 +60,10 @@ service/python-app-helm   ClusterIP   10.108.162.152   <none>        5000/TCP   
 
 ![helm-browser](./images/helm-browser.png)
 
+![helm-dashboard](./images/helm-dashboard.png)
+
+![helm-service](./images/helm-service.png)
+
 - Output of `kubectl get po`
 
 ![helm-po](./images/helm-po.png)
