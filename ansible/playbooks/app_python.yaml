@@ -2,22 +2,8 @@
 - name: Deploys app_python on Yandex Cloud
   hosts: all
   become: true
-
-  vars:
-    container_version: latest
-
-  tasks:
-    - name: Include Docker role
-      ansible.builtin.include_role:
-        name: docker
-    - name: Pull default Docker image
-      community.docker.docker_image:
-        name: "amoriodi/app_python:{{ container_version }}"
-        source: pull
-
-    - name: Create container
-      community.docker.docker_container:
-        name: "python-app"
-        image: "amoriodi/app_python"
-        ports:
-          - "8000:8080"
+  roles:
+    - role: web_app
+      image: amoriodi/app_python:latest
+      ports:
+        - "8000:8080"
