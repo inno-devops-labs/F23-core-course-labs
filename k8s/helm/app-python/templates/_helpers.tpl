@@ -60,3 +60,11 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{/* Generate dummy envs */}}
+{{- define "app-python.dummyEnvs" -}}
+- name: CHART_NAME
+  value: {{ .Chart.Name }}
+- name: CHART_VERSION
+  value: {{ .Chart.Version }}
+{{- end -}}
