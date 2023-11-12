@@ -57,6 +57,7 @@ spec:
                 secretKeyRef:
                   name: mysecret
                   key: pass_data
+          {{ include "app-python.myEnvs" . | nindent 12 }}
       {{- with .Values.volumes }}
       volumes:
         {{- toYaml . | nindent 8 }}

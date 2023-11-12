@@ -60,3 +60,10 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{- define "app-golang.myEnvs" -}}
+- name: RELEASE_NAME
+  value: {{ .Release.Name }}
+- name: CHART_NAME
+  value: {{ .Chart.Name }}
+{{- end -}}
