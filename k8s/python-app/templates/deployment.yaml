@@ -10,7 +10,7 @@ spec:
   {{- end }}
   selector:
     matchLabels:
-      {{- include "mylibchart.selectorLabels" . | indent 6 }}
+      {{- include "mylibchart.labels" . | indent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -37,6 +37,12 @@ spec:
             - name: http
               containerPort: {{ .Values.service.port }}
               protocol: TCP
+          env:
+            - name: MY_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: credentials
+                  key: password
           livenessProbe:
             httpGet:
               path: /healthcheck

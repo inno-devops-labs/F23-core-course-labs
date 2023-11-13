@@ -10,7 +10,7 @@ spec:
   {{- end }}
   selector:
     matchLabels:
-      {{- include "mylibchart.selectorLabels" . | indent 6 }}
+      {{- include "mylibchart.labels" . | indent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}

@@ -1,4 +1,4 @@
-{{- define "library-chart.labels" -}}
+{{- define "mylibchart.labels" -}}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
