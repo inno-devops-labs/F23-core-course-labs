@@ -60,3 +60,10 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{- define "kotlin-native-app.envVars" -}}
+- name: "FIRST_CUSTOM_VAR"
+  value: "KOTLIN-NATIVE_VALUE_ONE"
+- name: "SECOND_CUSTOM_VAR"
+  value: "KOTLIN-NATIVE_VALUE_TWO"
+{{- end }}
