@@ -43,6 +43,7 @@ spec:
                 secretKeyRef:
                   name: credentials
                   key: password
+            {{ include "python-app.pythonEnvs" . | nindent 12 }}
           livenessProbe:
             httpGet:
               path: /healthcheck

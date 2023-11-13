@@ -45,6 +45,8 @@ spec:
             httpGet:
               path: /healthcheck
               port: 8070
+          env:
+          {{ include "go-app.goEnvs" . | nindent 12 }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           {{- with .Values.volumeMounts }}
