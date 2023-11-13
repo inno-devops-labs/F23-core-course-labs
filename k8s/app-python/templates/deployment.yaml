@@ -24,7 +24,7 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "app-python.serviceAccountName" . }}
+      serviceAccountName: internal-app
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
@@ -51,6 +51,13 @@ spec:
           volumeMounts:
             {{- toYaml . | nindent 12 }}
           {{- end }}
+          env:
+          {{- include "app-python.envVars" . | nindent 12 }}
+            - name: "SECRET-PASS"
+              valueFrom:
+                secretKeyRef:
+                  name: secret-pass
+                  key: pass_data
       {{- with .Values.volumes }}
       volumes:
         {{- toYaml . | nindent 8 }}
