@@ -60,3 +60,10 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{- define "app-js.envVars" -}}
+- name: "VAR1"
+  value: "value1"
+- name: "VAR2"
+  value: "value2"
+{{- end }}
