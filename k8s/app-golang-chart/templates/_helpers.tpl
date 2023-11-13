@@ -60,3 +60,16 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{/*
+Secrets
+*/}}
+{{- define "app-golang-chart.secrets" -}}
+{{- range $secret := .Values.secrets }}
+- name: {{ $secret.name | quote }}
+  valueFrom:
+    secretKeyRef:
+      name: "app-golang-secret"
+      key: {{ $secret.key | quote }}
+{{- end }}
+{{- end }}

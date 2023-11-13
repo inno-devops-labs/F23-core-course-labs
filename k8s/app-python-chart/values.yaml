@@ -96,3 +96,7 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+secrets:
+  - name: WHOAMI_SECRET
+    key: whoami
