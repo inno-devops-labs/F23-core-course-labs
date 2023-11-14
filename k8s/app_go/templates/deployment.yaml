@@ -3,14 +3,14 @@ kind: Deployment
 metadata:
   name: {{ include "app-golang.fullname" . }}
   labels:
-    {{- include "app-golang.labels" . | nindent 4 }}
+    {{- include "library-chart.labels" . | indent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "app-golang.selectorLabels" . | nindent 6 }}
+      {{- include "library-chart.labels" . | indent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -18,10 +18,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "app-golang.labels" . | nindent 8 }}
-	{{- with .Values.podLabels }}
-        {{- toYaml . | nindent 8 }}
-        {{- end }}
+        {{- include "library-chart.labels" . | indent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -54,6 +51,8 @@ spec:
           volumeMounts:
             {{- toYaml . | nindent 12 }}
           {{- end }}
+          env:
+          {{ include "app-golang.myEnvs" . | nindent 12 }}
       {{- with .Values.volumes }}
       volumes:
         {{- toYaml . | nindent 8 }}
