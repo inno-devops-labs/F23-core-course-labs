@@ -15,6 +15,15 @@ serviceAccount:
   annotations: {}
   name: ""
 
+podAnnotations: {
+  vault.hashicorp.com/agent-inject: 'true',
+  vault.hashicorp.com/agent-inject-status: 'update',
+  vault.hashicorp.com/role: 'internal-app',
+  vault.hashicorp.com/agent-inject-secret-database-config.txt: 'internal/data/database/config',
+  vault.hashicorp.com/agent-inject-template-database-config.txt: '{{- with secret "internal/data/database/config" -}}Bearer token: {{ .Data.data.token }}{{- end -}}'
+}
+podLabels: { }
+
 podAnnotations: {}
 podLabels: {}
 
@@ -37,7 +46,13 @@ ingress:
           pathType: ImplementationSpecific
   tls: []
 
-resources: {}
+resources:
+  requests:
+    memory: "64Mi"
+    cpu: "250m"
+  limits:
+    memory: "128Mi"
+    cpu: "500m"  
 
 autoscaling:
   enabled: false
