@@ -3,14 +3,14 @@ kind: Deployment
 metadata:
   name: {{ include "helm-app.fullname" . }}
   labels:
-    {{- include "labels-libchart.labels" . | nindent 4 }}
+    {{- include "helm-app.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "labels-libchart.labels" . | nindent 6 }}
+      {{- include "helm-app.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -18,8 +18,8 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "labels-libchart.labels" . | nindent 8 }}
-	{{- with .Values.podLabels }}
+        {{- include "helm-app.labels" . | nindent 8 }}
+	      {{- with .Values.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
     spec:
@@ -40,6 +40,12 @@ spec:
             - name: http
               containerPort: {{ .Values.service.port }}
               protocol: TCP
+          env:
+            - name: PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: secret-base
           livenessProbe:
             httpGet:
               path: /

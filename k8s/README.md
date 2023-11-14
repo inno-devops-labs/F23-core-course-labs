@@ -64,7 +64,7 @@ python-app   NodePort    10.96.121.224    <none>        8000:32713/TCP   3s
 ```
 
 ### Minikub Service
-`minikub service --all`
+`minikube service --all`
 
 ```
 |-----------|--------|-------------|---------------------------|
