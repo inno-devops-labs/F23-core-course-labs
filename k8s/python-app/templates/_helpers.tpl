@@ -60,3 +60,16 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{- define "python-app.mySecrets" -}}
+{{- if not .Values.secretData.secretName }}
+- name: MY_PASSWORD
+  value: ""
+{{- else }}
+- name: MY_PASSWORD
+  valueFrom:
+    secretKeyRef:
+          name: {{ .Values.secretData.secretName }}
+          key: {{ .Values.secretData.secretKey }}
+{{- end }}
+{{- end }}

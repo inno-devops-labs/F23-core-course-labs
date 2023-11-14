@@ -43,6 +43,8 @@ spec:
             - name: http
               containerPort: {{ .Values.service.port }}
               protocol: TCP
+          env:
+            {{- include "python-app.mySecrets" . | indent 12 }}
           livenessProbe:
             httpGet:
               path: /
