@@ -60,3 +60,11 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{/*
+Environment variables
+*/}}
+{{- define "app-go.env" -}}
+- name: GO_ENV
+  value: "go_value"
+{{- end }}

@@ -17,7 +17,7 @@ COPY . .
 RUN CGO_ENABLED=0 GOOS=linux go build -o app_go && echo "user:x:1000:1000:User:/:" > /etc_passwd
 
 
-FROM scratch AS final
+FROM alpine:3.18.3 AS final
 
 # Set working directory
 WORKDIR /
