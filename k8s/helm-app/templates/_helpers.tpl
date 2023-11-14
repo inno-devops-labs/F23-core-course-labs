@@ -60,3 +60,15 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{/*
+Environment variables
+*/}}
+{{- define "var-1.env" -}}
+- name: VAR_2
+  value: "ABC"
+{{- end }}
+{{- define "var-2.env" -}}
+- name: VAR_1
+  value: "DEF"
+{{- end }}
