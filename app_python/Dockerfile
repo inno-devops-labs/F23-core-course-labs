@@ -8,7 +8,7 @@ COPY requirements/base.txt /app/
 RUN pip install --no-cache-dir -r /app/base.txt && cp $(which uvicorn) /app
 
 
-FROM gcr.io/distroless/python3:latest
+FROM python:3.10-slim
 
 COPY --from=builder /usr/local/lib/python3.10 /usr/local/lib/python3.10
 COPY --from=builder /usr/local/bin /usr/local/bin
