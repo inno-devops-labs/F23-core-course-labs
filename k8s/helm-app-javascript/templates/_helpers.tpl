@@ -60,3 +60,20 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+
+{{/*
+Define secret envs
+*/}}
+{{- define "helm-app-javascript.envsecrets" -}}
+{{- if .Values.secret.name }}
+- name: "MY_PASS"
+  valueFrom:
+    secretKeyRef:
+      name: {{ .Values.secret.name }}
+      key: {{ .Values.secret.key }}
+{{- else }}
+- name: "None"
+  value: ""
+{{- end }}
+{{- end }}
