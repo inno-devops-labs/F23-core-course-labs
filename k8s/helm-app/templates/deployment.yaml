@@ -41,11 +41,8 @@ spec:
               containerPort: {{ .Values.service.port }}
               protocol: TCP
           env:
-            - name: PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  key: password
-                  name: secret-base
+            {{- include "app-1.env" . | nindent 12 }}
+            {{- include "app-2.env" . | nindent 12 }}
           livenessProbe:
             httpGet:
               path: /
