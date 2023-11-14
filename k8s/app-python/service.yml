@@ -3,6 +3,7 @@ kind: Service
 metadata:
   name: app-python-time-service
 spec:
+  type: NodeBalancer
   selector:
     app: app-python-time
   ports:
