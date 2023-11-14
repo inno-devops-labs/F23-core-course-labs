@@ -45,6 +45,8 @@ spec:
           #   httpGet:
           #     path: /
           #     port: http
+          env:
+          {{ include "typescript-app.tsEnvs" . | nindent 12 }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
