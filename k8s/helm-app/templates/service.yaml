@@ -1,12 +1,15 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: "{{ .Values.service.name }}"
+  name: {{ include "helm-app.fullname" . }}
+  labels:
+    {{- include "helm-app.labels" . | nindent 4 }}
 spec:
-  selector:
-    app: "{{ .Values.metaData.appName }}"
+  type: {{ .Values.service.type }}
   ports:
-    - protocol: TCP
-      port: {{ .Values.service.port }}
-      targetPort: {{ .Values.service.port }}
-  type: LoadBalancer
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "helm-app.selectorLabels" . | nindent 4 }}
