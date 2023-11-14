@@ -25,7 +25,14 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template
   name: ""
 
-podAnnotations: {}
+podAnnotations: 
+  vault.hashicorp.com/agent-inject: 'true'
+  vault.hashicorp.com/agent-inject-status: 'update'
+  vault.hashicorp.com/role: 'moscow-time'
+  vault.hashicorp.com/agent-inject-template-plain-password-config.txt: |
+    {{- with secret "internal/data/creds/config" -}}
+    {{ .Data.data.password }}
+    {{- end -}}
 podLabels: {}
 
 podSecurityContext: {}
@@ -96,3 +103,6 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+
+password: "Z29vZF9rdWJlcg=="
