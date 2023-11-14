@@ -60,3 +60,13 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{/*
+Env variables
+*/}}
+{{- define "app-kotlin.envVariables" -}}
+- name: "EXTERNAL_SERVICE_URL"
+  value: "https://new-url:8083"
+- name: "IS_RETRY_STRATEGY_ON"
+  value: "false"
+{{- end }}
