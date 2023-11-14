@@ -1,7 +1,20 @@
 version: "3"
 
 networks:
-  loki:
+  inner_network:
+
+x-logging: &logger
+  driver: "json-file"
+  options:
+    max-size: "64m"
+    max-file: "2"
+    tag: "{{.ImageName}}|{{.Name}}|{{.ImageFullID}}|{{.FullID}}"
+
+x-healthcheck: &healthcheck
+  interval: 15s
+  timeout: 5s
+  retries: 3
+  start_period: 3s
 
 services:
   python_app:
@@ -9,16 +22,32 @@ services:
     container_name: python_app
     ports:
       - "8000:8000"
-    logging: &logger
-      driver: "json-file"
-      options:
-        tag: "{{.ImageName}}|{{.Name}}|{{.ImageFullID}}|{{.FullID}}"
+    networks:
+      - inner_network
+    deploy:
+        resources:
+          limits:
+            memory: 256m
+    healthcheck:
+      test: ["CMD-SHELL", "wget --quiet --spider --timeout=1 http://localhost:8000/healthz || exit 1"]
+      <<: *healthcheck
+    logging:
+      <<: *logger
 
   c_sharp_app:
     image: nabiull2020/programmer-profile-asp-net:latest
     container_name: c_sharp_app
     ports:
       - "8080:80"
+    networks:
+      - inner_network
+    deploy:
+        resources:
+          limits:
+            memory: 256m
+    healthcheck:
+      test: ["CMD-SHELL", "wget --quiet --spider --timeout=1 http://localhost:80/healthz || exit 1"]
+      <<: *healthcheck
     logging:
       <<: *logger
 
@@ -29,7 +58,14 @@ services:
       - "3100:3100"
     command: -config.file=/etc/loki/local-config.yaml
     networks:
-      - loki
+      - inner_network
+    deploy:
+        resources:
+          limits:
+            memory: 256m
+    healthcheck:
+      test: ["CMD-SHELL", "wget --quiet --spider --timeout=1 http://localhost:3100/ready || exit 1"]
+      <<: *healthcheck
     logging:
       <<: *logger
 
@@ -41,7 +77,14 @@ services:
       - ./configs/promtail:/etc/promtail/configs
     command: -config.file=/etc/promtail/configs/promtail.yaml
     networks:
-      - loki
+      - inner_network
+    deploy:
+        resources:
+          limits:
+            memory: 256m
+    healthcheck:
+      test: ["CMD-SHELL", "timeout 5 bash -c 'cat < /dev/null > /dev/tcp/localhost/9080' || exit 1"]
+      <<: *healthcheck
     logging:
       <<: *logger
 
@@ -57,6 +100,32 @@ services:
     volumes:
       - ./configs/grafana/datasources:/etc/grafana/provisioning/datasources
     networks:
-      - loki
+      - inner_network
+    deploy:
+        resources:
+          limits:
+            memory: 512m
+    healthcheck:
+      test: ["CMD-SHELL", "wget --quiet --spider --timeout=1 http://localhost:3000/api/health || exit 1"]
+      <<: *healthcheck
+    logging:
+      <<: *logger
+
+  prometheus:
+    image: prom/prometheus:v2.47.2
+    volumes:
+      - ./configs/prometheus:/etc/prometheus
+    command: '--config.file=/etc/prometheus/prometheus.yaml'
+    ports:
+      - "9090:9090"
+    networks:
+      - inner_network
+    deploy:
+      resources:
+        limits:
+          memory: 512m
+    healthcheck:
+      test: ["CMD-SHELL", "wget --quiet --spider --timeout=1 http://localhost:9090/-/healthy || exit 1"]
+      <<: *healthcheck
     logging:
       <<: *logger
