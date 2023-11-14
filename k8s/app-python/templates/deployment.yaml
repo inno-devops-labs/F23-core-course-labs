@@ -49,6 +49,7 @@ spec:
                 secretKeyRef:
                   name: credentials
                   key: password
+            {{- include "app-python.variables" . | indent 12 }}
           ports:
             - name: http
               containerPort: 8000
@@ -62,7 +63,12 @@ spec:
               path: /
               port: http
           resources:
-            {{- toYaml .Values.resources | nindent 12 }}
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
           {{- with .Values.volumeMounts }}
           volumeMounts:
             {{- toYaml . | nindent 12 }}
