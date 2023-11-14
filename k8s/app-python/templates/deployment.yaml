@@ -53,6 +53,7 @@ spec:
                 secretKeyRef:
                   name: credentials
                   key: secret
+            {{- include "app-python.bonusEnv" . | nindent 12 }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
