@@ -1,0 +1,9 @@
+---
+- name: Web App role
+  block:
+    - name: Stop app
+      import_tasks: stop_app.yml
+    - name: Wipe app
+      import_tasks: wipe_app.yml
+    - name: Deploy app
+      import_tasks: deploy_app.yml

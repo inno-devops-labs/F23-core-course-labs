@@ -1,0 +1,13 @@
+---
+- name: Deploy Python app in Docker
+  hosts: localhost
+  become: yes
+  roles:
+    - name: web_app
+      vars:
+        docker_container: 'python_app'
+        docker_image_name: 'nabiull2020/moscow-time-flask-app'
+        docker_image_version: 'latest'
+        internal_port: 8000
+        external_port: 8000
+        app_name: 'python_app'

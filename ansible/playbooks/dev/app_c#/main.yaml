@@ -1,0 +1,13 @@
+---
+- name: Deploy C# app in Docker
+  hosts: localhost
+  become: yes
+  roles:
+    - name: web_app
+      vars:
+        docker_container: 'c_sharp_app'
+        docker_image_name: 'nabiull2020/programmer-profile-asp-net'
+        docker_image_version: 'latest'
+        internal_port: 80
+        external_port: 8080
+        app_name: 'c_sharp_app'
