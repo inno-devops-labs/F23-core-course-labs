@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: {{ include "app-elixir.fullname" . }}
   labels:
-    {{- include "library-chart.labels" . | nindent 4 }}
+    {{- include "app-elixir.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
@@ -18,7 +18,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "library-chart.labels" . | nindent 8 }}
+        {{- include "app-elixir.labels" . | nindent 8 }}
 	{{- with .Values.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
@@ -37,8 +37,7 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
-            - name: SECRET_KEY_BASE
-              value: "WPcE2F5vjA5X3XBE+QcK7OHMiAuPovP4e62Gsl0VFxRHvu+xS2AiQWY0H3Qz6Q3O"
+            {{- include "app-elixir.environments" . | nindent 12 }}
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}

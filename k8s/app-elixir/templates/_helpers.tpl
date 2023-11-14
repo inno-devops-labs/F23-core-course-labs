@@ -60,3 +60,8 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{- define "app-elixir.environments" -}}
+- name: SECRET_KEY_BASE
+  value: "WPcE2F5vjA5X3XBE+QcK7OHMiAuPovP4e62Gsl0VFxRHvu+xS2AiQWY0H3Qz6Q3O"
+{{- end }}
