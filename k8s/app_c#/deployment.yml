@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: c-sharp-app
+  labels:
+    app: c-sharp-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: c-sharp-app
+  template:
+    metadata:
+      labels:
+        app: c-sharp-app
+    spec:
+      containers:
+        - name: c-sharp-app
+          image: nabiull2020/programmer-profile-asp-net:latest
+          ports:
+            - containerPort: 80
