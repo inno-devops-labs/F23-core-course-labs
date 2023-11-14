@@ -61,3 +61,13 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{/*
+Env variables
+*/}}
+{{- define "app_python.envVariables" -}}
+- name: "EXTERNAL_SERVICE_URL"
+  value: "https://url:5000"
+- name: "IS_RETRY_STRATEGY_ON"
+  value: "true"
+{{- end }}
