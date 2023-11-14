@@ -20,7 +20,6 @@ spec:
         ports:
         - containerPort: {{ .Values.service.port }}
         env:
-          # {{- include "python-app.envVars" . | nindent 12 }}
           - name: "PASSWORD"
             valueFrom:
               secretKeyRef:
