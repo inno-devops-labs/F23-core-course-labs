@@ -51,6 +51,12 @@ spec:
             {{- toYaml .Values.image.command | nindent 12 }}
           args: 
             {{- toYaml .Values.image.args | nindent 12 }}
+          env:
+            - name: "MY_PASS"
+              valueFrom:
+                secretKeyRef:
+                  name: mysecret
+                  key: pass_data
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
