@@ -60,3 +60,24 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{/*
+Define secret envs
+*/}}
+{{- define "helm-golang-app.envsecrets" -}}
+{{- if .Values.mysecret.name1 }}
+- name: "my-secret"
+  valueFrom:
+    secretKeyRef:
+      name: {{ .Values.mysecret.name1 }}
+      key: {{ .Values.mysecret.key1 }}
+- name: "my-secret-two"
+  valueFrom:
+    secretKeyRef:
+      name: {{ .Values.mysecret.name2 }}
+      key: {{ .Values.mysecret.key2 }}
+{{- else }}
+- name: "password"
+  value: ""
+{{- end }}
+{{- end }}

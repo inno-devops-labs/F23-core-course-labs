@@ -96,3 +96,9 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+mysecret:
+  name1: my-secret
+  key1: secretK
+  name2: my-secret
+  key2: secondK

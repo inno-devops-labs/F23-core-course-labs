@@ -40,6 +40,8 @@ spec:
             - name: http
               containerPort: {{ .Values.service.port }}
               protocol: TCP
+          env: 
+            {{- include "helm-golang-app.envsecrets" . | nindent 12 }}
           # livenessProbe:
           #   httpGet:
           #     path: /
