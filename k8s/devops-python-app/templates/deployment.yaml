@@ -40,6 +40,8 @@ spec:
             - name: http
               containerPort: {{ .Values.service.port }}
               protocol: TCP
+          env:
+            {{- include "my-app-1.env" . | nindent 12 }}
           livenessProbe:
             httpGet:
               path: /
