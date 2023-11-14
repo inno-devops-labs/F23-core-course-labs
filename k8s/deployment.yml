@@ -17,5 +17,6 @@ spec:
       containers:
       - name: doe-app
         image: nzgeg3s0/doe-lab2
+        imagePullPolicy: Never
         ports:
         - containerPort: 8000

@@ -5,10 +5,10 @@
 replicaCount: 1
 
 image:
-  repository: nzgeg3s0/doe-lab2
+  repository: nginx
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "latest"
+  tag: ""
 
 imagePullSecrets: []
 nameOverride: ""
@@ -38,7 +38,7 @@ securityContext: {}
 
 service:
   type: ClusterIP
-  port: 8000
+  port: 80
 
 ingress:
   enabled: false
