@@ -41,9 +41,11 @@ spec:
               containerPort: {{ .Values.service.port }}
               protocol: TCP
           env:
-            envFrom:
-              - configMapRef:
+            - name: SECRET_LAB
+              valueFrom:
+                configMapKeyRef:
                   name: env-configmap
+                  key: SECRET_LAB
             {{- include "app-helm.mapenvsecrets" . | indent 12 }}
           livenessProbe:
             httpGet:
