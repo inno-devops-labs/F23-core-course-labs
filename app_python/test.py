@@ -22,3 +22,4 @@ def test_time_changed(client):
     time.sleep(1)
     time2 = client.get("/").data.decode('utf-8')
     assert time1 != time2
+
