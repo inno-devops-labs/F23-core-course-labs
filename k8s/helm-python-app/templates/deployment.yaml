@@ -48,6 +48,12 @@ spec:
           #   httpGet:
           #     path: /
           #     port: http
+          env:
+            - name: HELM_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: helm-secrets
+                  key: password
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           {{- with .Values.volumeMounts }}
