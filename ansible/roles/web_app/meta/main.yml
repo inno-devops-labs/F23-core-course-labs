@@ -1,0 +1,8 @@
+galaxy_info:
+  author: eukuz
+  min_ansible_version: 2.1
+  platforms:
+    - name: Ubuntu
+      versions:
+        - all
+  dependencies: [docker]
