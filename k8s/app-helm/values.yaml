@@ -99,7 +99,7 @@ volumeMounts:
     mountPath: "/config.json"
     subPath: config.json
     readOnly: true
-  - name: visits
+  - name: visits-web
     mountPath: "/app/volume"
 
 configmap:
