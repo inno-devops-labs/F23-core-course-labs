@@ -28,3 +28,17 @@ podman run --rm -it -p 8080:8080 dvechtomova/app_python:latest
 ```
 poetry run python -m pytest
 ```
+
+## Usage
+
+### Get time
+
+```bash
+curl <ip or localhost>:<8080 or other port>
+```
+
+### Get visits
+
+```bash
+curl <ip or localhost>:<8080 or other port>/visits
+```
