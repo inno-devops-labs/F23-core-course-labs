@@ -41,6 +41,9 @@ spec:
               containerPort: {{ .Values.service.port }}
               protocol: TCP
           env:
+            envFrom:
+              - configMapRef:
+                  name: env-configmap
             {{- include "app-helm.mapenvsecrets" . | indent 12 }}
           livenessProbe:
             httpGet:
