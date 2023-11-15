@@ -60,3 +60,10 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{- Environmental Variables -}}
+- name: "VAR_1"
+  value: "var 1"
+- name: "VAR_2"
+  value: "var 2"
+{{- end }}
