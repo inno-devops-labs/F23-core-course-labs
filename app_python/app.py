@@ -52,4 +52,4 @@ def health_check():
 
 
 if __name__ == "__main__":
-    flask_app.run(host='0.0.0.0', debug=False)
+    flask_app.run(host='0.0.0.0', port=53075, debug=False)
