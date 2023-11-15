@@ -39,7 +39,7 @@ securityContext:
   #   drop:
   #   - ALL
   # readOnlyRootFilesystem: true
-  # runAsNonRoot: true
+  runAsNonRoot: false
   runAsUser: 0
 
 service:
