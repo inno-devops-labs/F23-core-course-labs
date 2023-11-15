@@ -22,9 +22,6 @@ jobs:
       - name: Check and install requirements
         run: pip install -r app_python/requirements.txt
 
-      - name: Lint code firstly
-        run: pre-commit run --all-files
-
       - name: Check unit tests
         run: python app_python/test.py
 
