@@ -77,3 +77,14 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+  {{- if .Values.pvc.create }}
+  volumeClaimTemplates:
+  - metadata:
+      name: {{ .Values.pvc.name }}
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: {{ .Values.pvc.storageClass }}
+      resources:
+        requests:
+          storage: {{ .Values.pvc.size }}
+  {{- end }}
