@@ -18,16 +18,14 @@ spec:
       containers:
       - name: python-web
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
         ports:
         - containerPort: {{ .Values.service.port }}
         env:
-          - name: "PASSWORD"
-            valueFrom:
-              secretKeyRef:
-                name: db-user-pass
-                key: password
-          - name: "USERNAME"
-            valueFrom:
-              secretKeyRef:
-                name: db-user-pass
-                key: username
+          {{- include "my-helm-app.envVars" . | nindent 12 }}
