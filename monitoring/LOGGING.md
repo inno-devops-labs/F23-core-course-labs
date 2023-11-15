@@ -36,3 +36,30 @@ Grafana includes tools for transforming time-series database data into informati
 2. Promtail config file creation according to standarts.
 
 3. Loki specification in terms of data source configuration.
+
+# Screenshots
+
+## Containers
+
+![Containers](./screenshots/containers.jpg)
+
+## Grafana
+
+![Grafana 1](./screenshots/grafana_1.jpg)
+![Grafana logs](./screenshots/grafana_logs.jpg)
+
+## Loki
+
+![Loki 1](./screenshots/loki_1.jpg)
+![Loki logs](./screenshots/loki_logs.jpg)
+
+## Python app
+
+![Python application 1](./screenshots/app_python_1.jpg)
+![Python application logs](./screenshots/app_python_logs.jpg)
+
+## Promtail
+
+![Promtail 1](./screenshots/promtail_1.jpg)
+![Promtail logs](./screenshots/promtail_logs.jpg)
+

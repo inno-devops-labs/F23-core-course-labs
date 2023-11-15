@@ -113,4 +113,3 @@ services:
       <<: *logger
     networks:
       - loki
-
