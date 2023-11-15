@@ -2,3 +2,4 @@ app_python/venv/
 *.log
 *.pyc
 __pycache__/
+.idea/
