@@ -5,6 +5,7 @@ metadata:
   labels:
     {{- include "app-helm.labels" . | nindent 4 }}
 spec:
+  podManagementPolicy: Parallel
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
