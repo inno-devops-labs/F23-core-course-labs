@@ -13,10 +13,11 @@ spec:
       {{- include "app-python.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-      {{- with .Values.podAnnotations }}
       annotations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+        vault.hashicorp.com/agent-inject: 'true'
+        vault.hashicorp.com/agent-inject-status: 'update'
+        vault.hashicorp.com/role: 'internal-app'
+        vault.hashicorp.com/agent-inject-secret-database-config.txt: 'internal/data/database/config'
       labels:
         {{- include "app-python.labels" . | nindent 8 }}
 	{{- with .Values.podLabels }}
@@ -27,7 +28,7 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "app-python.serviceAccountName" . }}
+      serviceAccountName: internal-app
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
