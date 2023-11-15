@@ -1,5 +1,6 @@
 flask
 pytest
-gunicorn
 pre-commit
 PyYAML
+pytz
+flake8
