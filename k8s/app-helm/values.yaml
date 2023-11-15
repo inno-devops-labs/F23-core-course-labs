@@ -102,6 +102,9 @@ volumeMounts:
   - name: visits
     mountPath: "/app/volume"
 
+configmap:
+  enabled: false
+
 nodeSelector: {}
 
 tolerations: []
