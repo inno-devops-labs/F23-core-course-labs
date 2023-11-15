@@ -60,3 +60,8 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{- define "svelte-app.envVars" -}}
+- name: "SVELTE_APP_ENV"
+  value: "VAL2"
+{{- end }}

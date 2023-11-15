@@ -53,6 +53,8 @@ spec:
               port: 5173
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          env:
+            {{- include "svelte-app.envVars" . | nindent 12 }}
           {{- with .Values.volumeMounts }}
           volumeMounts:
             {{- toYaml . | nindent 12 }}
