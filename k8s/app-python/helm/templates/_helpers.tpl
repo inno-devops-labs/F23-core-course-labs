@@ -27,3 +27,10 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{- define "app-python.customEnv" }}
+- name: APP_NAME
+  value: "unpyclock"
+- name: CUSTOM_ENV_VARIABLE
+  value: "SUPER_HOT"
+{{- end }}

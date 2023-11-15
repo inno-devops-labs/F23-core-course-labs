@@ -37,3 +37,11 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+
+{{- define "app-go.customEnv" }}
+- name: APP_NAME
+  value: "goredirector"
+- name: CUSTOM_ENV_VARIABLE
+  value: "SUPER_HOT"
+{{- end }}

@@ -13,10 +13,10 @@ spec:
       {{- include "libchart.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-      {{- with .Values.podAnnotations }}
       annotations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+          vault.hashicorp.com/agent-inject: 'true'
+          vault.hashicorp.com/role: 'internal-app'
+          vault.hashicorp.com/agent-inject-secret-database-config.txt: 'internal/data/database/config'
       labels:
         {{- include "libchart.labels" . | nindent 8 }}
 	      {{- with .Values.podLabels }}
@@ -27,7 +27,7 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "app-python.serviceAccountName" . }}
+      serviceAccountName: internal-app
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
@@ -36,6 +36,13 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: SECRET 
+              valueFrom:
+                secretKeyRef:
+                  name: secret
+                  key: secret
+            {{ include "app-python.customEnv" . | nindent 12 }}
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
