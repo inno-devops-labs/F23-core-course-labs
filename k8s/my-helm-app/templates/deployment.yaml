@@ -14,6 +14,7 @@ spec:
       labels:
         app: {{ .Values.deployment.label }}
     spec:
+      serviceAccountName: {{ .Values.deployment.serviceAccountName }}
       containers:
       - name: python-web
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
