@@ -19,7 +19,10 @@ Path('./volume').mkdir(exist_ok=True)
 def read_root():
     try:
         with open('./volume/visits') as f:
-            visits = int(f.read())
+            try:
+              visits = int(f.read())
+            except ValueError:
+              visits = 0
     except FileNotFoundError:
         visits = 0
 
@@ -34,7 +37,10 @@ def read_root():
 def read_visits():
     try:
         with open('./volume/visits') as f:
-            visits = int(f.read())
+            try:
+              visits = int(f.read())
+            except ValueError:
+              visits = 0
     except FileNotFoundError:
         visits = 0
 
