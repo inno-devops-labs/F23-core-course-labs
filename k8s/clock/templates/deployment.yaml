@@ -40,6 +40,12 @@ spec:
             - name: http
               containerPort: 8000
               protocol: TCP
+          env:
+          - name: MY_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: credentials
+                key: password
           # livenessProbe:
           #   httpGet:
           #     path: /
