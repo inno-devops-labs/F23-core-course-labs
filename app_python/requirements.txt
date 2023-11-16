@@ -1,5 +1,6 @@
 flask
+pytz
 pytest
-gunicorn
-pre-commit
-PyYAML
+flake8
+waitress
+prometheus-flask-exporter

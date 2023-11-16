@@ -1,18 +1,17 @@
-# Dockerfile, Image, Container
-FROM python:3.9.6
+FROM python:3.9
 
 WORKDIR /app
 
-COPY requirements.txt .
+COPY . /app/
 
-RUN pip install --no-cache-dir -r requirements.txt \ 
-    && addgroup -S app && adduser -S app -G app \
-    && chown -R app:app . 
+COPY requirements.txt /app/
 
-COPY . .
+RUN pip install --upgrade pip && pip install --no-cache-dir -r requirements.txt
+
+RUN useradd --create-home myuser && chown -R myuser /app
+
+USER myuser
 
 EXPOSE 5000
 
-USER app
-
-CMD ["gunicorn", "--bind", "127.0.0.1:5000", "main.py"]
+CMD [ "python", "main.py" ]
