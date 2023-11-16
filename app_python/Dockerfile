@@ -8,6 +8,9 @@ WORKDIR /app
 RUN python3 -m venv /app/env
 ENV PATH="/app/env/bin:$PATH"
 
+RUN mkdir volume && \
+  touch volume/visits.txt
+
 COPY requirements.txt .
 RUN pip install --trusted-host pypi.python.org -r requirements.txt
 

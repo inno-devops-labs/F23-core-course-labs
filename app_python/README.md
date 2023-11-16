@@ -81,3 +81,8 @@ The GitHub Actions configuration used in this project has three jobs: Snyk, Buil
 - Publish — builds an image and tags it :latest, pushes the image to the docker hub
 
 The workflow is triggered only on changes in the ./app_python directory or in the workflow configuration itself
+
+## App Routes
+
+- `/` - get current Moscow time
+- `/visits` - get times array when the route '/' was visited
