@@ -91,12 +91,12 @@ pvc:
   create: true
   name: visits-rust
   size: 1Mi
-  storageClass: standard
+  storageClass: hostpath
 
 # Additional volumeMounts on the output Deployment definition.
 volumeMounts:
   - name: visits-rust
-    mountPath: "/app/volume"
+    mountPath: "/init"
 
 configmap:
   enabled: false
