@@ -54,6 +54,17 @@ spec:
                   name: credentials
                   key: secret
             {{- include "app-python.bonusEnv" . | nindent 12 }}
+          envFrom:
+            - configMapRef:
+                name: config
+          volumeMounts:
+            - name: config-volume
+              mountPath: /app/config.json
+              subPath: config.json
+      volumes:
+        - name: config-volume
+          configMap:
+            name: config
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

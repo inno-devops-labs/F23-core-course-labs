@@ -4,7 +4,10 @@ defmodule WatchWeb.WatchController do
   plug(:fetch_query_params)
   plug(:fetch_cookies, keys: [:timezone])
 
+  @counter_name "counter.txt"
+
   def index(conn, %{"tz" => tz}) do
+    log_visit()
     case DateTime.now(tz) do
       {:ok, time} ->
         Phoenix.Controller.html(conn, """
@@ -23,6 +26,7 @@ defmodule WatchWeb.WatchController do
   end
 
   def index(conn, _params) do
+    log_visit()
     case DateTime.now(conn.cookies["timezone"]) do
       {:ok, time} ->
         Phoenix.Controller.html(conn, """
@@ -40,5 +44,18 @@ defmodule WatchWeb.WatchController do
           <script>document.cookie = "timezone="+Intl.DateTimeFormat().resolvedOptions().timeZone;</script>
         """)
     end
+  end
+
+  def visits(conn, _params) do
+    count = File.stream!(@counter_name)
+    |> Enum.count()
+
+    Phoenix.Controller.html(conn, "#{count}")
+  end
+
+  defp log_visit() do
+    {:ok, file} = File.open(@counter_name, [:append])
+    IO.binwrite(file, "x\n")
+    File.close(file)
   end
 end

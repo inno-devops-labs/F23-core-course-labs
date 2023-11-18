@@ -10,4 +10,5 @@ defmodule WatchWeb.Router do
   end
 
   get("/", WatchWeb.WatchController, :index)
+  get("/visits", WatchWeb.WatchController, :visits)
 end
