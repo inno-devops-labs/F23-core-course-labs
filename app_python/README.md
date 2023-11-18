@@ -1,4 +1,3 @@
-
 ![example workflow](https://github.com/sl1depengwyn/core-course-labs/actions/workflows/python_ci.yml/badge.svg)
 
 # Pywatch
@@ -33,6 +32,14 @@ Then you can check the time in Moscow by visiting `http://127.0.0.1:8000`:
 ```bash
 curl http://127.0.0.1:8000 # "2023-09-05T23:25:40.902380+03:00"
 ```
+
+Also, there is a `/visits` endpoint where you can check how many times the application has been visited, cool isn't it?
+
+```bash
+curl 127.0.0.1:8000/visits # 42
+```
+
+The application counts how many time it has been visited by appending `x`s to counter.txt file.
 
 ## Docker
 

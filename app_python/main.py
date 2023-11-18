@@ -16,4 +16,19 @@ async def root() -> datetime:
     :rtype: str
     """
     now = datetime.now(tz=ZoneInfo('Europe/Moscow'))
+    with open("counter.txt", "a+") as f:
+        f.write("x\n")
     return now
+
+
+@app.get("/visits")
+async def visits() -> int:
+    """
+    Count visits to the application.
+
+    :return: The number of visits.
+    :rtype: int
+    """
+    with open("counter.txt", "r") as f:
+        visits = len(f.readlines())
+    return visits
