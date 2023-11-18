@@ -27,18 +27,34 @@ public class GitHubApiClient : IGitHubApiClient
 
     public async Task<ProfileDto?> GetProfile(string userName)
     {
-        var response = await GetResponse($"{Url}/{userName}");
-        return JsonConvert.DeserializeObject<ProfileDto>(response);
+        try
+        {
+            var response = await GetResponse($"{Url}/{userName}");
+            return JsonConvert.DeserializeObject<ProfileDto>(response);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.ToString());
+            return null;
+        }
     }
 
     public async Task<List<GitHubRepository>> GetRepositories(string userName)
     {
-        var response = await GetResponse($"{Url}/{userName}/repos");
-        var deserializeObject = JsonConvert.DeserializeObject<GitHubRepository[]>(response);
+        try
+        {
+            var response = await GetResponse($"{Url}/{userName}/repos");
+            var deserializeObject = JsonConvert.DeserializeObject<GitHubRepository[]>(response);
 
-        return deserializeObject == null
-            ? new List<GitHubRepository>()
-            : deserializeObject.ToList();
+            return deserializeObject == null
+                ? new List<GitHubRepository>()
+                : deserializeObject.ToList();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.ToString());
+            return new List<GitHubRepository>();
+        }
     }
 
     private async Task<string> GetResponse(string uri)
