@@ -9,7 +9,7 @@ def index(request):
 
 
 def visits(request):
-    with open('visit-counter.txt', 'r+') as file:
+    with open("visit-counter.txt", "r+") as file:
         try:
             visits_count = int(file.readline().strip())
         except Exception:
