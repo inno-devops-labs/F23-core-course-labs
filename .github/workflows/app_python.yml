@@ -1,12 +1,12 @@
-name: Pipeline for Python app
+name: app_python pipeline
 
 on:
   push:
-    branches: [ "lab3", "main" ]
-    paths: [ "app_python/**", ".github/workflows/app_python.yml" ]
+    branches: ["lab*", "main"]
+    paths: ["app_python/**", ".github/workflows/app_python.yml"]
   pull_request:
-    branches: [ "main" ]
-    paths: [ "app_go/**", ".github/workflows/app_go.yml" ]
+    branches: ["main"]
+    paths: ["app_go/**", ".github/workflows/app_go.yml"]
 
 permissions:
   contents: read
