@@ -24,3 +24,8 @@ services:
       timeout: 10s
       retries: 3
       start_period: 5s
+    volumes:
+      - '{{ web_app_name }}_visits:/app/volume/'
+
+volumes:
+  '{{ web_app_name }}_visits:'
