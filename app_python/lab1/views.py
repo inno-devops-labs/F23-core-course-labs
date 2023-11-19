@@ -5,7 +5,7 @@ from django.http import HttpResponse
 
 
 def index(request):
-    return HttpResponse("time: " + str(datetime.now(tz=ZoneInfo("Europe/Moscow"))))
+    return HttpResponse(str(datetime.now(tz=ZoneInfo("Europe/Moscow"))))
 
 
 def visits(request):
