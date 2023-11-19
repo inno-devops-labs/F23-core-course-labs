@@ -26,6 +26,12 @@ parser.add_argument("-prod", "--production", action='store_true')
 @app.route('/')
 @metrics.counter('index_page_counter', 'Index page counter')
 def show_time():
+    with open('./volume/visits', 'r') as f:
+        visits = int(f.read()) + 1
+
+    with open('./volume/visits', 'w') as f:
+        f.write(str(visits))
+
     # Get current time in Moscow timezone
     time_now = datetime.now(MSK_TIMEZONE).strftime('%H:%M:%S')
     logger.info(msg=f'Method: GET Response: {time_now}')
@@ -36,6 +42,18 @@ def show_time():
 def health_check():
     return app.response_class(
         response="OK",
+        status=200,
+        mimetype="text/plain"
+    )
+
+
+@app.route("/visits")
+def get_visits():
+    with open('./volume/visits', 'r') as f:
+        visits = f.read()
+
+    return app.response_class(
+        response=str(visits),
         status=200,
         mimetype="text/plain"
     )

@@ -37,4 +37,6 @@ app.MapControllerRoute(
 
 app.MapHealthChecks("/healthz");
 
+app.MapControllers();
+
 app.Run();

@@ -19,4 +19,15 @@
 
 
 
+
+
+
+    <ItemGroup>
+      <None Update="volume\visits">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
+
+
 </Project>
