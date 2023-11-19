@@ -19,6 +19,8 @@
 
 Simple web app to show time at Moscow timezone. This app was created for course of DevOps engineering in Innopolis University.
 
+Moreover, you can mount your volume folder to `/volume/` folder inside container. Now app uses this folder to save visits inside `visits` file. `/visits` endpoint returns this number.
+
 ## Pre-requirements
 
 - Docker

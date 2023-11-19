@@ -22,6 +22,8 @@ Simple web app to show programmer profile. At this moment applications shows onl
 Main page shows my github profile. It is possible to check any public github profile using endpoint
 `/profile/get/{username}`.
 
+Moreover, you can mount your volume folder to `/volume/` folder inside container. Now app uses this folder to save visits inside `visits` file. `/visits` endpoint returns this number.
+
 ## Pre-requirements
 
 - Docker

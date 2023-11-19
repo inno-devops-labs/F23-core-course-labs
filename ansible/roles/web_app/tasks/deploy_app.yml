@@ -23,6 +23,18 @@
         state: directory
         mode: 0755
 
+    - name: Create directory for Volume
+      file:
+        path: "{{ volume_path }}"
+        state: directory
+        mode: 0755
+
+    - name: Copy Volume file
+      template:
+        src: "{{ volume_file_name }}.j2"
+        dest: "{{ volume_file_path }}"
+        mode: 0777
+
     - name: Run Docker Compose by template
       template:
         src: "{{ docker_compose_file }}.j2"

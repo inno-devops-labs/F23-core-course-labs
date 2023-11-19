@@ -17,3 +17,8 @@ app_dir: "/{{ app_name }}"
 docker_compose_path: "{{ app_dir }}/docker-compose"
 docker_compose_file: 'docker-compose.yml'
 docker_compose_file_path: "{{ docker_compose_path }}/{{ docker_compose_file }}"
+
+# Volume
+volume_file_name: 'visits'
+volume_path: "{{ app_dir }}/docker-compose/volume"
+volume_file_path: "{{ volume_path }}/{{ volume_file_name }}"
