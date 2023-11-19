@@ -1,4 +1,5 @@
 """App Python main file that runs FastAPI"""
+import os
 import threading
 from datetime import datetime
 
@@ -11,6 +12,7 @@ from app_python.src import config
 app = FastAPI()
 mutex = threading.Lock()
 visits_file_path = "data/visits"
+os.makedirs("data", exist_ok=True)
 
 
 @app.get("/")
