@@ -1,10 +1,15 @@
 ![CI status badge](https://github.com/Klemencya/core-course-labs/actions/workflows/python-app-ci.yml/badge.svg?event=push&branch=lab3)
 
-
 # Current Moscow time application
 
 This application is using standard Python libraries `datetime` and `zoneinfo` to respond with current moscow time on a
 simple GET / request. The application based on Django framework.
+
+## Visit counter update
+An endpoint `/visit` shows how many times the page was opened. The application uses a file `visit-counter.txt` to
+persist this state throughout all the launches to make sure this value does not drop after restarts.
+
+Docker compose configuration is adding this file as a volume to the docker container.
 
 ## How to run
 
@@ -62,7 +67,7 @@ My CI workflow for the python app contains 2 main jobs with substeps:
     - install requirements via `pip`
     - Runs linters checks via `pylint` and `black`
     - Runs Django tests via `python manage.py test`
-    - Performs SNYK code scanning and uploads its `.SARIF` report to github security 
+    - Performs SNYK code scanning and uploads its `.SARIF` report to github security
 2. Push to dockerhub
     - Performs checkout
     - Login to dockerhub on my personal account
@@ -85,3 +90,5 @@ To implement it I did **not** use ready [ci action for python](https://github.co
 because I would have to reinstall all the pip requirements again to ensure SNYK would find it in its Docker container.
 Instead, I've installed the SNYK CLI ([via action](https://github.com/snyk/actions/blob/master/setup/action.yml))
 and now my SNYK is using ready python environment with all needed dependencies installed.
+
+
