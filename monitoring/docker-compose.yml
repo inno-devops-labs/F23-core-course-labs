@@ -15,7 +15,7 @@ x-healthcheck: &healthcheck
 
 services:
   app_python:
-    image: yesliesnayder/app_python:1.0.5
+    image: yesliesnayder/app_python:1.0.6
     ports:
       - "8000:8000"
     deploy:
@@ -27,6 +27,8 @@ services:
       <<: *healthcheck
     logging:
       <<: *logging
+    volumes:
+      - ./app_python_data:/data
 
   app_golang:
     image: yesliesnayder/webservicego:1.0.0

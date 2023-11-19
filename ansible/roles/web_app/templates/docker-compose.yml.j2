@@ -4,3 +4,5 @@ services:
     image: {{ app_container_image }}
     container_name: {{ app_container_name }}
     ports: {{ app_container_ports }}
+    volumes:
+      - {{ app_visits_file }}:/data

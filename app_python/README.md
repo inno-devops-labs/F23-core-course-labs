@@ -5,6 +5,8 @@
 This is application to show current time in specified region (timezone).
 Initially, it shows Moscow time.
 
+Also, it shows how many times it was accessed. You can check it on `/visits` endpoint.
+
 ## How to run
 
 ### Virtual environment
