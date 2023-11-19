@@ -1,15 +1,12 @@
-# This workflow will build a golang project
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-go
-
-name: Pipeline for Go app
+name: app_go pipeline
 
 on:
   push:
-    branches: [ "main", "lab*" ]
-    paths: [ "app_go/**", ".github/workflows/app_go.yml" ]
+    branches: ["main", "lab*"]
+    paths: ["app_go/**", ".github/workflows/app_go.yml"]
   pull_request:
-    branches: [ "main" ]
-    paths: [ "app_go/**", ".github/workflows/app_go.yml" ]
+    branches: ["main"]
+    paths: ["app_go/**", ".github/workflows/app_go.yml"]
 
 jobs:
   
@@ -30,13 +27,13 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
-          cache: false # no need to cache dependencies - the project has no external deps
+          cache: false
           go-version-file: app_go/go.mod
       - name: Test
         run: go test -v ./...
         working-directory: app_go
     
-  build: # verify build
+  build:
     runs-on: ubuntu-22.04
     steps:
     - uses: actions/checkout@v4
@@ -44,7 +41,7 @@ jobs:
       uses: actions/setup-go@v4
       with:
         go-version-file: app_go/go.mod
-        cache: false # no need to cache dependencies - the project has no external deps
+        cache: false
     - name: Build
       run: go build -v ./...
       working-directory: app_go
