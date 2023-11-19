@@ -1,5 +1,7 @@
 # Continuous Integration Lab
 
+## Overview
+
 In this lab assignment, you will delve into continuous integration (CI) practices by focusing on code testing, setting up Git Actions CI, and optimizing workflows. Additionally, you will have the opportunity to explore bonus tasks to enhance your CI knowledge. Follow the tasks below to complete the lab assignment.
 
 ## Task 1: Code Testing and Git Actions CI
@@ -37,7 +39,7 @@ In this lab assignment, you will delve into continuous integration (CI) practice
    - Create a `CI.md` file and document the best practices you've implemented.
 
 2. Implement Snyk Vulnerability Checks:
-   - Integrate Snyk into your CI workflow to identify and address vulnerabilities in your projects. You can refer to the [Python example](https://github.com/snyk/actions/tree/master/python-3.8) for guidance.
+   - Integrate Snyk into your CI workflow to identify and address vulnerabilities in your projects. You can refer to the [Python example](https://github.com/snyk/actions/tree/master/python-3.8) for guidance, check [another option](https://docs.snyk.io/integrations/snyk-ci-cd-integrations/github-actions-integration#use-your-own-development-environment) how to install dependencies if you face any issue.
 
 ## Bonus Task
 
