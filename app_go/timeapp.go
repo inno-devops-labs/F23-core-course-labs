@@ -31,6 +31,7 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 		MoscowTime: moscowTime,
 	}
 	color.Green("Request from " + r.RemoteAddr)
+	visitIncrement()
 	tpl_index.Execute(w, data)
 }
 
@@ -39,11 +40,11 @@ func healthHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 }
 
-func visitsHandler(w http.ResponseWriter, r *http.Request) {
+func visitIncrement() VisitData {
 	file, err := os.OpenFile("visits", os.O_RDWR|os.O_CREATE, 0666)
 	if err != nil {
-		http.Error(w, "Could not open file", http.StatusInternalServerError)
-		return
+		color.Red("Could not visit file")
+		return VisitData{}
 	}
 	defer file.Close()
 
@@ -51,8 +52,8 @@ func visitsHandler(w http.ResponseWriter, r *http.Request) {
 	var visitCount int
 	_, err = fmt.Fscan(file, &visitCount)
 	if err != nil && err != io.EOF {
-		http.Error(w, "Could not read file", http.StatusInternalServerError)
-		return
+		color.Red("Could not read file")
+		return VisitData{}
 	}
 
 	visitCount++
@@ -60,18 +61,21 @@ func visitsHandler(w http.ResponseWriter, r *http.Request) {
 	// Write the updated visit count back to the file
 	_, err = file.Seek(0, 0)
 	if err != nil {
-		http.Error(w, "Could not seek file", http.StatusInternalServerError)
-		return
+		color.Red("Could not seek file")
+		return VisitData{}
 	}
 	_, err = fmt.Fprint(file, visitCount)
 	if err != nil {
-		http.Error(w, "Could not write file", http.StatusInternalServerError)
-		return
+		color.Red("Could not write to file")
+		return VisitData{}
 	}
-	data := VisitData{
-		VisitCount: visitCount,
-	}
-	tpl_visits.Execute(w, data)
+	return VisitData{VisitCount: visitCount}
+}
+
+func visitsHandler(w http.ResponseWriter, r *http.Request) {
+	visitData := visitIncrement()
+	color.Green("Request from " + r.RemoteAddr + " on /visits")
+	tpl_visits.Execute(w, visitData)
 }
 
 func main() {

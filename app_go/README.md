@@ -3,6 +3,12 @@
 
 Time-app is a Go web application that displays the current time in Moscow.
 
+### Additional features
+App has endpoints:
+- `/metrics` that returns metrics in Prometheus format.
+- `/health` that returns the status of the application.
+- `/visits` that returns the number of visits.
+
 ## Installation using docker
 ### Build docker image
 To build the Docker image, clone the repo, and use the following command inside `app_go` directory:
