@@ -4,14 +4,17 @@ image:
   repository: yesliesnayder/app_python
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "1.0.5"
+  tag: "1.0.6"
 
 # Specifies sleep time for pre-hook and post-hook
-sleepyTime: 5
+sleepyTime: 0
 
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
+
+# Cannot access Vault from Russia, so let's put secret here for now!
+password: "thisisdevops"
 
 serviceAccount:
   # Specifies whether a service account should be created
@@ -77,17 +80,24 @@ autoscaling:
   # targetMemoryUtilizationPercentage: 80
 
 # Additional volumes on the output Deployment definition.
-volumes: []
-# - name: foo
-#   secret:
-#     secretName: mysecret
-#     optional: false
+volumes:
+  - name: app-python-data
+    emptyDir: {}
+  - name: app-python-config
+    configMap:
+      name: app-python-configmap
 
 # Additional volumeMounts on the output Deployment definition.
-volumeMounts: []
-# - name: foo
-#   mountPath: "/etc/foo"
-#   readOnly: true
+volumeMounts:
+  - name: app-python-data
+    mountPath: /data
+  - name: app-python-config
+    mountPath: "/config.json"
+    subPath: config.json
+
+envFrom:
+  - configMapRef:
+      name: app-python-configmap
 
 nodeSelector: {}
 
