@@ -6,8 +6,13 @@ internal_port: 8080
 external_port: 8000
 
 web_app_wipe: true
+app_path: 'app_python'
 app_name: 'app_python'
 app_dir: "/Users/ann_d/Desktop/{{ app_name }}"
 docker_compose_path: "{{ app_dir }}/docker-compose"
 docker_compose_file: 'docker-compose.yml'
 docker_compose_file_path: "{{ docker_compose_path }}/{{ docker_compose_file }}"
+
+visits_file_name: 'visits'
+volume_path: "{{ docker_compose_path }}/volume"
+visits_file_path: "{{ volume_path }}/{{ visits_file_name }}"

@@ -41,6 +41,11 @@ spec:
               containerPort: {{ .Values.service.port }}
               protocol: TCP
           env:
+            - name: ENV-CONFIGMAP
+              valueFrom:
+                configMapKeyRef:
+                  name: simple-env-configmap
+                  key: ABC
             - name: PASSWORD
               valueFrom:
                 secretKeyRef:

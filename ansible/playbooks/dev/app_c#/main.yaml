@@ -11,3 +11,4 @@
         internal_port: 80
         external_port: 8088
         app_name: 'app_c_sharp'
+        app_path: 'app_c_sharp'

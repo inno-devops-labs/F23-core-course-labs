@@ -1,6 +1,6 @@
 - name: Web App role
   block:
-    - name: Wipe app
-      import_tasks: app_wipe.yml
+    # - name: Wipe app
+    #   import_tasks: app_wipe.yml
     - name: Deploy app
       import_tasks: app_deploy.yml
