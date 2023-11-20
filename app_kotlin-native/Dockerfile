@@ -17,9 +17,14 @@ RUN gradle nativeBinaries -i --stacktrace
 # Prepare passwd for scratch
 RUN mkdir /user && \
     echo 'nobody:x:65534:65534:nobody:/:' > /user/passwd
+RUN mkdir /data 
 
 FROM gcr.io/distroless/base-debian12:nonroot as run
 WORKDIR /app
+
+# Volume with data
+COPY --from=build --chown=65534 /data /data
+VOLUME [ "/data" ]
 
 # Tool for healthcheck
 COPY --from=ghcr.io/tarampampam/curl:8.0.1 /bin/curl /bin/curl
@@ -32,4 +37,5 @@ COPY --from=build \
 
 COPY --from=build /build/build/bin/native/releaseExecutable/app_kotlin-native.kexe /app/kexe
 
+USER nobody
 ENTRYPOINT  [ "/app/kexe" ]

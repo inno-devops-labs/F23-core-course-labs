@@ -4,6 +4,8 @@ COPY requirements.txt .
 RUN pip install -r requirements.txt && rm requirements.txt && rm -rf `pip cache dir`
 
 RUN adduser app --system -S /bin/nologin -D -H
+RUN mkdir /data && chown app /data
+VOLUME [ "/data" ]
 USER app
 WORKDIR /app
 

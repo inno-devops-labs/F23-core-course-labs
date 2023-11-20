@@ -1,10 +1,12 @@
 # Web App Role
-This role install web application with given docker image onto the host
+This role install web application with given docker image onto the host.
+
+Also, this role creates a volume on compose level named `data`.
 
 ## Requirements:
 - Docker role available
 
-## How to user:
+## How to use:
 ```main.yaml
 - name: Example of usage the role
   hosts: all

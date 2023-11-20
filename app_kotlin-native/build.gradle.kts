@@ -29,10 +29,12 @@ kotlin {
     }
     sourceSets {
         val ktorVersion = "2.3.4"
+        val okioVersion = "3.4.0"
         val nativeMain by getting {
             dependencies {
                 implementation("io.ktor:ktor-server-core:$ktorVersion")
                 implementation("io.ktor:ktor-server-cio:$ktorVersion")
+                implementation("com.squareup.okio:okio:$okioVersion")
             }
         }
         val nativeTest by getting

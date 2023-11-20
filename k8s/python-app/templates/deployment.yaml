@@ -62,6 +62,24 @@ spec:
                 secretKeyRef:
                   name: db-user-pass
                   key: username
+            - name: SPECIAL_TYPE_KEY
+              valueFrom:
+                configMapKeyRef:
+                  name: config-map-entity-py
+                  key: test
+          volumeMounts:
+          - name: config-volume-py
+            mountPath: "/config.json"
+            subPath: config.json
+          - name: counter-data-py
+            mountPath: /data
+      volumes:
+      - name: config-volume-py
+        configMap:
+          name: config-map-entity-py
+      - name: counter-data-py
+        emptyDir:
+          sizeLimit: 500Mi
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

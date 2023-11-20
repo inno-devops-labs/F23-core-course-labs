@@ -6,16 +6,45 @@ import io.ktor.server.response.respondText
 import io.ktor.server.routing.get
 import io.ktor.server.routing.routing
 
+import okio.FileSystem
+import okio.IOException
+import okio.Path
+import okio.Path.Companion.toPath
+
+val COUNTER_PATH = "/data/counter".toPath()
+
 fun main() {
     embeddedServer(CIO, port = 8080, module = Application::myApplicationModule).start(wait = true)
 }
 
 val counts_by_val = MutableList(101) { 0 }
 val sum_by_val = MutableList(101) { 0 }
+val counter = 0
+
+// AT THIS POINT I FINALLY REGRET THAT I CHOOSE KOTLIN NATIVE
+fun readLines(path: Path): String {
+    val readmeContent = FileSystem.SYSTEM.read(path) {
+        readUtf8()
+    }
+    return readmeContent
+}
+
+fun writeLine(path: Path, data: String) {
+    FileSystem.SYSTEM.write(path) {
+        writeUtf8(data)
+    }
+}
+
+fun increaseCounter() {
+    val currCount = readLines(COUNTER_PATH).toInt()
+    writeLine(COUNTER_PATH, "${currCount + 1}")
+}
 
 fun Application.myApplicationModule() {
+    writeLine(COUNTER_PATH, "0")
     routing {
         get("/") {
+            increaseCounter()
             if ("d" !in call.request.queryParameters) {
                 call.respondText("Please provide the number of sides in \"d\" parameter")
                 return@get
@@ -41,6 +70,7 @@ fun Application.myApplicationModule() {
         }
 
         get("metrics") {
+            increaseCounter()
             val tagName = "dice_thrower_mean_throws"
 
             var response = ""
@@ -52,6 +82,12 @@ fun Application.myApplicationModule() {
             }
 
             call.respondText(response)
+        }
+
+        get("visited") {
+            increaseCounter()
+            val counter = readLines(COUNTER_PATH)
+            call.respondText(counter)
         }
     }
 }
