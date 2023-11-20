@@ -48,6 +48,9 @@ spec:
           {{- end }}
           env:
             {{- include "app-python-chart.secrets" . | nindent 12 }}
+          envFrom:
+            - configMapRef:
+                name: chart-configmap-envfrom
       {{- with .Values.volumes }}
       volumes:
         {{- toYaml . | nindent 8 }}

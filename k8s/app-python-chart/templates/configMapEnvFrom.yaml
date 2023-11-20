@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: chart-configmap-envfrom
+data:
+  somekey1: "somevalue1"
+  somekey2: "somevalue2"
+  somekey3: "somevalue3"
+  somekey4: "somevalue4"
