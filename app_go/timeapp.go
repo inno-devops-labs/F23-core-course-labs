@@ -41,7 +41,12 @@ func healthHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func visitIncrement() VisitData {
-	file, err := os.OpenFile("visits", os.O_RDWR|os.O_CREATE, 0666)
+	// create folder if not exists
+	if _, err := os.Stat("data"); os.IsNotExist(err) {
+		os.Mkdir("data", 0755)
+	}
+
+	file, err := os.OpenFile("data/visits", os.O_RDWR|os.O_CREATE, 0666)
 	if err != nil {
 		color.Red("Could not visit file")
 		return VisitData{}

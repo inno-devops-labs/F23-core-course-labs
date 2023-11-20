@@ -9,16 +9,18 @@ class VisitMiddleware:
         self, request: Request, handler: Callable[[Request], Awaitable]
     ) -> Response:
         response = await handler(request)
-
-        if os.path.exists("visits"):
-            with open("visits", "r") as f:
+        # check if folder exists
+        if not os.path.exists("data"):
+            os.mkdir("data")
+        if os.path.exists("data/visits"):
+            with open("data/visits", "r") as f:
                 visits = int(f.read())
         else:
             visits = 0
 
         visits += 1
 
-        with open("visits", "w") as f:
+        with open("data/visits", "w") as f:
             f.write(str(visits))
 
         return response

@@ -13,6 +13,6 @@ class VisitsController(Controller):
         """
         Returns the number of visits to the service from `visits` file.
         """
-        with open("visits", "r") as f:
+        with open("data/visits", "r") as f:
             visits = int(f.read())
         return f"Number of visits: {visits}"
