@@ -6,6 +6,8 @@
 
 Simple web app to fetch current time in Moscow.
 
+Also it shows how many time it was visited via `/visits` endpoint.
+
 ## Pre-requirements
 
 - Python 3.11

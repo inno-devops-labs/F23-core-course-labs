@@ -6,3 +6,8 @@ services:
     ports:
       - "80:{{ web_app_port }}"
     command: "{{ web_app_command }}"
+    volumes:
+      - app_python_data:/app/data
+
+volumes:
+  app_python_data:

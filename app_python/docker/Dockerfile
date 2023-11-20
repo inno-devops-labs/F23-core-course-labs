@@ -43,7 +43,10 @@ COPY app app
 COPY docker/docker-entrypoint.sh docker-entrypoint.sh
 
 RUN adduser --disabled-password --gecos "" app \
-    && chmod +x docker-entrypoint.sh
+    && chmod +x docker-entrypoint.sh \
+    && mkdir data \ 
+    && chown -R app:app /app
+    
 USER app
 
 EXPOSE 8000

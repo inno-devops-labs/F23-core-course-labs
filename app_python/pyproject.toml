@@ -10,6 +10,7 @@ python = "^3.11"
 Flask = "^2.3.3"
 gunicorn = "^21.2.0"
 pytz = "^2023.3.post1"
+pydantic = "^2.5.1"
 
 
 [tool.poetry.group.dev.dependencies]
