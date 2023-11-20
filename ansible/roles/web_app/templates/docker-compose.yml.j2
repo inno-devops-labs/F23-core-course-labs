@@ -4,3 +4,5 @@ services:
     image: {{ image }}
     ports: 
       - "{{ ports }}"
+    volumes:
+      - 'volumes_visits:/app/volume/'

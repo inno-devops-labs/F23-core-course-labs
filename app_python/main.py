@@ -11,8 +11,6 @@ REQUEST_COUNTER = Counter('http_requests_total',
 
 
 class TimeServer(http.server.SimpleHTTPRequestHandler):
-    def log_request(self, code='-', size='-'):
-        REQUEST_COUNTER.inc()
 
     def do_GET(self):
         if self.path == '/':
@@ -25,7 +23,11 @@ class TimeServer(http.server.SimpleHTTPRequestHandler):
             time_str = moscow_time.strftime('%Y-%m-%d %H:%M:%S')
 
             message = f'The current time in Moscow is {time_str} UTC+3.'
+            REQUEST_COUNTER.inc()
             self.wfile.write(message.encode())
+            
+            with open('volume/visits', 'w') as f:
+                f.write(str(REQUEST_COUNTER._value.get()) + '\n')
 
             return
         elif self.path == '/healthcheck':
@@ -38,6 +40,12 @@ class TimeServer(http.server.SimpleHTTPRequestHandler):
             self.send_header('Content-type', 'text/plain')
             self.end_headers()
             self.wfile.write(generate_latest())
+        elif self.path == '/visits':
+            self.send_response(200)
+            self.send_header('Content-type', 'text/html')
+            self.end_headers()
+            message = str(REQUEST_COUNTER._value.get())
+            self.wfile.write(message.encode())
         else:
             self.send_response(404)
             self.end_headers()

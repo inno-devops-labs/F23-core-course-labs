@@ -27,3 +27,29 @@ This application uses the following dependencies:
 
 - net/http: This package is used for creating HTTP servers and handling HTTP requests.
 - time: This package is used for handling time and timezones.
+
+
+## Endpoints description
+
+### Endpoint: /
+* Description: This endpoint increments a counter each time it is called and returns the current time in Moscow. It also writes the current counter value to a file named 'visits'.
+* HTTP Method: GET
+* Response: A string containing the current time in Moscow and the number of times the endpoint has been called.
+
+
+### Endpoint: /healthcheck
+* Description: This endpoint returns a simple "OK" message. It is used for health checks to verify that the server is running.
+* HTTP Method: GET
+* Response: A string "OK".
+
+
+### Endpoint: /metrics
+* Description: This endpoint returns the current metrics of the server. It uses the Prometheus client library to generate the metrics.
+* HTTP Method: GET
+* Response: A string containing the current metrics of the server.
+
+
+### Endpoint: /visits
+* Description: This endpoint returns the current counter value. The counter is incremented each time the root endpoint (/) is called.
+* HTTP Method: GET
+* Response: A string containing the current counter value.
