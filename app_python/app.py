@@ -27,11 +27,11 @@ metrics = PrometheusMetrics(app)
 @app.route('/')
 @metrics.counter('index_counter', 'Counter of index page visits')
 def main():
-    with open('./volume/visits', 'r') as f:
-        visits = int(f.read()) + 1
+    with open('./volume/visits', 'r') as file:
+        visits = int(file.read()) + 1
 
-    with open('./volume/visits', 'w') as f:
-        f.write(str(visits))
+    with open('./volume/visits', 'w') as file:
+        file.write(str(visits))
 
     current_time = get_timezone('Europe/Moscow')
     logger.info(msg='Route: /')
@@ -49,8 +49,8 @@ def health_check():
 
 @app.route("/visits")
 def get_visits():
-    with open('./volume/visits', 'r') as f:
-        visits = f.read()
+    with open('./volume/visits', 'r') as file:
+        visits = file.read()
 
     return app.response_class(
         response=str(visits),
