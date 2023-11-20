@@ -1,0 +1,6 @@
+version: '3.8'
+services:
+  app_go:
+    build: .
+    ports:
+      - 80:8080

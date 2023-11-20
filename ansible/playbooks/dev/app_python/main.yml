@@ -1,0 +1,9 @@
+- name: Deploy Python web application
+  hosts: devopscourse
+  become: true
+  roles:
+    - role: web_app
+      service_name: timeapp_python
+      image_name: vladspigin/timeapp:latest
+      host_port: 80
+      internal_port: 8080

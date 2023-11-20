@@ -1,0 +1,6 @@
+version: '3.8'
+services:
+  app_python:
+    build: .
+    ports:
+      - 80:8080

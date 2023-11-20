@@ -1,0 +1,9 @@
+- name: Deploy Golang web application
+  hosts: devopscourse
+  become: true
+  roles:
+    - role: web_app
+      service_name: timeapp_go
+      image_name: vladspigin/timeapp-go:latest
+      host_port: 80
+      internal_port: 8080

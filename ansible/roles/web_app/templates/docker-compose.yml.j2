@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  {{ service_name }}:
+    image: {{ image_name }}
+    ports:
+      - "{{ host_port }}:{{ internal_port }}"
+    volumes:
+      - {{ service_name }}_data:/app/data
+
+volumes:
+  {{ service_name }}_data:
