@@ -3,6 +3,6 @@ servers:
     docker_installer_testbed:
       ansible_connection: ssh
       ansible_user: ubuntu
-      ansible_host: 51.250.13.241
+      ansible_host: 51.147.24.256
       ansible_port: 22
       ansible_ssh_options: "-o StrictHostKeyChecking=no"

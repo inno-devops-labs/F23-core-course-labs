@@ -1,5 +1,4 @@
 ---
-# tasks file for web_app
 
 - name: Wipe app
   include_tasks: 0-wipe.yml

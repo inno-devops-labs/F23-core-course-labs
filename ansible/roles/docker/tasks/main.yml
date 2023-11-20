@@ -1,5 +1,4 @@
 ---
-# Role to install Docker and docker-compose
 - name: Pip3 install and verify
   tags:
     - docker-deps
