@@ -23,4 +23,14 @@ def current_time():
     ---
     """
     result = Time()
+    increment()
     return TimeSchema().dump(result), 200
+
+
+def increment():
+    with open('/app/visits/visits', 'rw') as f:
+        s = f.read()
+        res = 0
+        if s != '':
+            res = int(s)
+        f.write(str(res + 1))

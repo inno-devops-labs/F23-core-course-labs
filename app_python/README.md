@@ -74,3 +74,7 @@ To run tests:
 ```bash
 $ pytest
 ```
+
+## Endpoints
+
+- `/visits` - return request count, which saved in `/app/visits/visits`

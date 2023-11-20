@@ -3,10 +3,12 @@ from api.route.time import time_blueprint
 from flasgger import Swagger
 from prometheus_client import start_http_server, Counter
 
+
 def init() -> Flask:
     app = Flask(__name__)
     app.register_blueprint(time_blueprint, url_prefix='/time')
     return app
+
 
 app = init()
 
@@ -18,14 +20,40 @@ def metrics():
     from prometheus_client.exposition import generate_latest
     return generate_latest()
 
-request_counter = Counter('myapp_requests_total', 'Total number of requests to /')
+
+request_counter = Counter('myapp_requests_total',
+                          'Total number of requests to /')
 
 # Function to increment the request counter
+
+
 def increment_request_counter():
     request_counter.inc()
 
 # Define a sample route
+
+
 @app.route('/')
 def hello():
     increment_request_counter()  # Increment the request counter
+    increment()
     return jsonify(message="Hello, World!")
+
+
+@app.route('/visits')
+def visits():
+    with open('/app/visits/visits', 'r') as f:
+        s = f.read()
+        res = 0
+        if s != '':
+            res = int(s)
+        return res
+
+
+def increment():
+    with open('/app/visits/visits', 'rw') as f:
+        s = f.read()
+        res = 0
+        if s != '':
+            res = int(s)
+        f.write(str(res + 1))
