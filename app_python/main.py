@@ -25,7 +25,6 @@ class TimeServer(http.server.SimpleHTTPRequestHandler):
             message = f'The current time in Moscow is {time_str} UTC+3.'
             REQUEST_COUNTER.inc()
             self.wfile.write(message.encode())
-            
             with open('volume/visits', 'w') as f:
                 f.write(str(REQUEST_COUNTER._value.get()) + '\n')
 
