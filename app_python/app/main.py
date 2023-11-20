@@ -6,6 +6,7 @@ from blacksheep_prometheus import use_prometheus_metrics
 
 from app.docs import configure_docs
 from app.errors import configure_error_handlers
+from app.middlewares import configure_middlewares
 from app.settings import Settings, load_settings
 
 
@@ -16,6 +17,7 @@ def configure_application(
 
     configure_error_handlers(app)
     configure_docs(app, settings)
+    configure_middlewares(app)
     return app
 
 

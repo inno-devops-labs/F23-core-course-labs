@@ -4,6 +4,13 @@
 
 Time-app is a Python web application that displays the current time in Moscow.
 
+### Additional features
+App has endpoints:
+- `/metrics` that returns metrics in Prometheus format.
+- `/health` that returns the status of the application.
+- `/docs` that returns the documentation of the application in openAPI format.
+- `/visits` that returns the number of visits.
+
 ## Installation using docker
 ### Build docker image
 To build the Docker image, clone the repo, and use the following command inside `app_python` directory:
