@@ -25,6 +25,7 @@ services:
     healthcheck:
       test: curl -f http://localhost:3000 || exit 1
 
+
   loki:
     image: grafana/loki:latest
     networks:
