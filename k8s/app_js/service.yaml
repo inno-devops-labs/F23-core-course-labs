@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-js
+  labels:
+    app: js
+spec:
+  selector:
+    app: js
+  ports:
+  - port: 80
+    targetPort: 3000
