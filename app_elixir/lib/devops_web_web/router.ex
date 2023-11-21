@@ -18,6 +18,7 @@ defmodule DevopsWebWeb.Router do
     pipe_through(:browser)
 
     get("/time", TimeController, :time)
+    get("/visits", TimeController, :visits)
   end
 
   # Other scopes may use custom stacks.

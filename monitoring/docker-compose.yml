@@ -27,7 +27,7 @@ services:
       timeout: 10s
       retries: 3
     volumes:
-      - ./visits:/app/visits
+      - ./visits/python:/app/visits
 
   app_elixir:
     image: nikitosing/app_elixir
@@ -52,7 +52,8 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
-
+    volumes:
+      - ./visits/elixir:/app/visits
   loki:
     image: grafana/loki:latest
     ports:

@@ -43,6 +43,9 @@ spec:
                   name: credentials
                   key: secret
             {{- include "app-python.environments" . | nindent 12 }}
+          envFrom:
+            - configMapRef:
+                name: config
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
@@ -59,10 +62,16 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
           {{- with .Values.volumeMounts }}
           volumeMounts:
+            - name: config-volume
+              mountPath: /app/config.json
+              subPath: config.json
             {{- toYaml . | nindent 12 }}
           {{- end }}
       {{- with .Values.volumes }}
       volumes:
+        - name: config-volume
+          configMap:
+            name: config
         {{- toYaml . | nindent 8 }}
       {{- end }}
       {{- with .Values.nodeSelector }}
