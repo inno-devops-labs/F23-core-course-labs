@@ -106,3 +106,7 @@ affinity: {}
 config:
   file:
     path: files/config.json
+  environment:
+    variables:
+      - configMapRef:
+          name: my-environment-config
