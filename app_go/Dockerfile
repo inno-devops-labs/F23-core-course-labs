@@ -28,6 +28,7 @@ COPY --from=build /app/templates /templates
 # Run the application as a non-root user
 RUN addgroup -g 1000 myuser \
     && adduser -D -u 1000 -G myuser myuser
+VOLUME "/data"
 USER myuser
 
 # Expose port 8070

@@ -8,4 +8,4 @@ services:
     ports:
       - "{{ web_app_port }}:{{ web_container_port }}"
     volumes:
-      - {{ data_volume }}:/app/data
+      - {{ data_volume }}:{{ container_dir }}

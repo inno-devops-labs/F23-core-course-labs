@@ -12,3 +12,4 @@
         web_container_port: 8080
         web_app_image: docker.io/quiner/app-python:latest
         data_volume: ./app_python_data
+        container_dir: /app/data

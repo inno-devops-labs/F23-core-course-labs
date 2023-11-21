@@ -17,8 +17,9 @@ func main() {
 	mux := http.NewServeMux()
 
 	mux.Handle("/time", middleware.Logging(routes.MoscowTime()))
-	mux.Handle("/healthcheck", middleware.Logging(routes.HealthCheck()))
-	mux.Handle("/metrics", middleware.Logging(promhttp.Handler()))
+	mux.Handle("/healthcheck", routes.HealthCheck())
+	mux.Handle("/metrics", promhttp.Handler())
+	mux.Handle("/visits", routes.GetVisits())
 
 	addr := fmt.Sprintf("%s:%s", cfg.ServerHost, cfg.ServerPort)
 
