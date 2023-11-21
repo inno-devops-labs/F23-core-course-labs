@@ -1,12 +1,12 @@
 FROM python:3.10-alpine3.18
 
-WORKDIR /usr/src/app
+WORKDIR /app
 RUN apk --no-cache add curl
 
-COPY requirements.txt /usr/src/app/
+COPY requirements.txt /app/
 RUN adduser --disabled-password app && pip install --no-cache-dir -r requirements.txt
 COPY ./src ./src
-RUN chmod -R a-w+x+r /usr/src/app 
+RUN chmod -R a-w+x+r /app
 USER app
 EXPOSE 5000
 ENV PYTHONPATH .

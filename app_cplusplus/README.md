@@ -19,6 +19,17 @@ To run unit testing you can run
 
     ./build/server_unit_tests 
 
+
+# Access the application 
+ - ```http://<addressOfDeployedApp>:<portOfDeployedApp>/``` - access the guessing game page
+ - ```http://<addressOfDeployedApp>:<portOfDeployedApp>/visits``` - access the visits counter
+
+You can also use curl or any other http requester for access with respective parameters and endpoint
+
+### DockerHub images
+ 1. python: https://hub.docker.com/r/dashvayet/lab2_app_python/tags
+ 2. cpp: https://hub.docker.com/r/dashvayet/cpp_app
+
 # Docker
 For this app we need to establish environment and compile boost library, then we need to compile application and copy binary file to a next stage image where we can start application
 

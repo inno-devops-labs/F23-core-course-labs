@@ -24,3 +24,8 @@ services:
         timeout: 10s
         interval: 1m
         retries: 5
+    volumes:
+        - '{{ app_name }}_volume:/app/volume/'
+
+volumes:
+    '{{ app_name }}_volume:'

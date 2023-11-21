@@ -4,6 +4,7 @@
 #include <iostream>
 
 int guessingNumber = 234;
+int counter = 0;
 
 bool is_number(const std::string &s) {
     return !s.empty() && std::find_if(s.begin(),
@@ -22,8 +23,8 @@ bool is_number(const std::string &s) {
         boost::asio::ip::tcp::socket socket(io_service);
         acceptor.accept(socket);
 
-boost::asio::ip::tcp::endpoint endpoint = socket.remote_endpoint();
-std::cout << "Connected to: " << endpoint.address() << ':' << endpoint.port() << '\n';
+        boost::asio::ip::tcp::endpoint endpoint = socket.remote_endpoint();
+        std::cout << "Connected to: " << endpoint.address() << ':' << endpoint.port() << '\n';
 
         boost::asio::streambuf buffer;
         boost::asio::read_until(socket, buffer, "\r\n\r\n");
@@ -31,45 +32,63 @@ std::cout << "Connected to: " << endpoint.address() << ':' << endpoint.port() <<
         std::string method, path, http_version;
         std::istream request_stream(&buffer);
         request_stream >> method >> path >> http_version;
-std::cout << method << '\n' << path << "\n\n";
+        std::cout << method << '\n' << path << "\n\n";
+
+
+        std::ifstream fileRead("/startServer/volume/сalls.db");
+        std::string line;
+
+        if (fileRead.is_open()){
+            while (getline(fileRead,line) ){
+                counter = std::stoi(line);
+            }
+            fileRead.close();
+        }
 
         if (path.find("/metrics") != std::string::npos) {
             std::string response = "HTTP/1.1 200 OK\r\n"
-                               "Content-Type: text/html\r\n\r\n # HELP process_cpu_seconds_total Descriotion\n # TYPE process_cpu_seconds_total gauge\n\nprocess_cpu_seconds_total 1.01";
+                                   "Content-Type: text/html\r\n\r\n # HELP process_cpu_seconds_total Descriotion\n # TYPE process_cpu_seconds_total gauge\n\nprocess_cpu_seconds_total 1.01";
+            boost::asio::write(socket, boost::asio::buffer(response));
+        } else if(path.find("/visits") != std::string::npos){
+            std::string response = "HTTP/1.1 200 OK\r\n"
+                                   "Content-Type: text/html\r\n\r\n{\"calls: \"" + std::to_string(counter) + "\"}";
             boost::asio::write(socket, boost::asio::buffer(response));
         } else {
             std::string response = "HTTP/1.1 200 OK\r\n"
-                               "Content-Type: text/html\r\n\r\n";
+                                   "Content-Type: text/html\r\n\r\n";
+            ++counter;
+            std::ofstream myfile;
+            myfile.open("/startServer/volume/сalls.db");
+            myfile << counter;
 
+            std::string htmlResponse;
+            std::ifstream in("index.html");
+            std::string str((std::istreambuf_iterator<char>(in)),
+                            std::istreambuf_iterator<char>());
+            response += str;
 
-        std::string htmlResponse;
-        std::ifstream in("index.html");
-        std::string str((std::istreambuf_iterator<char>(in)),
-                        std::istreambuf_iterator<char>());
-        response += str;
+            std::string newMessage;
+            std::string messageStr = "message=";
+            size_t messageIt = path.find(messageStr);
+            if (messageIt != std::string::npos) {
+                auto strNumber = path.substr(messageIt + messageStr.size(), std::string::npos);
+                if (is_number(strNumber)) {
+                    int num = std::stoi(strNumber);
+                    if (num == guessingNumber) {
+                        newMessage = "You win!";
+                    } else if (num < guessingNumber) {
+                        newMessage = "You write smaller number then guessing number";
+                    } else {
+                        newMessage = "You write bigger number then guessing number";
+                    }
 
-        std::string newMessage;
-        std::string messageStr = "message=";
-        size_t messageIt = path.find(messageStr);
-        if (messageIt != std::string::npos) {
-            auto strNumber = path.substr(messageIt + messageStr.size(), std::string::npos);
-            if (is_number(strNumber)) {
-                int num = std::stoi(strNumber);
-                if (num == guessingNumber) {
-                    newMessage = "You win!";
-                } else if (num < guessingNumber) {
-                    newMessage = "You write smaller number then guessing number";
-                } else {
-                    newMessage = "You write bigger number then guessing number";
+                    std::string paste = "<h1>Number 1 to 1000</h1>";
+                    size_t toPaste = response.find(paste);
+                    response.insert(toPaste + paste.size(), "<h2>" + newMessage + "</h2>");
                 }
-
-                std::string paste = "<h1>Number 1 to 1000</h1>";
-                size_t toPaste = response.find(paste);
-                response.insert(toPaste + paste.size(), "<h2>" + newMessage + "</h2>");
             }
-        }
 
-        boost::asio::write(socket, boost::asio::buffer(response));
+            boost::asio::write(socket, boost::asio::buffer(response));
         }
     }
 }

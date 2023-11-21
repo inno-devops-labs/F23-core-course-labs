@@ -25,11 +25,6 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template
   name: ""
 
-podAnnotations:
-  vault.hashicorp.com/agent-inject: 'true'
-  vault.hashicorp.com/role: 'internal-app'
-  vault.hashicorp.com/agent-inject-secret-database-config.txt: 'internal/data/database/config'
-
 secretData:
   secretName: devops-secret
   secretKey: password
@@ -83,17 +78,17 @@ autoscaling:
   # targetMemoryUtilizationPercentage: 80
 
 # Additional volumes on the output Deployment definition.
-volumes: []
-# - name: foo
-#   secret:
-#     secretName: mysecret
-#     optional: false
+#volumes:
+#  - name: configuration
+#    configMap:
+#      name: myconfigmap
+#
+#volumeMounts:
+#  - name: configuration
+#    readOnly: true
+#    mountPath: "/config.json"
+#    subPath: config.json
 
-# Additional volumeMounts on the output Deployment definition.
-volumeMounts: []
-# - name: foo
-#   mountPath: "/etc/foo"
-#   readOnly: true
 
 nodeSelector: {}
 

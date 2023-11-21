@@ -14,7 +14,12 @@ Also use `make lint` and `make typechek` to increase code quality while dev proc
 Be sure that you have installed dev packages (`pip install -r requirements.txt`)
 To test app enter `make test` in your terminal.
 
+### Access the application 
+ - ```http://<addressOfDeployedApp>:<portOfDeployedApp>/``` - access the time handler
+ - ```http://<addressOfDeployedApp>:<portOfDeployedApp>/visits``` - access the visits counter
 
+
+You can also use curl or any other http requester for access with respective parameters and endpoint
 ### DockerHub images
  1. python: https://hub.docker.com/r/dashvayet/lab2_app_python/tags
  2. cpp: https://hub.docker.com/r/dashvayet/cpp_app
