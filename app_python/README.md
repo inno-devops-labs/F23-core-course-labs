@@ -1,6 +1,7 @@
 # Web application
 
 This application displays the current time in Moscow
+and numbers of visits of home page (display on /visit page)
 
 ## Getting started
 
