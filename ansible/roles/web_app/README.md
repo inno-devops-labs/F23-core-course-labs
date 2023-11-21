@@ -1,6 +1,6 @@
 # Ansible Web_app role 
 ## Description 
-This ansible role deploys web app using docker compose.
+This ansible role deploys web app using docker compose and creates new `data` volume.
 
 ## Requirements:
 * Docker role

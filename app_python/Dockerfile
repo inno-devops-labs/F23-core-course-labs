@@ -19,6 +19,9 @@ COPY . ./app_python
 # Create non-root user
 RUN useradd -m user
 
+RUN mkdir /data && chown user /data
+VOLUME [ "/data" ]
+
 # Run app as non-root user
 USER user
 

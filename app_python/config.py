@@ -10,6 +10,7 @@ class Config:
     server_host = os.getenv("SERVER_HOST")
     server_port = int(os.getenv("SERVER_PORT"))
     templates = SetUpTemplates("app_python/templates")
+    counter_file_path = 'app_python/data/visits.json'
 
 
 config = Config()

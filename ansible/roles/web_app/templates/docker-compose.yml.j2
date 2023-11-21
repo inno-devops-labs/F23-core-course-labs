@@ -5,4 +5,8 @@ services:
     container_name: "{{ docker_container }}"
     ports:
       - "{{ external_port }}:{{ internal_port }}"
+    volumes:
+      - data:/data/
     restart: unless-stopped
+volumes:
+  data:

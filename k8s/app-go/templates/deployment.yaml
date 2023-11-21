@@ -37,7 +37,11 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
-            {{ include "app-go.env" . | nindent 12 }}
+            - name: LAB12_KEY
+              valueFrom:
+                configMapKeyRef:
+                  name: go-config-map
+                  key: config.json
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
@@ -54,13 +58,18 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
           {{- with .Values.volumeMounts }}
           volumeMounts:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
-      {{- with .Values.volumes }}
+            - name: python-config-volume
+              mountPath: "/config.json"
+              subPath: config.json
+            - name: python-counter-data
+              mountPath: /data
       volumes:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.nodeSelector }}
+        - name: python-config-volume
+          configMap:
+            name: python-config-map
+        - name: python-counter-data
+          emptyDir:
+            sizeLimit: 500Mi
       nodeSelector:
         {{- toYaml . | nindent 8 }}
       {{- end }}

@@ -47,9 +47,10 @@ python3 -m app_python
 ```
    docker run -d -p 8080:8080 --name app_python lnsfna/app_python:latest
    ```
-## Usage:
-
-Now you can go to `http://127.0.0.1:8080/` and `http://127.0.0.1:8080/time` to test app.
+## Endpoints:
+* `/` - Main page, 
+* `/time` - Page with Moscow time
+* `/visits` - Page with visits counter 
 
 ## Unit-tests:
 Run `python3 -m pytest` from `tests` directory to check.

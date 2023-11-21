@@ -53,8 +53,10 @@ Run app:
 ```
    docker run -d -p 8081:8081 --name app_go lnsfna/app_go:latest
    ```
-## Usage:
-Now you can go to `http://127.0.0.1:8081/` and `http://127.0.0.1:8081/joke` to test app.
+## Endpoints:
+* `/` - Main page, 
+* `/joke` - Page with random joke 
+* `/visits` - Page with visits counter 
 
 ## Unit-tests:
 Run `go-test -v` from `app_go` directory to check.
