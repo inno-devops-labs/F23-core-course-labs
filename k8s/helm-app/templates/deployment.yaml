@@ -41,8 +41,11 @@ spec:
               containerPort: {{ .Values.service.port }}
               protocol: TCP
           env:
-            {{- include "app-1.env" . | nindent 12 }}
-            {{- include "app-2.env" . | nindent 12 }}
+            - name: "CONFIGMAP_VAR"
+              valueFrom:
+                configMapKeyRef:
+                  name: my-env-configmap
+                  key: SECRET_KEY
           livenessProbe:
             httpGet:
               path: /
