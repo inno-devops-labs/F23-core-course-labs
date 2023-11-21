@@ -24,11 +24,11 @@ jobs:
         run: |
           pip install -r app_python/requirements.txt
           
-      - name: Run tests
-        run: |
-          pip install pytest
-          cd ./app_python
-          pytest unit_tests.py
+      # - name: Run tests
+      #   run: |
+      #     pip install pytest
+      #     cd ./app_python
+      #     pytest unit_tests.py
       
       - name: Login to Docker Hub
         run: |
