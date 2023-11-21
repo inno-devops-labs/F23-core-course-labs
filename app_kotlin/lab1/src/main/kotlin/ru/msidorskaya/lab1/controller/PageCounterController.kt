@@ -9,11 +9,12 @@ import java.io.File
 class PageCounterController {
     init {
         launchNumber = 1
-        totalLaunchNumber = try {
-            File(FILE_NAME).readText().toLong()
-        } catch (ex: Exception) {
-            0L // If the file is not created, or it contains unparseable Long, the count starts from 0
-        }
+        totalLaunchNumber =
+            try {
+                File(FILE_NAME).readText().toLong()
+            } catch (ex: Exception) {
+                0L // If the file is not created, or it contains unparseable Long, the count starts from 0
+            }
     }
 
     @ResponseBody
