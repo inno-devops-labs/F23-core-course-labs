@@ -58,6 +58,9 @@ spec:
                   name: mysecret
                   key: pass_data
           {{ include "app-python.myEnvs" . | nindent 12 }}
+          envFrom:
+            - configMapRef:
+                name: my-env-configmap
       {{- with .Values.volumes }}
       volumes:
         {{- toYaml . | nindent 8 }}

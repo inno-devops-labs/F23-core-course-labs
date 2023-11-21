@@ -71,3 +71,16 @@ This project is configured with GitHub Actions for Continuous Integration (CI). 
 4. **Docker Build & Push:** A Docker image of the application is built and pushed to Docker Hub.
 
 The CI workflow is automatically triggered on pushes to the `app_go` directory or changes to the workflow file (`app_go.yml`). It helps maintain code quality and ensures that the application runs smoothly.
+
+## Endpoints description
+
+### Endpoint: /
+* Description: This endpoint increments a counter each time it is called and returns the current time in Moscow. It also writes the current counter value to a file named 'visits'.
+* HTTP Method: GET
+* Response: A string containing the current time in Moscow and the number of times the endpoint has been called.
+
+
+### Endpoint: /visits
+* Description: This endpoint returns the current counter value. The counter is incremented each time the root endpoint (/) is called.
+* HTTP Method: GET
+* Response: A string containing the current counter value.

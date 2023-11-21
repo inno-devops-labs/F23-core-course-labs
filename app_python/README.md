@@ -85,3 +85,16 @@ To trigger the CI workflow manually, follow these steps:
 
 1. Make sure you have pushed your changes to a branch (e.g., `main`).
 2. Check the "Actions" tab in the repository on GitHub for the CI workflow runs.
+
+## Endpoints description
+
+### Endpoint: /
+* Description: This endpoint increments a counter each time it is called and returns the current time in Moscow. It also writes the current counter value to a file named 'visits'.
+* HTTP Method: GET
+* Response: A string containing the current time in Moscow and the number of times the endpoint has been called.
+
+
+### Endpoint: /visits
+* Description: This endpoint returns the current counter value. The counter is incremented each time the root endpoint (/) is called.
+* HTTP Method: GET
+* Response: A string containing the current counter value.

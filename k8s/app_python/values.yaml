@@ -27,6 +27,8 @@ serviceAccount:
 podAnnotations:
   vault.hashicorp.com/agent-inject: 'true'
   vault.hashicorp.com/role: 'vault-auth'
+  vault.hashicorp.com/agent-init-first: "true"
+  vault.hashicorp.com/agent-pre-populate: "false"
   vault.hashicorp.com/agent-inject-secret-myapp-config.txt: "secret/data/myapp/config"
 podLabels: {}
 
@@ -77,14 +79,21 @@ autoscaling:
   # targetMemoryUtilizationPercentage: 80
 
 # Additional volumes on the output Deployment definition.
-volumes: []
+volumes:
+  - name: config
+    configMap:
+      name: config-configmap
 # - name: foo
 #   secret:
 #     secretName: mysecret
 #     optional: false
 
 # Additional volumeMounts on the output Deployment definition.
-volumeMounts: []
+volumeMounts:
+  - name: config
+    mountPath: "/config.json"
+    subPath: config.json
+    readOnly: true
 # - name: foo
 #   mountPath: "/etc/foo"
 #   readOnly: true
