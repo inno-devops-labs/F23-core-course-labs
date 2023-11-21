@@ -56,14 +56,19 @@ spec:
           #     port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-          {{- with .Values.volumeMounts }}
           volumeMounts:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
-      {{- with .Values.volumes }}
+            - name: visitors-data
+              mountPath: /proj/data
+            - name: config-map
+              mountPath: /proj/config.json
+              subPath: config.json
       volumes:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+      - name: visitors-data
+        emptyDir:
+          sizeLimit: 500Mi
+      - name: config-map
+        configMap:
+          name: config-map
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
