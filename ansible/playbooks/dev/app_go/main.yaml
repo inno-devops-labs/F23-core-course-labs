@@ -11,3 +11,4 @@
         web_app_port: 8070
         web_container_port: 8070
         web_app_image: docker.io/quiner/app-go:latest
+        data_volume: ./app_go_data

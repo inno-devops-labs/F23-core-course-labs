@@ -1,4 +1,5 @@
 import asyncio
+import os
 
 from fastapi import APIRouter
 from fastapi.responses import HTMLResponse
@@ -12,7 +13,11 @@ time_api_router = APIRouter(
 )
 
 counter_lock = asyncio.Lock()
-visits_file_path = "visits"
+visits_file_path = f"{os.path.dirname(os.path.realpath(__file__))}/../../data/visits.txt"
+
+if not os.path.exists(visits_file_path):
+    with open(visits_file_path, "w") as f:
+        f.write("0")
 
 
 async def add_visit():

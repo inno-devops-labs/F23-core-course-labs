@@ -1,3 +1,5 @@
+import os
+
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 from prometheus_fastapi_instrumentator import Instrumentator
@@ -33,6 +35,21 @@ async def startup():
 
 app.include_router(time_api_router)
 
+
+@app.get("/visits")
+async def get_visits():
+    visits_file_path = f"{os.path.dirname(os.path.realpath(__file__))}/../data/visits.txt"
+    try:
+        with open(visits_file_path, "r") as f:
+            visits = f.readline().strip()
+            if visits is None or visits == "":
+                visits = 0
+            else:
+                visits = int(visits)
+    except IOError:
+        visits = 0
+
+    return JSONResponse(content={"visits": visits}, status_code=200)
 
 @app.get("/healthcheck")
 async def healthcheck():

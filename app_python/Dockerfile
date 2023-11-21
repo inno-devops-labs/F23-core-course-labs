@@ -15,6 +15,7 @@ COPY . .
 
 # Run the application as a non-root user
 RUN useradd -m myuser
+RUN mkdir -p data && chown myuser data && chmod -R 0777 data
 USER myuser
 
 # Run the application
