@@ -1,5 +1,5 @@
 ARG BUILD_IMAGE=node:20.1.0
-ARG RUN_IMAGE=gcr.io/distroless/nodejs20-debian11
+ARG RUN_IMAGE=node:20.1.0-slim
 
 # Build stage
 FROM $BUILD_IMAGE AS builder

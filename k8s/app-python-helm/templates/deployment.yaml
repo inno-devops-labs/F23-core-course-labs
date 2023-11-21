@@ -15,9 +15,9 @@ spec:
   template:
     metadata:
       annotations:
-        vault.hashicorp.com/agent-inject: 'true'
-        vault.hashicorp.com/role: 'internal-app'
-        vault.hashicorp.com/agent-inject-secret-database-config.txt: 'internal/data/database/config'
+{{/*        vault.hashicorp.com/agent-inject: 'true'*/}}
+{{/*        vault.hashicorp.com/role: 'internal-app'*/}}
+{{/*        vault.hashicorp.com/agent-inject-secret-database-config.txt: 'internal/data/database/config'*/}}
       labels:
         {{- include "app-python-helm.labels" . | nindent 8 }}
 	{{- with .Values.podLabels }}
@@ -43,6 +43,9 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          envFrom:
+            - configMapRef:
+                name: my-config-map
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}

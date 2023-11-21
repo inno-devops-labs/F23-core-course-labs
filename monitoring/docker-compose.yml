@@ -1,7 +1,11 @@
-version: "3"
+version: "3.8"
 
 networks:
   monitoring:
+
+volumes:
+  python-data:
+  js-data:
 
 services:
   time_python:
@@ -13,6 +17,8 @@ services:
       - "8000:8000"
     healthcheck:
       test: curl -f http://localhost:8000 || exit 1
+    volumes:
+      - python-data:/app/data
 
   joke_js:
     image: "kernie/joke-js:latest"
@@ -24,6 +30,8 @@ services:
     mem_limit: 256m
     healthcheck:
       test: curl -f http://localhost:3000 || exit 1
+    volumes:
+      - js-data:/usr/app/data
 
   loki:
     image: grafana/loki:latest

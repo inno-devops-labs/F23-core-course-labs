@@ -2,7 +2,7 @@
 
 ![example workflow](https://github.com/kerniee/core-course-labs/actions/workflows/js.yml/badge.svg)
 
-Simple NodeJS Express web application that says jokes.
+Simple NodeJS Express web application that says jokes. Also tracks number of visits
 
 - **Framework**: Express
 - **Testing**: Jest
