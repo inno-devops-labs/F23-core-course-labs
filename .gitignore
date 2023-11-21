@@ -1,3 +1,6 @@
+venv
+terraform
+settings.json
 Session.vim
 **/venv/*
 *.pyc
