@@ -29,9 +29,9 @@ Simple Python web application that displays the current time in Moscow.
 
 ### Running application
 
-   ```shell
-   uvicorn src.main:app
-   ```
+```shell
+uvicorn src.main:app
+```
 
 ### Unit Tests
 
@@ -42,10 +42,9 @@ Simple Python web application that displays the current time in Moscow.
 You can use Docker to run the application.
 
 1. `make build` to build Docker image
-2. `make run` to run Docker image locally on port 8000
-3. `make push` to push Docker image to Docker Hub
-4. `make clean` to remove local container and image
-
+1. `make run` to run Docker image locally on port 8000
+1. `make push` to push Docker image to Docker Hub
+1. `make clean` to remove local container and image
 
 ## CI
 

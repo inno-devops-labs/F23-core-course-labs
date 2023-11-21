@@ -8,3 +8,11 @@ datasources:
     basicAuth: false
     isDefault: true
     editable: false
+    uid: lokidatasource
+  - name: Prometheus
+    type: prometheus
+    access: proxy
+    orgId: 1
+    url: http://prometheus:9090
+    basicAuth: false
+    editable: false
