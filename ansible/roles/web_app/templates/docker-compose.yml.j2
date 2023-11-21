@@ -2,6 +2,8 @@ version: "3.6"
 services:
   app:
     image: {{ image }}
+    volumes:
+     - './visits:/app/visits'
 {% if ports is defined %}
     ports:
 {% for port in ports %}

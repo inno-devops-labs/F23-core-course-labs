@@ -14,6 +14,7 @@ This project aims to develop a Python web application that displays the current 
   - [Installation](#installation)
   - [Usage](#usage)
   - [Features](#features)
+  - [Endpoints](#endpoints)
   - [Technologies Used](#technologies-used)
   - [Project Structure](#project-structure)
   - [License](#license)
@@ -62,6 +63,14 @@ Upon accessing the application in your web browser, you will see the current dat
 - User-friendly web interface.
 - Responsive design for various devices.
 - Easy-to-understand and clean user interface.
+
+## Endpoints
+- Endpoint: /metrics
+- Purpose: Exposes metrics for monitoring using Prometheus.
+- Endpoint: /
+- Purpose: Returns the current time in Moscow and increments the request count.
+- Endpoint: /visits
+- Purpose: Returns the total number of visits.
 
 ## Technologies Used
 - Python: The core programming language used for the backend development.

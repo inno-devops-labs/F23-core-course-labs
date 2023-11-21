@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const path = require('path')
 const promClient = require('prom-client');
+const fs = require('fs');
 
 module.exports = {
   app,
@@ -9,6 +10,8 @@ module.exports = {
 }
 
 app.use(express.static(path.join(__dirname, 'public')))
+
+let countVisits = 0;
 
 const quotes = [
   'Do the small stuff. A consistent little will earn you a lot.',
@@ -75,8 +78,19 @@ app.get('/metrics', (req, res) => {
 app.get('/get-quote', (req, res) => {
   httpRequestCounter.inc({ method: 'GET', route: '/get-quote' });
   const randomQuote = getRandomQuote()
+  countVisits = countVisits + 1;
+  
+  fs.writeFile("visits", countVisits.toString(), (err) => {
+  });
+
   res.json({ quote: randomQuote })
 })
+
+app.get('/visits', (req, res) => {
+  res.json(countVisits)
+})
+
+
 
 const port = process.env.PORT || 3000
 const server = app.listen(port, () => {

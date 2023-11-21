@@ -19,4 +19,12 @@ def get_moscow_time():
     moscow_time = datetime.datetime.now(date)
     formatted_time = moscow_time.strftime("%Y-%m-%d %H:%M:%S")
 
+    with open("visits", "w") as file:
+        file.write(str(REQUEST_COUNT.labels("GET", "/", 200)._value.get()))
+
     return render_template("index.html", time=formatted_time)
+
+
+@bp.route("/visits")
+def show_visits():
+    return str(REQUEST_COUNT.labels("GET", "/", 200)._value.get())

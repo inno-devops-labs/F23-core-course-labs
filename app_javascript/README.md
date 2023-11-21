@@ -14,6 +14,7 @@ This project aims to develop a Node.js web application that displays random quot
   - [Installation](#installation)
   - [Usage](#usage)
   - [Features](#features)
+  - [Endpoints](#endpoints)
   - [Technologies Used](#technologies-used)
   - [Project Structure](#project-structure)
   - [License](#license)
@@ -51,6 +52,16 @@ Upon accessing the application in your web browser, you will see a "Get New Quot
 - No database required, quotes are selected from a predefined list.
 - Simple and responsive design for various devices.
 - Provides users with inspirational and thought-provoking content.
+
+## Endpoints
+- Endpoint: /public
+- Purpose: Serves static files from the public directory.
+- Endpoint: /metrics
+- Purpose: Exposes metrics for monitoring using Prometheus.
+- Endpoint: /get-quote
+- Purpose: Returns a random quote from the quotes array.
+- Endpoint: /visits
+- Purpose: Returns the count of visits.
 
 ## Technologies Used
 - Node.js: The core runtime environment for building server-side applications.
