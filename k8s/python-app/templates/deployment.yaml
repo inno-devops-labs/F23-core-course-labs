@@ -44,6 +44,12 @@ spec:
             httpGet:
               path: /
               port: http
+          env:
+            - name: "TEST_PASS"
+              valueFrom:
+                secretKeyRef:
+                  name: testsecret
+                  key: testsecret
           readinessProbe:
             httpGet:
               path: /
