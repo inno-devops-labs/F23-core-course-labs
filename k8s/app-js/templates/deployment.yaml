@@ -49,6 +49,11 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
           env:
             {{- include "app-js.envVars" . | nindent 12 }}
+            - name: SPECIAL_KEY_JS
+              valueFrom:
+                configMapKeyRef:
+                  name: config-map-entity-js
+                  key: test
           {{- with .Values.volumeMounts }}
           volumeMounts:
             {{- toYaml . | nindent 12 }}

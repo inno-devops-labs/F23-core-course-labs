@@ -62,6 +62,6 @@ CI stages:
 5. Defaults Configuration: It establishes 'bash' as the default shell and promote consistency throughout the execution of various steps.
 
 
-
-
-
+### Visitors
+Server can count number of visits and display it on /visits
+![Alt text](img/image.png)

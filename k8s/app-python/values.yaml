@@ -84,17 +84,21 @@ autoscaling:
   # targetMemoryUtilizationPercentage: 80
 
 # Additional volumes on the output Deployment definition.
-volumes: []
-# - name: foo
-#   secret:
-#     secretName: mysecret
-#     optional: false
+volumes:
+- name: config-volume-py
+  configMap:
+    name: config-map-entity-py
+- name: counter-data-py
+  emptyDir:
+    sizeLimit: 500Mi
 
 # Additional volumeMounts on the output Deployment definition.
-volumeMounts: []
-# - name: foo
-#   mountPath: "/etc/foo"
-#   readOnly: true
+volumeMounts:
+  - name: config-volume-py
+    mountPath: "/config.json"
+    subPath: config.json
+  - name: counter-data-py
+    mountPath: /data
 
 nodeSelector: {}
 

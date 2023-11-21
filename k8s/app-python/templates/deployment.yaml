@@ -58,6 +58,11 @@ spec:
                 secretKeyRef:
                   name: secret-pass
                   key: pass_data
+            - name: SPECIAL_KEY_PY
+              valueFrom:
+                configMapKeyRef:
+                  name: config-map-entity-py
+                  key: test
       {{- with .Values.volumes }}
       volumes:
         {{- toYaml . | nindent 8 }}

@@ -1,11 +1,30 @@
 const http = require('http');
 const app = require('./app'); // Import the app logic from another file
 const promBundle = require('express-prom-bundle');
+const fs = require('fs');
+const path = require('path');
 
 // Create a Prometheus metrics bundle using express-prom-bundle
 const metricsMiddleware = promBundle({
   includeMethod: true,
   includePath: true,
+});
+
+const filePath = '/data/visitors.json';
+const defaultContent = { visitors: 0 };
+
+fs.access(filePath, fs.constants.F_OK, (err) => {
+  if (err) {
+    fs.writeFile(filePath, JSON.stringify(defaultContent), 'utf8', (writeErr) => {
+      if (writeErr) {
+        console.error('Error creating file:', writeErr);
+        return;
+      }
+      else {
+        console.error('File created');
+      }
+    });
+  }
 });
 
 app.use(metricsMiddleware);
