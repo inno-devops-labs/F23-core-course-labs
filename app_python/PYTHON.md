@@ -1,7 +1,9 @@
-Since my app consists of only API endpoint that shows time, I've created unit test that checks if the endpoint returns correct time. I've also created a simple integration test that checks if the app is running and returns correct time.
 
-Best practices in testing I've implemented:
-* Unit tests are isolated from each other
-* Unit tests are isolated from external dependencies
-* Follow AAA pattern in unit tests is followed
-* Besides unit tests, I've created component and system (integration) tests that check if the app server is running and returns correct time
+My application comprises a sole API endpoint dedicated to displaying the current time. To ensure its functionality, I've devised a unit test to verify the accurate retrieval of time by the endpoint. Additionally, a straightforward integration test has been developed to ascertain the proper functioning of the app and its delivery of the correct time.
+
+I have adhered to several testing best practices, including:
+
+Ensuring isolation among unit tests, preventing dependencies on each other.
+Maintaining isolation of unit tests from external dependencies.
+Adhering to the Arrange-Act-Assert (AAA) pattern consistently in unit tests.
+Expanding the testing scope beyond unit tests to encompass component and system (integration) tests. These tests are designed to confirm the app server's operational status and its ability to return the correct time.

@@ -1,7 +1,6 @@
 """
 This module provides basic async http server.
 """
-__author__ = "Artem Bulgakov"
 
 from aiohttp import web
 from timeutils import timeutils

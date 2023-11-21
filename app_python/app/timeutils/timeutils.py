@@ -1,8 +1,3 @@
-"""
-This module provides utility functions for time.
-"""
-__author__ = "Artem Bulgakov"
-
 
 def get_time() -> str:
     import datetime

@@ -1,5 +1,4 @@
 FROM golang:alpine3.18 as build
-LABEL authors="Artem Bulgakov"
 EXPOSE 80
 
 ARG appdir=/goapp

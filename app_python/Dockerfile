@@ -1,5 +1,4 @@
 FROM python:3.11-alpine3.18 as staging
-LABEL authors="Artem Bulgakov"
 
 EXPOSE 80
 ARG projdir=/proj

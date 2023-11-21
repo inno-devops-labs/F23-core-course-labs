@@ -1,9 +1,3 @@
-#!/usr/bin/env python3
-
-"""
-A simple app that returns current time in Moscow.
-"""
-__author__ = "Artem Bulgakov"
 
 import asyncio
 from server import server

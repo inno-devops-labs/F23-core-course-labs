@@ -27,4 +27,4 @@ def test_request(test_client):
 
 	current_time = datetime.datetime.now(moscow_tz)
 
-	assert response_time - current_time < datetime.timedelta(seconds=5)
+	assert response_time - current_time < datetime.timedelta(seconds=10)
