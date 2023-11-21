@@ -61,7 +61,7 @@ Create the name of the service account to use
 {{- end }}
 {{- end }}
 
-{{- define "go-app.goEnvs" -}}
+{{- define "rust-app.rustEnvs" -}}
 - name: RELEASE_NAME
   value: {{ .Release.Name }}
 - name: IMAGE_TAG

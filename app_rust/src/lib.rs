@@ -123,7 +123,7 @@ pub fn run(web_server: Webserver) -> Result<(), Box<dyn Error>> {
     Ok(())
 }
 
-const PATH: &str = "/home/el3os/Desktop/core-course-labs/app_rust/src/visits.txt";
+const PATH: &str = "src/volume/visits.txt";
 fn read_visits() -> Result<String, Box<dyn Error>> {
     fs::read_to_string(PATH)
         .map_err(|e| e.into())

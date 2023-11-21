@@ -15,6 +15,7 @@ $ flask routes
 Endpoint            Methods  Rule
 ------------------  -------  -----------------------
 home                GET      /
+visits              GET      /visits
 ```
 
 ## Development

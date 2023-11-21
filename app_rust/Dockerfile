@@ -16,7 +16,7 @@ COPY --from=builder /app/target/release/web_server .
 
 USER app
 
-EXPOSE 5000
+EXPOSE 30000
 
 
 CMD ["web_server"]

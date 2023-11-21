@@ -11,7 +11,7 @@ from flask import Flask, render_template
 app = Flask(__name__)
 # metrics = PrometheusMetrics(app)
 
-COUNTER = './visits.txt'
+COUNTER = './volume/visits.txt'
 
 def get_current_visits():
     try:

@@ -38,3 +38,4 @@
 # Ignore CLI configuration files
 **/.terraformrc
 **/terraform.rc
+**/visits.txt

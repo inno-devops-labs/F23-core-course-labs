@@ -49,17 +49,25 @@ spec:
               path: /
               port: http
           env:
-          {{ include "rust-app.goEnvs" . | nindent 12 }}
-          resources:
-            {{- toYaml .Values.resources | nindent 12 }}
-          {{- with .Values.volumeMounts }}
+            {{- include "rust-app.rustEnvs" . | nindent 12 }}
+            - name: SOME-KEY
+              valueFrom:
+                configMapKeyRef:
+                  name: config-entity-rust
+                  key: test
           volumeMounts:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
-      {{- with .Values.volumes }}
+          - name: config-volume-rust
+            mountPath: "/config.json"
+            subPath: config.json
+          - name: counter-data-rust
+            mountPath: /data
       volumes:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+      - name: config-volume-rust
+        configMap:
+          name: config-entity-rust
+      - name: counter-data-kn
+        emptyDir:
+          sizeLimit: 500Mi
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
