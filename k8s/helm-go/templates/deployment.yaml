@@ -49,22 +49,22 @@ spec:
           #     path: /
           #     port: http
           env:
-            {{- include "rust-app.rustEnvs" . | nindent 12 }}
+            {{- include "go-app.goEnvs" . | nindent 12 }}
             - name: SOME-KEY
               valueFrom:
                 configMapKeyRef:
-                  name: config-entity-rust
+                  name: config-entity-go
                   key: test
           volumeMounts:
-          - name: config-volume-rust
+          - name: config-volume-go
             mountPath: "/config.json"
             subPath: config.json
-          - name: counter-data-rust
+          - name: counter-data-go
             mountPath: /data
       volumes:
-      - name: config-volume-rust
+      - name: config-volume-go
         configMap:
-          name: config-entity-rust
+          name: config-entity-go
       - name: counter-data-kn
         emptyDir:
           sizeLimit: 500Mi

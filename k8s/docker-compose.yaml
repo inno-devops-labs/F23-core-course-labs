@@ -12,7 +12,7 @@ services:
       - app_python_visits:/app/volume/
 
   app_go:
-    image: el3os/moscow_time_go:latest
+    image: iviosab/moscow_time_go:latest
     container_name: app_go
     restart: always
     user: root
