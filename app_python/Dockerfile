@@ -1,6 +1,7 @@
 FROM alpine:3.18.3 AS test
 RUN apk --no-cache add py3-pip=23.1.2-r0
-
+RUN mkdir /data && chown app /data
+VOLUME [ "/data" ]
 RUN addgroup -g 2000 localuser \
     && adduser -u 2000 -G localuser -s /bin/sh -D localuser
 USER 2000

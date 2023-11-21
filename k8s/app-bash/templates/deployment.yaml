@@ -55,6 +55,24 @@ spec:
             {{- toYaml . | nindent 12 }}
           env:
             {{- include "app-bash.envs" . | nindent 12 }}
+            - name: SPECIAL_TYPE_KEY
+              valueFrom:
+                configMapKeyRef:
+                  name: config-map-entity-kn
+                  key: test
+          volumeMounts:
+          - name: config-volume-kn
+            mountPath: "/config.json"
+            subPath: config.json
+          - name: counter-data-kn
+            mountPath: /data
+      volumes:
+      - name: config-volume-kn
+        configMap:
+          name: config-map-entity-kn
+      - name: counter-data-kn
+        emptyDir:
+          sizeLimit: 500Mi
           {{- end }}
       {{- with .Values.volumes }}
       volumes:
