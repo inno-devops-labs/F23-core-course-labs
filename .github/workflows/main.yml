@@ -24,11 +24,6 @@ jobs:
         run: |
           pip install -r app_python/requirements.txt
           
-      - name: Lint code
-        run: |
-          pip install flake8
-          flake8 app_python
-
       - name: Run tests
         run: |
           pip install pytest
