@@ -16,17 +16,17 @@ RUN python -m venv ${VIRTUAL_ENV} && \
 # ------------------------------------------------------------------
 # Application stage
 
-FROM ${PYTHON_DISTROLESS_IMAGE}
+# FROM ${PYTHON_DISTROLESS_IMAGE}
+FROM python:3
 
 ARG PYTHON_VERSION
 
-COPY ./src /app/
-COPY --from=builder /home/venv /home/venv
+COPY ./ /app/
 
-ENV PYTHONPATH=/home/venv/lib/python${PYTHON_VERSION}/site-packages
+RUN cd /app; pip install -r requirements.txt
 
 EXPOSE 8000
 
-WORKDIR /app
+WORKDIR /app/src
 
 ENTRYPOINT ["python", "run.py", "-b", "0.0.0.0:8000", "app:app"]

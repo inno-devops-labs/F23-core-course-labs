@@ -2,7 +2,11 @@
 
 # The app
 
-The is a simple web application built with Flask and guicorn as HTTP server. This application displays the current time in Moscow.
+The is a simple web application built with Flask and guicorn as HTTP server.\
+It has two endpoints:
+
+* `/ ` : Displays the current time in Moscow.
+* `/visits ` : Displays the count of visits of the root endpoint.
 
 ## Running the app
 
@@ -48,6 +52,14 @@ To build the base image (Dockerfile is in `python-distroless` folder) you can us
 
 ```bash
 docker build --build-arg=PYTHON_BUILDER_IMAGE=al3xos/python-builder:3.9-debian11 --build-arg=GOOGLE_DISTROLESS_BASE_IMAGE=gcr.io/distroless/cc -t python-distroless:3.9-debian11 .
+```
+
+## Docker Compose
+
+Run the app using Docker Compose:
+
+```bash
+docker compose up
 ```
 
 ## CI
