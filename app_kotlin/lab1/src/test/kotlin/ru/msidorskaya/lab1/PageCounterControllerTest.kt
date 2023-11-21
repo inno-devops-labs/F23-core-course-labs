@@ -36,6 +36,7 @@ class PageCounterControllerTest {
 	}
 
 	companion object {
-		private val DEFAULT_MESSAGE_REGEXP = Regex("Воу, Вы открывали эту страницу уже (\\d+) раз!")
+		private val DEFAULT_MESSAGE_REGEXP =
+			Regex("Воу, с момента последнего рестарта приложения Вы открывали эту страницу уже (\\d+) раз!")
 	}
 }
