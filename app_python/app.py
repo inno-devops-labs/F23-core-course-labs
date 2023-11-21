@@ -16,6 +16,10 @@ app = Flask(__name__)
 
 @app.route('/')
 def main():
+    with open('./volume/visits', 'r') as f:
+        visits = int(f.read()) + 1
+    with open('./volume/visits', 'w') as f:
+        f.write(str(visits))
     curr_time = datetime.now(timezone(timedelta(hours=3))).strftime('%H:%M:%S')
     logger.info(msg=f'Method: GET Response: {curr_time}')
     return render_template('index.html', curr_time=curr_time)
