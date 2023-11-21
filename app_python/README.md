@@ -2,6 +2,8 @@
 
 This is a simple web application developed using Python and the Flask framework. The application displays the current time in Moscow and serves as an example of web development using best practices.
 
+Also `/visits` shows the number of visits
+
 ## Features
 
 - Displays the current time in Moscow.
@@ -76,3 +78,4 @@ To run test:
 - Login
 
 - Build and Push
+
