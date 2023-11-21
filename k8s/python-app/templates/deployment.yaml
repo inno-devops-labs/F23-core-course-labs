@@ -43,6 +43,11 @@ spec:
                 secretKeyRef:
                   name: credentials
                   key: password
+            - name: CONFIG_MAP_VAR
+              valueFrom:
+                configMapKeyRef:
+                  name: python-app-configmap
+                  key: env-var
             {{ include "python-app.pythonEnvs" . | nindent 12 }}
           livenessProbe:
             httpGet:
