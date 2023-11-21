@@ -2,6 +2,39 @@
 
 # App for showing Moscow time
 
+## API
+1. ```GET /``` - returns current moscow time
+2. ```GET /visits``` - returns persistence number of previous endpoint accesses
+
+## Visits logic
+Visits logic is implemented using file 'visits'. It's used as persistence datastore.
+For example reading current number of vistits:
+```python
+def read_visits_number(filePath) -> int:
+	try:
+		with open(filePath, "r") as f:
+			return int(f.read())
+	except FileNotFoundError as e:
+		logging.info(f"File in {filePath} not found. File will be created")
+		create_file(filePath)
+		return 0
+```
+
+In docker-compose.yml files this file used in volumes:
+```dockerfile
+    volumes:
+      - moscow_time_app_data:/app/src/resources
+```
+```
+$ docker volume ls | grep "moscow"
+local     monitoring_moscow_time_app_data
+```
+(Justification from localhost due to the fact that my trial period of cloud is over, but I update ansible playbook, you can check it)
+
+Example of work:
+![](pics/python.png)
+![](pics/python-visits.png)
+
 ## Installation
 
 Use the package manager [pip](https://pip.pypa.io/en/stable/) to install dependencies.

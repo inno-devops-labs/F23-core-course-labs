@@ -20,6 +20,8 @@ services:
       resources:
         limits:
           memory: 256m
+    volumes:
+      - moscow_time_app_data:/app/src/resources
 
   base-converter-app:
     image: edikgoose/base-converter:latest
@@ -103,3 +105,6 @@ services:
       resources:
         limits:
           memory: 1g
+
+volumes:
+  moscow_time_app_data:
