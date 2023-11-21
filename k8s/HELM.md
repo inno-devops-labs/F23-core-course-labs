@@ -1,4 +1,3 @@
-# Lab 10: Introduction to Helm
 
 ## Task 1: Helm Setup and Chart Creation
 

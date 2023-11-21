@@ -1,34 +1,12 @@
-# Lab 7: Monitoring and Logging
 
-## Task 1: Logging Stack Setup
-1. Study the Logging Stack: Done
-2. Create a Monitoring Folder: Done
-3. Docker Compose Configuration: Done
-4. Testing: demonstration of the logging stack and the application working can be seen in the next task
-
-
-## Task 2: Documentation and Reporting
-
-1. Role of each component:
-    - **Promtail** - agent that collects logs from containers and sends them to Loki.
-    - **Loki** - stores logs in a compressed format and indexes them for fast queries
-    - **Grafana** - visualizes logs from Loki
-
-2. Screenshots:
-
-![containers in grafana](https://i.imgur.com/E55ZkKL.png)
-
-![logs of python app container](https://i.imgur.com/4Xl2ICq.png)
-
-
-## Bonus
-I have added `app_go` service to the docker-compose.
-Logs from `app_go` service:
-
-![logs of go app container](https://i.imgur.com/anMkr0d.png)
-
-I use a log_setup shortcut to setup `docker logs` parameters for each container.
-`docker-config.yml` contains settings for promtail to collect logs from all containers.
-
-## References
-[Docker Container Logging using Promtail](https://gist.github.com/ruanbekker/c6fa9bc6882e6f324b4319c5e3622460)
+Task 1: Configuration of Logging Stack
+Familiarization with Logging Stack: Completed
+Establishment of Monitoring Folder: Completed
+Configuration of Docker Compose: Completed
+Testing: The operational demonstration of both the logging stack and the application is scheduled for the subsequent task.
+Task 2: Documentation and Reporting
+Functional Roles of Each Component:
+Promtail - Acts as an agent, collecting logs from containers and transmitting them to Loki.
+Loki - Functions as a storage platform, compressing and indexing logs to facilitate rapid queries.
+Grafana - Serves the purpose of visualizing logs sourced from Loki.
+The utilization of a log_setup shortcut streamlines the configuration of docker logs parameters for individual containers. The settings for Promtail to gather logs from all containers are consolidated within the docker-config.yml file.

@@ -1,4 +1,3 @@
-# Lab 9: Introduction to Kubernetes
 
 ## Task 1: Kubernetes Setup and Basic Deployment
 1. Learn about Kubernetes: done
@@ -18,8 +17,7 @@
     kubectl expose deployment python-app --type=LoadBalancer --port=80
     minikube service python-app
 ```
-![deployed app](https://i.imgur.com/xQukAB1.png)
-![minikube service python-app](https://i.imgur.com/FejgpHf.png)
+
 5. Create a Kubernetes Folder: done
 Command output:
 ```bash
@@ -58,30 +56,3 @@ NAME                 TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)      
 service/app-python   LoadBalancer   10.102.193.243   <pending>     80:30080/TCP   7m59s
 service/kubernetes   ClusterIP      10.96.0.1        <none>        443/TCP        10h
 ```
-
-![kubectl get pods,svc](https://i.imgur.com/2DdkQX0.png)
-
-`minikube service --all:`
-![minikube service](https://i.imgur.com/g1v0D4C.png)
-
-in the browser:
-![deployed app](https://i.imgur.com/pCosGMp.png)
-
-
-## Bonus task
-1. Manifests for extra app: done in `deployment-go.yml`, `service-go.yml`
-
-![kubectl get pods and minikube service](https://i.imgur.com/DUuAU3l.png)
-
-2. Ingress Manifests: added both for python and go app in `ingress.yml`
-
-3. Application Availability Check:
-
-```bash
-curl --resolve "app.py:80:$( minikube ip )" -i http://app.py
-curl --resolve "app.go:80:$( minikube ip )" -i http://app.go
-```
-
-![ingress](https://i.imgur.com/DYe33HL.png)
-
-
