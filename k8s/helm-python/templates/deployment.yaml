@@ -36,12 +36,6 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          env:
-          - name: MY_PASSWORD
-            valueFrom: 
-              secretKeyRef:
-                  name: credentials
-                  key: password
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
@@ -57,13 +51,37 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           {{- with .Values.volumeMounts }}
+          env:
+          {{- include "python-app.envVars" . | nindent 12 }}
+          - name: "PASSWORD"
+              valueFrom:
+                secretKeyRef:
+                  name: db-user-pass
+                  key: password
+          - name: "USERNAME"
+              valueFrom:
+                secretKeyRef:
+                  name: db-user-pass
+                  key: username
+            - name: Some-KEY
+          - name: SOME-KEY
+            valueFrom:
+              configMapKeyRef:
+                name: config-entity
+                key: test
           volumeMounts:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
-      {{- with .Values.volumes }}
+           - name: config-volume-py
+            mountPath: "/config.json"
+            subPath: config.json
+          - name: counter-data-py
+            mountPath: /data
       volumes:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+      - name: config-volume-py
+        configMap:
+          name: config-entity
+      - name: counter-data-py
+        emptyDir:
+          sizeLimit: 500Mi
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -76,3 +94,4 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      
