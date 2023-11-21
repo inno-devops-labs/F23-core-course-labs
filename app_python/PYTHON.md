@@ -22,7 +22,12 @@ Wrote unit-tests that check
 - that the displayed time is correct
 - that time is changing
 
-### Best practices
+## Best practices
 - Keep tests independent and isolated
 - Use meaningful and descriptive test case names
 - Test for expected behavior, not implementation details
+
+## Additional
+- Save visits inside `visits` file 
+- `/visits` endpoint returns number of visits
+- Can mount volume folder to `/volume/` folder inside container

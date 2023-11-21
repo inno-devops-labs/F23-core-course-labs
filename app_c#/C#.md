@@ -15,7 +15,12 @@ I decide to use ASP.NET, because:
 - manual testing
 - unit-tests which check that dog age is correctly converted to human age in days and years
 
-### Best practices
+## Best practices
 - Keep tests independent and isolated
 - Use meaningful and descriptive test case names
 - Test for expected behavior, not implementation details
+
+## Additional
+- Save visits inside `visits` file 
+- `/visits` endpoint returns number of visits
+- Can mount volume folder to `/volume/` folder inside container
