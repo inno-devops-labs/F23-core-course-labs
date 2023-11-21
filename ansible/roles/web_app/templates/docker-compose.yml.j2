@@ -6,3 +6,5 @@ services:
     restart: unless-stopped
     ports:
       - "{{ external_port }}:{{ internal_port }}" 
+    volumes:
+      - ./volume:/app/volume

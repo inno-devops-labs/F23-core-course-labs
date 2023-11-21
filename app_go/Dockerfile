@@ -11,6 +11,7 @@ RUN go mod download
 
 # Build the binary
 COPY *.go /app/
+COPY /volume/visits /app/volume/
 RUN go build -v -o appgo
 
 EXPOSE 9000

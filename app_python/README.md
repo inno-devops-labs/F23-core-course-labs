@@ -32,6 +32,14 @@ There is Makefile in the project.
 ## Usage
 To get current moscow time run `curl 127.0.0.1:8000` or enter `127.0.0.1:8000` in any browser.
 
+## Roots
+```
+/        -- get current time
+/metrics -- get 
+/health  -- health check
+/visits  -- number of time root path accessed
+```
+
 ## Docker
 This application can be run using docker containers. 
 To do this make sure docker is installed on your machine.

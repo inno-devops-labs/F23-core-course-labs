@@ -96,7 +96,7 @@ ansible-inventory -i inventory/default_aws_ec2.yml --list
 }
 ```
 
-## Outpit of playbook with deploy (Lab6 Task1)
+## Output of playbook with deploy (Lab6 Task1)
 ```
 PLAY [Deploy Docker] *****************************************************************************************
 

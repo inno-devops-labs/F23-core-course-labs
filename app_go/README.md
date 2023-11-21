@@ -27,6 +27,14 @@ make run
 
 To get current moscow time run `curl 127.0.0.1:9000` or enter `127.0.0.1:9000` in any browser.
 
+## Roots
+```
+/        -- get current time
+/metrics -- get 
+/health  -- health check
+/visits  -- number of time root path accessed
+```
+
 ## Docker
 
 This application can be run using docker containers.
