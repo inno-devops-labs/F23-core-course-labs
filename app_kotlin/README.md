@@ -4,10 +4,22 @@
 
 (and current moscow time)
 
-The application has 2 features:
+The application has 3 features:
 
-- shows how many times the page was opened by `GET /` request
+- shows how many times the page was opened by `GET /` request from the last application start
+- shows how many times the page was opened by `GET /visits` request regardless of restarts
 - shows current Moscow time by `GET /time` request
+
+### `/visits` page
+The application uses separate file to save its state after shutting down. 
+To test it I opened the `/visits` page several times and checked that the number grows:
+![visits-page.png](visits-page.png)
+
+Then I shutted down the application, restarted it and opened the page again:
+
+![visits-after-restart.png](visits-after-restart.png)
+
+I see that application didn't start its count from 0 but continued from the last value.
 
 ## How to run
 
