@@ -1,0 +1,11 @@
+version: '3'
+services:
+  your_app:
+    image: path242/clock:latest
+    volumes:
+      - app-storage:/app/data
+    ports:
+      - "8000:8000"
+    restart: always
+volumes:
+  app-storage:

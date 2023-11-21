@@ -20,20 +20,20 @@ async def currentTime(request: Request):
     formatted_request = \
         {"request": request, "current_time": formatted_time}
     async with counter_lock:
-        counter_file = open('global_counter.txt', 'r')
+        counter_file = open('./data/global_counter.txt', 'r')
         counter = int(counter_file.readline())
         counter += 1
-        counter_file = open('global_counter.txt', 'w')
+        counter_file = open('./data/global_counter.txt', 'w')
         counter_file.write(f"{counter}")
         counter_file.close()
     return templates.TemplateResponse("currentTime.html", formatted_request)
 @app.get("/visits")
 async def displayVisits(request: Request):
     async with counter_lock:
-        counter_file = open('global_counter.txt', 'r')
+        counter_file = open('./data/global_counter.txt', 'r')
         counter = int (counter_file.readline())
         counter += 1
-        counter_file = open('global_counter.txt', 'w')
+        counter_file = open('./data/global_counter.txt', 'w')
         counter_file.write(f"{counter}")
         counter_file.close()
     formatted_request = \
