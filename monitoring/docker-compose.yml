@@ -19,6 +19,8 @@ services:
       resources:
         limits:
           memory: 512M
+    volumes:
+      - app_python_data:/app/data
 
   loki:
     image: grafana/loki:2.9.2
@@ -84,3 +86,5 @@ services:
         limits:
           memory: 512M
 
+volumes:
+  app_python_data:

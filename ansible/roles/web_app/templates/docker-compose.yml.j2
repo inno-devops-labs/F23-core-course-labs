@@ -6,3 +6,8 @@ services:
     ports:
       - "8000:8000"
     command: "python3 main.py"
+    volumes:
+      - app_python_data:/app/data
+
+volumes:
+  app_python_data:
