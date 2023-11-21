@@ -6,6 +6,7 @@
   <body>
     <h1>Current Time in Moscow:</h1>
     <p id="current-time">{{ time }}</p>
+    <p id="visits">0</p>
 
     <script>
       function updateTime() {
@@ -19,8 +20,22 @@
         });
       }
 
+      function updateVisits() {
+        fetch("/visits", {
+          method: "GET",
+        }).then(async (data) => {
+          const visitsElement = document.getElementById("visits");
+          const visitsData = await data.text();
+
+          visitsElement.innerText = visitsData;
+        });
+      }
+
       setInterval(updateTime, 1000);
+      setInterval(updateVisits, 1000);
+
       updateTime();
+      updateVisits();
     </script>
   </body>
 </html>
