@@ -6,10 +6,36 @@ This application is using standard Python libraries `datetime` and `zoneinfo` to
 simple GET / request. The application based on Django framework.
 
 ## Visit counter update
-An endpoint `/visit` shows how many times the page was opened. The application uses a file `visit-counter.txt` to
+An endpoint `/visits` shows how many times the page was opened. The application uses a file `visit-counter.txt` to
 persist this state throughout all the launches to make sure this value does not drop after restarts.
 
+<details>
+<summary>Testing /visits endpoint</summary>
+To test it you may run the application:
+`python3 manage.py runserver`
+Then run the curl command few times:
+```
+curl localhost:8000/visits
+1
+curl localhost:8000/visits
+2
+curl localhost:8000/visits
+3
+```
+Then restart the application:\
+`ctrl+c`\
+`python3 manage.py runserver`
+
+And run curl again:
+```
+curl localhost:8000/visits
+4
+```
+It didn't start its count from 0 and continued from the last value.
+</details>
+
 Docker compose configuration is adding this file as a volume to the docker container.
+
 
 ## How to run
 
