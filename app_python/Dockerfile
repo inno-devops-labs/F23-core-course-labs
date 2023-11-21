@@ -1,6 +1,7 @@
 FROM python:3.9-slim
 
 RUN useradd -m -d /home/xyz -s /bin/bash xyz
+RUN mkdir -p /app/data && echo "0" > /app/data/global_counter.txt
 
 WORKDIR /app
 
@@ -10,6 +11,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
+RUN chown -R xyz:xyz /app
 USER xyz
 
 EXPOSE 8000

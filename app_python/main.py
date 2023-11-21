@@ -3,6 +3,7 @@ from fastapi.templating import Jinja2Templates
 from datetime import datetime, timedelta
 import logging
 import asyncio
+import os
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s %(message)s')
 
 app = FastAPI()
@@ -19,23 +20,29 @@ async def currentTime(request: Request):
     formatted_time = time_utc_3.strftime("%Y-%m-%d %H:%M:%S")
     formatted_request = \
         {"request": request, "current_time": formatted_time}
-    async with counter_lock:
-        counter_file = open('./data/global_counter.txt', 'r')
-        counter = int(counter_file.readline())
-        counter += 1
-        counter_file = open('./data/global_counter.txt', 'w')
-        counter_file.write(f"{counter}")
-        counter_file.close()
+    filename = './data/global_counter.txt'
+    if not os.path.exists(filename):
+        with open(filename, 'w') as file:
+            file.write('0')
+    counter_file = open(filename, 'r')
+    counter = int(counter_file.readline())
+    counter += 1
+    counter_file = open(filename, 'w')
+    counter_file.write(f"{counter}")
+    counter_file.close()
     return templates.TemplateResponse("currentTime.html", formatted_request)
 @app.get("/visits")
 async def displayVisits(request: Request):
-    async with counter_lock:
-        counter_file = open('./data/global_counter.txt', 'r')
-        counter = int (counter_file.readline())
-        counter += 1
-        counter_file = open('./data/global_counter.txt', 'w')
-        counter_file.write(f"{counter}")
-        counter_file.close()
+    filename = './data/global_counter.txt'
+    if not os.path.exists(filename):
+        with open(filename, 'w') as file:
+            file.write('0')
+    counter_file = open(filename, 'r')
+    counter = int (counter_file.readline())
+    counter += 1
+    counter_file = open(filename, 'w')
+    counter_file.write(f"{counter}")
+    counter_file.close()
     formatted_request = \
         {"request": request, "counter": counter}
     return templates.TemplateResponse("visits.html", formatted_request)

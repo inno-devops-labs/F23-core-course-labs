@@ -2,6 +2,9 @@
 
 This web application displays current time in moscow timezone (UTC+3) and uses FastApi, known for its simplicity and performance.
 
+/visits
+shows the number of times this website has been visited.
+
 ## Docker
 
 This application can be run as a Docker container for easy deployment. 
@@ -38,3 +41,6 @@ Unit tests
 Github workflow
     
 [![CI](https://github.com/PATH242/core-course-labs/actions/workflows/main.yml/badge.svg)](https://github.com/PATH242/core-course-labs/actions/workflows/main.yml)
+
+## Docker compose
+For storage volume.
