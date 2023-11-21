@@ -4,3 +4,9 @@ services:
     image: {{ image_name }}
     ports:
       - "{{ host_port }}:{{ internal_port }}"
+
+    volumes:
+        - 'volume_{{ service_name }}:/app/volume/'
+
+volumes:
+    'volume_{{ service_name }}:'
