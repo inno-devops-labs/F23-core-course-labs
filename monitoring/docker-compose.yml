@@ -1,0 +1,48 @@
+version: "3"
+
+networks:
+  monitoring:
+
+services:
+  time_python:
+    image: "kernie/time-python:latest"
+    ports:
+      - "8000:8000"
+
+  joke_js:
+    image: "kernie/joke-js:latest"
+    ports:
+      - "8001:3000"
+    stop_signal: SIGKILL
+
+  loki:
+    image: grafana/loki:latest
+    networks:
+      - monitoring
+
+  promtail:
+    image: grafana/promtail:latest
+    ports:
+      - "9080:9080"
+    volumes:
+      - ./promtail-config:/etc/promtail
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: -config.file=/etc/promtail/config.yml
+    depends_on:
+      - loki
+    networks:
+      - monitoring
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+      - GF_AUTH_DISABLE_LOGIN_FORM=true
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning
+    networks:
+      - monitoring
