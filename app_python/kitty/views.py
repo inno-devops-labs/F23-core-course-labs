@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse
 import datetime
 import pytz
+from django.views import View
+import os
 
 # Create your views here.
 
@@ -27,3 +29,16 @@ def show_time(request):
 def get_time(request):
     formatted_time = get_moscow_time()
     return HttpResponse(formatted_time)
+
+
+class VisitsView(View):
+    def get(self, request, *args, **kwargs):
+        file_path = "./volume/visits"
+
+        try:
+            with open(file_path) as f:
+                visits = int(f.read())
+        except FileNotFoundError:
+            visits = 0
+
+        return HttpResponse(str(visits))
