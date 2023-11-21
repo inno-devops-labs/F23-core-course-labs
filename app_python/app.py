@@ -35,7 +35,17 @@ def metrics():
     registry = CollectorRegistry()
     data = generate_latest(registry)
     return Response(data, content_type='text/plain; version=0.0.4')
-    
+
+
+@app.route('/visits')
+def read_visits():
+    try:
+        with open('./volume/visits') as f:
+            visits = int(f.read())
+    except FileNotFoundError:
+        visits = 0
+
+    return str(visits)
 
 
 if __name__ == "__main__":

@@ -78,3 +78,10 @@ The following secrets need to be specified in order to run the pipeline:
 - **DOCKER_PASSWORD** - DockerHub password (or token).
 - **DOCKER_USERNAME** - DockerHub username.
 - **SNYK_TOKEN** - Snyk token.
+
+
+## Get number of visits
+```
+>>> curl localhost:8000/visits
+5
+```

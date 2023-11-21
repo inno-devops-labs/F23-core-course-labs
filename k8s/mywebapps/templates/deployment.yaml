@@ -41,7 +41,11 @@ spec:
               containerPort: {{ .Values.service.port }}
               protocol: TCP
           env:
-            {{- include "mywebappsmapenvsecrets" . | indent 12 }}
+            - name: SECRET_LAB
+              valueFrom:
+                configMapKeyRef:
+                  name: env-configmap
+                  key: SECRET_LAB
           livenessProbe:
             httpGet:
               path: /
