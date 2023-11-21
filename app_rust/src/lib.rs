@@ -8,6 +8,9 @@ use std::{
     net::TcpListener,
 };
 
+use std::panic::{self, AssertUnwindSafe};
+
+
 use chrono::prelude::*;
 
 pub struct ThreadPool {
@@ -98,51 +101,75 @@ impl Webserver {
 pub fn run(web_server: Webserver) -> Result<(), Box<dyn Error>> {
     let listener = TcpListener::bind(web_server.address)?;
 
+    let threads = ThreadPool::new(5);
+
     for stream in listener.incoming() {
         let stream = stream?;
         println!("Stream: {:?}", stream);
 
-        let threads = ThreadPool::new(5);
+        threads.execute(|| {
+            let result = panic::catch_unwind(AssertUnwindSafe(|| {
+                if let Err(e) = handle_connection(stream) {
+                    eprintln!("Error handling connection: {}", e);
+                }
+            }));
 
-        threads.execute(|| handle_connection(stream));
+            if let Err(_) = result {
+                eprintln!("Caught a panic while handling a connection.");
+            }
+        });
     }
 
     Ok(())
 }
 
-fn handle_connection(mut stream: std::net::TcpStream) {
+const PATH: &str = "/home/el3os/Desktop/core-course-labs/app_rust/src/visits.txt";
+fn read_visits() -> Result<String, Box<dyn Error>> {
+    fs::read_to_string(PATH)
+        .map_err(|e| e.into())
+}
+
+fn update_visits() -> Result<(), Box<dyn Error>>{
+    let mut current_visits: i32 = read_visits()?.parse()?;
+    current_visits += 1;
+    fs::write(PATH, current_visits.to_string()).map_err(|e| e.into())
+}
+fn handle_connection(mut stream: std::net::TcpStream) -> Result<(), Box<dyn Error>> {
     let buf_reader = BufReader::new(&mut stream);
-    let req = buf_reader.lines().next().unwrap().unwrap();
+    let req_line = buf_reader.lines().next().ok_or("Request line not found")??;
 
-    let utc_now = Utc::now();
-
-    // Convert the UTC time to Moscow time
-    let moscow_time = utc_now.with_timezone(&FixedOffset::east_opt(3 * 3600).unwrap());
-    let moscow_time = moscow_time.format("%H:%M:%S");
-
-    let moscow_time_str = moscow_time.to_string();
-
-    let (res_code, content) = if req == "GET / HTTP/1.1" {
-        let response = format!("<h1>Time in moscow is:  {} </h1>", moscow_time_str);
-        (String::from("HTTP/1.1 200 OK"), response)
-    } else {
-        (
-            String::from("HTTP/1.1 404 NOT FOUND"),
-            fs::read_to_string("error.html").unwrap(),
-        )
+    let response = match req_line.as_str() {
+        "GET / HTTP/1.1" => {
+            let utc_now = Utc::now();
+            let moscow_time = utc_now.with_timezone(&FixedOffset::east_opt(3 * 3600).unwrap());
+            let moscow_time_str = moscow_time.format("%H:%M:%S").to_string();
+            update_visits()?;
+            let content = format!("<h1>Time in Moscow is: {}</h1>", moscow_time_str);
+            format!("HTTP/1.1 200 OK\r\nContent-Length: {}\r\n\r\n{}", content.len(), content)
+        }
+        "GET /visits HTTP/1.1" => {
+            match read_visits() {
+                Ok(visits) => format!("HTTP/1.1 200 OK\r\nContent-Length: {}\r\n\r\n{}", visits.len(), visits),
+                Err(e) => {
+                    eprintln!("Error reading visits: {}", e);
+                    format!("HTTP/1.1 500 INTERNAL SERVER ERROR\r\n\r\nInternal Server Error")
+                }
+            }
+        }
+        _ => {
+            let content = fs::read_to_string("error.html").unwrap_or_else(|_| String::from("404 Not Found"));
+            format!("HTTP/1.1 404 NOT FOUND\r\nContent-Length: {}\r\n\r\n{}", content.len(), content)
+        }
     };
 
-    let length = content.len();
-
-    let res = format!("{res_code}\r\nContent-Length: {length}\r\n\r\n{content}");
-
-    stream.write_all(res.as_bytes()).unwrap();
-    stream.flush().unwrap();
+    stream.write_all(response.as_bytes())?;
+    stream.flush()?;
+    Ok(())
 }
+
 
 #[cfg(test)]
 mod tests {
-
     #[test]
     fn test_handle_connection() {
         print!("Testing is working");

@@ -225,6 +225,12 @@ service/python-app-helm   ClusterIP   10.110.86.156   <none>        5000/TCP   4
 
 
 
+## Library
+
+- [chart](./library-chart)
+
+
+
 ## Rust chart browser ip
 
 ![helm-browser-rust](./images/helm-browser-rust.png)
