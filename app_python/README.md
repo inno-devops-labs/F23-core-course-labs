@@ -12,6 +12,8 @@ a.shakirov@innopolis.university
 
 Application to display current time in Moscow in format YYYY-MM-DD HH:MM:SS
 
+Available number of application visitors
+
 ## Docker
 
 Building docker container:
@@ -79,6 +81,16 @@ After starting the application visit [http://127.0.0.1:5000](http://127.0.0.1:50
 ```bash
 curl http://127.0.0.1:5000
 ```
+
+
+
+Open [http://127.0.0.1:5000/visits](http://127.0.0.1:5000/visits) to see the number of visits to the application or directly from terminal
+
+```bash
+curl http://127.0.0.1:5000/visits
+```
+
+
 
 ## Contact
 

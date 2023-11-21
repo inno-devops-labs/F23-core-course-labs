@@ -18,6 +18,10 @@ RUN pip install --no-cache-dir -r requirements.txt \
 # Copy the application code
 COPY main.py .
 
+# Folder for assets
+RUN mkdir /assets && chown pythonuser /assets
+VOLUME ["/assets"]
+
 # Switch to the new user
 USER pythonuser
 
