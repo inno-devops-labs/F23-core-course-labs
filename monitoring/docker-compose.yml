@@ -8,6 +8,7 @@ services:
     image: irsokolova/time_app:latest
     volumes:
       - ./logs/:/code/log/
+      - volume-python:/app/volume
     ports:
       - "7000:7000"
 
@@ -93,3 +94,6 @@ services:
       TZ: "Europe/Moscow"
     networks:
       - loki
+
+volumes:
+  volume-python:

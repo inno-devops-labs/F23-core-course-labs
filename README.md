@@ -45,6 +45,7 @@
 ## About The Project
 
 This is a web application to always be aware of the current time in Moscow.
+Moreover, on "/visits" route now you can see the count of visits for the main page.
 
 ### Built With
 
