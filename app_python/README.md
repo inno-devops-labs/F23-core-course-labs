@@ -33,3 +33,9 @@ To run it type `pytest`
 ### docker
 1. Login to Docker Hub
 2. Build and push image to Docker Hub
+
+## Visits
+
+go to `/visits` to see visits
+
+visit contain ip addr of visitor and time of visit

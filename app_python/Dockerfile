@@ -1,16 +1,14 @@
 FROM python:3.11-alpine
 
-COPY ./requirements.txt /code/requirements.txt
+COPY ./requirements.txt requirements.txt
  
-RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
+RUN pip install --no-cache-dir --upgrade -r requirements.txt
 
 RUN adduser -D -g '' lolik
 
 USER lolik
 
-WORKDIR /code
+COPY ./src /src
 
-COPY ./src /code/src
-
-CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "80"]
+CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8080", "--reload"]
 

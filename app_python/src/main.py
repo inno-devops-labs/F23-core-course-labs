@@ -1,12 +1,17 @@
-from fastapi import FastAPI
-from datetime import datetime
-from pytz import timezone
+from fastapi import FastAPI, Request
+from typing import Any, List
+from . import utils
 
 
 app = FastAPI()
 
-
 @app.get("/")
-async def get_current_moscow_time():
-    time = datetime.now(timezone('Europe/Moscow'))
-    return time.strftime("%H:%M:%S")
+async def get_current_moscow_time(request: Request):
+    utils.record_visit(request.client.host)
+    return utils.moscow_time()
+
+
+@app.get("/visits")
+async def get_visits(request: Request):
+    utils.record_visit(request.client.host)
+    return utils.get_visits()
