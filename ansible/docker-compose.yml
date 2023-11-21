@@ -1,0 +1,13 @@
+services:
+  myapp_python:
+    image:  muurrk/myapp:latest
+    restart: always
+    container_name: myapp_python
+    user: root
+    ports:
+        - 8080:8080
+    volumes:
+        - volume_myapp_python:/app/volume/
+
+volumes:
+    volume_myapp_python:
