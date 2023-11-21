@@ -1,11 +1,12 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ include "python-app.fullname" . }}
   labels:
     {{- include "python-app.labels" . | nindent 4 }}
     {{- include "library-chart.labels" . | nindent 4 }}
 spec:
+  podManagementPolicy: Parallel
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
@@ -44,31 +45,36 @@ spec:
               containerPort: {{ .Values.service.port }}
               protocol: TCP
           env:
-            - name: CONFIG_ENV
-              valueFrom:
-                configMapKeyRef:
-                  name: myconfigmap
-                  key: key2
+            {{- if .Values.configenvs.enabled }}
+              - name: CONFIG_ENV
+                valueFrom:
+                  configMapKeyRef:
+                    name: myconfigmap
+                    key: key2
+            {{- end }}
             {{- include "python-app.mySecrets" . | indent 12 }}
           livenessProbe:
             httpGet:
               path: /
               port: http
+            initialDelaySeconds: 20
+            periodSeconds: 5
           readinessProbe:
             httpGet:
               path: /
               port: http
+            initialDelaySeconds: 20
+            periodSeconds: 5
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          {{- with .Values.volumeMounts }}
           volumeMounts:
-              - name: configuration
-                readOnly: true
-                mountPath: "/config.json"
-                subPath: config.json
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+      {{- with .Values.volumes }}
       volumes:
-        - name: configuration
-          configMap:
-            name: myconfigmap
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -81,3 +87,14 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+  {{- if .Values.pvc.enabled }}
+  volumeClaimTemplates:
+    - metadata:
+        name: {{ .Values.pvc.name }}
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        storageClassName: {{ .Values.pvc.storageType }}
+        resources:
+          requests:
+            storage: {{ .Values.pvc.storageSize }}
+  {{- end }}

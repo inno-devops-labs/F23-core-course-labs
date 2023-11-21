@@ -6,7 +6,7 @@ replicaCount: 3
 
 image:
   repository: dashvayet/app_cplusplus
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
 
@@ -26,10 +26,10 @@ serviceAccount:
   name: ""
 
 
-podAnnotations:
-  vault.hashicorp.com/agent-inject: 'true'
-  vault.hashicorp.com/role: 'internal-app'
-  vault.hashicorp.com/agent-inject-secret-database-config.txt: 'internal/data/database/config'
+#podAnnotations:
+#  vault.hashicorp.com/agent-inject: 'true'
+#  vault.hashicorp.com/role: 'internal-app'
+#  vault.hashicorp.com/agent-inject-secret-database-config.txt: 'internal/data/database/config'
 
 secretData:
   secretName: devops-secret
@@ -41,13 +41,9 @@ podLabels: {}
 podSecurityContext: {}
   # fsGroup: 2000
 
-securityContext: {}
-  # capabilities:
-  #   drop:
-  #   - ALL
-  # readOnlyRootFilesystem: true
-  # runAsNonRoot: true
-  # runAsUser: 1000
+securityContext:
+  runAsNonRoot: false
+  runAsUser: 1000
 
 service:
   type: LoadBalancer
@@ -89,16 +85,14 @@ autoscaling:
   # targetMemoryUtilizationPercentage: 80
 
 # Additional volumes on the output Deployment definition.
-#volumes:
-#  - name: configuration
-#    configMap:
-#      name: myconfigmap
-#
-#volumeMounts:
-#  - name: configuration
-#    readOnly: true
-#    mountPath: "/config.json"
-#    subPath: config.json
+volumes:
+  - name: configuration
+    configMap:
+      name: myconfigmap
+
+volumeMounts:
+  - name: python-access-metric
+    mountPath: "/app/volume"
 
 
 nodeSelector: {}
@@ -106,3 +100,12 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+pvc:
+  enabled: true
+  name: python-access-metric
+  storageSize: 5Mi
+  storageType: standard
+
+configenvs:
+  enabled: false

@@ -35,7 +35,7 @@ bool is_number(const std::string &s) {
         std::cout << method << '\n' << path << "\n\n";
 
 
-        std::ifstream fileRead("/startServer/volume/сalls.db");
+        std::ifstream fileRead("/app/volume/сalls.db");
         std::string line;
 
         if (fileRead.is_open()){
@@ -58,7 +58,7 @@ bool is_number(const std::string &s) {
                                    "Content-Type: text/html\r\n\r\n";
             ++counter;
             std::ofstream myfile;
-            myfile.open("/startServer/volume/сalls.db");
+            myfile.open("/app/volume/сalls.db");
             myfile << counter;
 
             std::string htmlResponse;
