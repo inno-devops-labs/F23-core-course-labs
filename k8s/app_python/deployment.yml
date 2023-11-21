@@ -17,4 +17,4 @@ spec:
     spec:
       containers:
       - name: app-python
-        image: xdkomel/myimage:0.0.1
+        image: xdkomel/visits_image:latest

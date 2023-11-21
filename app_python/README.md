@@ -1,6 +1,10 @@
 # Python App
 
-This app shows the current Moscow time in ISO format
+### `/`
+Shows the current Moscow time in ISO format
+
+### `/visits`
+Shows the number of visits of the `/` endpoint
 
 ## Setup
 ```

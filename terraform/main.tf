@@ -76,7 +76,7 @@ resource "yandex_vpc_subnet" "subnet-1" {
 }
 
 resource "docker_image" "myimage" {
-  name         = "xdkomel/myimage:0.0.1"
+  name         = "xdkomel/visits_image:latest"
   keep_locally = false
 }
 

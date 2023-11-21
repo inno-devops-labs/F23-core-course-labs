@@ -12,7 +12,7 @@ x-logging: &logger
 
 services:
   app_python:
-    image: xdkomel/myimage:0.0.1
+    image: xdkomel/visits_image:latest
     container_name: app_python
     ports:
       - 5050:5050
@@ -24,6 +24,8 @@ services:
           memory: 256m
     logging:
       <<: *logger
+    volumes:
+      - /storage/visits
 
   loki:
     image: grafana/loki:latest
