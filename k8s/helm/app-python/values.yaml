@@ -2,7 +2,7 @@ replicaCount: 3
 
 image:
   repository: edikgoose/moscow-time-app
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   tag: "latest"
 
 imagePullSecrets: [ ]
@@ -58,9 +58,15 @@ autoscaling:
   maxReplicas: 100
   targetCPUUtilizationPercentage: 80
 
-volumes: [ ]
+volumes:
+  - name: config-volume
+    configMap:
+      name: app-python-config-map
 
-volumeMounts: [ ]
+volumeMounts:
+  - name: config-volume
+    mountPath: /app/configs/config.json
+    subPath: config.json
 
 nodeSelector: { }
 
