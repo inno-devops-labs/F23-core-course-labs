@@ -1,12 +1,14 @@
 FROM python:3.8
 
-RUN useradd -ms /bin/bash myuser
-RUN mkdir /myuser-dir && chown -R myuser /myuser-dir
-RUN chown -R myuser /myuser-dir
+RUN addgroup --g 1000 mygroup
+RUN adduser -u 1000 -G mygroup -h /myuser-dir -D myuser
 USER myuser
 
-COPY requirements.txt .
+COPY ./run.py .
+COPY ./requirements.txt .
+
+VOLUME ["./visits", "./visits"]
+
 RUN pip install -r requirements.txt
 EXPOSE 5000
-COPY . .
 ENTRYPOINT [ "python", "run.py"]

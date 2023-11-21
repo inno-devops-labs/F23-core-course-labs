@@ -8,6 +8,13 @@ You can run the application by running the ```run.py``` file.
 
 ![screenshot of working application](img.png)
 
+## Pages
+
+- ```/``` - main page that displays Moscow time
+- ```/visits``` - displays the number of times the application accessed (accessing ```/``` or ```/visits``` increments the counter in ```visits/visits.txt``` file)
+
+![img_1.png](img_1.png)
+
 # Docker
 
 How to launch:

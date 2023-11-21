@@ -78,6 +78,16 @@ autoscaling:
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
 
+volumes:
+  - name: config-volume
+    configMap:
+      name: config-map
+
+volumeMounts:
+  - name: config-volume
+    mountPath: /config.json
+    subPath: config.json
+
 nodeSelector: {}
 
 tolerations: []

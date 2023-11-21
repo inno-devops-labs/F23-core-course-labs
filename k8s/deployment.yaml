@@ -28,3 +28,14 @@ spec:
           requests:
             cpu: 50m
             memory: 20Mi
+        envFrom:
+          - configMapRef:
+              name: config-map
+        volumeMounts:
+        - name: config-volume
+          mountPath: "/config.json"
+          subPath: config.json
+      volumes:
+      - name: config-volume
+        configMap:
+          name: config-map
