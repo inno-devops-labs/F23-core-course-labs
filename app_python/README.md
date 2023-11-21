@@ -1,6 +1,11 @@
 # Show Your Time
 
-Here I developed small Python web application that displays the current time in Moscow.
+Here I developed small Python web application that displays the current time in Moscow and number of visits.
+
+### App Routes
+`/` - show current Moscow time
+
+`/visits` - show the number of visiting `/` route
 
 ## Before the start
 

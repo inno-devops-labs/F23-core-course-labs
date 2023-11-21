@@ -1,0 +1,8 @@
+{
+	"/": [
+		"src/routes/+page.js"
+	],
+	"/visits": [
+		"src/routes/visits/+page.js"
+	]
+}
