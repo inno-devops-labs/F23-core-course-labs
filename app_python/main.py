@@ -20,7 +20,7 @@ def middleware():
         try:
             with open(VISITS_FILENAME, 'r') as f:
                 VISITS = int(f.readline())
-        except:
+        except FileNotFoundError:
             VISITS = 0
 
         with open(VISITS_FILENAME, 'w') as f:
@@ -31,11 +31,12 @@ def middleware():
 def index():
     return get_moscow_realtime()
 
+
 @FLASK_APP.route('/visits')
 def visits():
     with VISITS_LOCK:
         with open(VISITS_FILENAME) as f:
-            VISITS = f.readline() 
+            VISITS = f.readline()
         return str(VISITS)
 
 
