@@ -123,6 +123,9 @@ go test tests/integration/*
 
 To view current Moscow time open http://{host}:{port}/time
 
+The app also implement visits counting logic: Visit http://{host}:{port}/visits
+
+
 _For more examples, please refer to the [Documentation](https://example.com)_
 
 <!-- CONTRIBUTING -->
