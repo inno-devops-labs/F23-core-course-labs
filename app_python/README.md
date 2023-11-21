@@ -19,6 +19,9 @@
 - [Docker](#docker)
 - [Unit Tests](#unit-tests)
 - [CI Workflow](#ci-workflow)
+- [Endpoints description](#endpoints-description)
+  - [Endpoint /](#endpoint-)
+  - [Endpoint /visits](#endpoint-visits)
 
 
 ## Description
@@ -132,3 +135,17 @@ CI workflow consists of 3 stages:
 - `test_and_lint` - includes setting up the environment, running the linter, and then running unit tests. Note that tests will not be executed if linter sees fault.
 - `snyk` - runs security analysis using snyk. Happens in parallel to other steps.
 - `push_docker` - logins into docker hub using credentials from secrets, builds the image, and pushes it. It is required for `test_and_lint` to not fail, before it runs.
+
+
+## Endpoints description
+
+### Endpoint /
+- Description: This endpoint increments a counter when is called and returns current time in Moscow. Also writes the current counter value to a file named 'visits'.
+- HTTP Method: GET
+- Response: String with current time in Moscow
+
+
+### Endpoint /visits
+* Description: This endpoint returns current counter value. Counter is incremented every time endpoint '/' is called.
+* HTTP Method: GET
+* Response: String with current counter value.

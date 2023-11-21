@@ -27,6 +27,14 @@ def create_app(test_config=None):
 
     app = Flask(__name__)
 
+    @app.route("/visits")
+    def get_visits():
+        with open('./volume/visits', 'r') as f:
+            visits = f.read()
+        return app.response_class(
+            response=str(visits), status=200, mimetype="text/plain"
+        )
+
     @app.route('/')
     def home():
         """Home page function showing the date and time in Moscow"""

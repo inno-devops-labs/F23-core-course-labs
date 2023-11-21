@@ -5,6 +5,10 @@ import pytz
 
 def get_date(timezone: str, format_str: str) -> str:
     """Get current date in a specific timezone and format"""
+    with open('./volume/visits', 'r') as f:
+        visits = int(f.read()) + 1
+    with open('./volume/visits', 'w') as f:
+        f.write(str(visits))
     timezone_obj = pytz.timezone(timezone)
     time_str = datetime.now(timezone_obj).strftime(format_str)
     return time_str
