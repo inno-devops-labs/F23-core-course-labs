@@ -26,6 +26,17 @@ def main():
     logger.info(msg=f'Method: GET Response: {curr_time}')
     return render_template('index.html', curr_time=curr_time)
 
+@app.route("/visits")
+def get_visits():
+    with open('./volume/visits', 'r') as f:
+        visits = f.read()
+
+    return app.response_class(
+        response=str(visits),
+        status=200,
+        mimetype="text/plain"
+    )
+
 if __name__ == '__main__':
     serve(app, port=8090)
     # app.run(port=8090)
