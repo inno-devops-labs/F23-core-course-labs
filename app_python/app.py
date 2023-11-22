@@ -1,4 +1,5 @@
 import logging
+import os
 from logging.handlers import RotatingFileHandler
 
 import pytz
@@ -30,12 +31,29 @@ logger.addHandler(console_handler)
 
 flask_app = Flask(__name__)
 
+visits_file = "./data/visits"
+
+def get_visit():
+    if not os.path.exists(visits_file):
+        with open(visits_file, "w") as f:
+            f.write("0")
+        return 0
+    else:
+        with open(visits_file) as f:
+            return int(f.read())
+
+def add_visit():
+    count = get_visit()
+    count += 1
+    with open(visits_file, "w") as f:
+        f.write(str(count))
 
 @flask_app.route('/')
 def moscow_time():
     try:
         current_time = get_moscow_time()
         flask_app.logger.info('Moscow time fetched successfully.')
+        add_visit()
         return render_template("time.html", current_time=current_time)
     except pytz.UnknownTimeZoneError:
         flask_app.logger.error("Unknown TimeZone specified.")
@@ -44,6 +62,10 @@ def moscow_time():
         flask_app.logger.error(f"Unexpected error: {e}")
         return f"Unexpected error: {e}", 500
 
+@flask_app.route('/visits')
+def visits():
+    count_to_show = get_visit()
+    return render_template("visits.html", visits=count_to_show)
 
 @flask_app.route('/health')
 def health_check():

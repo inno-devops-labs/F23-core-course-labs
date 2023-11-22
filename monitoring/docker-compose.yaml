@@ -18,6 +18,8 @@ services:
     logging: *loki-logging
     networks:
       - loki
+    volumes:
+      - ./data/visits
 
   loki:
     image: grafana/loki:2.6.1

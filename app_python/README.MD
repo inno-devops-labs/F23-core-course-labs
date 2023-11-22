@@ -109,6 +109,9 @@ docker run -p 5000:5000 eukuz/devops_course_python_app
 
 After executing this command, you can access the application via `http://127.0.0.1:5000` in your browser.
 
+#### Visits:
+Moreover, you can access `http://127.0.0.1:5000/visits`
+endpoint and see how many times you visited the web app
 
 ## Contributing
 
