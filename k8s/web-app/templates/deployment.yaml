@@ -58,12 +58,13 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
           {{- with .Values.volumeMounts }}
           volumeMounts:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
-      {{- with .Values.volumes }}
+            - name: volume
+              mountPath: "/config.json"
+              subPath: config.json
       volumes:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+        - name: volume
+          configMap:
+            name: config-map
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
