@@ -28,6 +28,8 @@ dependencies {
     implementation("ch.qos.logback:logback-classic:$logbackVersion")
     implementation("io.ktor:ktor-server-html-builder:$ktorVersion")
     
+    // https://mavenlibs.com/maven/dependency/com.squareup.okio/okio
+    implementation("com.squareup.okio:okio:3.5.0")
     implementation("io.ktor:ktor-server-metrics-micrometer:$ktor_version")
     implementation("io.micrometer:micrometer-registry-prometheus:$prometheus_version")
 
