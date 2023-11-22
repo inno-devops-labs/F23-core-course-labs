@@ -1,6 +1,8 @@
 # Ansible overview
 
-## Task 1
+## Lab 5
+
+### Task 1
 
 Here I just used a role which was suggested with a local playbook and inventory file. So, I connected to my local virtual machine via ssh and run the playbook.
 
@@ -96,7 +98,7 @@ PLAY RECAP *********************************************************************
 virtual_machine_1          : ok=12   changed=2    unreachable=0    failed=0    skipped=12   rescued=0    ignored=0 
 ```
 
-## Results of task 2
+### Results of task 2
 
 ```bash
 
@@ -146,3 +148,72 @@ virtual_machine_1          : ok=10   changed=0    unreachable=0    failed=0    s
 
 ```
 
+## Lab 6
+
+sudo ansible-playbook playbooks/web_app/main.yml --ask-become-pass -i inventory/default.yml -
+-diff
+
+Web_app role - Role for deploying web application using docker. There are variables for setting a docker image name, docker user and wipe option.
+
+### Results
+
+Running a command provides the following results:
+
+```bash
+   PLAY [Deploy web app] ********************************************************************************************************************************
+
+TASK [Gathering Facts] *******************************************************************************************************************************
+ok: [virtual_machine_1]
+
+TASK [docker : Install pip] **************************************************************************************************************************
+ok: [virtual_machine_1]
+
+TASK [docker : Update pip] ***************************************************************************************************************************
+ok: [virtual_machine_1]
+
+TASK [docker : include_tasks] ************************************************************************************************************************
+included: /Users/max/uni/DevOpsF23/ansible/roles/docker/tasks/install_docker.yml for virtual_machine_1
+
+TASK [docker : Docker packages] **********************************************************************************************************************
+ok: [virtual_machine_1]
+
+TASK [docker : Docker GPG key] ***********************************************************************************************************************
+ok: [virtual_machine_1]
+
+TASK [docker : Doceker repository] *******************************************************************************************************************
+ok: [virtual_machine_1]
+
+TASK [docker : Docker python module] *****************************************************************************************************************
+ok: [virtual_machine_1]
+
+TASK [docker : include_tasks] ************************************************************************************************************************
+included: /Users/max/uni/DevOpsF23/ansible/roles/docker/tasks/install_compose.yml for virtual_machine_1
+
+TASK [docker : Install docker-compose] ***************************************************************************************************************
+ok: [virtual_machine_1]
+
+TASK [web_app : Pull image] **************************************************************************************************************************
+skipping: [virtual_machine_1]
+
+TASK [web_app : Deploy container] ********************************************************************************************************************
+skipping: [virtual_machine_1]
+
+TASK [web_app : Add docker-compose] ******************************************************************************************************************
+ok: [virtual_machine_1]
+
+TASK [web_app : Stop all containers] *****************************************************************************************************************
+skipping: [virtual_machine_1]
+
+TASK [web_app : Remove all containers] ***************************************************************************************************************
+skipping: [virtual_machine_1]
+
+TASK [web_app : Remove all images] *******************************************************************************************************************
+skipping: [virtual_machine_1]
+
+TASK [web_app : Remove all compose elements] *********************************************************************************************************
+skipping: [virtual_machine_1]
+
+PLAY RECAP *******************************************************************************************************************************************
+virtual_machine_1          : ok=11   changed=0    unreachable=0    failed=0    skipped=6    rescued=0    ignored=0   
+
+```
