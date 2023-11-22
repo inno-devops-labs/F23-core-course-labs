@@ -10,6 +10,8 @@ COPY . .
 
 RUN useradd --system --uid 1000 --group users appuser
 
+RUN touch /app/visits && chown appuser /app/visits
+
 USER appuser
 
 RUN pytest tests
