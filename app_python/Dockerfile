@@ -11,6 +11,7 @@ COPY . ${projdir}
 COPY healthcheck.sh /bin/healthcheck
 RUN \
     adduser -D -u 1001 ${appuser} &&\
+    mkdir /appdata && chown -R ${appuser} /appdata &&\
     chmod 755 ${projdir} &&\
     pip3 install --no-cache-dir -r requirements.txt &&\
     apk add curl=8.4.0-r0 --no-cache

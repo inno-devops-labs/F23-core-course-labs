@@ -8,11 +8,13 @@ COPY . .
 RUN \
     apk add make=4.4.1-r1 --no-cache &&\
     make test &&\
-    make build
+    make build &&\
+    mkdir /appdata && touch /appdata/visits.txt
 
 FROM gcr.io/distroless/static-debian12:nonroot as production
-USER nobody:nobody
 ENV GOAPP_PORT=80
+VOLUME [ "/appdata" ]
+COPY --from=build /appdata /
 COPY --from=build ${appdir}/goapp /
 COPY --from=build ${appdir}/goapp/healthcheck/healthcheck /bin/healthcheck
 CMD ["/goapp"]

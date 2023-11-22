@@ -4,3 +4,8 @@ services:
         image: "{{ docker_image }}"
         ports:
             - "{{ docker_port }}:80"
+        volumes:
+        - appdata:/appdata/
+
+volumes:
+    appdata:
