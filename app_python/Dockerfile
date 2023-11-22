@@ -10,13 +10,13 @@ COPY . .
 
 RUN useradd --system --uid 1000 --group users appuser
 
-RUN chown -R appuser:users /app
+RUN mkdir /data && chown -R appuser:users /data
+
+VOLUME [ "/data" ]
 
 USER appuser
 
-ENV VISITSFILE=/app/visits
-
-RUN if [ ! -f "$VISITSFILE" ]; then touch "$VISITSFILE"; fi
+ENV VISITFILE="/data/visits"
 
 RUN pytest tests
 

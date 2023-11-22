@@ -8,7 +8,7 @@ registry = CollectorRegistry()
 
 http_request_total = Counter('http_requests_total', 'Numer of HTTP requests', registry=registry)
 
-VISITSFILE = './visits'
+VISITSFILE = os.environ.get("VISITFILE", "./visits")
 
 if not os.path.isfile(VISITSFILE):
     with open(VISITSFILE, 'w+') as f:
