@@ -55,14 +55,24 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
           env:
             {{- include "app-python.envVars" . | nindent 12 }}
-          {{- with .Values.volumeMounts }}
+            - name: SPECIAL_TYPE_KEY
+              valueFrom:
+                configMapKeyRef:
+                  name: config-py
+                  key: test
           volumeMounts:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
-      {{- with .Values.volumes }}
+          - name: config-py
+            mountPath: "/config.json"
+            subPath: config.json
+          - name: counter-py
+            mountPath: /data
       volumes:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+      - name: config-py
+        configMap:
+          name: config-py
+      - name: counter-py
+        emptyDir:
+          sizeLimit: 500Mi
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

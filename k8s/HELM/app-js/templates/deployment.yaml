@@ -55,14 +55,24 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
           env:
             {{- include "app-js.envVars" . | nindent 12 }}
-          {{- with .Values.volumeMounts }}
+            - name: SPECIAL_TYPE_KEY
+              valueFrom:
+                configMapKeyRef:
+                  name: config
+                  key: test
           volumeMounts:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
-      {{- with .Values.volumes }}
+          - name: config
+            mountPath: "/config.json"
+            subPath: config.json
+          - name: counter
+            mountPath: /data
       volumes:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+      - name: config
+        configMap:
+          name: config
+      - name: counter
+        emptyDir:
+          sizeLimit: 500Mi
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
