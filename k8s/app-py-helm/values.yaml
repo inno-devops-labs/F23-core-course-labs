@@ -76,14 +76,16 @@ autoscaling:
   # targetMemoryUtilizationPercentage: 80
 
 # Additional volumes on the output Deployment definition.
-volumes: []
-# - name: foo
-#   secret:
-#     secretName: mysecret
-#     optional: false
+volumes:
+  - name: python-config-volume
+    configMap:
+      name: app-py-cm
 
 # Additional volumeMounts on the output Deployment definition.
-volumeMounts: []
+volumeMounts:
+  - name: python-config-volume
+    mountPath: "/config.json"
+    subPath: config.json
 # - name: foo
 #   mountPath: "/etc/foo"
 #   readOnly: true
