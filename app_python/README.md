@@ -26,6 +26,12 @@ python3 app_main.py <port to listen>
 
 You can check the time endpoint at `http://localhost:<port>/time`
 
+
+## Persistent Data
+
+This app counts the amount of requests for `/time` endpoint. You can get the amount of requests by accessing `/visits` endpoint. The counter is stored at `/appdata/visits.txt` file, where `/appdata` is a Docker volume.
+
+
 ## Docker
 You can use dockerized version of the app.
 ### Build

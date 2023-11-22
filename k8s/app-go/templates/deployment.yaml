@@ -62,17 +62,27 @@ spec:
                 secretKeyRef:
                   name: db-user-pass-go
                   key: password
+            - name: "CONFIG_MAP_ENV"
+              valueFrom:
+                configMapKeyRef:
+                  name: config-map-go
+                  key: confmap-env
             {{- include "app-go.env" . | nindent 12 }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-          {{- with .Values.volumeMounts }}
           volumeMounts:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
-      {{- with .Values.volumes }}
+          - name: config-volume-go
+            mountPath: "/config.json"
+            subPath: config.json
+          - name: appdata-go
+            mountPath: /appdata
       volumes:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+      - name: config-volume-go
+        configMap:
+          name: config-map-go
+      - name: appdata-go
+        emptyDir:
+          sizeLimit: 100Mi
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
