@@ -63,10 +63,21 @@ spec:
                   name: db-credentials
                   key: password
           volumeMounts:
+            - name: config-volume-kn
+              mountPath: "/proj/config.json"
+              subPath: config.json
+            - name: counter-data-kn
+              mountPath: /proj/data
             {{- toYaml . | nindent 12 }}
           {{- end }}
       {{- with .Values.volumes }}
       volumes:
+        - name: config-volume-kn
+          configMap:
+            name: config-map-entity-kn
+        - name: counter-data-kn
+          emptyDir:
+            sizeLimit: 500Mi
         {{- toYaml . | nindent 8 }}
       {{- end }}
       {{- with .Values.nodeSelector }}
