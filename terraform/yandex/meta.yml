@@ -1,0 +1,7 @@
+users:
+  - name: devopsubuntu
+    groups: sudo
+    shell: /bin/bash
+    sudo: 'ALL=(ALL) NOPASSWD:ALL'
+    ssh-authorized-keys:
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHqurjNO7H/KjYqQrED4nn8mQoPXCmgXDypKSNNbvCrC aibek@ideapad
