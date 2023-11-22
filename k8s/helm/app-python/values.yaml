@@ -33,6 +33,10 @@ service:
   type: NodePort
   port: 80
 
+envFrom:
+  - configMapRef:
+      name: app-python-config-map
+
 ingress:
   enabled: false
   className: ""

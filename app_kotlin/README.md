@@ -3,6 +3,31 @@
 # Base converter
 App for converting any number in base 10 into any base
 
+# Api
+1. `GET /convert?value={}&base={}` - returns converted value to base
+2. `GET /` - healthy endpoint
+3. `GET /visits` - returns persistence number of visits 1st endpoint
+
+# Visits logic
+It uses Java File implementation.
+Example of code:
+```kotlin
+fun getNumberOfVisits(): Int {
+        val file = File(FILE_PATH)
+        if (!file.exists()) {
+            file.parentFile.mkdirs()
+            file.createNewFile()
+            file.writeText("0")
+            return 0
+        }
+        return file.readText().toInt()
+    }
+```
+![](pics/kotlin-app.png)
+![](pics/kotlin-app-visits.png)
+
+
+
 ## Run
 
 ```bash

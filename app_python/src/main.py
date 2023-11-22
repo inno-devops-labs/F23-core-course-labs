@@ -29,7 +29,7 @@ def increment_visits_number(filePath):
 			f.seek(0)
 			f.write(str(current_number + 1))
 			f.truncate()
-	except FileNotFoundError as e:
+	except FileNotFoundError:
 		logging.info(f"File in {filePath} not found. File will be created")
 		create_file(filePath)
 
@@ -38,7 +38,7 @@ def read_visits_number(filePath) -> int:
 	try:
 		with open(filePath, "r") as f:
 			return int(f.read())
-	except FileNotFoundError as e:
+	except FileNotFoundError:
 		logging.info(f"File in {filePath} not found. File will be created")
 		create_file(filePath)
 		return 0

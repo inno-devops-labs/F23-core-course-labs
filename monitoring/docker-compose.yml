@@ -35,6 +35,8 @@ services:
       resources:
         limits:
           memory: 512m
+    volumes:
+      - base_converter_app_data:/app/sources/
 
   promtail:
     image: grafana/promtail:2.9.1
@@ -108,3 +110,4 @@ services:
 
 volumes:
   moscow_time_app_data:
+  base_converter_app_data:
