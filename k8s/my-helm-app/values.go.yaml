@@ -42,6 +42,7 @@ securityContext: {}
 deployment:
   name: go-app
   label: go
+  serviceAccountName: internal-app
 
 service:
   name: "go-web-app-svc"
