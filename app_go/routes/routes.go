@@ -8,6 +8,7 @@ import (
 func NewRouter() *gin.Engine {
 	router := gin.Default()
 	router.GET("/", RedirectRequestHandler)
+	router.GET("/visits", VisitsRequestHandler)
 
 	return router
 }

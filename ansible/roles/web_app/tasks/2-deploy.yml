@@ -3,10 +3,6 @@
 - name: Gather facts on listening ports
   listen_ports_facts:
 
-- name: WTF
-  debug:
-    msg: "Open ports: {{(ansible_facts.tcp_listen + ansible_facts.udp_listen) | map(attribute='port') | unique}}"
-
 - name: Ensure that the port is free
   fail: 
     msg: "Port {{ web_app_port_host }} is busy"
@@ -18,7 +14,7 @@
     dest: "{{ web_app_deploy_dir }}/docker-compose.yml"
 
 - name: Create and start services
-  docker_compose:
+  community.docker.docker_compose:
     project_src: "{{ web_app_deploy_dir }}"
     state: present
     pull: true

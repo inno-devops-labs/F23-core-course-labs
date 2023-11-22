@@ -1,0 +1,9 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name:  "app-go-envconfig"
+  namespace: default
+data:
+  DEFAULT_REDIRECT_URL: https://google.com
+

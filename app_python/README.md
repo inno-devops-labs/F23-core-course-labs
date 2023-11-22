@@ -31,6 +31,7 @@ pip install -r requirements.txt
 
 ## Running the application
 
+
 - In order to start the application in debug, you can run
 ```bash
 flask run
@@ -44,6 +45,11 @@ cd ../ && gunicorn --bind 0.0.0.0:8000 app_python.wsgi:app && cd -
 ## Usage
 
 - ![](assets/2023-09-06-09-33-50.png)
+
+
+### Routes
+
+- `/visits` - displays number of times the application has been visited. Does not update upon visiting the `/visits` route.
 
 
 ## Development

@@ -7,3 +7,6 @@ services:
     image: {{ web_app_container_image }}
     ports:
       - {{ web_app_port_host }}:{{ web_app_port_docker }}
+    volumes:
+      - {{ web_app_name }}-data:/app/data
+    

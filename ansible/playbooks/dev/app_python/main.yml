@@ -1,6 +1,6 @@
 ---
 
-- hosts: vm_1
+- hosts: 127.0.0.1
   become: true
   roles:
     - "web_app"
@@ -9,5 +9,4 @@
     web_app_port_host: 3000
     web_app_port_docker: 8000
   vars_files:
-    - ../../../host_vars/yacloud.yml
     - ../../../group_vars/all.yml

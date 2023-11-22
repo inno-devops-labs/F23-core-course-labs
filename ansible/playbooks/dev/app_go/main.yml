@@ -1,6 +1,6 @@
 ---
 
-- hosts: vm_1
+- hosts: all
   become: true
   roles:
     - "web_app"
@@ -9,5 +9,5 @@
     web_app_port_host: 3001
     web_app_port_docker: 8080
   vars_files:
-    - ../../../host_vars/yacloud.yml
+    # - ../../../host_vars/yacloud.yml
     - ../../../group_vars/all.yml

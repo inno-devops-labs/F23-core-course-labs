@@ -8,13 +8,11 @@ RUN adduser \
     --home "/nonexistent" \    
     --shell "/sbin/nologin" \    
     --no-create-home \    
-    --uid "${UID}" \    
-    "${USER}"
+    --uid "${UID}" "${USER}" 
 
 WORKDIR /app
 COPY go.mod go.sum ./
-# RUN go get -d -v
-RUN go mod download && go mod verify
+RUN go mod download && go mod verify && mkdir -p /app_dist/data
 
 COPY . . 
 RUN GOOS=linux go build -ldflags="-w -s" -o /bin/app_go
@@ -25,11 +23,12 @@ COPY --from=builder /etc/passwd /etc/passwd
 COPY --from=builder /etc/group /etc/group
 COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 COPY --from=builder /bin/app_go /bin/app_go
+COPY --from=builder --chown=appuser:appuser /app_dist /app
 
 ENV PORT=8080
 ENV GIN_MODE=release
 EXPOSE $PORT
 
-USER appuser:appuser
+USER $USER:$USER
 
 ENTRYPOINT ["/bin/app_go"]

@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: docker.io/0x22d1ab/app_go
-  pullPolicy: Always
+  pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
 
@@ -79,17 +79,16 @@ autoscaling:
   targetMemoryUtilizationPercentage: 8
 
 # Additional volumes on the output Deployment definition.
-volumes: []
-# - name: foo
-#   secret:
-#     secretName: mysecret
-#     optional: false
+volumes:  
+  - name: config-volume
+    configMap:
+      name: app-go-config 
 
 # Additional volumeMounts on the output Deployment definition.
-volumeMounts: []
-# - name: foo
-#   mountPath: "/etc/foo"
-#   readOnly: true
+volumeMounts: 
+  - name: config-volume
+    mountPath: /app/config.json
+    subPath: config.json
 
 nodeSelector: {}
 

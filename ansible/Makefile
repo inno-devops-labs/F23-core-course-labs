@@ -3,9 +3,10 @@
 VEBOSITY := -vvv
 PLAYBOOK_LAB5 := playbooks/dev/main.yml
 PLAYBOOK_APP_PYTHON := playbooks/dev/app_python/main.yml
-INVENTORY := --inventory-file=/usr/bin/terraform-inventory
-EXTRA_ENV_FILE := ansible.env
-EXTRA_ENV_VARS := TF_STATE=../terraform/yandex/ 
+INVENTORY := -K --extra-vars "@host_vars/workstation.yml"
+# Uncomment for yacloud terraform-inventory deployment
+# INVENTORY := --inventory-file=/usr/bin/terraform-inventory --extra-vars "@host_vars/yacloud.yml"
+# EXTRA_ENV_VARS := TF_STATE=../terraform/yandex/ 
 PLAYBOOK_CMD := ${EXTRA_ENV_VARS} ansible-playbook ${VEBOSITY} ${INVENTORY}
 
 MASK_IP := sed -E 's/([0-9a-fA-F]{1,4}(:[0-9a-fA-F]{1,4}){1,7})/XXXX:XXXX:XXXX:XXXX:XXXX:XXXX:XXXX/g' | \
