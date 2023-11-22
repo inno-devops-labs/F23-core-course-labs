@@ -6,4 +6,6 @@ services:
     container_name: {{ docker_container }}
     ports:
       - {{ internal_port }}:{{ external_port }}
-    restart: always
+    restart: unless-stopped
+    volumes:
+      - './volume:app/volume'

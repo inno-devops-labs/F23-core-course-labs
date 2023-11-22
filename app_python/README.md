@@ -2,6 +2,8 @@
 
 A simple web app where show current time in moscow.
 
+Also show how many times it was accessed. Endpoint: `/visits`
+
 ### Development 
 
 Using `pytz` library we found timezone of moscow, and using `datatime` with `pytz` we find the current time 
