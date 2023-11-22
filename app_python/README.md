@@ -38,3 +38,30 @@ To get started with the Django web application, follow these steps:
 
 `python3 manage.py test myapp.tests.CurrentTimeTestCase`
 
+## API
+ 1. ```GET /``` - returns current time
+ 2. ```GET /visits``` - returns persistence number of previous endpoint accesses
+
+ ## Visits logic
+ Reading current number of vistits:
+ ```python
+ def read_visits_number(filePath) -> int:
+ 	try:
+ 		with open(filePath, "r") as f:
+ 			return int(f.read())
+ 	except FileNotFoundError as e:
+ 		logging.info(f"File in {filePath} not found. File will be created")
+ 		create_file(filePath)
+ 		return 0
+ ```
+
+ In docker-compose.yml files this file used in volumes:
+ ```dockerfile
+     volumes:
+       - moscow_time_app_data:/app/src/resources
+ ```
+
+Results:
+ ![](screenshots/time.png)
+ ![](screenshots/visits.png)
+

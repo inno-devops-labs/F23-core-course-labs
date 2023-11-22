@@ -1,0 +1,12 @@
+{
+    "databaseUrl": "http://database:5432",
+    "retryStrategy": {
+      "numberOfRetries": 5,
+      "timeoutSteps": [
+        10,
+        50,
+        100,
+        500
+      ]
+    }
+}    

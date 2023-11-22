@@ -20,6 +20,8 @@ services:
        resources:
          limits:
            memory: 256m  
+    volumes:
+       - moscow_time_app_data:/myapp/resources
 
   base-converter-app:
     image: tcarinaa/current_time:latest
