@@ -1,0 +1,26 @@
+version: "3.7"
+
+services:
+  app_python:
+    image: kurohata7/devops_msk_time:latest
+    container_name: app_python
+    restart: always
+    user: root
+    ports:
+      - "5000:5000"
+    volumes:
+      - app_python_visits:/app/volume/
+
+  app_ts:
+    image: kurohata7/react_swapi:latest
+    container_name: app_ts
+    restart: always
+    user: root
+    ports:
+      - "5173:5173"
+    volumes:
+      - app_ts_visits:/SWAPI/volume/
+
+volumes:
+  app_python_visits:
+  app_ts_visits:

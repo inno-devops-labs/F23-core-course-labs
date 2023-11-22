@@ -7,6 +7,17 @@ This a web app written in Python that displays the current time in Moscow.
 - Flask
 - datetime
 
+## Endpoints
+
+```
+Endpoint            Methods  Rule                   
+------------------  -------  -----------------------
+moscow_time         GET      /                      
+prometheus_metrics  GET      /metrics               
+static              GET      /static/<path:filename>
+visits              GET      /visits
+```
+
 ## Running the app directly on the host OS
 Once in the folder containing this doc (`app_python`), start a virtual enviroment, install the requirements, and you're good to go. Commands below
 

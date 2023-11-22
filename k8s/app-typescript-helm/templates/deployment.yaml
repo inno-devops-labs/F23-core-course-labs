@@ -46,9 +46,25 @@ spec:
           #     path: /
           #     port: http
           env:
-          {{ include "typescript-app.tsEnvs" . | nindent 12 }}
-          resources:
-            {{- toYaml .Values.resources | nindent 12 }}
+            {{- include "ts-app.tsEnvs" . | nindent 12 }}
+            - name: SOME-KEY
+              valueFrom:
+                configMapKeyRef:
+                  name: config-entity-ts
+                  key: test
+          volumeMounts:
+          - name: config-volume-ts
+            mountPath: "/config.json"
+            subPath: config.json
+          - name: counter-data-ts
+            mountPath: /data
+      volumes:
+      - name: config-volume-ts
+        configMap:
+          name: config-entity-ts
+      - name: counter-data-kn
+        emptyDir:
+          sizeLimit: 500Mi
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
