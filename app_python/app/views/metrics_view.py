@@ -12,6 +12,8 @@ http_request_total = Counter('http_requests_total', 'Numer of HTTP requests', re
 def increment_request_counter():
     """Middleware to count number of http requests"""
     http_request_total.inc()
+    with open('visits', 'w') as f:
+        f.write(str(http_request_total._value.get()))
 
 
 @metrics_blueprint.route('/metrics')
