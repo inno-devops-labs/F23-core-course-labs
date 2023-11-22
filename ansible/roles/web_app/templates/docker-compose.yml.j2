@@ -7,4 +7,6 @@ services:
         restart: always
         ports:
             - "80:80"
+        volumes:
+            - 'visit_volume':/app/visit_volume
         

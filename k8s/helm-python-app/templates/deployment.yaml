@@ -54,6 +54,9 @@ spec:
                 secretKeyRef:
                   name: helm-secrets
                   key: password
+          envFrom:
+            - configMapRef:
+                name: env-configmap
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           {{- with .Values.volumeMounts }}

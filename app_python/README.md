@@ -82,6 +82,25 @@ To run this application with Docker, follow these steps:
 
 ## Web Application Structure
 
+### Endpoints
+
+#### Endpoint: `/`
+
+- Includes a basic HTML, JavaScript, CSS frontend, which displays the current time in Moscow.
+- The time is fetched from the `/time` endpoint.
+
+#### Endpoint: `/time`
+
+- Returns the current time in Moscow in JSON format.
+- Pytz is used to get the current time in Moscow.
+- If `timezone` is specified in the query string, the time in that timezone is returned instead.
+
+#### Endpoint: `/visits`
+
+- Returns the number of times the `/` endpoint has been accessed.
+- The number of visits is stored in a `visit_volume/visits` file.
+- The number of visits is incremented every time the `/` endpoint is accessed.
+
 ### Project Structure
 
 - Code is separated into different modules (e.g., `main.py`, `time.py`) for better maintainability.
