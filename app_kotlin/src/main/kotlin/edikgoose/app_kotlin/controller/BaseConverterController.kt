@@ -14,6 +14,7 @@ class BaseConverterController(
 ) {
     @GetMapping("convert")
     fun sum(@RequestParam(name = "value") value: Int, @RequestParam(name = "base") base: Int): String {
+        visitsService.incrementNumberOfVisits()
         return baseConverterService.convert(value, base)
     }
 
@@ -24,7 +25,7 @@ class BaseConverterController(
 
     @GetMapping("visits")
     fun visits(): String {
-        return String()
+        return visitsService.getNumberOfVisits().toString()
     }
 }
 
