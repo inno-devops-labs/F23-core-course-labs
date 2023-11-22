@@ -50,6 +50,12 @@ spec:
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          env:
+            - name: PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: password-secret
+                  key: password
           {{- with .Values.volumeMounts }}
           volumeMounts:
             {{- toYaml . | nindent 12 }}
