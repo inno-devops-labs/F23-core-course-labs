@@ -19,6 +19,7 @@ The application is built using the Flask framework.
 2. Open your web browser and navigate to http://localhost:5000
 3. You should see the current Moscow time displayed on the webpage
 4. Refresh the webpage to update the displayed time
+5. To check the amount of visits of the website navigate to `/visits` path from the main web-page.
 
 ## Docker usage
 

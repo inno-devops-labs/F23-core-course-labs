@@ -6,7 +6,7 @@ replicaCount: 3
 
 image:
   repository: evalekalek/devops
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
 
@@ -24,14 +24,7 @@ serviceAccount:
   name: ""
 
 podAnnotations:
-  vault.hashicorp.com/agent-inject: 'true'
-  vault.hashicorp.com/agent-inject-status: 'update'
-  vault.hashicorp.com/role: 'python-app'
-  vault.hashicorp.com/agent-inject-secret-database-config.txt: 'internal/data/database/config'
-  vault.hashicorp.com/agent-inject-template-database-config.txt: |
-    {{- with secret "internal/data/database/config" -}}
-    {{ .Data.data.username }}:{{ .Data.data.password }}
-    {{- end -}}
+  # removed due to VPN problems
 
 podSecurityContext: {}
   # fsGroup: 2000
@@ -84,3 +77,12 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+volumeMounts:
+  - name: web-app-data
+    mountPath: /data
+
+volumes:
+  - name: web-app-data
+    configMap:
+      name: configmap-config

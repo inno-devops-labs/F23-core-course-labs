@@ -3,3 +3,8 @@ services:
     hostname: python_web_app
     image: {{ python_web_app_image }}
     restart: always
+    volumes:
+      - web_app_data:/data
+
+volumes:
+  web_app_data:

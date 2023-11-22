@@ -21,6 +21,8 @@ services:
         max-size: "10m"
         max-file: 10
         tag: "{{.ImageName}}|{{.Name}}|{{.FullID}}"
+    volumes:
+      - web_app_data:/data
 
   loki:
     image: grafana/loki:2.9.2
@@ -112,3 +114,6 @@ services:
       - loki
     logging:
       <<: *logger
+
+volumes:
+  web_app_data:
