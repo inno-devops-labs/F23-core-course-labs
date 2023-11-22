@@ -1,18 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "python-app.fullname" . }}
+  name: {{ include "app-helm.fullname" . }}
   labels:
-    {{- include "python-app.labels" . | nindent 4 }}
-    {{- include "library-chart.labels" . | nindent 4 }}
+    {{- include "app-helm.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "python-app.selectorLabels" . | nindent 6 }}
-      {{- include "library-chart.labels" . | indent 6 }}
+      {{- include "app-helm.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -20,8 +18,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "python-app.labels" . | nindent 8 }}
-        {{- include "library-chart.labels" . | indent 8 }}
+        {{- include "app-helm.labels" . | nindent 8 }}
 	{{- with .Values.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
@@ -30,7 +27,7 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "python-app.serviceAccountName" . }}
+      serviceAccountName: {{ include "app-helm.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
@@ -43,14 +40,21 @@ spec:
             - name: http
               containerPort: {{ .Values.service.port }}
               protocol: TCP
-          # livenessProbe:
-          #   httpGet:
-          #     path: /
-          #     port: http
-          # readinessProbe:
-          #   httpGet:
-          #     path: /
-          #     port: http
+          env:
+            - name: SECRET_LAB
+              valueFrom:
+                configMapKeyRef:
+                  name: env-configmap
+                  key: SECRET_LAB
+            {{- include "app-helm.mapenvsecrets" . | indent 12 }}
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           {{- with .Values.volumeMounts }}
