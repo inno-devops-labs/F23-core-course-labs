@@ -61,7 +61,7 @@ Create the name of the service account to use
 {{- end }}
 {{- end }}
 
-{{- Environmental Variables -}}
+{{- define "app-python.envVars" -}}
 - name: "VAR_1"
   value: "var 1"
 - name: "VAR_2"

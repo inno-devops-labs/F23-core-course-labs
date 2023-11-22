@@ -33,6 +33,12 @@ To run the application use the command:
 Then open `http://127.0.0.1:5000/` in your web browser. You will see a message like as follows:  
 `Current Moscow time is 2023-09-06, 08:51:18.794`
 
+You can also point to `/visits`. Here you can see amount of visits of the time webpage.
+
+Below are the routes with descriptions:
+`/` - show current moscow time
+`/visits` - visits count of the time webpage
+
 ### Docker
 
 #### How to build?
