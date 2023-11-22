@@ -2,7 +2,9 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-replicaCount: 1
+replicaCount: 2
+PodManagementPolicy: Parallel
+
 
 image:
   repository: docker.io/0x22d1ab/app_go
@@ -74,21 +76,33 @@ resources:
 autoscaling:
   enabled: false
   minReplicas: 1
-  maxReplicas: 3
+  maxReplicas: 10
   targetCPUUtilizationPercentage: 80
-  targetMemoryUtilizationPercentage: 8
+  targetMemoryUtilizationPercentage: 40
 
 # Additional volumes on the output Deployment definition.
 volumes:  
   - name: config-volume
     configMap:
-      name: app-go-config 
+      name: app-go-config
+    
 
 # Additional volumeMounts on the output Deployment definition.
 volumeMounts: 
   - name: config-volume
     mountPath: /app/config.json
     subPath: config.json
+  - name: app-go-data
+    mountPath: /app/data
+    
+volumeClaimTemplates:
+  - metadata:
+      name: app-go-data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 5Mi
 
 nodeSelector: {}
 

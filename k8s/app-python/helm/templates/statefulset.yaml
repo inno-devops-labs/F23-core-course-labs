@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ include "app-python.fullname" . }}
   labels:
@@ -36,12 +36,16 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          envFrom:
+            - configMapRef:
+                name: "app-envconfig"
           env:
-            - name: SECRET 
-              valueFrom:
-                secretKeyRef:
-                  name: secret
-                  key: secret
+            # - name: SECRET 
+            #   valueFrom:
+            #     secretKeyRef:
+            #       name: secret
+            #       key: secret
+            #       optional: true
             {{ include "app-python.customEnv" . | nindent 12 }}
           ports:
             - name: http
@@ -77,3 +81,7 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+  
+  volumeClaimTemplates:
+    {{- toYaml .Values.volumeClaimTemplates | nindent 4 }}
+
