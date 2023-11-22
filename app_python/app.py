@@ -10,7 +10,7 @@ import pytz
 app = Flask(__name__)
 metrics = PrometheusMetrics(app)
 
-COUNTER_FILE = 'visit_counter.txt'
+COUNTER_FILE = 'volume/visits'
 
 def read_counter():
     """Reads the counter value from the file."""

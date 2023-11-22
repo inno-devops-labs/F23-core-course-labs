@@ -42,6 +42,17 @@ spec:
                 secretKeyRef:
                   name: mypass
                   key: password
+            - name: SPECIAL_TYPE_KEY
+              valueFrom:
+                configMapKeyRef:
+                  name: config-map-entity-py
+                  key: test
+          volumeMounts:
+            - name: config-volume-py
+              mountPath: "/config.json"
+              subPath: config.json
+            - name: counter-data-py
+              mountPath: /data
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
@@ -64,6 +75,12 @@ spec:
           {{- end }}
       {{- with .Values.volumes }}
       volumes:
+      - name: config-volume-py
+        configMap:
+          name: config-map-entity-py
+      - name: counter-data-py
+        emptyDir:
+          sizeLimit: 500Mi
         {{- toYaml . | nindent 8 }}
       {{- end }}
       {{- with .Values.nodeSelector }}

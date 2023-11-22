@@ -10,7 +10,11 @@ The application displays Moscow time. In this project I used Flask framework bec
 
 ## Structure
 
-The main file is app.py which contains routes '/' and '/time'. First route renders index.html page with Moscow time. Second route provides time in Moscow timezone.
+The main file is app.py which contains routes:
+
+- GET / - Renders index.html template with current Moscow Time.
+- GET /time - Return current Moscow Time with formatting.
+- GET /visits - Return amount of visits. Visits counter saves data in visits.txt file.   
 
 The project has a templates folder that contains HTML pages to render on the client side.
 
