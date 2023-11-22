@@ -61,8 +61,12 @@ Best practices applied in CI process are described in [CI.md](CI.md).
 
 ## Usage
 The server's URL is `http://127.0.0.1:8080/`.
-Obtain the page from the browser or make a GET request from any HTTP client.
+1. Obtain the page from the browser or make a GET request from any HTTP client.
 The resulting response is a text string with current Moscow time.
+2. Making HTTP GET request for URL `http://127.0.0.1:8080/visits` the one can obtain the
+number of times users visited the main page (`http://127.0.0.1:8080/`).
+The information is persistent because it is stored in the file (`visits_dir/visits`)
+with number of visits which is created at the first run of the application.
 
 ## Contact
 * Author: Iskander Nafikov

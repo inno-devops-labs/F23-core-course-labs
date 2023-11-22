@@ -2,6 +2,7 @@ import datetime
 import unittest
 from time import sleep
 from src.app import app
+from src.app import create_visits_file_if_not_exists
 
 
 def extract_time_from_response(response):
@@ -20,6 +21,7 @@ class TimeServerTests(unittest.TestCase):
         Check page available and response status code is 200
         """
 
+        create_visits_file_if_not_exists()
         response = app.test_client().get("/")
 
         self.assertEqual(
@@ -31,6 +33,7 @@ class TimeServerTests(unittest.TestCase):
         Check time displayed on the page increases on each page refresh (new request)
         """
 
+        create_visits_file_if_not_exists()
         response1 = app.test_client().get("/")
         sleep(1)
         response2 = app.test_client().get("/")

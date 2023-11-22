@@ -36,12 +36,10 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          envFrom:
+            {{- toYaml .Values.envFrom | nindent 12 }}
           env:
-            - name: HELM_SECRET_EXAMPLE_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: helm-secret-example
-                  key: password
+            {{- toYaml .Values.env | nindent 12 }}
             {{- include "app-python.env" . | nindent 12 }}
           ports:
             - name: http
@@ -49,11 +47,11 @@ spec:
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: /
+              path: /health
               port: http
           readinessProbe:
             httpGet:
-              path: /
+              path: /health
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}

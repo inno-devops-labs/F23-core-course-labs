@@ -10,3 +10,4 @@
         docker_container_name: app_python_container
         internal_port: 8080
         external_port: 8080
+        web_app_deployment_way: "compose"
