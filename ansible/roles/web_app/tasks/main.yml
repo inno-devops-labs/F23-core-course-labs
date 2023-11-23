@@ -1,0 +1,12 @@
+---
+- name: Pull application Docker image
+  community.docker.docker_image:
+    name: "trihlebdv/dev_hw3"
+    source: pull
+
+- name: Create application container
+  community.docker.docker_container:
+    name: "myapp"
+    image: "trihlebdv/dev_hw3"
+    ports:
+      - "5000:5000"
