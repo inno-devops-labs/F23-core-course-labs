@@ -1,36 +1,66 @@
 # My Python Web App
 
-This is a simple Python web application that displays the current time in Moscow.
+This is a simple Python web application that displays the current time in Moscow and keeps track of the number of visits.
 
 ## Overview
 
-``` python
+```python
 from flask import Flask
 from datetime import datetime
 import pytz
 ```
 
-### Code here is imports of libraries that I will use later
+### Code here imports libraries that will be used later
 
 ``` python
 app = Flask(__name__)
+
+# Initialize visit counter
+visits_count = 0
+```
+
+### Initializing a Flask application and the visit counter
+
+``` python
+def get_visits():
+    counter = 0
+    try:
+        counter = int(open('visits.txt', 'r').read().strip())
+    except Exception:
+        pass
+
+    return counter
+
 @app.route('/')
 ```
 
-### Here I created flask application and defined a route
+### Defining a route and function to display time and increment visits
 
 ```python
 def show_time():
+    global visits_count
     moscow_tz = pytz.timezone('Europe/Moscow')
     current_time = datetime.now(moscow_tz).strftime('%H:%M:%S')
+    visits_count += 1  # Increment visit count for each request
+    with open('visits.txt', 'w') as visits_file:  # Save visit count to a file
+        visits_file.write(str(visits_count))
     return f'Current time in Moscow: {current_time}'
 ```
 
-### This function is getting current time in Moscow and then returns it in web client
+### Function to get current time in Moscow and increment visit count
+
+```python
+@app.route('/visits')
+def visits():
+    return f'Total visits: {get_visits()}'
+
+```
+
+### Route to display the total visit count
 
 ``` python
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True, host='0.0.0.0')
 ```
 
 ### Here I just run my application  
@@ -40,6 +70,12 @@ if __name__ == '__main__':
 1. Install the required dependencies (Flask).
 2. Run the application using `python app.py`.
 3. Open your web browser and visit `http://localhost:5000` to see the current time in Moscow.
+4. Access `http://localhost:5000/visits` to view the total number of visits.
+
+## Here are some screenshots
+
+![Root Page](img/root.jpg)
+![Visits Page](img/visits.jpg)
 
 ## Unit Tests
 

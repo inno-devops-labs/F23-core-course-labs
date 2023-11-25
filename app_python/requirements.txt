@@ -3,3 +3,4 @@ pytz
 Flask-Testing==0.8.1
 pytest==7.4.2
 pytest-flask
+Werkzeug==2.0.2

@@ -1,0 +1,12 @@
+version: '3'
+services:
+  khays:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 5000:5000
+    volumes:
+      - ./visits.txt:/app/visits.txt
+volumes:
+  visits: {}
