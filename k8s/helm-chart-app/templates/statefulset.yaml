@@ -1,16 +1,18 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ include "helm-chart-app.fullname" . }}
   labels:
-    {{- include "libchart.labels" . | nindent 4 }}
+    {{- include "helm-chart-app.labels" . | nindent 4 }}
 spec:
+  serviceName: {{ include "helm-chart-app.fullname" . }}
+  podManagementPolicy: Parallel
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "libchart.labels" . | nindent 6 }}
+      {{- include "helm-chart-app.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -18,7 +20,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "libchart.labels" . | nindent 8 }}
+        {{- include "helm-chart-app.labels" . | nindent 8 }}
 	{{- with .Values.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
@@ -48,12 +50,14 @@ spec:
                   key: SECRET_KEY
           livenessProbe:
             httpGet:
-              path: /
+              path: /healthz
               port: http
+            initialDelaySeconds: 30
           readinessProbe:
             httpGet:
-              path: /
+              path: /healthz
               port: http
+            initialDelaySeconds: 30
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           {{- with .Values.volumeMounts }}
@@ -76,3 +80,11 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+  volumeClaimTemplates:
+    - metadata:
+        name: {{ .Values.VolumeClaim.name }}
+      spec:
+        accessModes: {{ .Values.VolumeClaim.accessModes }}
+        resources:
+          requests:
+            storage: {{ .Values.VolumeClaim.storageSize }}

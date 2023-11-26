@@ -44,7 +44,7 @@ securityContext: {}
 
 service:
   name: c-sharp-app
-  type: NodePort
+  type: LoadBalancer
   port: 80
 
 ingress:
@@ -90,9 +90,16 @@ volumeMounts:
     mountPath: "/config.json"
     subPath: config.json
     readOnly: true
+  - name: visits
+    mountPath: "/app/volume/"
 
 nodeSelector: {}
 
 tolerations: []
 
 affinity: {}
+
+VolumeClaim:
+  name: visits
+  storageSize: 1Mi
+  accessModes: [ "ReadWriteOnce" ]
