@@ -1,6 +1,7 @@
 ##About
 
 Web app that shows current Moscow time
+Displays the number of visits using /visits endpoint
 
 ##Build
 

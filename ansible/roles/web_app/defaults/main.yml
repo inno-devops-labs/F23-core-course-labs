@@ -6,3 +6,5 @@ app_container_ports:
   - "8000:8000"
 
 web_app_full_wipe: false
+
+app_visits_file: ./app_python_data
