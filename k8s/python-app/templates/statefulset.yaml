@@ -1,17 +1,18 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
-  name: {{ include "kotlin-native-app.fullname" . }}
+  name: {{ include "python-app.fullname" . }}
   labels:
-    {{- include "kotlin-native-app.labels" . | nindent 4 }}
+    {{- include "python-app.labels" . | nindent 4 }}
     {{- include "library-chart.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
+  podManagementPolicy: {{ .Values.podManagementPolicy }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "kotlin-native-app.selectorLabels" . | nindent 6 }}
+      {{- include "python-app.selectorLabels" . | nindent 6 }}
       {{- include "library-chart.labels" . | indent 6 }}
   template:
     metadata:
@@ -20,14 +21,14 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "kotlin-native-app.selectorLabels" . | nindent 8 }}
+        {{- include "python-app.selectorLabels" . | nindent 8 }}
         {{- include "library-chart.labels" . | indent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "kotlin-native-app.serviceAccountName" . }}
+      serviceAccountName: {{ include "python-app.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
@@ -51,25 +52,13 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           env:
-            {{- include "kotlin-native-app.envVars" . | nindent 12 }}
-            - name: SPECIAL_TYPE_KEY
-              valueFrom:
-                configMapKeyRef:
-                  name: config-map-entity-kn
-                  key: test
+            {{- include "python-app.envVars" . | nindent 12 }}
           volumeMounts:
-          - name: config-volume-kn
-            mountPath: "/config.json"
-            subPath: config.json
-          - name: counter-data-kn
-            mountPath: /data
+            {{- toYaml .Values.volumeMounts | nindent 12 }}
       volumes:
-      - name: config-volume-kn
-        configMap:
-          name: config-map-entity-kn
-      - name: counter-data-kn
-        emptyDir:
-          sizeLimit: 500Mi
+      {{- with .Values.volumes }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -82,3 +71,5 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+  volumeClaimTemplates:
+  {{- toYaml .Values.volumeClaimTemplates | nindent 2 }}

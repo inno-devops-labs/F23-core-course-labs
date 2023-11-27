@@ -66,4 +66,9 @@ Create the name of the service account to use
   value: "KOTLIN-NATIVE_VALUE_ONE"
 - name: "SECOND_CUSTOM_VAR"
   value: "KOTLIN-NATIVE_VALUE_TWO"
+- name: SPECIAL_TYPE_KEY
+  valueFrom:
+    configMapKeyRef:
+      name: config-map-entity-kn
+      key: test
 {{- end }}
