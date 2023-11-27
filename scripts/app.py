@@ -5,6 +5,8 @@ Simple web application for showing current UTC+3 time
 import datetime
 from flask import Flask, render_template
 
+key = "super_secret_key"
+
 app = Flask(__name__)
 
 @app.route('/')
