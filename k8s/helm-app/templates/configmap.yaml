@@ -1,3 +1,4 @@
+{{- if .Values.configmap.enabled }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -5,3 +6,4 @@ metadata:
 data:
   config.json: |-
 {{ .Files.Get "files/config.json" | indent 4}}
+{{- end }}

@@ -41,7 +41,10 @@ podLabels: {}
 podSecurityContext: {}
   # fsGroup: 2000
 
-securityContext: {}
+securityContext:
+  runAsNonRoot: false
+  runAsUser: 0
+
   # capabilities:
   #   drop:
   #   - ALL
@@ -102,12 +105,20 @@ volumes:
     configMap:
       name: config-configmap
 
+pvc:
+  create: true
+  name: visits-python
+  size: 1Mi
+  storageClass: standard
+
+
 # Additional volumeMounts on the output Deployment definition.
 volumeMounts:
-  - name: config
-    mountPath: "/config.json"
-    subPath: config.json
-    readOnly: true
+  - name: visits-python
+    mountPath: "/app/volume"
+
+configmap:
+  enabled: false
 
 nodeSelector: {}
 

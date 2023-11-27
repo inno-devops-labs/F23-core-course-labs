@@ -102,12 +102,19 @@ volumes:
     configMap:
       name: config-configmap
 
+pvc:
+  create: true
+  name: visits-rust
+  size: 1Mi
+  storageClass: standard
+
 # Additional volumeMounts on the output Deployment definition.
 volumeMounts:
-  - name: config
-    mountPath: "/config.json"
-    subPath: config.json
-    readOnly: true
+  - name: visits-rust
+    mountPath: "/app/volume"
+
+configmap:
+  enabled: false
 
 nodeSelector: {}
 

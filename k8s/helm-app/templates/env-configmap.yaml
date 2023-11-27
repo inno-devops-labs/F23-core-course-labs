@@ -1,6 +1,8 @@
+{{- if .Values.configmap.enabled }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: env-configmap
 data:
   SECRET_LAB: "SECRET_LAB"
+{{- end }}
