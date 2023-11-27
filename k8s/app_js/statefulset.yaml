@@ -1,10 +1,16 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: app-js
   labels:
     app: js
 spec:
+  serviceName: app-js
+  podManagementPolicy: "Parallel"
+  updateStrategy:
+    type: RollingUpdate
+    rollingUpdate:
+      partition: 0
   replicas: 3
   selector:
     matchLabels:
@@ -19,3 +25,9 @@ spec:
         image: kernie/joke-js
         ports:
         - containerPort: 3000
+        volumeMounts:
+          - mountPath: /usr/app/data
+            name: js-data
+      volumes:
+        - name: js-data
+          emptyDir: { }
