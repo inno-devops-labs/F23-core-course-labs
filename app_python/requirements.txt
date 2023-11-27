@@ -1,0 +1,4 @@
+flask
+pytest
+pylint
+beautifulsoup4
