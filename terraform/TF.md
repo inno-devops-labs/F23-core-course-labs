@@ -2,6 +2,7 @@
 ---
 ## Navigation
 
+- [Applied Best Practices](#Applied Best Practices)
 - [Docker](#docker)
   - [terraform show](#terraform-show)
   - [terraform state list](#terraform-state-list)
@@ -12,6 +13,24 @@
   - [terraform state list](#terraform-state-list)
   - [apply changes](#apply-changes)
   - [terraform output](#terraform-output)
+- [Github - Create](#Github Create)
+  - [terraform show](#terraform-show)
+  - [terraform state list](#terraform-state-list)
+  - [apply changes](#apply-changes)
+- [Github - Import](#Github Import)
+  - [terraform show](#terraform-show)
+  - [terraform state list](#terraform-state-list)
+
+---
+
+## Applied Best Practices
+
+---
+- Dividing main.tf into main.tf, variables.tf, outputs.tf, for efficiency
+- Use terraform fmt, terraform validate
+- All variables have descriptions
+- Keep secrets in environment variables instead of putting them in code
+- Folder management
 
 ---
 
@@ -383,3 +402,372 @@ internal_ip_address_vm_1 = "192.168.10.16"
 external_ip_address_vm_1 = "51.250.111.19"
 internal_ip_address_vm_1 = "192.168.10.16"
 ```
+
+---
+
+## Github Create
+
+--- 
+
+### terraform show
+```
+# github_branch_default.main:
+resource "github_branch_default" "main" {
+    branch     = "main"
+    id         = "test-devops"
+    rename     = false
+    repository = "test-devops"
+}
+
+# github_branch_protection.default:
+resource "github_branch_protection" "default" {
+    allows_deletions                = false
+    allows_force_pushes             = false
+    blocks_creations                = false
+    enforce_admins                  = true
+    id                              = "BPR_kwDOKyYyys4Co93X"
+    lock_branch                     = false
+    pattern                         = "main"
+    repository_id                   = "test-devops"
+    require_conversation_resolution = true
+    require_signed_commits          = false
+    required_linear_history         = false
+
+    required_pull_request_reviews {
+        dismiss_stale_reviews           = true
+        require_code_owner_reviews      = false
+        require_last_push_approval      = false
+        required_approving_review_count = 1
+        restrict_dismissals             = false
+    }
+
+    required_status_checks {
+        contexts = [
+            "test-status-check",
+        ]
+        strict   = true
+    }
+}
+
+# github_repository.test-devops:
+resource "github_repository" "test-devops" {
+    allow_auto_merge            = false
+    allow_merge_commit          = true
+    allow_rebase_merge          = true
+    allow_squash_merge          = true
+    allow_update_branch         = false
+    archived                    = false
+    default_branch              = "main"
+    delete_branch_on_merge      = false
+    description                 = "Dedicated for devops course"
+    etag                        = "W/\"13341656f39fe13159b79598a76b835f86d523d2230d7071ed3771580234d1b8\""
+    full_name                   = "aibek99/test-devops"
+    git_clone_url               = "git://github.com/aibek99/test-devops.git"
+    gitignore_template          = "VisualStudio"
+    has_discussions             = false
+    has_downloads               = true
+    has_issues                  = true
+    has_projects                = false
+    has_wiki                    = true
+    html_url                    = "https://github.com/aibek99/test-devops"
+    http_clone_url              = "https://github.com/aibek99/test-devops.git"
+    id                          = "test-devops"
+    is_template                 = false
+    license_template            = "mit"
+    merge_commit_message        = "PR_TITLE"
+    merge_commit_title          = "MERGE_MESSAGE"
+    name                        = "test-devops"
+    node_id                     = "R_kgDOKyYyyg"
+    private                     = false
+    repo_id                     = 723923658
+    squash_merge_commit_message = "COMMIT_MESSAGES"
+    squash_merge_commit_title   = "COMMIT_OR_PR_TITLE"
+    ssh_clone_url               = "git@github.com:aibek99/test-devops.git"
+    svn_url                     = "https://github.com/aibek99/test-devops"
+    topics                      = []
+    visibility                  = "public"
+    vulnerability_alerts        = false
+
+    security_and_analysis {
+        secret_scanning {
+            status = "disabled"
+        }
+        secret_scanning_push_protection {
+            status = "disabled"
+        }
+    }
+}
+```
+
+--- 
+
+### terraform state list
+```
+github_branch_default.main
+github_branch_protection.default
+github_repository.test-devops
+```
+
+--- 
+### apply changes
+
+```
+var.token
+  Specifies the Github PAT token or `GITHUB_TOKEN`
+
+  Enter a value: 
+
+github_repository.test-devops: Refreshing state... [id=test-devops]
+github_branch_default.main: Refreshing state... [id=test-devops]
+github_branch_protection.default: Refreshing state... [id=BPR_kwDOKyYyys4Co93X]
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  + create
+  - destroy
+-/+ destroy and then create replacement
+
+Terraform will perform the following actions:
+
+  # github_branch_default.main must be replaced
+-/+ resource "github_branch_default" "main" {
+      ~ id         = "test-devops" -> (known after apply)
+      ~ repository = "test-devops" -> "test-devops1" # forces replacement
+        # (2 unchanged attributes hidden)
+    }
+
+  # github_branch_protection.default must be replaced
+-/+ resource "github_branch_protection" "default" {
+      - force_push_bypassers            = [] -> null
+      ~ id                              = "BPR_kwDOKyYyys4Co93X" -> (known after apply)
+      - push_restrictions               = [] -> null
+      ~ repository_id                   = "test-devops" # forces replacement -> (known after apply) # forces replacement
+        # (9 unchanged attributes hidden)
+
+      ~ required_pull_request_reviews {
+          - dismissal_restrictions          = [] -> null
+          - pull_request_bypassers          = [] -> null
+          - require_code_owner_reviews      = false -> null
+          - restrict_dismissals             = false -> null
+            # (3 unchanged attributes hidden)
+        }
+
+        # (1 unchanged block hidden)
+    }
+
+  # github_repository.test-devops will be destroyed
+  # (because github_repository.test-devops is not in configuration)
+  - resource "github_repository" "test-devops" {
+      - allow_auto_merge            = false -> null
+      - allow_merge_commit          = true -> null
+      - allow_rebase_merge          = true -> null
+      - allow_squash_merge          = true -> null
+      - allow_update_branch         = false -> null
+      - archived                    = false -> null
+      - default_branch              = "main" -> null
+      - delete_branch_on_merge      = false -> null
+      - description                 = "Dedicated for devops course" -> null
+      - etag                        = "W/\"13341656f39fe13159b79598a76b835f86d523d2230d7071ed3771580234d1b8\"" -> null
+      - full_name                   = "aibek99/test-devops" -> null
+      - git_clone_url               = "git://github.com/aibek99/test-devops.git" -> null
+      - gitignore_template          = "VisualStudio" -> null
+      - has_discussions             = false -> null
+      - has_downloads               = true -> null
+      - has_issues                  = true -> null
+      - has_projects                = false -> null
+      - has_wiki                    = true -> null
+      - html_url                    = "https://github.com/aibek99/test-devops" -> null
+      - http_clone_url              = "https://github.com/aibek99/test-devops.git" -> null
+      - id                          = "test-devops" -> null
+      - is_template                 = false -> null
+      - license_template            = "mit" -> null
+      - merge_commit_message        = "PR_TITLE" -> null
+      - merge_commit_title          = "MERGE_MESSAGE" -> null
+      - name                        = "test-devops" -> null
+      - node_id                     = "R_kgDOKyYyyg" -> null
+      - private                     = false -> null
+      - repo_id                     = 723923658 -> null
+      - squash_merge_commit_message = "COMMIT_MESSAGES" -> null
+      - squash_merge_commit_title   = "COMMIT_OR_PR_TITLE" -> null
+      - ssh_clone_url               = "git@github.com:aibek99/test-devops.git" -> null
+      - svn_url                     = "https://github.com/aibek99/test-devops" -> null
+      - topics                      = [] -> null
+      - visibility                  = "public" -> null
+      - vulnerability_alerts        = false -> null
+
+      - security_and_analysis {
+          - secret_scanning {
+              - status = "disabled" -> null
+            }
+          - secret_scanning_push_protection {
+              - status = "disabled" -> null
+            }
+        }
+    }
+
+  # github_repository.test-devops1 will be created
+  + resource "github_repository" "test-devops1" {
+      + allow_auto_merge            = false
+      + allow_merge_commit          = true
+      + allow_rebase_merge          = true
+      + allow_squash_merge          = true
+      + archived                    = false
+      + default_branch              = (known after apply)
+      + delete_branch_on_merge      = false
+      + description                 = "Dedicated for devops course"
+      + etag                        = (known after apply)
+      + full_name                   = (known after apply)
+      + git_clone_url               = (known after apply)
+      + gitignore_template          = "VisualStudio"
+      + has_downloads               = true
+      + has_issues                  = true
+      + has_wiki                    = true
+      + html_url                    = (known after apply)
+      + http_clone_url              = (known after apply)
+      + id                          = (known after apply)
+      + license_template            = "mit"
+      + merge_commit_message        = "PR_TITLE"
+      + merge_commit_title          = "MERGE_MESSAGE"
+      + name                        = "test-devops1"
+      + node_id                     = (known after apply)
+      + primary_language            = (known after apply)
+      + private                     = (known after apply)
+      + repo_id                     = (known after apply)
+      + squash_merge_commit_message = "COMMIT_MESSAGES"
+      + squash_merge_commit_title   = "COMMIT_OR_PR_TITLE"
+      + ssh_clone_url               = (known after apply)
+      + svn_url                     = (known after apply)
+      + topics                      = (known after apply)
+      + visibility                  = "public"
+    }
+
+Plan: 3 to add, 0 to change, 3 to destroy.
+
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+github_branch_protection.default: Destroying... [id=BPR_kwDOKyYyys4Co93X]
+github_branch_protection.default: Destruction complete after 0s
+github_branch_default.main: Destroying... [id=test-devops]
+github_branch_default.main: Destruction complete after 2s
+github_repository.test-devops: Destroying... [id=test-devops]
+github_repository.test-devops1: Creating...
+github_repository.test-devops: Destruction complete after 1s
+github_repository.test-devops1: Creation complete after 7s [id=test-devops1]
+github_branch_default.main: Creating...
+github_branch_default.main: Creation complete after 2s [id=test-devops1]
+github_branch_protection.default: Creating...
+github_branch_protection.default: Creation complete after 4s [id=BPR_kwDOKyY50M4Co94K]
+
+Apply complete! Resources: 3 added, 0 changed, 3 destroyed.
+```
+
+---
+
+## Github Import
+
+--- 
+
+### terraform show
+
+```
+# github_branch_default.main:
+resource "github_branch_default" "main" {
+    branch     = "main"
+    id         = "core-course-labs"
+    rename     = false
+    repository = "core-course-labs"
+}
+
+# github_branch_protection.default:
+resource "github_branch_protection" "default" {
+    allows_deletions                = false
+    allows_force_pushes             = false
+    blocks_creations                = false
+    enforce_admins                  = true
+    id                              = "BPR_kwDOKNVObc4Co956"
+    lock_branch                     = false
+    pattern                         = "main"
+    repository_id                   = "core-course-labs"
+    require_conversation_resolution = true
+    require_signed_commits          = false
+    required_linear_history         = false
+
+    required_pull_request_reviews {
+        dismiss_stale_reviews           = true
+        require_code_owner_reviews      = false
+        require_last_push_approval      = false
+        required_approving_review_count = 1
+        restrict_dismissals             = false
+    }
+
+    required_status_checks {
+        contexts = [
+            "test-status-check",
+        ]
+        strict   = true
+    }
+}
+
+# github_repository.core-course-labs:
+resource "github_repository" "core-course-labs" {
+    allow_auto_merge            = false
+    allow_merge_commit          = true
+    allow_rebase_merge          = true
+    allow_squash_merge          = true
+    allow_update_branch         = false
+    archived                    = false
+    auto_init                   = false
+    default_branch              = "main"
+    delete_branch_on_merge      = false
+    etag                        = "W/\"108f1c2bf605b04beee33e3e364af8097e774fcacb5f9b6429445067cd0ffa0a\""
+    full_name                   = "aibek99/core-course-labs"
+    git_clone_url               = "git://github.com/aibek99/core-course-labs.git"
+    has_discussions             = false
+    has_downloads               = true
+    has_issues                  = true
+    has_projects                = false
+    has_wiki                    = true
+    html_url                    = "https://github.com/aibek99/core-course-labs"
+    http_clone_url              = "https://github.com/aibek99/core-course-labs.git"
+    id                          = "core-course-labs"
+    is_template                 = false
+    merge_commit_message        = "PR_TITLE"
+    merge_commit_title          = "MERGE_MESSAGE"
+    name                        = "core-course-labs"
+    node_id                     = "R_kgDOKNVObQ"
+    primary_language            = "Python"
+    private                     = false
+    repo_id                     = 685067885
+    squash_merge_commit_message = "COMMIT_MESSAGES"
+    squash_merge_commit_title   = "COMMIT_OR_PR_TITLE"
+    ssh_clone_url               = "git@github.com:aibek99/core-course-labs.git"
+    svn_url                     = "https://github.com/aibek99/core-course-labs"
+    topics                      = []
+    visibility                  = "public"
+    vulnerability_alerts        = false
+
+    security_and_analysis {
+        secret_scanning {
+            status = "disabled"
+        }
+        secret_scanning_push_protection {
+            status = "disabled"
+        }
+    }
+}
+```
+
+---
+
+### terraform state list
+
+```
+github_branch_default.main
+github_branch_protection.default
+github_repository.core-course-labs
+```
+
+---
