@@ -2,9 +2,11 @@ FROM python:3.10-alpine
 
 WORKDIR /app
 
-RUN adduser -D user1 && chown -R user1 /app && mkdir volume
+RUN adduser -D user1 && chown -R user1 /app && mkdir /volume
 
-RUN touch volume/visits.txt
+RUN chown -R user1 /volume
+
+VOLUME ["/volume"]
 
 COPY . .
 
