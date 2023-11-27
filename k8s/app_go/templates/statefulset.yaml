@@ -1,12 +1,14 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ include "app-golang.fullname" . }}
   labels:
     {{- include "library-chart.labels" . | indent 4 }}
 spec:
+  serviceName: {{ include "app-golang.fullname" . }}
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
+  podManagementPolicy: {{ .Values.podManagementPolicy }}
   {{- end }}
   selector:
     matchLabels:
@@ -41,10 +43,12 @@ spec:
             httpGet:
               path: /healthz
               port: http
+              initialDelaySeconds: 3600
           readinessProbe:
             httpGet:
               path: /readyz
               port: http
+              initialDelaySeconds: 3600
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           {{- with .Values.volumeMounts }}
@@ -69,3 +73,8 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+  volumeClaimTemplates:
+    - metadata:
+        name: { { .Values.volumeClaimTemplates.metadata.name } }
+      spec:
+        { { - toYaml .Values.volumeClaimTemplates.spec | nindent 8 } }

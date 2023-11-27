@@ -1,16 +1,18 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ include "app-python.fullname" . }}
   labels:
-    {{- include "library-chart.labels" . | indent 4 }}
+    {{- include "app-python.labels" . | nindent 4 }}
 spec:
+  serviceName: {{ include "app-python.fullname" . }}
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
+  podManagementPolicy: {{ .Values.podManagementPolicy }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "library-chart.labels" . | indent 6 }}
+      {{- include "app-python.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -18,7 +20,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "library-chart.labels" . | indent 8 }}
+        {{- include "app-python.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -33,13 +35,25 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: ['python', '-m', 'poetry', 'run', 'uvicorn', 'server.app:app', '--host', '0.0.0.0']
+          env:
+            {{- include "app-python.envs" . | nindent 12 }}
+            - name: EXAMPLE_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: example-secret
+                  key: key
+          volumeMounts:
+            - name: config
+              mountPath: /config.json
+              subPath: config.json
           ports:
             - name: http
-              containerPort: {{ .Values.service.port }}
+              containerPort: 8000
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: /
+              path: /health
               port: http
           readinessProbe:
             httpGet:
@@ -47,24 +61,10 @@ spec:
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-          {{- with .Values.volumeMounts }}
-          volumeMounts:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
-          env:
-            - name: "MY_PASS"
-              valueFrom:
-                secretKeyRef:
-                  name: mysecret
-                  key: pass_data
-          {{ include "app-python.myEnvs" . | nindent 12 }}
-          envFrom:
-            - configMapRef:
-                name: my-env-configmap
-      {{- with .Values.volumes }}
       volumes:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+        - name: config
+          configMap:
+            name: app-python-configmap
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -77,3 +77,8 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+  volumeClaimTemplates:
+    - metadata:
+        name: {{ .Values.volumeClaimTemplates.metadata.name }}
+      spec:
+        {{- toYaml .Values.volumeClaimTemplates.spec | nindent 8 }}
