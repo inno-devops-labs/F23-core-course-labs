@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ include "app-python-chart.fullname" . }}
   labels:
@@ -8,6 +8,15 @@ spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
+  podManagementPolicy: Parallel
+  volumeClaimTemplates:
+  - metadata:
+      name: {{ .Values.persistentVolume.name }}
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: {{ .Values.persistentVolume.size }}
   selector:
     matchLabels:
       {{- include "app-python-chart.selectorLabels" . | nindent 6 }}
