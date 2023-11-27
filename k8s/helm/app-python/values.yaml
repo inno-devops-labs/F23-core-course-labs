@@ -71,6 +71,17 @@ volumeMounts:
   - name: config-volume
     mountPath: /app/configs/config.json
     subPath: config.json
+  - name: app-data
+    mountPath: /app/src/resources
+
+volumeClaimTemplates:
+  - metadata:
+      name: app-data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 62Mi
 
 nodeSelector: { }
 

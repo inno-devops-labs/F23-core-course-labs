@@ -2,7 +2,7 @@ replicaCount: 3
 
 image:
   repository: edikgoose/base-converter
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   tag: "latest"
 
 imagePullSecrets: [ ]
@@ -53,7 +53,18 @@ autoscaling:
 
 volumes: [ ]
 
-volumeMounts: [ ]
+volumeMounts:
+  - name: app-data-kotlin
+    mountPath: app/sources
+
+volumeClaimTemplates:
+  - metadata:
+      name: app-data-kotlin
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 62Mi
 
 nodeSelector: { }
 
