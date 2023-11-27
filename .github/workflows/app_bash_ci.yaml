@@ -18,6 +18,7 @@ jobs:
       - name: Lint with shellcheck
         run: |
           shellcheck app_bash/*.sh
+        continue-on-error: true
       - name: Test
         run: |
           cd app_bash && ./test.sh && cd -

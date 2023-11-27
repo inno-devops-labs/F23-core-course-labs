@@ -1,5 +1,6 @@
-fastapi==0.103.1
+fastapi==0.90.1
 pytest==7.4.1
 httpx==0.24.1
 uvicorn==0.23.2
 tzdata==2023.3
+prometheus-fastapi-instrumentator==1.1.1

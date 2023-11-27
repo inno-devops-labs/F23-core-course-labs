@@ -3,6 +3,12 @@ version: "3"
 networks:
   loki:
 
+x-healthcheck: &hc
+  interval: 30s
+  timeout: 10s
+  retries: 3
+  start_period: 5s
+
 services:
   app_python:
     image: zrrrget/app_python
@@ -12,6 +18,22 @@ services:
       driver: "json-file"
       options:
         tag: "{{.ImageName}}|{{.Name}}|{{.ImageFullID}}|{{.FullID}}"
+        max-size: "10m"
+        max-file: "3"
+    networks:
+      - loki
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - wget --no-verbose --tries=1 -O /dev/null http://localhost:8000/ || exit 1
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          memory: 512m
 
   app_bash:
     image: zrrrget/app_bash
@@ -19,6 +41,20 @@ services:
       - "9000:9000"
     logging:
       <<: *runtime_log
+    networks:
+      - loki
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - wget --no-verbose --tries=1 -O /dev/null http://localhost:9000/ || exit 1
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          memory: 512m
 
   loki:
     image: grafana/loki:latest
@@ -27,6 +63,15 @@ services:
       - loki
     logging:
       <<: *runtime_log
+    healthcheck:
+      <<: *hc
+      test:
+        - CMD-SHELL
+        - wget --no-verbose --tries=1 -O /dev/null http://localhost:3100/ready || exit 1
+    deploy:
+      resources:
+        limits:
+          memory: 512m
 
   promtail:
     image: grafana/promtail:latest
@@ -38,6 +83,15 @@ services:
       - loki
     logging:
       <<: *runtime_log
+    healthcheck:
+      <<: *hc
+      test:
+        - CMD-SHELL
+        - timeout 5 bash -c 'cat < /dev/null > /dev/tcp/localhost/9080' || exit 1
+    deploy:
+      resources:
+        limits:
+          memory: 512m
 
   grafana:
     environment:
@@ -61,6 +115,10 @@ services:
           isDefault: true
           version: 1
           editable: false
+        - name: Prometheus
+          type: prometheus
+          access: proxy
+          url: http://prometheus:9090
         EOF
         /run.sh
     image: grafana/grafana:latest
@@ -70,3 +128,56 @@ services:
       - loki
     logging:
       <<: *runtime_log
+    healthcheck:
+      <<: *hc
+      test:
+        - CMD-SHELL
+        - wget --no-verbose --tries=1 -O /dev/null http://localhost:3000/api/health || exit 1
+    deploy:
+      resources:
+        limits:
+          memory: 512m
+
+  prometheus:
+    logging:
+      <<: *runtime_log
+    image: prom/prometheus:v2.45.1
+    restart: always
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - loki
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+      - '--web.enable-admin-api'
+      - '--web.enable-lifecycle'
+      - '--storage.tsdb.retention.time=7d'
+    ports:
+      - '9090:9090'
+    healthcheck:
+      <<: *hc
+      test:
+        - CMD-SHELL
+        - wget --no-verbose --tries=1 -O /dev/null http://localhost:9090/-/healthy || exit 1
+    deploy:
+      resources:
+        limits:
+          memory: 512m
+
+  pushgateway:
+    image: prom/pushgateway
+    container_name: pushgateway
+    restart: unless-stopped
+    expose:
+      - 9091
+    ports:
+      - "9091:9091"
+    networks:
+      - loki
+    deploy:
+      resources:
+        limits:
+          memory: 512m
