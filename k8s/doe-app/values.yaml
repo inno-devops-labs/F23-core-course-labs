@@ -2,7 +2,7 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-replicaCount: 1
+replicaCount: 2
 
 image:
   repository: docker.io/nzgeg3s0/doe-lab2
@@ -66,6 +66,31 @@ resources: {}
   # requests:
   #   cpu: 100m
   #   memory: 128Mi
+  
+env:
+  - name: DOE_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: doe-secrets
+        key: doesecret
+          
+volumeMounts:
+  - name: storage
+    mountPath: "/app-data"
+  - name: persistent-data-volume
+    mountPath: /code/data
+  - name: config-volume
+    mountPath: /app/config.json
+    subPath: config.json
+      
+volumes:
+  - name: storage
+    emptyDir: {}
+  - name: persistent-data-volume
+    emptyDir: {}
+  - name: config-volume
+    configMap:
+      name: config-doe
 
 autoscaling:
   enabled: false
@@ -73,6 +98,17 @@ autoscaling:
   maxReplicas: 100
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
+
+volumeClaimTemplates:
+  - metadata:
+      name: config-volume
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 50Mi
+
+podManagementPolicy: "Parallel"
 
 nodeSelector: {}
 

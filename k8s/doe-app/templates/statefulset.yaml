@@ -1,13 +1,15 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ include "doe-app.fullname" . }}
   labels:
     {{- include "doe-app.labels" . | nindent 4 }}
 spec:
+  serviceName: {{ include "doe-app.fullname" . }}
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
+  podManagementPolicy: {{ .Values.podManagementPolicy }}
   selector:
     matchLabels:
       {{- include "doe-app.selectorLabels" . | nindent 6 }}
@@ -19,6 +21,7 @@ spec:
       {{- end }}
       labels:
         {{- include "doe-app.selectorLabels" . | nindent 8 }}
+
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -33,12 +36,10 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          {{- with .Values.env }}
           env:
-            - name: DOE_SECRET
-              valueFrom:
-                secretKeyRef:
-                  name: doe-secrets
-                  key: doesecret
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
@@ -53,14 +54,14 @@ spec:
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          {{- with .Values.volumeMounts }}
           volumeMounts:
-          - name: config-volume
-            mountPath: /app/config.json
-            subPath: config.json
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+      {{- with .Values.volumes }}
       volumes:
-      - name: config-volume
-        configMap:
-          name: config-doe
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
 
       {{- with .Values.nodeSelector }}
       nodeSelector:
@@ -74,3 +75,8 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+
+  {{- with .Values.volumeClaimTemplates }}
+  volumeClaimTemplates:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
