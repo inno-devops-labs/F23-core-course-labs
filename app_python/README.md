@@ -1,135 +1,66 @@
-# Display Current Time in Moscow
+# Python Web Application 
 
----------------------------------------------------------------
-[![Python application](https://github.com/aibek99/core-course-labs/actions/workflows/app_python.yml/badge.svg?branch=lab3)](https://github.com/aibek99/core-course-labs/actions/workflows/app_python.yml)
+[![Python App](https://github.com/aibek99/devops-labs/actions/workflows/app_python.yaml/badge.svg)](https://github.com/aibek99/devops-labs/actions/workflows/app_python.yaml)
 
-Hi :wave:, this is a simple app's repository that displays the current time in Moscow.
+The application displays the current date and time, as this is the first lab assignment for the DevOps course at the university
 
----------------------------------------------------------------
+## Installation
 
-## Table of Contents
-
-- [About](#about)
-- [Features](#features)
-- [Getting Started](#getting-started)
-  - [Installation](#installation)
-- [Usage](#usage)
-- [Unit Tests](#unit-tests)
-- [Linter, Auto Formatter](#linter-auto-formatter)
-
-## About
-
----------------------------------------------------------------
-
-
-This app displays the current time in Moscow. It was created for educational purposes upon request during a DevOps course.
-
-## Features
-
----------------------------------------------------------------
-
-
-List the key features of your app.
-
-- Display Time in Moscow
-
-## Getting Started
-
----------------------------------------------------------------
-
-### Installation
-
-Provide step-by-step instructions for installing your app.
-
-1. Clone the repository: 
-```Bash
-git clone https://github.com/aibek99/core-course-labs.git
+***We highly recommend that you set up a Python environment to install dependencies:***
 ```
-2. Navigate to the project directory: 
-```Bash
-cd ./core-course-labs/app_python
-```
-3. Create a Virtual Environment
-```Bash
-python3 -m venv myenv
-```
-4. Activate the Virtual Environment
-- On Windows
-```Bash
-myenv\Scripts\activate
-```
-- On macOS and Linux:
-```Bash
-source myenv/bin/activate
-```
-5. Install dependencies: 
-```Bash
-pip install -r requirements.txt
+$ python3 -m venv env
+$ source env/bin/activate
 ```
 
-## Usage
+Clone the repository and install the dependencies:
 
----------------------------------------------------------------
-
-
-To run the app use the following command:
-```Bash
-python3 app.py
+```
+$ git clone https://github.com/aibek99/devops-labs
+$ cd devops-labs/app_python
+$ pip install -r requirements.txt
 ```
 
-It should run on localhost: http://127.0.0.1:5000/
+## Running the Application
 
-## Unit Tests
+Start the application with the run.py script:
 
----------------------------------------------------------------
-
-To run tests, execute the following command: 
-```Bash
-python3 -m pytest
+```
+$ python run.py
 ```
 
-## Linter, Auto Formatter
+The application should now be running at http://localhost:5000.
 
----------------------------------------------------------------
+## Running the Tests
 
-To run linter and auto formatter execute the following command: 
-```Bash
-pre-commit run --all-files
+```
+$ pytest tests
+```
+
+## Running the Linter
+```
+$ pylint app
 ```
 
 ## Docker 
-
----------------------------------------------------------------
-
-To build the image run the following command: 
-```Bash
-sudo docker build -t flaskapp:1.0 .
+To build the image run the following command:
+```
+docker build -t devopspy .
 ```
 
-To run it, use the following command:
-```Bash
-docker run -d -p 5000:5000 flaskapp:1.0
+To run the image run:
+```
+docker run --rm -p 5000:5000 devopspy
 ```
 
-To pull it from Docker Registry:
-```Bash
-docker pull aibekbakirov/devops_lab2:1.0
+* `--rm` here stands for deleting the container right after it is stopped
+
+Or if you want to pull the image from the docker hub:
+
+
+```
+docker pull aibekbakirov/devopspy:v1.0
 ```
 
-To run it, use the following command:
-```Bash
-docker run -d -p 5000:5000 aibekbakirov/devops_lab2:1.0
-```
+## Contacts
 
-link: http://localhost:5000/
-
-## CI workflow
-
----------------------------------------------------------------
-
-### Steps: 
-- Environment Setup and Dependency Caching
-- Python Dependency Installation and Security Scanning
-- Code Linting and Testing
-- Docker Login
-- Docker Build and Push
+* email: `aibek.bakirov99@gmail.com`

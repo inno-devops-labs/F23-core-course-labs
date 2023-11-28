@@ -1,81 +1,49 @@
-# Python, Flask framework
+# Python Flask
 
----------------------------------------------------
+The application is built using flask framework. Here are main reasons why I have used this framework specifically:
 
-## Table of Contents
+- Flask is a micro-framework, which means it comes with minimal features out-of-the-box and it is very easy to quickly set up a project and get started.
+- Flask has a modular design and is highly extensible with a wide range of extensions and third-party libraries available. This allows developers to add complex functionalities, like authentication, databases, and forms, to their application without rewriting the core functionality from scratch.
+- Flask has excellent documentation which is well-organized and easy to follow.
+- Flask is well-suited for creating RESTful APIs, which makes it a popular choice for backend development for mobile and web applications.
 
-- [Choice Justification](#choice-justification)
-- [Applied Best Practices](#applied-best-practices)
-  - [Project Structure](#1-project-structure)
-  - [Pre-commit Hooks](#2-pre-commit-hooks)
-  - [Virtual Environment](#3-virtual-environment)
-  - [.gitignore](#4-gitignore)
-  - [Testing with Pytest](#5-testing-with-pytest)
-  - [README.md](#6-readmemd)
+## Implementation details
+* I have utilized Flask's standard approaches for organizing the project files, dividing the project into blueprints, and converting the entire project into a Python package, which can then be installed as a library. 
+* Since the project is currently quite simple, HTML documents are rendered on the server-side. 
+* The `pytest` library is used for testing. I chose `pytest` over `unittest` primarily for its simplicity and extensibility. Currently, there is only one file, `test_app.py`, which contains a single function that makes a GET request to verify whether the server time matches the current time.
+* The `pylint` library is utilized to analyze the code, verifying compliance with coding standards and error-free syntax, while also enforcing the PEP 8 coding style.
 
----------------------------------------------------
+## Project Structure
+The structure is quite simple at the moment, but as time passes and development continues, it will become more complex
 
-## Choice Justification
+```
+app_python
+├── app/
+│   ├── __init__.py
+│   ├── views/
+│   │   ├── __init__.py
+|   |   └── time_view.py
+|   |
+│   ├── utils/
+│   │   ├── __init__.py
+|   |   └── time.py
+|   |
+|   └── templates/
+│       └── current_time.html
+|
+├── tests/
+│   ├── __init__.py
+|   └── test_app.py
+|
+├── run.py
+└── requirements.txt
+```
 
-- Flask is good choice for simple apps, which is our case.
-- Easy to use and learn.
-- Easy to test.
+### Files and Directories
 
----------------------------------------------------
-
-## Applied Best Practices
-
-This document outlines the best practices followed in our project to ensure code quality, maintainability.
-
-### 1. Project Structure
-
-We have organized our project into a clear and consistent structure. This structure enhances code readability and maintainability. 
-
-### 2. Pre-commit Hooks
-
-We've integrated pre-commit hooks into our development workflow. These hooks automate code quality checks and formatting before any commits are made. Specifically, we use the following tools:
-
-- **Flake8**: A linter to enforce Python code style and check for code quality issues.
-- **Black**: An auto-formatter that helps maintain consistent code formatting throughout the project.
-
-### 3. Virtual Environment
-
-To isolate our project's dependencies and ensure consistency across different environments, we use virtual environments. This practice allows us to manage dependencies and versions effectively, reducing potential conflicts with other projects.
-
-### 4. .gitignore
-
-We have a well-defined `.gitignore` file in place to exclude unnecessary files and directories from version control. This ensures that sensitive information and build artifacts are not committed to the repository.
-
-### 5. Testing with Pytest
-
-Testing is a crucial aspect of our development process. We use [Pytest](https://pytest.org/) as our testing framework. This allows us to write comprehensive unit tests, integration tests, and end-to-end tests to verify the functionality and reliability of our code.
-
-> ### Unit tests
-> 1. Unit test to check the content of the webpage
-> 2. Unit test to check, if time updates on refresh
-> ### Best practices applied
-> - Written appropriate test names
-> - Created simple unit tests
-> - Each unit tests addressed a single use-case
-> - Test coverage is higher than 90%
-> - Unit tests designed to be fast
-
-
-### 6. Requirements
-
-We maintain a `requirements.txt` file to list all the project's dependencies and their respective versions. This practice offers several benefits:
-
-- **Dependency Management**: It simplifies the process of managing and installing project dependencies, making it easier to set up a development environment.
-- **Version Consistency**: By specifying exact versions of dependencies, we ensure that all team members are using the same versions, reducing potential compatibility issues.
-- **Reproducibility**: It enables us to recreate the exact environment, facilitating debugging and testing.
-
-
-### 7. README.md
-
-We maintain a detailed `README.md` file to provide essential information about our project. Our README includes the following:
-
-- Project description and purpose.
-- Installation and setup instructions.
-- Usage examples and guidelines.
-
-By following these best practices, we ensure that our project remains organized, code quality is upheld.
+- `app/__init__.py`: Initializes the Flask application.
+- `app/views/`: Contains files handling the view (routing) layer of the application.
+- `app/templates/`: Contains the HTML templates to be rendered in the application.
+- `tests/`: Contains test files for the application 
+- `run.py`: Entry point for starting the application.
+- `requirements.txt`: Contains the Python package dependencies of the project.

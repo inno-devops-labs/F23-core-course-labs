@@ -1,26 +1,19 @@
-# use base image with specific versions
-FROM python:3.12.0b1-slim
+FROM python:3.10-slim AS base
 
-# Create a low privileged user
-RUN useradd -m myuser
-
-# Create and set the working directory
 WORKDIR /app
 
-# Copy requirements file mreqfdocker.txt
-COPY mreqfdocker.txt .
+COPY requirements.txt .
 
-# Install application dependencies (as myuser)
-RUN pip install --no-cache-dir -r mreqfdocker.txt
+RUN pip install --no-cache-dir -r requirements.txt 
 
-# Copy the rest of the needed application files
-COPY . /app
+COPY . .
 
-# Change ownership of the copied files to myuser
-RUN chown -R myuser /app
+RUN useradd --system --uid 1000 --group users appuser
 
-# Switch to the new user
-USER myuser
+USER appuser
 
-# Run your application (as myuser)
-CMD ["python3", "app.py"]
+RUN pytest tests
+
+EXPOSE 5000
+
+CMD ["python", "run.py"]

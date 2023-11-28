@@ -1,29 +1,49 @@
+"""This module contains functions testing application funcionalities"""
+from datetime import datetime
+import re
 import pytest
-from app import app
-import time
+from bs4 import BeautifulSoup
+from app import create_app
+from app.utils.time import moscow_time, moscow_timezone
+
 
 
 @pytest.fixture
 def client():
-    with app.test_client() as client:
-        yield client
+    """This function initializes flask applications"""
+    app = create_app()
+    app.config['TESTING'] = True
+
+    with app.test_client() as app_client:
+        yield app_client
 
 
-def test_content_of_page(client):
-    response = client.get("/")
-    assert b"Current Time in Moscow:" in response.data
-    assert b"Date:" in response.data
-    assert b"Time:" in response.data
+def test_date_time(client):
+    """This functions tests that time returned by server matches the current time"""
+    time_format = "%Y-%m-%d %H:%M:%S"
+
+    before_time = moscow_time().replace(microsecond=0)
+
+    response = client.get('/')
+
+    after_time = moscow_time()
+
+    assert response.status_code == 200, f"Expected ok but got status code = {response.status_code}"
+
+    soup = BeautifulSoup(response.data, 'html.parser')
 
 
-def test_time_updates_on_refresh(client):
-    response = client.get("/")
-    initial_time = extract_time_from_response(response)
-    time.sleep(2)
-    response = client.get("/")
-    refreshed_time = extract_time_from_response(response)
-    assert initial_time != refreshed_time
+    pattern = re.compile(r'\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}')
 
+    result = pattern.search(str(soup))
 
-def extract_time_from_response(response):
-    return response.get_data(as_text=True).strip()
+    assert result is not None, "date and time not found"
+
+    before_time = datetime.combine(before_time.date(), before_time.time())
+
+    after_time = datetime.combine(after_time.date(), after_time.time())
+
+    server_time = datetime.strptime(result.group(), time_format)
+
+    assert before_time <= server_time <= after_time, \
+        f"Expected to be in between {before_time} and {after_time} but got {server_time}"
