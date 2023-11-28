@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ include "app-python.fullname" . }}
   labels:
@@ -7,6 +7,7 @@ metadata:
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
+  podManagementPolicy: {{ .Values.podManagementPolicy }}
   {{- end }}
   selector:
     matchLabels:
@@ -63,18 +64,11 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
-            - name: config
-              mountPath: "/config.json"
-              subPath: config.json
-            - name: persistence
-              mountPath: /persistence
+            {{- toYaml .Values.volumeMounts | nindent 12 }}
+      {{- with .Values.volumes }}
       volumes:
-        - name: config
-          configMap:
-            name: config
-        - name: persistence
-          emptyDir:
-            sizeLimit: 500Mi
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -87,3 +81,5 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+  volumeClaimTemplates:  
+  {{- toYaml .Values.volumeClaimTemplates | nindent 2 }}
