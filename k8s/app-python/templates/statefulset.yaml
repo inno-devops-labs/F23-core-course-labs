@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ .Values.statefulset.fullname }}
+spec:
+  serviceName: {{ include "app-python.fullname" . }}
+  replicas: {{ .Values.statefulset.replicas }}
+  selector:
+    matchLabels:
+      {{- include "app-python.labels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "app-python.labels" . | nindent 8 }}
+    spec:
+      containers:
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+        ports:
+        - containerPort: {{ .Values.service.port }}
+          name: http
+        {{- with .Values.volumeMounts }}
+        volumeMounts:
+          {{- toYaml . | nindent 10 }}
+        {{- end }}
+  volumeClaimTemplates:
+  - metadata:
+      name: config-volume
+    spec:
+      accessModes: [ {{ .Values.statefulset.accessmode }} ]
+      resources:
+        requests:
+          storage: 1Gi

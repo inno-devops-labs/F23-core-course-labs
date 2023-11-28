@@ -110,3 +110,8 @@ config:
     variables:
       - configMapRef:
           name: my-environment-config
+
+statefulset:
+  fullname: web-app-statefulset
+  replicas: 2
+  accessmode: "ReadWriteOnce"
