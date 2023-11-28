@@ -14,6 +14,8 @@ ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 COPY requirements.txt /app/
 RUN pip install -r requirements.txt
 
+COPY volume/visits /app/volume/visits
+
 COPY main.py /app/
 EXPOSE 8000
 

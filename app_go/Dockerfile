@@ -9,9 +9,10 @@ RUN addgroup -g 2000 node && adduser -u 2000 -G node -s /bin/sh -D node
 COPY go.* /app/
 RUN go mod download
 
+COPY volume/visits /app/volume/visits
+
 # Build the binary
 COPY *.go /app/
-COPY /volume/visits /app/volume/
 RUN go build -v -o appgo
 
 EXPOSE 9000
