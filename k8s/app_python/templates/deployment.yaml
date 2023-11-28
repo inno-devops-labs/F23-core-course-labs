@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ include "app_python.fullname" . }}
   labels:
@@ -7,6 +7,8 @@ metadata:
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
+  serviceName: {{ include "app_python.fullname" . }}
+  podManagementPolicy: {{ .Values.podManagementPolicy }}
   {{- end }}
   selector:
     matchLabels:
@@ -80,3 +82,7 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+  {{- with .Values.volumeClaimTemplates }}
+  volumeClaimTemplates:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}

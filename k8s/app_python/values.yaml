@@ -13,6 +13,17 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
+podManagementPolicy: Parallel
+
+volumeClaimTemplates:
+  - metadata:
+      name: persistent_data_volume
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 200Mi
+
 serviceAccount:
   # Specifies whether a service account should be created
   create: true
@@ -96,6 +107,8 @@ volumes:
   - name: config
     configMap:
       name: config-configmap
+  - name: persistent_data_volume
+    emptyDir: {}
 
 # Additional volumeMounts on the output Deployment definition.
 volumeMounts:
@@ -103,6 +116,10 @@ volumeMounts:
     mountPath: "/config.json"
     subPath: config.json
     readOnly: true
+  - name: storage
+    mountPath: "/app_data"
+  - name: persistent_data_volume
+    mountPath: /code/data
 
 nodeSelector: {}
 
