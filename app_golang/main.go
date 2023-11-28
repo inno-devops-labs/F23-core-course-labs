@@ -4,11 +4,14 @@ import (
 	"fmt"
 	"net/http"
 	"time"
+	"io/ioutil"
+	"strconv"
 )
 
 func main() {
 	fmt.Println("Open on http://localhost:8080/")
 	http.HandleFunc("/", timeHandler)
+	http.HandleFunc("/visits", visitsHandler)
 	http.ListenAndServe(":8080", nil)
 }
 
@@ -28,4 +31,22 @@ func timeHandler(w http.ResponseWriter, r *http.Request) {
 
 	// Write the time to the HTTP response
 	fmt.Fprintf(w, "Current time in MSK timezone: %s\n", timeStr)
+
+	visits, err := ioutil.ReadFile("./volume/visits")
+	visitsInt, err := strconv.Atoi(string(visits))
+	visitsInt++
+	visits = []byte(strconv.Itoa(visitsInt))
+	err = ioutil.WriteFile("./volume/visits", visits, 0644)
+}
+
+func visitsHandler(w http.ResponseWriter, r *http.Request) {
+	// Read the file "./volume/visits"
+	visits, err := ioutil.ReadFile("./volume/visits")
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	// Write the number of visits to the HTTP response
+	fmt.Fprintf(w, "Number of visits: %s\n", visits)
 }

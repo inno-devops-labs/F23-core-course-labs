@@ -49,17 +49,25 @@ spec:
           #     path: /
           #     port: http
           env:
-          {{ include "go-app.goEnvs" . | nindent 12 }}
-          resources:
-            {{- toYaml .Values.resources | nindent 12 }}
-          {{- with .Values.volumeMounts }}
+            {{- include "go-app.goEnvs" . | nindent 12 }}
+            - name: SOME-KEY
+              valueFrom:
+                configMapKeyRef:
+                  name: config-entity-go
+                  key: test
           volumeMounts:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
-      {{- with .Values.volumes }}
+          - name: config-volume-go
+            mountPath: "/config.json"
+            subPath: config.json
+          - name: counter-data-go
+            mountPath: /data
       volumes:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+      - name: config-volume-go
+        configMap:
+          name: config-entity-go
+      - name: counter-data-kn
+        emptyDir:
+          sizeLimit: 500Mi
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

@@ -11,6 +11,7 @@ $ flask routes
 Endpoint            Methods  Rule
 ------------------  -------  -----------------------
 home                GET      /
+visits              GET      /visits
 static              GET      /static/<path:filename>
 ```
 
