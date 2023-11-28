@@ -16,7 +16,6 @@ metaData:
   containerName: app-typescript
   ingressName: typescript-app-ingress
 
-
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
@@ -35,16 +34,20 @@ serviceAccount:
 podAnnotations: {}
 podLabels: {}
 
-podSecurityContext: {}
+podSecurityContext:
+  {}
   # fsGroup: 2000
 
-securityContext: {}
-  # capabilities:
-  #   drop:
-  #   - ALL
-  # readOnlyRootFilesystem: true
-  # runAsNonRoot: true
-  # runAsUser: 1000
+#securityContext: {}
+# capabilities:
+#   drop:
+#   - ALL
+# readOnlyRootFilesystem: true
+# runAsNonRoot: true
+# runAsUser: 1000
+securityContext:
+  runAsNonRoot: false
+  runAsUser: 0
 
 service:
   name: typescript-app-service
@@ -55,7 +58,8 @@ ingress:
   enabled: true
   host: typescript.app
   className: ""
-  annotations: {}
+  annotations:
+    {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   hosts:
@@ -68,7 +72,8 @@ ingress:
   #    hosts:
   #      - chart-example.local
 
-resources: {}
+resources:
+  {}
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
@@ -93,12 +98,19 @@ volumes:
     configMap:
       name: config-configmap
 
+pvc:
+  create: true
+  name: visits-typescript
+  size: 1Mi
+  storageClass: standard
+
 # Additional volumeMounts on the output Deployment definition.
 volumeMounts:
-  - name: config
-    mountPath: "/config.json"
-    subPath: config.json
-    readOnly: true
+  - name: visits-typescript
+    mountPath: "/app/volume"
+
+configmap:
+  enabled: false
 
 nodeSelector: {}
 

@@ -2,7 +2,7 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-replicaCount: 1
+replicaCount: 3
 
 image:
   repository: nginx
@@ -102,12 +102,20 @@ volumes:
     configMap:
       name: config-configmap
 
+pvc:
+  create: true
+  name: visits-web
+  size: 1Mi
+  storageClass: standard
+
+
 # Additional volumeMounts on the output Deployment definition.
 volumeMounts:
-  - name: config
-    mountPath: "/config.json"
-    subPath: config.json
-    readOnly: true
+  - name: visits-web
+    mountPath: "/app/volume"
+
+configmap:
+  enabled: false
 
     
 nodeSelector: {}

@@ -1,16 +1,17 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
-  name: {{ include "mywebappsfullname" . }}
+  name: {{ include "mywebapps.fullname" . }}
   labels:
-    {{- include "mywebappslabels" . | nindent 4 }}
+    {{- include "mywebapps.labels" . | nindent 4 }}
 spec:
+  podManagementPolicy: Parallel
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "mywebappsselectorLabels" . | nindent 6 }}
+      {{- include "mywebapps.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -18,7 +19,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "mywebappslabels" . | nindent 8 }}
+        {{- include "mywebapps.labels" . | nindent 8 }}
 	{{- with .Values.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
@@ -27,7 +28,7 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "mywebappsserviceAccountName" . }}
+      serviceAccountName: {{ include "mywebapps.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
@@ -41,19 +42,26 @@ spec:
               containerPort: {{ .Values.service.port }}
               protocol: TCP
           env:
+            {{- if .Values.configmap.enabled }}
             - name: SECRET_LAB
               valueFrom:
                 configMapKeyRef:
                   name: env-configmap
                   key: SECRET_LAB
+            {{- end }}
+            {{- include "mywebapps.mapenvsecrets" . | indent 12 }}
           livenessProbe:
             httpGet:
               path: /
               port: http
+            initialDelaySeconds: 30
+            periodSeconds: 10
           readinessProbe:
             httpGet:
               path: /
               port: http
+            initialDelaySeconds: 30
+            periodSeconds: 10
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           {{- with .Values.volumeMounts }}
@@ -76,3 +84,14 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+  {{- if .Values.pvc.create }}
+  volumeClaimTemplates:
+  - metadata:
+      name: {{ .Values.pvc.name }}
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: {{ .Values.pvc.storageClass }}
+      resources:
+        requests:
+          storage: {{ .Values.pvc.size }}
+  {{- end }}
