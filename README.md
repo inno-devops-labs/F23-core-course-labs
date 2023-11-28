@@ -6,6 +6,8 @@
 
 This is a simple web application built with Python and Flask that displays the current Moscow time. It serves as a basic example of creating a web application with a Python web framework and displaying real-time data.
 
+Also there is a counter for visits that can be seen on /visits endpoint 
+
 ## Unit Tests
 
 ### Running Unit Tests
@@ -35,3 +37,4 @@ You can view the status of the CI build using the badge at the top of this READM
 The Docker image for this project is available on Docker Hub: [trihlebdv/dev_hw3](https://hub.docker.com/r/trihlebdv/dev_hw3).
 
 Feel free to use this image to deploy the Moscow Time Web Application in a containerized environment.
+

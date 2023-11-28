@@ -19,10 +19,14 @@ EXPOSE 5000
 ENV FLASK_ENV=production
 
 # Create user and set ownership and permissions as required
-RUN adduser --disabled-login myuser && chown -R myuser /app
+RUN adduser --disabled-login myuser
+
+# Change ownership of the /app directory to 'myuser'
+# and grant 'myuser' the necessary permissions
+RUN chown -R myuser:myuser /app && chmod -R 755 /app
 
 # Set user for execution
-USER myuser
+# USER myuser
 
 # Command to run the application
 CMD ["python", "app.py"]
