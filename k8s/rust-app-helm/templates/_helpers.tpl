@@ -66,4 +66,10 @@ Create the name of the service account to use
   value: {{ .Release.Name }}
 - name: IMAGE_TAG
   value: "{{ .Values.image.tag }}"
+
+- name: SOME-KEY
+valueFrom:
+  configMapKeyRef:
+    name: config-map-rust
+    key: test
 {{- end -}}

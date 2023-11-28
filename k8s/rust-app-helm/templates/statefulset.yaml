@@ -1,16 +1,16 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
-  name: {{ include "python-app-helm.fullname" . }}
+  name: {{ include "rust-app-helm.fullname" . }}
   labels:
-    {{- include "python-app-helm.labels" . | nindent 4 }}
+    {{- include "rust-app-helm.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "python-app-helm.selectorLabels" . | nindent 6 }}
+      {{- include "rust-app-helm.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -18,7 +18,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "python-app-helm.labels" . | nindent 8 }}
+        {{- include "rust-app-helm.labels" . | nindent 8 }}
 	{{- with .Values.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
@@ -27,7 +27,7 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "python-app-helm.serviceAccountName" . }}
+      serviceAccountName: {{ include "rust-app-helm.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
@@ -48,39 +48,13 @@ spec:
             httpGet:
               path: /
               port: http
-          resources:
-            {{- toYaml .Values.resources | nindent 12 }}
           env:
-          {{- include "python-app.envVars" . | nindent 12 }}
-          - name: "PASSWORD"
-              valueFrom:
-                secretKeyRef:
-                  name: db-user-pass
-                  key: password
-          - name: "USERNAME"
-              valueFrom:
-                secretKeyRef:
-                  name: db-user-pass
-                  key: username
-            - name: Some-KEY
-          - name: SOME-KEY
-            valueFrom:
-              configMapKeyRef:
-                name: config-entity
-                key: test
-          volumeMounts:
-          - name: config-volume-py
-            mountPath: "/config.json"
-            subPath: config.json
-          - name: counter-data-py
-            mountPath: /data
+            {{- toYaml .Values.volumeMounts | nindent 12 }}
+
       volumes:
-      - name: config-volume-py
-        configMap:
-          name: config-entity
-      - name: counter-data-py
-        emptyDir:
-          sizeLimit: 500Mi
+      {{- with .Values.volumes }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -93,3 +67,5 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+  volumeClaimTemplates:
+  {{- toYaml .Values.volumeClaimTemplates | nindent 2 }}

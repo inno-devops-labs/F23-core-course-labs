@@ -1,16 +1,18 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
-  name: {{ include "rust-app-helm.fullname" . }}
+  name: {{ include "python-app-helm.fullname" . }}
   labels:
-    {{- include "rust-app-helm.labels" . | nindent 4 }}
+    {{- include "python-app-helm.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
+  podManagementPolicy: {{ .Values.podManagementPolicy }}
+
   {{- end }}
   selector:
     matchLabels:
-      {{- include "rust-app-helm.selectorLabels" . | nindent 6 }}
+      {{- include "python-app-helm.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -18,7 +20,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "rust-app-helm.labels" . | nindent 8 }}
+        {{- include "python-app-helm.labels" . | nindent 8 }}
 	{{- with .Values.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
@@ -27,7 +29,7 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "rust-app-helm.serviceAccountName" . }}
+      serviceAccountName: {{ include "python-app-helm.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
@@ -48,26 +50,21 @@ spec:
             httpGet:
               path: /
               port: http
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
           env:
-            {{- include "rust-app.rustEnvs" . | nindent 12 }}
-            - name: SOME-KEY
-              valueFrom:
-                configMapKeyRef:
-                  name: config-entity-rust
-                  key: test
+          {{- include "python-app.envVars" . | nindent 12 }}
           volumeMounts:
-          - name: config-volume-rust
+          - name: config-volume
             mountPath: "/config.json"
             subPath: config.json
-          - name: counter-data-rust
+          - name: coutner-python
             mountPath: /data
+            {{- toYaml .Values.volumeMounts | nindent 12 }}
       volumes:
-      - name: config-volume-rust
-        configMap:
-          name: config-entity-rust
-      - name: counter-data-kn
-        emptyDir:
-          sizeLimit: 500Mi
+      {{- with .Values.volumes }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -80,3 +77,6 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+
+  volumeClaimTemplates:
+  {{- toYaml .Values.volumeClaimTemplates | nindent 2 }}

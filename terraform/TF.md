@@ -90,7 +90,7 @@ Getting familiar with terraform by:
 
 - Declare resources of types `github_repository`, `github_branch`, `github_branch_default`, and `github_branch_protection_v3` with the desired configurations.
 
-- Import the remote repo to use the existing configuration
+- Import the remote repo to use the existing config-volume-volumeuration
 
   ```bash
   terraform import github_repository.<resource_name> <repo_name>
