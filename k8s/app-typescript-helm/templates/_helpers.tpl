@@ -66,4 +66,9 @@ Create the name of the service account to use
   value: {{ .Release.Name }}
 - name: IMAGE_TAG
   value: "{{ .Values.image.tag }}"
+- name: SPECIAL_TYPE_KEY
+valueFrom:
+  configMapKeyRef:
+    name: config-map-entity-kn
+    key: test
 {{- end -}}

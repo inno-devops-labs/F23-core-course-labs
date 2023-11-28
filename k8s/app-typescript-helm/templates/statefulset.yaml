@@ -1,16 +1,17 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
-  name: {{ include "app-python-helm.fullname" . }}
+  name: {{ include "app-typescript-helm.fullname" . }}
   labels:
-    {{- include "app-python-helm.labels" . | nindent 4 }}
+    {{- include "app-typescript-helm.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
+  podManagementPolicy: {{ .Values.podManagementPolicy }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "app-python-helm.selectorLabels" . | nindent 6 }}
+      {{- include "app-typescript-helm.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -18,13 +19,13 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "app-python-helm.selectorLabels" . | nindent 8 }}
+        {{- include "app-typescript-helm.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "app-python-helm.serviceAccountName" . }}
+      serviceAccountName: {{ include "app-typescript-helm.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
@@ -45,40 +46,14 @@ spec:
           #   httpGet:
           #     path: /
           #     port: http
-          resources:
-            {{- toYaml .Values.resources | nindent 12 }}
-          {{- with .Values.volumeMounts }}
           env:
-          {{- include "python-app.envVars" . | nindent 12 }}
-          - name: "PASSWORD"
-              valueFrom:
-                secretKeyRef:
-                  name: db-user-pass
-                  key: password
-          - name: "USERNAME"
-              valueFrom:
-                secretKeyRef:
-                  name: db-user-pass
-                  key: username
-            - name: Some-KEY
-          - name: SOME-KEY
-            valueFrom:
-              configMapKeyRef:
-                name: config-entity
-                key: test
+            {{- include "ts-app.tsEnvs" . | nindent 12 }}
           volumeMounts:
-           - name: config-volume-py
-            mountPath: "/config.json"
-            subPath: config.json
-          - name: counter-data-py
-            mountPath: /data
+            {{- toYaml .Values.volumeMounts | nindent 12 }}
       volumes:
-      - name: config-volume-py
-        configMap:
-          name: config-entity
-      - name: counter-data-py
-        emptyDir:
-          sizeLimit: 500Mi
+      {{- with .Values.volumes }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -91,3 +66,5 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+  volumeClaimTemplates:
+  {{- toYaml .Values.volumeClaimTemplates | nindent 2 }}
