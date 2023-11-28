@@ -1,15 +1,18 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ include "app-golang.fullname" . }}
   labels:
+    {{- include "app-golang.labels" . | nindent 4 }}
     {{- include "library-chart.labels" . | indent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
+  podManagementPolicy: {{ .Values.podManagementPolicy }}
   {{- end }}
   selector:
     matchLabels:
+      {{- include "app-golang.selectorLabels" . | nindent 6 }}
       {{- include "library-chart.labels" . | indent 6 }}
   template:
     metadata:
@@ -18,6 +21,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
+        {{- include "app-golang.selectorLabels" . | nindent 8 }}
         {{- include "library-chart.labels" . | indent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
@@ -69,3 +73,5 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+  volumeClaimTemplates:
+  {{- toYaml .Values.volumeClaimTemplates | nindent 2 }}

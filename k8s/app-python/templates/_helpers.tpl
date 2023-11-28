@@ -46,6 +46,7 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 Selector labels
 */}}
 {{- define "app-python.selectorLabels" -}}
+app: {{ .Chart.Name }}
 app.kubernetes.io/name: {{ include "app-python.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
@@ -66,4 +67,9 @@ Create the name of the service account to use
   value: {{ .Release.Name }}
 - name: SLEEP_TIME
   value: "{{ .Values.sleepyTime }}"
+- name: "MY_PASS"
+  valueFrom:
+    secretKeyRef:
+      name: mysecret
+      key: pass_data
 {{- end -}}

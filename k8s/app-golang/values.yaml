@@ -1,8 +1,9 @@
 replicaCount: 3
+podManagementPolicy: Parallel
 
 image:
   repository: yesliesnayder/webservicego
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: "1.0.1"
 
@@ -86,6 +87,15 @@ volumeMounts:
 # - name: foo
 #   mountPath: "/etc/foo"
 #   readOnly: true
+
+volumeClaimTemplates:
+- metadata:
+    name: app-golang-data
+  spec:
+    accessModes: [ "ReadWriteOnce" ]
+    resources:
+      requests:
+        storage: 10Mi
 
 nodeSelector: {}
 
