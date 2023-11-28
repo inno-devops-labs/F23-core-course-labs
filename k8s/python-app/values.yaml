@@ -3,6 +3,7 @@
 # Declare variables to be passed into your templates.
 
 replicaCount: 3
+podManagementPolicy: Parallel
 
 image:
   repository: platun0v/devops-lab2
@@ -81,13 +82,18 @@ autoscaling:
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
 
-volumes:
-  - name: app-python-data
-    emptyDir: {}
-
 volumeMounts:
   - name: app-python-data
     mountPath: /app/data
+
+volumeClaimTemplates:
+- metadata:
+    name: app-python-data
+  spec:
+    accessModes: [ "ReadWriteOnce" ]
+    resources:
+      requests:
+        storage: 10Mi
 
 nodeSelector: {}
 
