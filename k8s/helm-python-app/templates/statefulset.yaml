@@ -1,10 +1,11 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ include "helm-python-app.fullname" . }}
   labels:
     {{- include "helm-python-app.labels" . | nindent 4 }}
 spec:
+  podManagementPolicy: Parallel
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
@@ -42,9 +43,9 @@ spec:
               protocol: TCP
           env: 
             {{- include "helm-python-app.envsecrets" . | nindent 12 }}
-          envFrom:
-            - configMapRef:
-                name: my-env-configmap
+          # envFrom:
+          #   - configMapRef:
+          #       name: my-env-configmap
 
           # livenessProbe:
           #   httpGet:
@@ -76,3 +77,15 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+  
+  {{- if .Values.pvc.create }}
+  volumeClaimTemplates:
+  - metadata:
+      name: {{ .Values.pvc.name }}
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: {{ .Values.pvc.storageClass }}
+      resources:
+        requests:
+          storage: {{ .Values.pvc.size }}
+  {{- end }}
