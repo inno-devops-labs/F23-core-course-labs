@@ -3,73 +3,70 @@
 ## Task 1: Dockerize Your Application
 
 
-Dockerfile Creation:
+1. Create a `Dockerfile`:
+- Linting can be done with `make docker-lint`. I have used `hadolint` for this purpose.
+- [Best Dockerfile practices](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/) I used:
+    * Add `.dockerignore` file
+    * Employ multi-stage builds
+    * Minimize the number of layers
+    * Leverage build cache
 
-Begin by creating a Dockerfile.
-Ensure linting using hadolint is incorporated via make docker-lint.
-Include a .dockerignore file to specify items to be excluded from the Docker build context.
-Implement multi-stage builds to optimize the image size.
-Minimize layers to enhance efficiency.
-Leverage build cache for improved build performance.
-Dockerfile
-Copy code
-# Start with a base image
-FROM base-image:tag AS builder
+2. Build and Test Docker Image:
+- Testing is done as one stage within the Docker build process
 
-# Add necessary files and perform build steps
+3. Push Image to Docker Hub:
+- `make docker-push` to push image.
+[Here is my Dockerhub repository](https://hub.docker.com/repository/docker/ar7ch/devops_lab3_app_python/general).
 
-# Final image
-FROM another-image:tag
-COPY --from=builder /app/output /app
-Build and Test Docker Image:
-
-Integrate testing into the Docker build process as a single stage.
-bash
-Copy code
-# Makefile
-docker-build:
-    docker build -t your-image-name:tag .
-Run the build process with make docker-build.
-Push Image to Docker Hub:
-
-Enable pushing the image to Docker Hub with the following command:
-bash
-Copy code
-# Makefile
-docker-push:
-    docker push your-dockerhub-account/your-image-name:tag
-Push the image using make docker-push.
-Run and Verify Docker Image:
-
-Pull the Docker image from Docker Hub with:
-bash
-Copy code
-# Makefile
-docker-pull:
-    docker pull your-dockerhub-account/your-image-name:tag
-Execute the pulled image and validate functionality.
-bash
-Copy code
-docker run -it your-dockerhub-account/your-image-name:tag
-Ensure make docker-pull retrieves the image from Docker Hub.
-
+4. Run and Verify Docker Image:
+- Retrieve the Docker image from your Docker Hub account.
+- Execute the image and validate its functionality.
+    * `make docker-pull` pulls the image from Dockerhub.
 ## Task 2: Docker Best Practices
 
-Avoid Unnecessary Privileges:
+Security 
 
-Utilizing rootless containers by specifying a non-root user (appuser).
-Not binding to a specific UID in the adduser command.
-Ensuring executables are owned by root and not writable, with appropriate permissions (755) on project files.
-Reduce Attack Surface:
+1. Enhance your docker image by implementing [Docker Security Best Practices](https://sysdig.com/blog/dockerfile-best-practices/).
+- Security best practices that I implelented:
+    - Avoid unnecessary privileges
+        * Rootless containers (user appuser)
+        * No bind to specific UID (I don't specify UID in `adduser`)
+        * Make executables owned by root and not writable (setting 755 on project files)
+    - Reduce attack surface
+        * Multistage builds - there are 3 build stages in my Dockerfile
+        * Use trusted base images - I use trusted `python:3.11-alpine3.18` base image
+    - Layer sanity - my layers are organized to
+        1. employ caching mechanism and re-use layers
+        2. avoid creating redundant layers or keeping redundant layers between different build stages
+    - Employing linting and vulerability scanning
+    - Running Docker runtime as nonroot
 
-Implementing multistage builds with three distinct stages, which helps in minimizing the final image size and potential vulnerabilities.
-Utilizing a trusted base image (python:3.11-alpine3.18) to ensure a secure starting point.
-Layer Sanity:
+2. Write `DOCKER.md`:
+- You are reading it.
 
-Organizing layers to optimize caching mechanisms and promote layer reuse.
-Avoiding the creation of redundant layers and maintaining layer separation between different build stages.
-Linting and Vulnerability Scanning:
+3. Enhance the README.md:
+- Added **Docker** section.
+  
+## Bonus Task: Multi-Stage Builds Exploration
 
-Employing linting tools to ensure Dockerfile best practices.
-Integrating vulnerability scanning tools to identify and address potential security issues.
-Running Docker Runtime as Non-root:
+**To earn an additional 2.5 points:**
+
+1. Dockerize Previous App:
+- Craft a `Dockerfile` for the application from the prior lab.
+- Place this Dockerfile within the corresponding `app_*` folder.
+    * Check `app_go` directory.
+
+2. Follow Main Task Guidelines:
+   - Apply the same steps and suggestions as in the primary Dockerization task.
+
+3. Study Docker Multi-Stage Builds:
+   - Familiarize yourself with Docker multi-stage builds.
+   - Consider implementing multi-stage builds, only if they enhance your project's structure and efficiency.
+
+### Guidelines
+
+- Utilize appropriate Markdown formatting and structure for all documentation.
+- Organize files within the lab folder with suitable naming conventions.
+- Create pull requests (PRs) as needed: from your fork to the main branch of this repository, and from your fork's branch to your fork's master branch.
+
+> Note: Utilize Docker to containerize your application, adhering to best practices. Explore Docker multi-stage builds for a deeper understanding, and document your process using Markdown.

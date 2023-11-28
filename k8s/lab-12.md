@@ -1,0 +1,395 @@
+# Lab 12
+
+## Task 1
+
+I've made enhancements to both the Python and Go applications, introducing a new /visits endpoint along with counter logic. The counter data is now stored in a file located at /appdata/visits.txt, which is mounted as a volume. I've updated the README.md files in both projects to reflect this change. Additionally, an automated test has been incorporated to validate the proper functioning of this new feature.
+
+Python:
+
+![Visits demo](https://i.imgur.com/eLJQsaq.png)
+
+Go:
+
+![Visits demo (Go)](https://i.imgur.com/oWoYSPP.png)
+
+## Task 2
+### Python:
+
+```
+$ kubectl get po
+NAME                                    READY   STATUS    RESTARTS       AGE
+app-python-chart-589gbb7f8-m7wzl        2/2     Running   0              5m36s
+```
+
+```
+$ kubectl exec app-python-chart-589gbb7f8-m7wzl -- cat /config.json
+{
+    "hello": "world",
+    "foo": "bar"
+}
+```
+
+```
+$ kubectl describe pod app-python-chart-5c9bcb7f
+8-m5wzl
+Name:             app-python-chart-589gbb7f8-m7wzl
+Namespace:        default
+Priority:         0
+Service Account:  internal-app
+Node:             minikube/192.178.47.4
+Start Time:       Tue, 28 Nov 2023 15:34:34 +0300
+Labels:           additional_template_label=bonus-library-chart-label
+                  app.kubernetes.io/instance=app-python-chart
+                  app.kubernetes.io/managed-by=Helm
+                  app.kubernetes.io/name=app-python
+                  app.kubernetes.io/version=1.16.0
+                  helm.sh/chart=app-python-0.1.0
+                  pod-template-hash=5c9bcb7f8
+Annotations:      vault.hashicorp.com/agent-inject: true
+                  vault.hashicorp.com/agent-inject-secret-database-config.txt: internal/data/database/config
+                  vault.hashicorp.com/agent-inject-status: injected
+                  vault.hashicorp.com/role: internal-app
+Status:           Running
+IP:               34.244.0.158
+IPs:
+  IP:           34.244.0.158
+Controlled By:  ReplicaSet/app-python-chart-5c9bcb7f8
+Init Containers:
+  vault-agent-init:
+    Container ID:  docker://72ff823b77838a8ccdf0d6acb13ca70a813c1c760bc3bfedfdd5147174e1992d
+    Image:         hashicorp/vault:1.15.1
+    Image ID:      docker-pullable://hashicorp/vault@sha256:6a96634beeda3f989a4d9d85a951fe835fe8504e4dae5b46610f7c4104e8388b
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      /bin/sh
+      -ec
+    Args:
+      echo ${VAULT_CONFIG?} | base64 -d > /home/vault/config.json && vault agent -config=/home/vault/config.json
+    State:          Terminated
+      Reason:       Completed
+      Exit Code:    0
+      Started:      Tue, 28 Nov 2023 18:34:34 +0300
+      Finished:     Tue, 28 Nov 2023 15:34:34 +0300
+    Ready:          True
+    Restart Count:  0
+    Limits:
+      cpu:     500m
+      memory:  128Mi
+    Requests:
+      cpu:     250m
+      memory:  64Mi
+    Environment:
+      NAMESPACE:         default (v1:metadata.namespace)
+      HOST_IP:            (v1:status.hostIP)
+      POD_IP:             (v1:status.podIP)
+      VAULT_LOG_LEVEL:   info
+      VAULT_LOG_FORMAT:  standard
+      VAULT_CONFIG:      eyJhdXRvX2F1dGgiOnsibWV0aG9kIjp7InR5cGUiOiJrdWJlcm5ldGVzIiwibW91bnRfcGF0aCI6ImF1dGgva3ViZXJuZXRlcyIsImNvbmZpZyI6eyJyb2xlIjoiaW50ZXJuYWwtYXBwIiwidG9rZW5fcGF0aCI6Ii92YXIvcnVuL3NlY3JldHMva3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC90b2tlbiJ9fSwic2luayI6W3sidHlwZSI6ImZpbGUiLCJjb25maWciOnsicGF0aCI6Ii9ob21lL3ZhdWx0Ly52YXVsdC10b2tlbiJ9fV19LCJleGl0X2FmdGVyX2F1dGgiOnRydWUsInBpZF9maWxlIjoiL2hvbWUvdmF1bHQvLnBpZCIsInZhdWx0Ijp7ImFkZHJlc3MiOiJodHRwOi8vdmF1bHQuZGVmYXVsdC5zdmM6ODIwMCJ9LCJ0ZW1wbGF0ZSI6W3siZGVzdGluYXRpb24iOiIvdmF1bHQvc2VjcmV0cy9kYXRhYmFzZS1jb25maWcudHh0IiwiY29udGVudHMiOiJ7eyB3aXRoIHNlY3JldCBcImludGVybmFsL2RhdGEvZGF0YWJhc2UvY29uZmlnXCIgfX17eyByYW5nZSAkaywgJHYgOj0gLkRhdGEgfX17eyAkayB9fToge3sgJHYgfX1cbnt7IGVuZCB9fXt7IGVuZCB9fSIsImxlZnRfZGVsaW1pdGVyIjoie3siLCJyaWdodF9kZWxpbWl0ZXIiOiJ9fSJ9XSwidGVtcGxhdGVfY29uZmlnIjp7ImV4aXRfb25fcmV0cnlfZmFpbHVyZSI6dHJ1ZX19
+    Mounts:
+      /home/vault from home-init (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-qtt5b (ro)
+      /vault/secrets from vault-secrets (rw)
+Containers:
+  app-python:
+    Container ID:   docker://734cc481223d528cd535a2f982bd83902cca1f7aa28487a933650e2143df15a5
+    Image:          docker.io/ar7ch/devops-app-python:latest
+    Image ID:       docker-pullable://ar7ch/devops-app-python@sha256:1a58de2edbb0d6bc23b100ff11dc56e790f01246b835b038b87d6cd2c67dc4d5
+    Port:           80/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Tue, 28 Nov 2023 14:23:59 +0300
+    Ready:          True
+    Restart Count:  0
+    Limits:
+      cpu:     300m
+      memory:  128Mi
+    Requests:
+      cpu:      300m
+      memory:   128Mi
+    Liveness:   http-get http://:http/time delay=0s timeout=1s period=10s #success=1 #failure=3
+    Readiness:  http-get http://:http/time delay=0s timeout=1s period=10s #success=1 #failure=3
+    Environment:
+      DB_USERNAME:     <set to the key 'username' in secret 'db-user-pass'>          Optional: false
+      DB_PASSWORD:     <set to the key 'password' in secret 'db-user-pass'>          Optional: false
+      CONFIG_MAP_ENV:  <set to the key 'confmap-env' of config map 'config-map-py'>  Optional: false
+      ENV_VAR_1:       value1
+      ENV_VAR_2:       value2
+    Mounts:
+      /appdata from appdata-py (rw)
+      /config.json from config-volume-py (rw,path="config.json")
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-qtt5b (ro)
+      /vault/secrets from vault-secrets (rw)
+  vault-agent:
+    Container ID:  docker://f22fbb3fb92c1087fc6c5b4037722adb6d90143fb1fe7495bc6b2df46c24ac0b
+    Image:         hashicorp/vault:1.15.1
+    Image ID:      docker-pullable://hashicorp/vault@sha256:6a96634beeda3f989a4d9d85a951fe835fe8504e4dae5b46610f7c4104e8388b
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      /bin/sh
+      -ec
+    Args:
+      echo ${VAULT_CONFIG?} | base64 -d > /home/vault/config.json && vault agent -config=/home/vault/config.json
+    State:          Running
+      Started:      Tue, 28 Nov 2023 15:34:34 +0300
+    Ready:          True
+    Restart Count:  0
+    Limits:
+      cpu:     500m
+      memory:  128Mi
+    Requests:
+      cpu:     250m
+      memory:  64Mi
+    Environment:
+      NAMESPACE:         default (v1:metadata.namespace)
+      HOST_IP:            (v1:status.hostIP)
+      POD_IP:             (v1:status.podIP)
+      VAULT_LOG_LEVEL:   info
+      VAULT_LOG_FORMAT:  standard
+      VAULT_CONFIG:      eyJhdXRvX2F1dGgiOnsibWV0aG9kIjp7InR5cGUiOiJrdWJlcm5ldGVzIiwibW91bnRfcGF0aCI6ImF1dGgva3ViZXJuZXRlcyIsImNvbmZpZyI6eyJyb2xlIjoiaW50ZXJuYWwtYXBwIiwidG9rZW5fcGF0aCI6Ii92YXIvcnVuL3NlY3JldHMva3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC90b2tlbiJ9fSwic2luayI6W3sidHlwZSI6ImZpbGUiLCJjb25maWciOnsicGF0aCI6Ii9ob21lL3ZhdWx0Ly52YXVsdC10b2tlbiJ9fV19LCJleGl0X2FmdGVyX2F1dGgiOmZhbHNlLCJwaWRfZmlsZSI6Ii9ob21lL3ZhdWx0Ly5waWQiLCJ2YXVsdCI6eyJhZGRyZXNzIjoiaHR0cDovL3ZhdWx0LmRlZmF1bHQuc3ZjOjgyMDAifSwidGVtcGxhdGUiOlt7ImRlc3RpbmF0aW9uIjoiL3ZhdWx0L3NlY3JldHMvZGF0YWJhc2UtY29uZmlnLnR4dCIsImNvbnRlbnRzIjoie3sgd2l0aCBzZWNyZXQgXCJpbnRlcm5hbC9kYXRhL2RhdGFiYXNlL2NvbmZpZ1wiIH19e3sgcmFuZ2UgJGssICR2IDo9IC5EYXRhIH19e3sgJGsgfX06IHt7ICR2IH19XG57eyBlbmQgfX17eyBlbmQgfX0iLCJsZWZ0X2RlbGltaXRlciI6Int7IiwicmlnaHRfZGVsaW1pdGVyIjoifX0ifV0sInRlbXBsYXRlX2NvbmZpZyI6eyJleGl0X29uX3JldHJ5X2ZhaWx1cmUiOnRydWV9fQ==
+    Mounts:
+      /home/vault from home-sidecar (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-qtt5b (ro)
+      /vault/secrets from vault-secrets (rw)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  config-volume-py:
+    Type:      ConfigMap (a volume populated by a ConfigMap)
+    Name:      config-map-py
+    Optional:  false
+  appdata-py:
+    Type:       EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:     
+    SizeLimit:  100Mi
+  kube-api-access-qtt5b:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+  home-init:
+    Type:       EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:     Memory
+    SizeLimit:  <unset>
+  home-sidecar:
+    Type:       EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:     Memory
+    SizeLimit:  <unset>
+  vault-secrets:
+    Type:        EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:      Memory
+    SizeLimit:   <unset>
+QoS Class:       Burstable
+Node-Selectors:  <none>
+Tolerations:     node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                 node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:          <none>
+```
+
+
+### Go:
+
+```
+$ kubectl get po
+NAME                                    READY   STATUS    RESTARTS        AGE
+app-go-chart-b464f575d-sjvg5            2/2     Running   0               6s
+app-python-chart-5c9bcb7f8-m5wzl        2/2     Running   0               78m
+```
+Since Go container is distroless, let's repeat the hack from lab 11.
+`docker exec` into the minikube container, locate the Go app container and copy file from it.
+
+```
+/# docker ps
+CONTAINER ID   IMAGE                       COMMAND                  CREATED             STATUS             PORTS     NAMES
+...
+8a9c751cc17d   2e570d2ba988                "/goapp"                 43 seconds ago      Up 42 seconds
+...
+
+/# docker cp 8a9c751cc17d:/config.json /tmp/config.json
+Successfully copied 2.05kB to /tmp/config.json
+/# cat /tmp/config.json
+{
+    "hello": "world",
+    "foo": "bar"
+}
+```
+
+```
+$ kubectl describe pod app-go-chart-b464f575d-sjvg5
+Name:             app-go-chart-b464f575d-sjvg5
+Namespace:        default
+Priority:         0
+Service Account:  internal-app
+Node:             minikube/192.168.49.2
+Start Time:       Tue, 28 Nov 2023 13:54:22 +0300
+Labels:           additional_template_label=bonus-library-chart-label
+                  app.kubernetes.io/instance=app-go-chart
+                  app.kubernetes.io/managed-by=Helm
+                  app.kubernetes.io/name=app-go
+                  app.kubernetes.io/version=1.16.0
+                  helm.sh/chart=app-go-0.1.0
+                  pod-template-hash=b464f575d
+Annotations:      vault.hashicorp.com/agent-inject: true
+                  vault.hashicorp.com/agent-inject-secret-database-config.txt: internal/data/database/config
+                  vault.hashicorp.com/agent-inject-status: injected
+                  vault.hashicorp.com/role: internal-app
+Status:           Running
+IP:               10.244.0.175
+IPs:
+  IP:           10.244.0.175
+Controlled By:  ReplicaSet/app-go-chart-b464f575d
+Init Containers:
+  vault-agent-init:
+    Container ID:  docker://2f16e4d2cdf6a2ccc6cdefa7470fbd402c3648dceae570ddb771b06297339cad
+    Image:         hashicorp/vault:1.15.1
+    Image ID:      docker-pullable://hashicorp/vault@sha256:6a96634beeda3f989a4d9d85a951fe835fe8504e4dae5b46610f7c4104e8388b
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      /bin/sh
+      -ec
+    Args:
+      echo ${VAULT_CONFIG?} | base64 -d > /home/vault/config.json && vault agent -config=/home/vault/config.json
+    State:          Terminated
+      Reason:       Completed
+      Exit Code:    0
+      Started:      Wed, 28 Nov 2023 16:54:34 +0300
+      Finished:     Wed, 28 Nov 2023 16:54:34 +0300
+    Ready:          True
+    Restart Count:  0
+    Limits:
+      cpu:     500m
+      memory:  128Mi
+    Requests:
+      cpu:     250m
+      memory:  64Mi
+    Environment:
+      NAMESPACE:         default (v1:metadata.namespace)
+      HOST_IP:            (v1:status.hostIP)
+      POD_IP:             (v1:status.podIP)
+      VAULT_LOG_LEVEL:   info
+      VAULT_LOG_FORMAT:  standard
+      VAULT_CONFIG:      eyJhdXRvX2F1dGgiOnsibWV0aG9kIjp7InR5cGUiOiJrdWJlcm5ldGVzIiwibW91bnRfcGF0aCI6ImF1dGgva3ViZXJuZXRlcyIsImNvbmZpZyI6eyJyb2xlIjoiaW50ZXJuYWwtYXBwIiwidG9rZW5fcGF0aCI6Ii92YXIvcnVuL3NlY3JldHMva3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC90b2tlbiJ9fSwic2luayI6W3sidHlwZSI6ImZpbGUiLCJjb25maWciOnsicGF0aCI6Ii9ob21lL3ZhdWx0Ly52YXVsdC10b2tlbiJ9fV19LCJleGl0X2FmdGVyX2F1dGgiOnRydWUsInBpZF9maWxlIjoiL2hvbWUvdmF1bHQvLnBpZCIsInZhdWx0Ijp7ImFkZHJlc3MiOiJodHRwOi8vdmF1bHQuZGVmYXVsdC5zdmM6ODIwMCJ9LCJ0ZW1wbGF0ZSI6W3siZGVzdGluYXRpb24iOiIvdmF1bHQvc2VjcmV0cy9kYXRhYmFzZS1jb25maWcudHh0IiwiY29udGVudHMiOiJ7eyB3aXRoIHNlY3JldCBcImludGVybmFsL2RhdGEvZGF0YWJhc2UvY29uZmlnXCIgfX17eyByYW5nZSAkaywgJHYgOj0gLkRhdGEgfX17eyAkayB9fToge3sgJHYgfX1cbnt7IGVuZCB9fXt7IGVuZCB9fSIsImxlZnRfZGVsaW1pdGVyIjoie3siLCJyaWdodF9kZWxpbWl0ZXIiOiJ9fSJ9XSwidGVtcGxhdGVfY29uZmlnIjp7ImV4aXRfb25fcmV0cnlfZmFpbHVyZSI6dHJ1ZX19
+    Mounts:
+      /home/vault from home-init (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-2sg9p (ro)
+      /vault/secrets from vault-secrets (rw)
+Containers:
+  app-go:
+    Container ID:   docker://8a9c751cc17d87ac4b40b1e040f04a96df33a7f3ea22fbcc18f3b512556e9ce9
+    Image:          docker.io/ar7ch/devops-app-go:latest
+    Image ID:       docker-pullable://ar7ch/devops-app-go@sha256:253dcf744d0fe968fb46c849a853ab7a5e7dd76438466cb0d8d6c44ad74ba5d9
+    Port:           80/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Tue, 28 Nov 2023 16:34:56 +0300
+    Ready:          True
+    Restart Count:  0
+    Limits:
+      cpu:     300m
+      memory:  128Mi
+    Requests:
+      cpu:      300m
+      memory:   128Mi
+    Liveness:   http-get http://:http/time delay=0s timeout=1s period=10s #success=1 #failure=3
+    Readiness:  http-get http://:http/time delay=0s timeout=1s period=10s #success=1 #failure=3
+    Environment:
+      DB_USERNAME:     <set to the key 'username' in secret 'db-user-pass-go'>       Optional: false
+      DB_PASSWORD:     <set to the key 'password' in secret 'db-user-pass-go'>       Optional: false
+      CONFIG_MAP_ENV:  <set to the key 'confmap-env' of config map 'config-map-go'>  Optional: false
+      ENV_VAR_1:       value1_go
+      ENV_VAR_2:       value2_go
+    Mounts:
+      /appdata from appdata-go (rw)
+      /config.json from config-volume-go (rw,path="config.json")
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-2sg9p (ro)
+      /vault/secrets from vault-secrets (rw)
+  vault-agent:
+    Container ID:  docker://9199196dd8c507f3b599ff05804cb1b059240d101615210a371a6fb2bf194dc7
+    Image:         hashicorp/vault:1.15.1
+    Image ID:      docker-pullable://hashicorp/vault@sha256:6a96634beeda3f989a4d9d85a951fe835fe8504e4dae5b46610f7c4104e8388b
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      /bin/sh
+      -ec
+    Args:
+      echo ${VAULT_CONFIG?} | base64 -d > /home/vault/config.json && vault agent -config=/home/vault/config.json
+    State:          Running
+      Started:      Tue, 28 Nov 2023 16:34:56 +0300
+    Ready:          True
+    Restart Count:  0
+    Limits:
+      cpu:     500m
+      memory:  128Mi
+    Requests:
+      cpu:     250m
+      memory:  64Mi
+    Environment:
+      NAMESPACE:         default (v1:metadata.namespace)
+      HOST_IP:            (v1:status.hostIP)
+      POD_IP:             (v1:status.podIP)
+      VAULT_LOG_LEVEL:   info
+      VAULT_LOG_FORMAT:  standard
+      VAULT_CONFIG:      eyJhdXRvX2F1dGgiOnsibWV0aG9kIjp7InR5cGUiOiJrdWJlcm5ldGVzIiwibW91bnRfcGF0aCI6ImF1dGgva3ViZXJuZXRlcyIsImNvbmZpZyI6eyJyb2xlIjoiaW50ZXJuYWwtYXBwIiwidG9rZW5fcGF0aCI6Ii92YXIvcnVuL3NlY3JldHMva3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC90b2tlbiJ9fSwic2luayI6W3sidHlwZSI6ImZpbGUiLCJjb25maWciOnsicGF0aCI6Ii9ob21lL3ZhdWx0Ly52YXVsdC10b2tlbiJ9fV19LCJleGl0X2FmdGVyX2F1dGgiOmZhbHNlLCJwaWRfZmlsZSI6Ii9ob21lL3ZhdWx0Ly5waWQiLCJ2YXVsdCI6eyJhZGRyZXNzIjoiaHR0cDovL3ZhdWx0LmRlZmF1bHQuc3ZjOjgyMDAifSwidGVtcGxhdGUiOlt7ImRlc3RpbmF0aW9uIjoiL3ZhdWx0L3NlY3JldHMvZGF0YWJhc2UtY29uZmlnLnR4dCIsImNvbnRlbnRzIjoie3sgd2l0aCBzZWNyZXQgXCJpbnRlcm5hbC9kYXRhL2RhdGFiYXNlL2NvbmZpZ1wiIH19e3sgcmFuZ2UgJGssICR2IDo9IC5EYXRhIH19e3sgJGsgfX06IHt7ICR2IH19XG57eyBlbmQgfX17eyBlbmQgfX0iLCJsZWZ0X2RlbGltaXRlciI6Int7IiwicmlnaHRfZGVsaW1pdGVyIjoifX0ifV0sInRlbXBsYXRlX2NvbmZpZyI6eyJleGl0X29uX3JldHJ5X2ZhaWx1cmUiOnRydWV9fQ==
+    Mounts:
+      /home/vault from home-sidecar (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-2sg9p (ro)
+      /vault/secrets from vault-secrets (rw)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  config-volume-go:
+    Type:      ConfigMap (a volume populated by a ConfigMap)
+    Name:      config-map-go
+    Optional:  false
+  appdata-go:
+    Type:       EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:     
+    SizeLimit:  100Mi
+  kube-api-access-2sg9p:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+  home-init:
+    Type:       EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:     Memory
+    SizeLimit:  <unset>
+  home-sidecar:
+    Type:       EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:     Memory
+    SizeLimit:  <unset>
+  vault-secrets:
+    Type:        EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:      Memory
+    SizeLimit:   <unset>
+QoS Class:       Burstable
+Node-Selectors:  <none>
+Tolerations:     node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                 node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  14m   default-scheduler  Successfully assigned default/app-go-chart-b464f575d-sjvg5 to minikube
+  Normal  Pulled     14m   kubelet            Container image "hashicorp/vault:1.15.1" already present on machine
+  Normal  Created    14m   kubelet            Created container vault-agent-init
+  Normal  Started    14m   kubelet            Started container vault-agent-init
+  Normal  Pulled     14m   kubelet            Container image "docker.io/ar7ch/devops-app-go:latest" already present on machine
+  Normal  Created    14m   kubelet            Created container app-go
+  Normal  Started    14m   kubelet            Started container app-go
+  Normal  Pulled     14m   kubelet            Container image "hashicorp/vault:1.15.1" already present on machine
+  Normal  Created    14m   kubelet            Created container vault-agent
+  Normal  Started    14m   kubelet            Started container vault-agent
+```

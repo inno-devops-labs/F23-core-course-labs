@@ -1,4 +1,3 @@
-
 def get_time() -> str:
     import datetime
     from zoneinfo import ZoneInfo
