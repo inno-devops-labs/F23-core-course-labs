@@ -79,20 +79,41 @@ autoscaling:
   # targetMemoryUtilizationPercentage: 80
 
 # Additional volumes on the output Deployment definition.
-volumes: []
-# - name: foo
-#   secret:
-#     secretName: mysecret
-#     optional: false
+volumes:
+  - name: visits-config
+    configMap:
+      defaultMode: 511
+      name: my-application-config
 
 # Additional volumeMounts on the output Deployment definition.
-volumeMounts: []
-# - name: foo
-#   mountPath: "/etc/foo"
-#   readOnly: true
+volumeMounts:
+  - mountPath: /home/testuser/visit-counter.txt
+    name: visits-config
+    subPath: visit-counter.txt
+  - name: extra-volume
+    mountPath: /home/testuser/extra-volume
 
 nodeSelector: {}
 
 tolerations: []
 
 affinity: {}
+
+config:
+  file:
+    path: files/visit-counter.txt
+  environment:
+    variables:
+      - configMapRef:
+          name: my-environment-config
+
+statefulset:
+  fullname: web-app-statefulset
+  replicas: 2
+
+storage:
+  accessmode: "ReadWriteOnce"
+  size: 1Gi
+
+pod:
+  managementPolicy: "Parallel"

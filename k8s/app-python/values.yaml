@@ -80,22 +80,18 @@ autoscaling:
 
 # Additional volumes on the output Deployment definition.
 volumes:
-  - name: config-volume
+  - name: visits-config
     configMap:
+      defaultMode: 511
       name: my-application-config
-# - name: foo
-#   secret:
-#     secretName: mysecret
-#     optional: false
 
 # Additional volumeMounts on the output Deployment definition.
 volumeMounts:
-  - name: config-volume
-    mountPath: "/config.json"
-    subPath: config.json
-# - name: foo
-#   mountPath: "/etc/foo"
-#   readOnly: true
+  - mountPath: /home/testuser/visit-counter.txt
+    name: visits-config
+    subPath: visit-counter.txt
+  - name: extra-volume
+    mountPath: /home/testuser/extra-volume
 
 nodeSelector: {}
 
@@ -105,7 +101,7 @@ affinity: {}
 
 config:
   file:
-    path: files/config.json
+    path: files/visit-counter.txt
   environment:
     variables:
       - configMapRef:
@@ -114,4 +110,10 @@ config:
 statefulset:
   fullname: web-app-statefulset
   replicas: 2
+
+storage:
   accessmode: "ReadWriteOnce"
+  size: 1Gi
+
+pod:
+  managementPolicy: "Parallel"

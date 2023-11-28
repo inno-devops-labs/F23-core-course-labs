@@ -4,15 +4,15 @@ metadata:
   name: {{ .Values.statefulset.fullname }}
 spec:
   podManagementPolicy: {{ .Values.pod.managementPolicy }}
-  serviceName: {{ include "app-python.fullname" . }}
+  serviceName: {{ include "app-kotlin.fullname" . }}
   replicas: {{ .Values.statefulset.replicas }}
   selector:
     matchLabels:
-      {{- include "app-python.labels" . | nindent 6 }}
+      {{- include "app-kotlin.labels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        {{- include "app-python.labels" . | nindent 8 }}
+        {{- include "app-kotlin.labels" . | nindent 8 }}
     spec:
       containers:
       - name: {{ .Chart.Name }}
