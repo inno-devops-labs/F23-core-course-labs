@@ -1,16 +1,17 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ include "helm-app.fullname" . }}
   labels:
-    {{- include "mylibchart.labels" . | nindent 4 }}
+    {{- include "helm-app.labels" . | nindent 4 }}
 spec:
+  podManagementPolicy: Parallel
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "mylibchart.labels" . | nindent 6 }}
+      {{- include "helm-app.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -18,7 +19,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "mylibchart.labels" . | nindent 8 }}
+        {{- include "helm-app.labels" . | nindent 8 }}
 	{{- with .Values.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
@@ -55,11 +56,11 @@ spec:
             {{- include "var-2.env" . | nindent 12 }}
           livenessProbe:
             httpGet:
-              path: /
+              path: /healthz
               port: http
           readinessProbe:
             httpGet:
-              path: /
+              path: /healthz
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
@@ -83,3 +84,11 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+  volumeClaimTemplates:
+    - metadata:
+        name: {{ .Values.PVClaim.name }}
+      spec:
+        accessModes: {{ .Values.PVClaim.accessModes }}
+        resources:
+          requests:
+            storage: {{ .Values.PVClaim.size }}
