@@ -39,7 +39,7 @@ securityContext: {}
   # runAsUser: 1000
 
 service:
-  type: LoadBalancer
+  type: NodePort
   port: 8080
 
 ingress:
@@ -73,18 +73,33 @@ autoscaling:
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
 
+envFrom:
+  - configMapRef:
+      name: python-config-map
 # Additional volumes on the output Deployment definition.
-volumes: []
-# - name: foo
-#   secret:
-#     secretName: mysecret
-#     optional: false
+volumes:
+  - name: python-config-volume
+    configMap:
+      name: python-config-map
+  - name: python-counter-data
+    emptyDir:
+      sizeLimit: 500Mi
 
-# Additional volumeMounts on the output Deployment definition.
-volumeMounts: []
-# - name: foo
-#   mountPath: "/etc/foo"
-#   readOnly: true
+volumeMounts:
+            - name: python-config-volume
+              mountPath: "/config.json"
+              subPath: config.json
+            - name: python-counter-data
+              mountPath: /data
+
+volumeClaimTemplates:
+  - metadata:
+      name: python-counter-data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 62Mi
 
 nodeSelector: {}
 
