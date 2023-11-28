@@ -74,20 +74,23 @@ autoscaling:
   # targetMemoryUtilizationPercentage: 80
 
 # Additional volumes on the output Deployment definition.
-volumes: []
-# - name: foo
-#   secret:
-#     secretName: mysecret
-#     optional: false
+volumes:
+ - name: go-visits-data
+   emptyDir:
+     sizeLimit: 500Mi
 
 # Additional volumeMounts on the output Deployment definition.
-volumeMounts: []
-# - name: foo
-#   mountPath: "/etc/foo"
-#   readOnly: true
+volumeMounts:
+   - name: go-visits-data
+     mountPath: /data
 
 nodeSelector: {}
 
 tolerations: []
 
 affinity: {}
+
+vct:
+  name: go-visits-data
+  storageName: go-storage
+  storage: 1Gi
