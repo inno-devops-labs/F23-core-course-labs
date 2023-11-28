@@ -64,4 +64,9 @@ Create the name of the service account to use
 {{- define "app-js.envVars" -}}
 - name: "TEST2"
   value: "TEST2"
+- name: SPECIAL_TYPE_KEY
+  valueFrom:
+    configMapKeyRef:
+      name: config
+      key: test
 {{- end }}

@@ -64,4 +64,9 @@ Create the name of the service account to use
 {{- define "app-python.envVars" -}}
 - name: "TEST"
   value: "TEST"
+- name: SPECIAL_TYPE_KEY
+  valueFrom:
+    configMapKeyRef:
+      name: config-py
+      key: test
 {{- end }}
