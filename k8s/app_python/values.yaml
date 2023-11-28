@@ -96,3 +96,11 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+replicaCount: 3
+
+image:
+  repository: nginx
+  tag: 1.19.1
+
+storageSize: 1Gi
