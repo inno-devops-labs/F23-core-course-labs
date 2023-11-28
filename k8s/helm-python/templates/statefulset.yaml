@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ include "helm-python.fullname" . }}
   labels:
@@ -7,6 +7,7 @@ metadata:
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
+  podManagementPolicy: {{ .Values.podManagementPolicy }}
   {{- end }}
   selector:
     matchLabels:
@@ -53,35 +54,12 @@ spec:
           {{- with .Values.volumeMounts }}
           env:
           {{- include "python-app.envVars" . | nindent 12 }}
-          - name: "PASSWORD"
-              valueFrom:
-                secretKeyRef:
-                  name: db-user-pass
-                  key: password
-          - name: "USERNAME"
-              valueFrom:
-                secretKeyRef:
-                  name: db-user-pass
-                  key: username
-            - name: Some-KEY
-          - name: SOME-KEY
-            valueFrom:
-              configMapKeyRef:
-                name: config-entity
-                key: test
           volumeMounts:
-           - name: config-volume-py
-            mountPath: "/config.json"
-            subPath: config.json
-          - name: counter-data-py
-            mountPath: /data
-      volumes:
-      - name: config-volume-py
-        configMap:
-          name: config-entity
-      - name: counter-data-py
-        emptyDir:
-          sizeLimit: 500Mi
+            {{- toYaml .Values.volumeMounts | nindent 12 }}
+      volumes:      
+      {{- with .Values.volumes }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -94,4 +72,5 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      
+  volumeClaimTemplates:
+  {{- toYaml .Values.volumeClaimTemplates | nindent 2 }}      
