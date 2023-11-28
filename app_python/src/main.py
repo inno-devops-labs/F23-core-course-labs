@@ -16,7 +16,7 @@ async def check_visits():
     try:
         with open(visits_file_path, "r") as f:
             count = int(f.readline())
-    except:
+    except FileNotFoundError:
         count = 0
     return count
 
