@@ -107,6 +107,20 @@ volumeMounts:
   - name: config-volume
     mountPath: "config.json"
     subPath: config.json
+  - name: visits
+    mountPath: "app-python/visits_dir"
+
+volumeClaimTemplates:
+  - metadata:
+      name: visits
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 1Mi
+
+statefulSet:
+  podManagementPolicy: Parallel
 
 nodeSelector: {}
 

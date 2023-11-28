@@ -25,15 +25,13 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template
   name: "internal-app"
 
-podAnnotations:
-  vault.hashicorp.com/agent-inject: "true"
-  vault.hashicorp.com/agent-inject-status: "update"
-  vault.hashicorp.com/role: "internal-app"
-  vault.hashicorp.com/agent-inject-secret-secrets.txt: |
-    {{- with secret "internal/data/secrets" -}}
-    {{ .Data.data.password }}
-    {{- end -}}
-
+podAnnotations: {
+  vault.hashicorp.com/agent-inject: 'true',
+  vault.hashicorp.com/agent-inject-status: 'update',
+  vault.hashicorp.com/role: 'internal-app',
+  vault.hashicorp.com/agent-inject-secret-secrets.txt: 'internal/data/secrets',
+  vault.hashicorp.com/agent-inject-template-secrets.txt: '{{- with secret "internal/data/secrets" -}}{{ .Data.data.password }}{{- end -}}'
+}
 podLabels: {}
 
 podSecurityContext: {}
@@ -88,19 +86,27 @@ autoscaling:
 
 # Additional volumes on the output Deployment definition.
 volumes: []
-# - name: foo
-#   secret:
-#     secretName: mysecret
-#     optional: false
 
 # Additional volumeMounts on the output Deployment definition.
-volumeMounts: []
-# - name: foo
-#   mountPath: "/etc/foo"
-#   readOnly: true
+volumeMounts:
+  - name: visits
+    mountPath: "app-kotlin/visits_dir"
+
+volumeClaimTemplates:
+  - metadata:
+      name: visits
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 1Mi
+
+statefulSet:
+  podManagementPolicy: Parallel
 
 nodeSelector: {}
 
 tolerations: []
 
 affinity: {}
+
