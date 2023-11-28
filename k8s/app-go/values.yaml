@@ -2,7 +2,8 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-replicaCount: 1
+replicaCount: 2
+podManagementPolicy: Parallel
 
 image:
   repository: docker.io/ar7ch/devops-app-go
@@ -62,6 +63,23 @@ ingress:
   #    hosts:
   #      - chart-example.local
 
+env:
+  - name: "DB_USERNAME"
+    valueFrom:
+      secretKeyRef:
+        name: db-user-pass-go
+        key: username
+  - name: "DB_PASSWORD"
+    valueFrom:
+      secretKeyRef:
+        name: db-user-pass-go
+        key: password
+  - name: "CONFIG_MAP_ENV"
+    valueFrom:
+      configMapKeyRef:
+        name: config-map-go
+        key: confmap-env
+
 resources:
   limits:
     cpu: 300m
@@ -88,20 +106,29 @@ autoscaling:
   # targetMemoryUtilizationPercentage: 80
 
 # Additional volumes on the output Deployment definition.
-volumes: []
-# - name: foo
-#   secret:
-#     secretName: mysecret
-#     optional: false
+volumes:
+- name: config-volume-go
+  configMap:
+    name: config-map-go
 
-# Additional volumeMounts on the output Deployment definition.
-volumeMounts: []
-# - name: foo
-#   mountPath: "/etc/foo"
-#   readOnly: true
+volumeMounts:
+  - name: config-volume-go
+    mountPath: "/config.json"
+    subPath: config.json
+  - name: appdata-go
+    mountPath: /appdata
 
 nodeSelector: {}
 
 tolerations: []
 
 affinity: {}
+
+volumeClaimTemplates:
+  - metadata:
+      name: appdata-go
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 15Mi
