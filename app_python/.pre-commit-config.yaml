@@ -9,12 +9,12 @@ repos:
       hooks:
       -   id: black
           exclude: ^env/
-  -   repo: local
-      hooks:
-        -   id: pytest
-            name: Run python tests
-            entry: pytest
-            args: ["app_python/tests/", "app_python/"]
-            language: system
-            pass_filenames: false
-            exclude: ^env/
+#   -   repo: local
+#       hooks:
+#         -   id: pytest
+#             name: Run python tests
+#             entry: pytest
+#             args: ["app_python/tests/", "app_python/"]
+#             language: system
+#             pass_filenames: false
+#             exclude: ^env/

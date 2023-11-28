@@ -80,7 +80,7 @@ app.get('/get-quote', (req, res) => {
   const randomQuote = getRandomQuote()
   countVisits = countVisits + 1;
   
-  fs.writeFile("visits", countVisits.toString(), (err) => {
+  fs.writeFile("./volume/visits", countVisits.toString(), (err) => {
   });
 
   res.json({ quote: randomQuote })

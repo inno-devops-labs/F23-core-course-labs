@@ -1,10 +1,11 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ include "helm-app-javascript.fullname" . }}
   labels:
     {{- include "helm-app-javascript.labels" . | nindent 4 }}
 spec:
+  podManagementPolicy: Parallel
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
@@ -46,10 +47,12 @@ spec:
             httpGet:
               path: /
               port: http
+            initialDelaySeconds: 20
           readinessProbe:
             httpGet:
               path: /
               port: http
+            initialDelaySeconds: 20
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           {{- with .Values.volumeMounts }}
@@ -72,3 +75,12 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+  volumeClaimTemplates:
+  - metadata:
+      name: {{ .Values.PersistentVolumeClaim.name }}
+    spec:
+      accessModes: {{ .Values.PersistentVolumeClaim.accessMode }}
+      storageClassName: {{ .Values.PersistentVolumeClaim.storageClassName }}
+      resources:
+        requests:
+          storage: {{ .Values.PersistentVolumeClaim.storage }}
