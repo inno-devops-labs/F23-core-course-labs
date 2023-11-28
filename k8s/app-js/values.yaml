@@ -1,8 +1,9 @@
 replicaCount: 3
+podManagementPolicy: Parallel
 
 image:
   repository: seakysneka1/webserv_js
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
 
@@ -86,6 +87,15 @@ volumeMounts:
     subPath: config.json
   - name: counter-data-js
     mountPath: /data
+
+volumeClaimTemplates:
+- metadata:
+    name: counter-data-js
+  spec:
+    accessModes: [ "ReadWriteOnce" ]
+    resources:
+      requests:
+        storage: 10Mi
 
 nodeSelector: {}
 

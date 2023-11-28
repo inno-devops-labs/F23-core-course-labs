@@ -1,8 +1,9 @@
 replicaCount: 3
+podManagementPolicy: Parallel
 
 image:
   repository: seakysneka1/webserv_python
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
 
@@ -99,6 +100,15 @@ volumeMounts:
     subPath: config.json
   - name: counter-data-py
     mountPath: /data
+
+volumeClaimTemplates:
+- metadata:
+    name: counter-data-py
+  spec:
+    accessModes: [ "ReadWriteOnce" ]
+    resources:
+      requests:
+        storage: 10Mi
 
 nodeSelector: {}
 

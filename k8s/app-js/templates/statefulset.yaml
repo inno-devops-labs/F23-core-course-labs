@@ -1,12 +1,13 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
-  name: {{ include "app-python.fullname" . }}
+  name: {{ include "app-js.fullname" . }}
   labels:
     {{- include "library-chart.labels" . | indent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
+  podManagementPolicy: {{ .Values.podManagementPolicy }}
   {{- end }}
   selector:
     matchLabels:
@@ -47,22 +48,17 @@ spec:
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          env:
+            {{- include "app-js.envVars" . | nindent 12 }}
+            - name: SPECIAL_KEY_JS
+              valueFrom:
+                configMapKeyRef:
+                  name: config-map-entity-js
+                  key: test
           {{- with .Values.volumeMounts }}
           volumeMounts:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          env:
-          {{- include "app-python.envVars" . | nindent 12 }}
-            - name: "SECRET-PASS"
-              valueFrom:
-                secretKeyRef:
-                  name: secret-pass
-                  key: pass_data
-            - name: SPECIAL_KEY_PY
-              valueFrom:
-                configMapKeyRef:
-                  name: config-map-entity-py
-                  key: test
       {{- with .Values.volumes }}
       volumes:
         {{- toYaml . | nindent 8 }}
