@@ -2,13 +2,14 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-replicaCount: 1
+replicaCount: 2
+podManagementPolicy: Parallel
 
 image:
   repository: nikitosing/app_python
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "arm_64"
+  tag: "arm_64_latest"
 
 imagePullSecrets: []
 nameOverride: ""

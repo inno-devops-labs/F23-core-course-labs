@@ -1,7 +1,7 @@
 defmodule DevopsWebWeb.TimeController do
   use DevopsWebWeb, :controller
 
-  @counter_file_path "/app/visits/visits"
+  @counter_file_path "/app/visits"
 
   def time(conn, _params) do
     increment_and_save_counter()

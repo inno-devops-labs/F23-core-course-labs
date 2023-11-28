@@ -2,6 +2,7 @@ from flask import Flask, jsonify
 from api.route.time import time_blueprint
 from flasgger import Swagger
 from prometheus_client import start_http_server, Counter
+import os
 
 
 def init() -> Flask:
@@ -32,6 +33,7 @@ def increment_request_counter():
 
 # Define a sample route
 
+filename = './visits'
 
 @app.route('/')
 def hello():
@@ -42,7 +44,7 @@ def hello():
 
 @app.route('/visits')
 def visits():
-    with open('/app/visits/visits', 'r') as f:
+    with open(filename, 'r') as f:
         s = f.read()
         res = 0
         if s != '':
@@ -51,9 +53,31 @@ def visits():
 
 
 def increment():
-    with open('/app/visits/visits', 'rw') as f:
+    s = ''
+    create_file_if_not_exists(filename)
+    with open(filename, 'r') as f:
         s = f.read()
-        res = 0
-        if s != '':
-            res = int(s)
+    res = 0
+    if s != '':
+        res = int(s)
+    with open(filename, 'w') as f:
         f.write(str(res + 1))
+
+
+def create_directory_if_not_exists(directory):
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+        print(f"Directory '{directory}' created.")
+    else:
+        print(f"Directory '{directory}' already exists.")
+
+
+def create_file_if_not_exists(file_path):
+    directory = os.path.dirname(file_path)
+    create_directory_if_not_exists(directory)
+
+    if not os.path.exists(file_path):
+        with open(file_path, 'w'):
+            print(f"File '{file_path}' created.")
+    else:
+        print(f"File '{file_path}' already exists.")

@@ -40,6 +40,8 @@ COPY --from=builder /opt/release/devops_web .
 # Add new non-root user
 RUN adduser -D defaultuser
 
+RUN chown defaultuser /app
+
 # Use this user to make container root-less
 USER defaultuser
 

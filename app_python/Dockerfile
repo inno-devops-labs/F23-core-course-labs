@@ -23,6 +23,8 @@ EXPOSE $port
 # Add new non-root user
 RUN useradd defaultuser
 
+RUN chown defaultuser /app
+
 # Use this user to make container root-less
 USER defaultuser
 
