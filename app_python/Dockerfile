@@ -13,6 +13,9 @@ RUN pip3 install poetry
 RUN poetry config virtualenvs.create false 
 RUN poetry install
 
+RUN mkdir /proj/data && chown appUser /proj/data
+VOLUME /proj/data
+
 USER appUser
 
 EXPOSE 8080

@@ -4,3 +4,5 @@ services:
     image: {{ docker_image }}
     ports:
       - "{{ docker_ports }}"
+    volumes:
+      - data:/proj/data

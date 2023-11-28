@@ -6,7 +6,6 @@ replicaCount: 1
 
 image:
   repository: bizuki/moscow-time
-  pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
 
