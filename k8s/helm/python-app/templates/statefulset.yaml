@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ include "python-app.fullname" . }}
   labels:
@@ -9,6 +9,7 @@ spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
+  podmanagementpolicy: {{ .Values.podManagementPolicy }}
   selector:
     matchLabels:
       {{- include "python-app.selectorLabels" . | nindent 6 }}
@@ -55,24 +56,12 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
           env:
             {{- include "python-app.envVars" . | nindent 12 }}
-            - name: SPECIAL_TYPE_KEY
-              valueFrom:
-                configMapKeyRef:
-                  name: config-py
-                  key: test
           volumeMounts:
-          - name: config-py
-            mountPath: "/config.json"
-            subPath: config.json
-          - name: counter-py
-            mountPath: /data
+            {{- toYaml .Values.volumeMounts | nindent 12 }}
       volumes:
-      - name: config-volume-py
-        configMap:
-          name: config-py
-      - name: counter-py
-        emptyDir:
-          sizeLimit: 500Mi
+      {{- with .Values.volumes }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
       {{- end }}
@@ -84,3 +73,5 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+  volumeclaimtemplates:  
+  {{- toYaml .Values.volumeClaimTemplates | nindent 2 }}

@@ -64,4 +64,9 @@ Create the name of the service account to use
 {{- define "svelte-app.envVars" -}}
 - name: "SVELTE_APP_ENV"
   value: "VAL2"
+- name: SPECIAL_TYPE_KEY
+  valueFrom:
+    configMapKeyRef:
+      name: config-js
+      key: test
 {{- end }}
