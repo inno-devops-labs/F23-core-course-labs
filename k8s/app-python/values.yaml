@@ -3,6 +3,7 @@
 # Declare variables to be passed into your templates.
 
 replicaCount: 2
+podManagementPolicy: Parallel
 
 image:
   repository: docker.io/hephzibah301/app_python
