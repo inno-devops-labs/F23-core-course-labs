@@ -1,0 +1,5 @@
+---
+ - name: Install pip
+   apt:
+     name: "{{ pip_package }}"
+     state: "{{ pip_state }}"
