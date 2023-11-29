@@ -12,6 +12,10 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 RUN chown -R xyz:xyz /app
+
+# Set permissions for the data directory
+RUN chmod -R 755 /app/data
+
 USER xyz
 
 EXPOSE 8000
