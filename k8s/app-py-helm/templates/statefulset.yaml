@@ -1,16 +1,17 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ include "app-py-helm.fullname" . }}
   labels:
     {{- include "app-py-helm.labels" . | nindent 4 }}
 spec:
+  podManagementPolicy: Parallel
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "app-py-helm.selectorLabels" . | nindent 6 }}
+      {{- include "library-chart.labels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -18,7 +19,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "app-py-helm.labels" . | nindent 8 }}
+        {{- include "library-chart.labels" . | nindent 8 }}
 	{{- with .Values.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
@@ -58,9 +59,6 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
           {{- with .Values.volumeMounts }}
           volumeMounts:
-            - name: app-py-volume
-              mountPath: "/app-python/config.json"
-              readOnly: true
             {{- toYaml . | nindent 12 }}
           {{- end }}
       {{- with .Values.volumes }}
