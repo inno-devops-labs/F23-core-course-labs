@@ -1,0 +1,23 @@
+- name: Build and run docker image
+  tags: run_app
+  block:
+    - name: Copy app folder to remote server
+      copy:
+        src: ../../../../app_python/
+        dest: "{{ app_folder_path }}/"
+
+    - name: Build docker image
+      docker_image:
+        name: "{{ docker_image_name }}"
+        build:
+          path: "{{ app_folder_path }}/"
+        source: build
+        state: present
+
+    - name: Run docker container
+      docker_container:
+        name: "{{ docker_container_name }}"
+        image: "{{ docker_image_name }}"
+        state: started
+        ports:
+          - "{{ docker_ports }}"

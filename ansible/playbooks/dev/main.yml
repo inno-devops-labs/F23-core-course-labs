@@ -1,0 +1,5 @@
+- name: Docker Installation
+  hosts: yandex_cloud_01
+  become: yes
+  roles:
+    - web_app
