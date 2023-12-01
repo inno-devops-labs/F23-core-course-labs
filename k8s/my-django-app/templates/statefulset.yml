@@ -1,10 +1,11 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ include "my-django-app.fullname" . }}
   labels:
     {{- include "my-django-app.labels" . | nindent 4 }}
 spec:
+  serviceName: "{{ include "my-django-app.fullname" . }}"
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
@@ -19,7 +20,7 @@ spec:
       {{- end }}
       labels:
         {{- include "my-django-app.labels" . | nindent 8 }}
-	{{- with .Values.podLabels }}
+        {{- with .Values.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
     spec:
@@ -40,8 +41,8 @@ spec:
             - name: MY_API_KEY
               valueFrom:
                 secretKeyRef:
-                  name: credentials 
-                  key: API_KEY      
+                  name: credentials
+                  key: API_KEY
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
@@ -56,14 +57,14 @@ spec:
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-          {{- with .Values.volumeMounts }}
           volumeMounts:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
-      {{- with .Values.volumes }}
+          - name: visits-volume
+            mountPath: {{ .Values.volumeMounts.mountPath }}
       volumes:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+      - name: visits-volume
+        hostPath:
+          path: {{ .Values.volumeMounts.hostPath }}
+          type: DirectoryOrCreate
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

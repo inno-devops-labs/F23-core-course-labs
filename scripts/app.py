@@ -10,9 +10,9 @@ def read_visits():
     Reads the number of visits from the file
     '''
     try:
-        with open("out/visits.txt", "r") as file:
+        with open("/app/out/visits.txt", "r") as file:
             return int(file.read().strip())
-    except FileNotFoundError:
+    except Exception:
         return 0
 
 def increment_visits():
@@ -20,7 +20,7 @@ def increment_visits():
     Increments the number of visits and saves it to the file
     '''
     count = read_visits() + 1
-    with open("out/visits.txt", "w+") as file:
+    with open("/app/out/visits.txt", "w") as file:
         file.write(str(count))
     return count
 
