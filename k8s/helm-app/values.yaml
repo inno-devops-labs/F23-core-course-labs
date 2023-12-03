@@ -8,7 +8,7 @@ containerPort: 8000
 
 image:
   repository: thecarrot/whataretime
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
 
@@ -16,14 +16,27 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
+podManagementPolicy: Parallel
+
 volumes:
   - name: config-volume
     configMap:
       name: helm-app-config
 
+volumeClaimTemplates:
+  - metadata:
+      name: persistent-data-volume
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 100Mi
+
 volumeMounts:
   - name: config-volume
     mountPath: /code/app/config
+  - name: persistent-data-volume
+    mountPath: /code/data
 
 serviceAccount:
   # Specifies whether a service account should be created
