@@ -120,6 +120,33 @@ initContainers:
   volumeMounts:
     - name: app-python-init
       mountPath: "/work-dir"
+- name: append-line-1
+  image: busybox:1.28
+  command:
+  - sh
+  - "-c"
+  - "echo bla-bla > /work-dir/example.txt"
+  volumeMounts:
+    - name: app-python-init
+      mountPath: "/work-dir"
+- name: append-line-2
+  image: busybox:1.28
+  command:
+  - sh
+  - "-c"
+  - "echo whoa >> /work-dir/example.txt"
+  volumeMounts:
+    - name: app-python-init
+      mountPath: "/work-dir"
+- name: append-line-3
+  image: busybox:1.28
+  command:
+  - sh
+  - "-c"
+  - "echo 'this is the 14th lab' >> /work-dir/example.txt"
+  volumeMounts:
+    - name: app-python-init
+      mountPath: "/work-dir"
 
 envFrom:
   - configMapRef:
