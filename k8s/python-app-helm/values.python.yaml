@@ -1,14 +1,14 @@
-# Default values for app-helm.
+# Default values for app_helm.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
 replicaCount: 3
 
 image:
-  repository: nginx
+  repository: pavel5609/do_course
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
+  tag: "latest"
 
 imagePullSecrets: []
 nameOverride: ""
@@ -32,20 +32,28 @@ podAnnotations:
 podLabels: {}
 
 podSecurityContext: {}
+  # fsGroup: 2000
 
-securityContext: {}
+securityContext:
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  runAsNonRoot: false
+  runAsUser: 0
+
 service:
-  type: ClusterIP
-  port: 80
+  type: LoadBalancer
+  port: 8080
 
 ingress:
-  enabled: false
+  enabled: true
   className: ""
   annotations: {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   hosts:
-    - host: chart-example.local
+    - host: python.app
       paths:
         - path: /
           pathType: ImplementationSpecific
@@ -81,13 +89,13 @@ volumes:
 
 pvc:
   create: true
-  name: visits-web
+  name: visits-python
   size: 1Mi
   storageClass: standard
 
 # Additional volumeMounts on the output Deployment definition.
 volumeMounts:
-  - name: visits-web
+  - name: visits-python
     mountPath: "/app/volume"
 
 configmap:
@@ -98,11 +106,3 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
-
-password:
-  existingSecret: secret-base
-  existingSecretKey: password
-
-token:
-  existingSecret: token-base
-  existingSecretKey: token
