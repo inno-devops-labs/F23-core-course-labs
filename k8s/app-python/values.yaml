@@ -87,6 +87,8 @@ volumes:
   - name: app-python-config
     configMap:
       name: app-python-configmap
+  - name: app-python-init
+    emptyDir: {}
 
 # Additional volumeMounts on the output Deployment definition.
 volumeMounts:
@@ -95,6 +97,8 @@ volumeMounts:
   - name: app-python-config
     mountPath: "/config.json"
     subPath: config.json
+  - name: app-python-init
+    mountPath: /init_data
 
 volumeClaimTemplates:
 - metadata:
@@ -104,6 +108,18 @@ volumeClaimTemplates:
     resources:
       requests:
         storage: 10Mi
+
+initContainers:
+- name: install
+  image: busybox:1.28
+  command:
+    - wget
+    - "-O"
+    - "/work-dir/index.html"
+    - http://info.cern.ch
+  volumeMounts:
+    - name: app-python-init
+      mountPath: "/work-dir"
 
 envFrom:
   - configMapRef:
