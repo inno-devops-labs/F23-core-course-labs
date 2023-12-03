@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ include "helm-go.fullname" . }}
   labels:
@@ -7,6 +7,7 @@ metadata:
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
+  podManagementPolicy: {{ .Values.podManagementPolicy }}
   {{- end }}
   selector:
     matchLabels:
@@ -50,24 +51,12 @@ spec:
           #     port: http
           env:
             {{- include "go-app.goEnvs" . | nindent 12 }}
-            - name: SOME-KEY
-              valueFrom:
-                configMapKeyRef:
-                  name: config-entity-go
-                  key: test
           volumeMounts:
-          - name: config-volume-go
-            mountPath: "/config.json"
-            subPath: config.json
-          - name: counter-data-go
-            mountPath: /data
+            {{- toYaml .Values.volumeMounts | nindent 12 }}
       volumes:
-      - name: config-volume-go
-        configMap:
-          name: config-entity-go
-      - name: counter-data-kn
-        emptyDir:
-          sizeLimit: 500Mi
+      {{- with .Values.volumes }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -80,3 +69,5 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+  volumeClaimTemplates:
+  {{- toYaml .Values.volumeClaimTemplates | nindent 2 }}
