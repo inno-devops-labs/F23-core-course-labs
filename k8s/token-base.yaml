@@ -1,0 +1,7 @@
+apiVersion: v1
+data:
+  token: hK4rZG4=
+metadata:
+  name: token-base
+kind: Secret
+type: Opaque
