@@ -1,0 +1,14 @@
+app_python/venv
+
+.pytest_cache
+tests/.pytest_cache
+
+app_golang/.idea
+
+*/.terraform
+*/.terraform.lock.hcl
+*/terraform.tfstate
+*/terraform.tfstate.backup
+*/terraform.tfvars
+
+*.token

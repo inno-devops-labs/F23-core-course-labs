@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-python-configmap
+data:
+  my-envs: |
+    MY_ENV=secret
+  config.json: |-
+    {{ .Files.Get "../files/config.json" }}

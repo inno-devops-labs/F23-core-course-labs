@@ -1,0 +1,11 @@
+- name: Deploy App Python
+  hosts: all
+  become: true
+  roles:
+    - role: web_app
+      vars:
+        app_container_name: app_python
+        app_container_image: "yesliesnayder/app_python:1.0.6"
+        app_container_ports:
+          - "8000:8000"
+        app_visits_file: ./app_python_data

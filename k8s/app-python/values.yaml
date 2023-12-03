@@ -1,0 +1,159 @@
+replicaCount: 3
+podManagementPolicy: Parallel
+
+image:
+  repository: yesliesnayder/app_python
+  pullPolicy: Always
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "1.0.6"
+
+# Specifies sleep time for pre-hook and post-hook
+sleepyTime: 0
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+# Cannot access Vault from Russia, so let's put secret here for now!
+password: "thisisdevops"
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: false
+  # Automatically mount a ServiceAccount's API credentials?
+  automount: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: "vault-auth"
+
+podAnnotations:
+  vault.hashicorp.com/agent-inject: 'true'
+  vault.hashicorp.com/role: 'vault-auth'
+  vault.hashicorp.com/agent-inject-secret-myapp-config.txt: "secret/data/myapp/config"
+podLabels: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: LoadBalancer
+  port: 8000
+
+ingress:
+  enabled: true
+  className: ""
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: app-python
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+resources:
+  requests:
+    memory: 64Mi
+    cpu: 250m
+  limits:
+    memory: 128Mi
+    cpu: 500m
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+# Additional volumes on the output Deployment definition.
+volumes:
+  - name: app-python-data
+    emptyDir: {}
+  - name: app-python-config
+    configMap:
+      name: app-python-configmap
+  - name: app-python-init
+    emptyDir: {}
+
+# Additional volumeMounts on the output Deployment definition.
+volumeMounts:
+  - name: app-python-data
+    mountPath: /data
+  - name: app-python-config
+    mountPath: "/config.json"
+    subPath: config.json
+  - name: app-python-init
+    mountPath: /init_data
+
+volumeClaimTemplates:
+- metadata:
+    name: app-python-data
+  spec:
+    accessModes: [ "ReadWriteOnce" ]
+    resources:
+      requests:
+        storage: 10Mi
+
+initContainers:
+- name: install
+  image: busybox:1.28
+  command:
+    - wget
+    - "-O"
+    - "/work-dir/index.html"
+    - http://info.cern.ch
+  volumeMounts:
+    - name: app-python-init
+      mountPath: "/work-dir"
+- name: append-line-1
+  image: busybox:1.28
+  command:
+  - sh
+  - "-c"
+  - "echo bla-bla > /work-dir/example.txt"
+  volumeMounts:
+    - name: app-python-init
+      mountPath: "/work-dir"
+- name: append-line-2
+  image: busybox:1.28
+  command:
+  - sh
+  - "-c"
+  - "echo whoa >> /work-dir/example.txt"
+  volumeMounts:
+    - name: app-python-init
+      mountPath: "/work-dir"
+- name: append-line-3
+  image: busybox:1.28
+  command:
+  - sh
+  - "-c"
+  - "echo 'this is the 14th lab' >> /work-dir/example.txt"
+  volumeMounts:
+    - name: app-python-init
+      mountPath: "/work-dir"
+
+envFrom:
+  - configMapRef:
+      name: app-python-configmap
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

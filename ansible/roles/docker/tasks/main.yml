@@ -1,0 +1,52 @@
+---
+- name: Ensure old versions of Docker are not installed.
+  package:
+    name:
+      - docker
+      - docker-engine
+    state: absent
+
+- name: Ensure dependencies are installed.
+  apt:
+    name:
+      - apt-transport-https
+      - ca-certificates
+    state: present
+
+- name: Ensure additional dependencies are installed (on Ubuntu >= 20.04).
+  apt:
+    name: gnupg
+    state: present
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version is version('20.04', '>=')
+
+- name: Ensure curl is present (on older systems without SNI).
+  package:
+    name: curl
+    state: present
+
+- include_tasks: install_docker.yml
+
+- name: Ensure handlers are notified now to avoid firewall conflicts.
+  meta: flush_handlers
+
+- include_tasks: install_compose.yml
+
+- include_tasks: install_docker_python.yml
+
+- name: Get docker group info using getent.
+  getent:
+    database: group
+    key: docker
+    split: ':'
+  when: docker_users | length > 0
+
+- name: Ensure docker users are added to the docker group.
+  user:
+    name: "{{ item }}"
+    groups: docker
+    append: true
+  with_items: "{{ docker_users }}"
+  when: docker_users | length > 0
+
+- name: Reset ssh connection to apply user changes.
+  meta: reset_connection
