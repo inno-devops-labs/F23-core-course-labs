@@ -1,5 +1,7 @@
 # Containerization Lab - Docker
 
+## Overview
+
 In this lab assignment, you will learn to containerize applications using Docker, while focusing on best practices. Additionally, you will explore Docker multi-stage builds. Follow the tasks below to complete the lab assignment.
 
 ## Task 1: Dockerize Your Application
@@ -26,7 +28,7 @@ In this lab assignment, you will learn to containerize applications using Docker
 
 **To earn an additional 4 points**, follow these steps:
 
-1. Enhance your docker image by implementing **Docker Security Best Practices**.
+1. Enhance your docker image by implementing [Docker Security Best Practices](https://sysdig.com/blog/dockerfile-best-practices/).
    - No root user inside, or you will get no points at all.
 
 2. Write `DOCKER.md`:
