@@ -34,13 +34,13 @@ podLabels: {}
 podSecurityContext: {}
   # fsGroup: 2000
 
-securityContext: {}
+securityContext:
   # capabilities:
   #   drop:
   #   - ALL
   # readOnlyRootFilesystem: true
-  # runAsNonRoot: true
-  # runAsUser: 1000
+  runAsNonRoot: false
+  runAsUser: 0
 
 service:
   type: LoadBalancer
@@ -87,12 +87,19 @@ volumes:
     configMap:
       name: config-configmap
 
+pvc:
+  create: true
+  name: visits-python
+  size: 1Mi
+  storageClass: standard
+
 # Additional volumeMounts on the output Deployment definition.
 volumeMounts:
-  - name: config
-    mountPath: "/config.json"
-    subPath: config.json
-    readOnly: true
+  - name: visits-python
+    mountPath: "/app/volume"
+
+configmap:
+  enabled: false
 
 nodeSelector: {}
 
