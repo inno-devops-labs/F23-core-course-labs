@@ -6,7 +6,7 @@ metadata:
     app: rust-app-helm
     chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
   annotations:
-    "helm.sh/hook-delete-policy": hook-succeeded  # Add this annotation
+    "helm.sh/hook-delete-policy": hook-succeeded  
 spec:
   template:
     metadata:
