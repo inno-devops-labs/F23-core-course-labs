@@ -67,3 +67,14 @@ Create the name of the service account to use
 - name: "SECOND_CUSTOM_VAR"
   value: "PYTHON_VALUE_TWO"
 {{- end }}
+
+{{/*
+Allow the release namespace to be overridden for multi-namespace deployments in combined charts
+*/}}
+{{- define "helm-app.namespace" -}}
+{{- if .Values.namespaceOverride }}
+{{- .Values.namespaceOverride }}
+{{- else }}
+{{- .Release.Namespace }}
+{{- end }}
+{{- end }}

@@ -68,6 +68,28 @@ spec:
           volumeMounts:
             {{- toYaml . | nindent 12 }}
           {{- end }}
+            initContainers:
+        - name: install-1
+          image: busybox:1.28
+          command: ['sh', '-c', 'echo 1 >> /init/file']
+          {{- with .Values.volumeMounts }}
+          volumeMounts:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+        - name: install-2
+          image: busybox:1.28
+          command: ['sh', '-c', 'echo 2 >> /init/file']
+          {{- with .Values.volumeMounts }}
+          volumeMounts:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+        - name: install-3
+          image: busybox:1.28
+          command: ['sh', '-c', 'echo 3 >> /init/file']
+          {{- with .Values.volumeMounts }}
+          volumeMounts:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
       {{- with .Values.volumes }}
       volumes:
         {{- toYaml . | nindent 8 }}

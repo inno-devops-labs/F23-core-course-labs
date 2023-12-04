@@ -109,13 +109,14 @@ pvc:
   create: true
   name: visits-python
   size: 1Mi
-  storageClass: standard
+  storageClass: hostpath
 
 
 # Additional volumeMounts on the output Deployment definition.
 volumeMounts:
   - name: visits-python
-    mountPath: "/app/volume"
+    mountPath: "/init"
+    # mountPath: "/app/volume"
 
 configmap:
   enabled: false

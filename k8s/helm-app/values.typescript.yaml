@@ -104,14 +104,15 @@ volumes:
 
 pvc:
   create: true
-  name: visits-rust
+  name: visits-typescript
   size: 1Mi
-  storageClass: standard
+  storageClass: hostpath
 
 # Additional volumeMounts on the output Deployment definition.
 volumeMounts:
-  - name: visits-rust
-    mountPath: "/app/volume"
+  - name: visits-typescript
+    mountPath: "/init"
+    # mountPath: "/app/volume"
 
 configmap:
   enabled: false
