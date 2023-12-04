@@ -106,13 +106,13 @@ pvc:
   create: true
   name: visits-web
   size: 1Mi
-  storageClass: standard
+  storageClass: hostpath
 
 
 # Additional volumeMounts on the output Deployment definition.
 volumeMounts:
   - name: visits-web
-    mountPath: "/app/volume"
+    mountPath: "/init"
 
 configmap:
   enabled: false

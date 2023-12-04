@@ -67,3 +67,12 @@ Create the name of the service account to use
 - name: "SECOND_CUSTOM_VAR"
   value: "PYTHON_VALUE_TWO"
 {{- end }}
+
+
+{{- define "mywebapps.namespace" -}}
+{{- if .Values.namespaceOverride }}
+{{- .Values.namespaceOverride }}
+{{- else }}
+{{- .Release.Namespace }}
+{{- end }}
+{{- end }}
