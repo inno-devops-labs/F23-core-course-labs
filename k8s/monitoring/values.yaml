@@ -1,0 +1,18 @@
+prometheus:
+  additionalServiceMonitors:
+  - name: "python-app"
+    selector:
+      matchLabels:
+        app.kubernetes.io/instance: python
+    namespaceSelector:
+      any: true
+    endpoints:
+    - port: http
+  - name: "sharp-app"
+    selector:
+      matchLabels:
+        app.kubernetes.io/instance: sharp
+    namespaceSelector:
+      any: true
+    endpoints:
+    - port: http

@@ -81,6 +81,30 @@ spec:
             - name: init-data
               mountPath: "/init"
           {{- end }}
+        - name: install-queue-1
+          image: busybox:1.28
+          command: ['sh', '-c', 'echo 1 >> /init/file']
+          {{- with .Values.volumeMounts }}
+          volumeMounts:
+            - name: init-data
+              mountPath: "/init"
+          {{- end }}
+        - name: install-queue-2
+          image: busybox:1.28
+          command: ['sh', '-c', 'echo 2 >> /init/file']
+          {{- with .Values.volumeMounts }}
+          volumeMounts:
+            - name: init-data
+              mountPath: "/init"
+          {{- end }}
+        - name: install-queue-3
+          image: busybox:1.28
+          command: ['sh', '-c', 'echo 3 >> /init/file']
+          {{- with .Values.volumeMounts }}
+          volumeMounts:
+            - name: init-data
+              mountPath: "/init"
+          {{- end }}
       {{- with .Values.volumes }}
       volumes:
         {{- toYaml . | nindent 8 }}
