@@ -73,6 +73,39 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
             {{- toYaml .Values.volumeMounts | nindent 12 }}
+      initContainers:
+      - name: install
+        image: busybox:1.28
+        command:
+        - "sh"
+        - "-c"
+        - "wget -O /appdata/index.html http://example.com && echo 'OK'"
+        volumeMounts:
+          {{- toYaml .Values.volumeMounts | nindent 12 }}
+      - name: init-queue-one
+        image: busybox:1.28
+        command:
+        - "sh"
+        - "-c"
+        - "echo 'hello init-1' > /appdata/queue"
+        volumeMounts:
+          {{- toYaml .Values.volumeMounts | nindent 12 }}
+      - name: init-queue-two
+        image: busybox:1.28
+        command:
+        - "sh"
+        - "-c"
+        - "echo 'hello init-2' >> /appdata/queue"
+        volumeMounts:
+          {{- toYaml .Values.volumeMounts | nindent 12 }}
+      - name: init-queue-three
+        image: busybox:1.28
+        command:
+        - "sh"
+        - "-c"
+        - "echo 'hello init-3' >> /appdata/queue"
+        volumeMounts:
+          {{- toYaml .Values.volumeMounts | nindent 12 }}
       volumes:
         {{- toYaml .Values.volumes | nindent 8 }}
       {{- with .Values.nodeSelector }}
