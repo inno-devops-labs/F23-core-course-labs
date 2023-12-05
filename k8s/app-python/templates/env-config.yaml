@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: my-environment-config
+  namespace: default
+data:
+  FIRST_VARIABLE: Never gonna give you up
+  SECOND_VARIABLE: Never gonna let you down

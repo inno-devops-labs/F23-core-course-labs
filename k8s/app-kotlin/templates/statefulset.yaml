@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ .Values.statefulset.fullname }}
+spec:
+  podManagementPolicy: {{ .Values.pod.managementPolicy }}
+  serviceName: {{ include "app-kotlin.fullname" . }}
+  replicas: {{ .Values.statefulset.replicas }}
+  selector:
+    matchLabels:
+      {{- include "app-kotlin.labels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "app-kotlin.labels" . | nindent 8 }}
+    spec:
+      containers:
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+        ports:
+        - containerPort: {{ .Values.service.port }}
+          name: http
+        {{- with .Values.volumeMounts }}
+        volumeMounts:
+          {{- toYaml . | nindent 10 }}
+        {{- end }}
+
+      {{- with .Values.volumes }}
+      volumes:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+  volumeClaimTemplates:
+  - metadata:
+      name: extra-volume
+    spec:
+      accessModes: [ {{ .Values.storage.accessmode }} ]
+      resources:
+        requests:
+          storage: {{ .Values.storage.size }}
