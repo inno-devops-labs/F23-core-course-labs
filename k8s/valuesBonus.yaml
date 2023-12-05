@@ -1,0 +1,18 @@
+prometheus:
+  additionalServiceMonitors:
+  - name: "app-python"
+    namespaceSelector:
+      any: true
+    selector:
+      matchLabels:
+        app.kubernetes.io/instance: python
+    endpoints:
+    - port: http
+  - name: "app-cpp"
+    namespaceSelector:
+      any: true
+    selector:
+      matchLabels:
+        app.kubernetes.io/instance: cpp
+    endpoints:
+    - port: http

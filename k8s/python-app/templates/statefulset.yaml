@@ -71,6 +71,38 @@ spec:
           volumeMounts:
             {{- toYaml . | nindent 12 }}
           {{- end }}
+      initContainers:
+        - name: install
+          image: busybox:1.28
+          command:
+            - wget
+            - "-O"
+            - "/work-dir/index.html"
+            - http://info.cern.ch
+          volumeMounts:
+            - name: workdir
+              mountPath: "/work-dir"
+        - name: write-1
+          image: busybox:1.28
+          command:
+            ['sh', '-c', 'echo helloFrom_1 >> /work-dir/history.txt']
+          volumeMounts:
+            - name: workdir
+              mountPath: "/work-dir"
+        - name: write-2
+          image: busybox:1.28
+          command:
+            [ 'sh', '-c', 'echo helloFrom_2 >> /work-dir/history.txt' ]
+          volumeMounts:
+            - name: workdir
+              mountPath: "/work-dir"
+        - name: write-3
+          image: busybox:1.28
+          command:
+            [ 'sh', '-c', 'echo helloFrom_3 >> /work-dir/history.txt' ]
+          volumeMounts:
+            - name: workdir
+              mountPath: "/work-dir"
       {{- with .Values.volumes }}
       volumes:
         {{- toYaml . | nindent 8 }}

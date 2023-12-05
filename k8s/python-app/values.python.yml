@@ -25,9 +25,9 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template
   name: ""
 
-secretData:
-  secretName: devops-secret
-  secretKey: password
+secretData: {}
+#  secretName: devops-secret
+#  secretKey: password
 
 podLabels: {}
 
@@ -78,10 +78,14 @@ volumes:
   - name: configuration
     configMap:
       name: myconfigmap
+  - name: workdir
+    emptyDir: {}
 
 volumeMounts:
   - name: python-access-metric
     mountPath: "/app/volume"
+  - name: workdir
+    mountPath: "/work-dir"
 
 nodeSelector: {}
 
@@ -92,7 +96,7 @@ affinity: {}
 pvc:
   enabled: true
   name: python-access-metric
-  storageSize: 5Mi
+  storageSize: 1Mi
   storageType: standard
 
 configenvs:
