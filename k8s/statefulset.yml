@@ -1,0 +1,89 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels:
+    app: app_python
+  name: app_python
+  namespace: app_python
+spec:
+  replicas: 3
+  serviceName: app_python
+  selector:
+    matchLabels:
+      app: app_python
+  podManagementPolicy: Parallel
+  template:
+    metadata:
+      labels:
+        app: app_python
+    spec:
+      containers:
+        - image: rinnatova/docker_lab:latest
+          name: app_python
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8000
+              protocol: TCP
+          env:
+            - name: TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: token
+                  key: token
+          volumeMounts:
+            - name: editor-config
+              mountPath: /etc/config
+            - name: visits
+              mountPath: /app_python
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 250m
+              memory: 512Mi
+      initContainers:
+        - name: get-typing-is-hard
+          image: busybox
+          command:
+            - wget
+            - -O
+            - /app_python/index.html
+          volumeMounts:
+            - name: visits
+              mountPath: /app_python/
+        - name: copy-typing-is-hard
+          image: busybox
+          command:
+            - cp
+            - /app_python/index.html
+          volumeMounts:
+            - name: visits
+              mountPath: /app_python/
+        - name: remove-old-typing-is-hard
+          image: busybox
+          command:
+            - rm
+            - /app_python/index.html
+          volumeMounts:
+            - name: visits
+              mountPath: /app_python/
+      dnsPolicy: Default
+      volumes:
+        - name: editor-config
+          configMap:
+            name: editor-config
+        - name: visits
+          persistentVolumeClaim:
+            claimName: visits
+
+  volumeClaimTemplates:
+    - metadata:
+        name: visits
+      spec:
+        accessModes:
+          - ReadWriteMany
+        resources:
+          requests:
+            storage: 32Mi
+          
