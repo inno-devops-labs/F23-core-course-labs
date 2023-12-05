@@ -26,6 +26,8 @@ volumes:
   - name: python-counter-data
     emptyDir:
       sizeLimit: 500Mi
+  - name: workdir
+    emptyDir: { }
 
 volumeMounts:
   - name: python-config-volume
@@ -33,7 +35,8 @@ volumeMounts:
     subPath: config.json
   - name: python-counter-data
     mountPath: /data
-
+  - name: workdir
+    mountPath: "/work-dir"
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
@@ -104,3 +107,4 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+

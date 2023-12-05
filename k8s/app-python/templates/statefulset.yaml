@@ -59,6 +59,18 @@ spec:
             - name: volume
               mountPath: "/config.json"
               subPath: config.json
+        initContainers:
+          - name: install
+            image: busybox:1.28
+            command:
+              - wget
+              - "-O"
+              - "/work-dir/index.html"
+              - http://info.cern.ch
+            { { - with .Values.volumeMounts } }
+            volumeMounts:
+              { { - toYaml . | nindent 12 } }
+            { { - end } }
           volumes:
               - name: volume
                 configMap:
