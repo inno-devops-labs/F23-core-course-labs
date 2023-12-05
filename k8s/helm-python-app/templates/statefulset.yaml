@@ -9,6 +9,7 @@ spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
+  serviceName: {{ include "helm-python-app.fullname" . }}
   selector:
     matchLabels:
       {{- include "helm-python-app.selectorLabels" . | nindent 6 }}
@@ -31,6 +32,52 @@ spec:
       serviceAccountName: {{ include "helm-python-app.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      initContainers:
+          - name: install
+            image: busybox:1.28
+            command:
+            - wget
+            - "-O"
+            - "/work-dir/index.html"
+            - http://info.cern.ch
+            volumeMounts:
+            - name: py-data
+              mountPath: "/work-dir"
+          # - name: init-0
+          #   image: busybox:1.28
+          #   command:
+          #   - "touch"
+          #   - "/work-dir/file"
+          #   volumeMounts:
+          #   - name: py-data
+          #     mountPath: "/work-dir"
+          - name: init-1
+            image: busybox:1.28
+            command:
+            - "sh"
+            - "-c"
+            - 'echo first >> /work-dir/file'
+            volumeMounts:
+            - name: py-data
+              mountPath: "/work-dir"
+          - name: init-2
+            image: busybox:1.28
+            command:
+            - "sh"
+            - "-c"
+            - 'echo second >> /work-dir/file'
+            volumeMounts:
+            - name: py-data
+              mountPath: "/work-dir"
+          - name: init-3
+            image: busybox:1.28
+            command:
+            - "sh"
+            - "-c"
+            - 'echo third >> /work-dir/file'
+            volumeMounts:
+            - name: py-data
+              mountPath: "/work-dir"
       containers:
         - name: {{ .Chart.Name }}
           securityContext:

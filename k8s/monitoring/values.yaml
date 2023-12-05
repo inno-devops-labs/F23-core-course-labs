@@ -1,0 +1,10 @@
+prometheus:
+  additionalServiceMonitors:
+  - name: "helm-python-app"
+    selector:
+      matchLabels:
+        app.kubernetes.io/instance: helm-python-app
+    namespaceSelector:
+      any: true
+    endpoints:
+    - port: http

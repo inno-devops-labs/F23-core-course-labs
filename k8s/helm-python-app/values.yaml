@@ -94,6 +94,9 @@ volumes:
   - name: visits-python
     configMap:
       name: visits-configmap
+  - name: py-data
+    emptyDir:
+      sizeLimit: 10Mi
 # - name: foo
 #   secret:
 #     secretName: mysecret
@@ -107,6 +110,8 @@ volumeMounts:
   #   readOnly: true
   - name: visits-web
     mountPath: "/app/volume"
+  - name: py-data
+    mountPath: /app/init_data
 # - name: foo
 #   mountPath: "/etc/foo"
 #   readOnly: true
