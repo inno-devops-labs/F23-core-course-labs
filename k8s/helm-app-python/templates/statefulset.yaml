@@ -5,6 +5,7 @@ metadata:
   labels:
     {{- include "helm-app-python.labels" . | nindent 4 }}
 spec:
+  serviceName: {{ include "helm-app-python.fullname" . }}
   podManagementPolicy: Parallel
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
@@ -64,6 +65,44 @@ spec:
           volumeMounts:
             {{- toYaml . | nindent 12 }}
           {{- end }}
+      initContainers:
+        - name: install
+          image: busybox:1.28
+          command:
+          - wget
+          - "-O"
+          - "/work-dir/index.html"
+          - http://info.cern.ch
+          volumeMounts:
+          - name: python-app-init
+            mountPath: "/work-dir"
+        - name: queue-1
+          image: busybox:1.28
+          command:
+          - "sh"
+          - "-c"
+          - 'echo line1 >> /work-dir/file'
+          volumeMounts:
+          - name: python-app-init
+            mountPath: "/work-dir"
+        - name: queue-2
+          image: busybox:1.28
+          command:
+          - "sh"
+          - "-c"
+          - 'echo line2 >> /work-dir/file'
+          volumeMounts:
+          - name: python-app-init
+            mountPath: "/work-dir"
+        - name: queue-3
+          image: busybox:1.28
+          command:
+          - "sh"
+          - "-c"
+          - 'echo line3 >> /work-dir/file'
+          volumeMounts:
+          - name: python-app-init
+            mountPath: "/work-dir"
       {{- with .Values.volumes }}
       volumes:
         {{- toYaml . | nindent 8 }}
@@ -89,3 +128,15 @@ spec:
       resources:
         requests:
           storage: {{ .Values.PersistentVolumeClaim.storage }}
+
+
+prometheus:
+  additionalServiceMonitors:
+  - name: {{ include "helm-app-python.fullname" . }}
+    selector:
+      matchLabels:
+        app.kubernetes.io/instance: python
+    namespaceSelector:
+      any: true
+    endpoints:
+    - port: http
