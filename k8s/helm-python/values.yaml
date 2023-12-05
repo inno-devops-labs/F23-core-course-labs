@@ -2,8 +2,7 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-replicaCount: 2
-podManagementPolicy: Parallel
+replicaCount: 1
 
 image:
   repository: iviosab/moscow_time
@@ -27,9 +26,8 @@ serviceAccount:
   name: ""
 
 podAnnotations:
-  vault.hashicorp.com/agent-inject: "true"
-  vault.hashicorp.com/role: "internal-app"
-  vault.hashicorp.com/agent-inject-secret-config.txt: "internal/data/server/config"
+  vault.hashicorp.com/role: "helm-python"
+
 podLabels: {}
 
 podSecurityContext:
@@ -46,7 +44,7 @@ securityContext:
   # runAsUser: 1000
 
 service:
-  type: LoadBalancer
+  type: NodePort
   port: 5000
 
 ingress:
@@ -66,24 +64,43 @@ ingress:
   #    hosts:
   #      - chart-example.local
 
+resources:
+  {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
 autoscaling:
   enabled: false
-  minReplicas: 1
+  # minReplicas: 1
   maxReplicas: 100
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
 
+# Additional volumes on the output Deployment definition.
 volumeMounts:
   - name: config-volume-py
     mountPath: "/config.json"
     subPath: config.json
   - name: counter-data-py
     mountPath: /data
+  - name: init-data-py
+    mountPath: /init_data
 
 volumes:
   - name: config-volume-py
     configMap:
       name: config-map-entity-py
+  - name: init-data-py
+    emptyDir:
+      sizeLimit: 10Mi
 
 volumeClaimTemplates:
   - metadata:
@@ -93,6 +110,53 @@ volumeClaimTemplates:
       resources:
         requests:
           storage: 10Mi
+
+initContainers:
+  - name: install
+    image: busybox:1.28
+    command:
+      - wget
+      - "-O"
+      - "/work-dir/index.html"
+      - http://info.cern.ch
+    volumeMounts:
+      - name: init-data-py
+        mountPath: "/work-dir"
+  - name: queue-zero
+    image: busybox:1.28
+    command:
+      - "touch"
+      - "/work-dir/file"
+    volumeMounts:
+      - name: init-data-py
+        mountPath: "/work-dir"
+  - name: queue-one
+    image: busybox:1.28
+    command:
+      - "sh"
+      - "-c"
+      - "echo one >> /work-dir/file"
+    volumeMounts:
+      - name: init-data-py
+        mountPath: "/work-dir"
+  - name: queue-two
+    image: busybox:1.28
+    command:
+      - "sh"
+      - "-c"
+      - "echo two >> /work-dir/file"
+    volumeMounts:
+      - name: init-data-py
+        mountPath: "/work-dir"
+  - name: queue-three
+    image: busybox:1.28
+    command:
+      - "sh"
+      - "-c"
+      - "echo three >> /work-dir/file"
+    volumeMounts:
+      - name: init-data-py
+        mountPath: "/work-dir"
 
 nodeSelector: {}
 
