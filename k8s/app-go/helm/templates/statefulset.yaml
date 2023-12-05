@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: {{ include "app-go.fullname" . }}
+  name: {{ .Chart.Name }}
   labels:
     {{- include "libchart.labels" . | nindent 4 }}
 spec:
@@ -59,6 +59,10 @@ spec:
           volumeMounts:
             {{- toYaml . | nindent 12 }}
           {{- end }}
+
+      initContainers:
+        {{- toYaml .Values.initContainers | nindent 8 }}
+          
       {{- with .Values.volumes }}
       volumes:
         {{- toYaml . | nindent 8 }}

@@ -94,7 +94,9 @@ volumeMounts:
     subPath: config.json
   - name: app-go-data
     mountPath: /app/data
-    
+  - name: init-data
+    mountPath: /app/init-data
+
 volumeClaimTemplates:
   - metadata:
       name: app-go-data
@@ -103,7 +105,44 @@ volumeClaimTemplates:
       resources:
         requests:
           storage: 5Mi
+  - metadata:
+      name: init-data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 5Mi
 
+
+initContainers:
+  - name: config-downloader
+    image: busybox:1.28
+    command: ['sh', '-c', 'sleep 2 && wget -O /app/init-data/config.json https://raw.githubusercontent.com/lcensies/core-course-labs/lab14/k8s/app-go/helm/files/config.json' ]
+    volumeMounts:
+      - name: init-data
+        mountPath: /app/init-data
+  - name: queued-writer-1
+    image: busybox:1.28
+    command: ['sh', '-c', 'sleep 1.5 && echo "Hello from first init container in queue" > /app/init-data/init_ordered_access_demo.txt' ]
+    volumeMounts:
+      - name: init-data
+        mountPath: /app/init-data
+  - name: queued-writer-2
+    image: busybox:1.28
+    command: ['sh', '-c', 'sleep 1 && echo "Hello from second init container in queue" >> /app/init-data/init_ordered_access_demo.txt' ]
+    volumeMounts:
+      - name: init-data
+        mountPath: /app/init-data
+  - name: queued-writer-3
+    image: busybox:1.28
+    command: ['sh', '-c', 'sleep 1 && echo "Hello from third init container in queue" >> /app/init-data/init_ordered_access_demo.txt' ]
+    volumeMounts:
+      - name: init-data
+        mountPath: /app/init-data
+
+
+  
+# 
 nodeSelector: {}
 
 tolerations: []

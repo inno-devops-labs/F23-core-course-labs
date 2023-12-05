@@ -1,0 +1,21 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    app: app-go
+    serviceMonitorSelector: prometheus
+    # release: kube-prometheus-stack
+  name: app-go-metrics-monitor
+  # namespace: prom
+spec:
+#  namespaceSelector:
+    #matchNames:
+#      - default
+  endpoints:
+    - interval: 30s
+    - path: /metrics
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: app-go
+
+
