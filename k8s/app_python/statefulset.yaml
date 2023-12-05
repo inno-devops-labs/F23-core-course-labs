@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: app-python
+  labels:
+    app: python
+spec:
+  serviceName: app-python
+  podManagementPolicy: "Parallel"
+  updateStrategy:
+    type: RollingUpdate
+    rollingUpdate:
+      partition: 0
+  replicas: 3
+  selector:
+    matchLabels:
+      app: python
+  template:
+    metadata:
+      labels:
+        app: python
+    spec:
+      initContainers:
+        - name: init-wget
+          image: busybox
+          command: [ 'sh', '-c', 'wget -O /downloaded-data/file.html http://example.com' ]
+          volumeMounts:
+            - name: downloaded-data
+              mountPath: /downloaded-data
+        - name: init-2-append
+          image: busybox
+          command: [ 'sh', '-c', 'echo "Hello World from init 2" >> /downloaded-data/file.html' ]
+          volumeMounts:
+            - name: downloaded-data
+              mountPath: /downloaded-data
+        - name: init-3-append
+          image: busybox
+          command: [ 'sh', '-c', 'echo "Hello World from init 3" >> /downloaded-data/file.html' ]
+          volumeMounts:
+            - name: downloaded-data
+              mountPath: /downloaded-data
+      containers:
+        - name: app-python
+          image: kernie/time-python
+          ports:
+            - containerPort: 8000
+          volumeMounts:
+            - mountPath: /app/data
+              name: python-data
+            - mountPath: /downloaded-data
+              name: downloaded-data
+      volumes:
+        - name: python-data
+          emptyDir: { }
+        - name: downloaded-data
+          emptyDir: { }
