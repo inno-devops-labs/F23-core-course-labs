@@ -1,0 +1,18 @@
+prometheus:
+  additionalServiceMonitors:
+  - name: "python-chart-target"
+    selector:
+      matchLabels:
+        app.kubernetes.io/instance: python-chart
+    namespaceSelector:
+      any: true
+    endpoints:
+    - port: http
+  - name: "golang-chart-target"
+    selector:
+      matchLabels:
+        app.kubernetes.io/instance: golang-chart
+    namespaceSelector:
+      any: true
+    endpoints:
+    - port: http

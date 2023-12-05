@@ -39,6 +39,44 @@ spec:
       serviceAccountName: {{ include "app-golang-chart.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      initContainers:
+        - name: init-container-one
+          image: busybox:1.28
+          command:
+          - wget
+          - "-O"
+          - "/work-dir/index.html"
+          - http://info.cern.ch
+          volumeMounts:
+          - name: init-volume
+            mountPath: "/work-dir"
+        - name: init-container-two
+          image: busybox:1.28
+          command:
+          - "sh"
+          - "-c"
+          - 'echo messageOne >> /work-dir/file'
+          volumeMounts:
+          - name: init-volume
+            mountPath: "/work-dir"
+        - name: init-container-three
+          image: busybox:1.28
+          command:
+          - "sh"
+          - "-c"
+          - 'echo messageTwo >> /work-dir/file'
+          volumeMounts:
+          - name: init-volume
+            mountPath: "/work-dir"
+        - name: init-container-four
+          image: busybox:1.28
+          command:
+          - "sh"
+          - "-c"
+          - 'echo messageThree >> /work-dir/file'
+          volumeMounts:
+          - name: init-volume
+            mountPath: "/work-dir"
       containers:
         - name: {{ .Chart.Name }}
           securityContext:

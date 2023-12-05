@@ -88,7 +88,10 @@ autoscaling:
   # targetMemoryUtilizationPercentage: 80
 
 # Additional volumes on the output Deployment definition.
-volumes: []
+volumes:
+  - name: init-volume
+    emptyDir:
+      sizeLimit: 1Mi
 # - name: foo
 #   secret:
 #     secretName: mysecret
@@ -98,6 +101,8 @@ volumes: []
 volumeMounts:
   - name: golang-persistent-volume
     mountPath: /app/data
+  - name: init-volume
+    mountPath: /app/init_workdir
 # - name: foo
 #   mountPath: "/etc/foo"
 #   readOnly: true
