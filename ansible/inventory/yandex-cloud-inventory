@@ -1,0 +1,5 @@
+[app]
+plugin=yacloud_compute
+yacloud_clouds=cloud-jaffar
+yacloud_folders=devops-course-labs
+yacloud_token_file=../../terraform/yandex/authorized_key.json

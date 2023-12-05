@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-react-swapi
+  labels:
+    app: ts-react-swapi
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: ts-react-swapi
+  template:
+    metadata:
+      labels:
+        app: ts-react-swapi
+    spec:
+      containers:
+        - name: ts-react-swapi
+          image: kurohata7/react_swapi
+          ports:
+            - containerPort: 5173

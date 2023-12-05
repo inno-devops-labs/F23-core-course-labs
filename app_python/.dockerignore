@@ -1,0 +1,22 @@
+# Git
+.gitignore
+
+# Python
+.venv
+__pycache__
+
+# Test
+.pytest_cache
+test
+.coverage
+
+# Lint
+.ruff_cache
+ruff.toml
+
+# Docker
+Dockerfile
+.dockerignore
+
+# Docs
+*.md
