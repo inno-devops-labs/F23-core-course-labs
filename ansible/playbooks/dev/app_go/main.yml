@@ -1,0 +1,13 @@
+- name: Deploy go app
+  hosts: all
+  become: true
+  roles:
+    - name: web_app
+      tags: go_web_app
+      vars:
+        app_name: "app_go"
+        docker_container: "weather"
+        docker_image: "rkBekzat/weather"
+        docker_image_tag: "latest"
+        internal_port: 5000
+        external_port: 8000

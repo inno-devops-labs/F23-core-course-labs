@@ -1,0 +1,11 @@
+- name: Deploy app
+  include_tasks:
+    file: 1-deploy.yml
+  tags: deploy
+
+- name: Wipe app
+  include_tasks:
+    file: 0-wipe.yml
+  tags: wipe
+
+

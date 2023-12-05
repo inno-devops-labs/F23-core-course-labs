@@ -1,0 +1,11 @@
+version: '3.9'
+
+services:
+  {{ app_name }}:
+    image: {{ docker_image }}
+    container_name: {{ docker_container }}
+    ports:
+      - {{ internal_port }}:{{ external_port }}
+    restart: unless-stopped
+    volumes:
+      - './volume:app/volume'

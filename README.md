@@ -1,5 +1,8 @@
 # DevOps Engineering Labs
 
+![Status Badge](https://github.com/rkBekzat/core-course-labs/actions/workflows/flask_app.yml/badge.svg)
+![Status Badge](https://github.com/rkBekzat/core-course-labs/actions/workflows/go_app.yml/badge.svg)
+
 ## Introduction
 
 Welcome to the DevOps Engineering course labs! These hands-on labs are designed to guide you through various aspects of DevOps practices and principles. As you progress through the labs, you'll gain practical experience in application development, containerization, testing, infrastructure setup, CI/CD processes, and more.
