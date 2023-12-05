@@ -83,6 +83,8 @@ volumes:
   - name: config
     configMap:
       name: my-configmap
+  - name: workdir
+    emptyDir: { }
 
 # Additional volumeMounts on the output Deployment definition.
 volumeMounts:
@@ -92,6 +94,8 @@ volumeMounts:
     readOnly: true
   - name: visits
     mountPath: "/app/volume/"
+  - name: workdir
+    mountPath: "/work-dir"
 
 volumeClaim:
   name: visits
