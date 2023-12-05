@@ -60,6 +60,19 @@ spec:
           {{- with .Values.volumeMounts }}
           volumeMounts:
             {{- toYaml . | nindent 12 }}
+          initContainers:
+            - name: install
+              image: busybox:1.28
+              command:
+                - wget
+                - "-O"
+                - "/init/index.html"
+                - http://info.cern.ch
+              { { - with .Values.volumeMounts } }
+              volumeMounts:
+                - name: init-data
+                  mountPath: "/init"
+              { { - end } }
           {{- end }}
       {{- with .Values.volumes }}
       volumes:
