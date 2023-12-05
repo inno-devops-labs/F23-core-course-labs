@@ -1,0 +1,6 @@
+prometheus:
+  prometheusSpec:
+    additionalScrapeConfigs:
+      - job_name: 'python-app-metrics'
+        static_configs:
+          - targets: ['192.168.105.2:31045']
