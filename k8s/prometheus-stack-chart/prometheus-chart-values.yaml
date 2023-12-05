@@ -1,0 +1,8 @@
+prometheus:
+  prometheusSpec:
+    additionalScrapeConfigs:
+      - job_name: 'python_app_monitoring'
+        scrape_interval: 5s
+        metrics_path: '/metrics'
+        static_configs:
+          - targets: [ '10.103.12.112:8000' ]
