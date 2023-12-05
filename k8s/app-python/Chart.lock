@@ -1,0 +1,6 @@
+dependencies:
+- name: app-library
+  repository: file://../app-library
+  version: 0.1.0
+digest: sha256:1c201f1bd5127e323ec65bf830b904cafb86822fc6575d8d22266cd592b55616
+generated: "2023-11-08T01:16:46.687649+03:00"

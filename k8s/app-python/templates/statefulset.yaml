@@ -1,0 +1,109 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "app-library.fullname" . }}
+  labels:
+    {{- include "app-library.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  {{- with .Values.podManagementPolicy }}
+  podManagementPolicy: {{ . }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "app-library.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "app-library.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "app-library.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.port }}
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}        
+          env:
+            - name: SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: credentials
+                  key: secret
+            {{- include "app-python.bonusEnv" . | nindent 12 }}
+          envFrom:
+            - configMapRef:
+                name: config
+          volumeMounts:
+            - name: config-volume
+              mountPath: /app/config.json
+              subPath: config.json
+            - name: init-volume
+              mountPath: "/init"
+      initContainers:
+        - name: install-1
+          image: busybox:1.28
+          command:
+          - wget
+          - "-O"
+          - "/work-dir/index.html"
+          - http://info.cern.ch
+          volumeMounts:
+          - name: init-volume
+            mountPath: "/work-dir"
+        - name: install-2
+          image: busybox:1.28
+          command: ['sh', '-c', "echo 'hello from the second container' >> /work-dir/index.html"]
+          volumeMounts:
+          - name: init-volume
+            mountPath: "/work-dir"
+        - name: install-3
+          image: busybox:1.28
+          command: ['sh', '-c', "echo 'hello from the third container' >> /work-dir/index.html"]
+          volumeMounts:
+          - name: init-volume
+            mountPath: "/work-dir"
+      volumes:
+        - name: config-volume
+          configMap:
+            name: config
+        - name: init-volume
+          emptyDir: {}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

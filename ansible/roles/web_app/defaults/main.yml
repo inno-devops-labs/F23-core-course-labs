@@ -1,0 +1,6 @@
+---
+app_name: app
+image_name: sl1depengwyn/python_devops
+ports: "80:80"
+web_app_full_wipe: false
+envs:

@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-elixir
+  name: app-elixir
+  namespace: default
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 3
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: app-elixir
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: app-elixir
+    spec:
+      containers:
+      - image: sl1depengwyn/elixir_devops:arm64
+        imagePullPolicy: IfNotPresent
+        name: elixir-devops
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        env:
+        - name: SECRET_KEY_BASE
+          value: "5Ms9YbqJi6VZzMIuKPXZVbwEGC8VM0DVDHsz6BTHQTR2wXikxC8gJiwNCHlTkGBW"
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30

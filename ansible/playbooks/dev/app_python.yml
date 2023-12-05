@@ -1,0 +1,6 @@
+- name: Prepare docker
+  hosts: vkc
+  become: true
+  roles:
+    - docker
+    - web_app
