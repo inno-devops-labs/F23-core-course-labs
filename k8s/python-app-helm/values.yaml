@@ -90,11 +90,16 @@ volumeMounts:
     subPath: config.json
   - name: counter-data-py
     mountPath: /data
+  - name: init-data-py
+    mountPath: /init_data
 
 volumes:
   - name: config-volume-py
     configMap:
       name: config-map-entity-py
+  - name: init-data-py
+    emptyDir:
+      sizeLimit: 10Mi
 
 volumeClaimTemplates:
   - metadata:
@@ -122,3 +127,50 @@ hooks:
       weight: 2
       files:
         - templates/post-install-sleep.yaml
+
+initContainers:
+  - name: install
+    image: busybox:1.28
+    command:
+      - wget
+      - "-O"
+      - "/work-dir/index.html"
+      - http://info.cern.ch
+    volumeMounts:
+      - name: init-data-py
+        mountPath: "/work-dir"
+  - name: queue-zero
+    image: busybox:1.28
+    command:
+      - "touch"
+      - "/work-dir/file"
+    volumeMounts:
+      - name: init-data-py
+        mountPath: "/work-dir"
+  - name: queue-one
+    image: busybox:1.28
+    command:
+      - "sh"
+      - "-c"
+      - "echo el3os >> /work-dir/file"
+    volumeMounts:
+      - name: init-data-py
+        mountPath: "/work-dir"
+  - name: queue-two
+    image: busybox:1.28
+    command:
+      - "sh"
+      - "-c"
+      - "echo el3os >> /work-dir/file"
+    volumeMounts:
+      - name: init-data-py
+        mountPath: "/work-dir"
+  - name: queue-three
+    image: busybox:1.28
+    command:
+      - "sh"
+      - "-c"
+      - "echo el3os >> /work-dir/file"
+    volumeMounts:
+      - name: init-data-py
+        mountPath: "/work-dir"
