@@ -8,6 +8,7 @@ metadata:
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
+  serviceName: {{ include "app-python.fullname" . }}
   podManagementPolicy: {{ .Values.podManagementPolicy }}
   {{- end }}
   selector:
@@ -34,6 +35,8 @@ spec:
       serviceAccountName: {{ include "app-python.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      initContainers:
+        {{- toYaml .Values.initContainers | nindent 8 }}
       containers:
         - name: {{ .Chart.Name }}
           securityContext:

@@ -115,10 +115,16 @@ volumeMounts:
 - name: counter-python
   mountPath: /data
 
+- name: init-py
+  mountPath: /init_data
+
 volumes:
 - name: config-python
   configMap:
     name: config-map-python
+- name: init-py
+  emptyDir:
+    sizeLimit: 10Mi
 
 volumeClaimTemplates:
 - metadata:
@@ -128,3 +134,50 @@ volumeClaimTemplates:
     resources:
       requests:
         storage: 10Mi
+
+initContainers:
+  - name: install
+    image: busybox:1.28
+    command:
+    - wget
+    - "-O"
+    - "/work-dir/index.html"
+    - http://info.cern.ch
+    volumeMounts:
+    - name: init-py
+      mountPath: "/work-dir"
+  - name: q0
+    image: busybox:1.28
+    command:
+    - "touch"
+    - "/work-dir/file"
+    volumeMounts:
+    - name: init-py
+      mountPath: "/work-dir"
+  - name: q1
+    image: busybox:1.28
+    command:
+    - "sh"
+    - "-c"
+    - 'echo one >> /work-dir/file'
+    volumeMounts:
+    - name: init-py
+      mountPath: "/work-dir"
+  - name: q2
+    image: busybox:1.28
+    command:
+    - "sh"
+    - "-c"
+    - 'echo two >> /work-dir/file'
+    volumeMounts:
+    - name: init-py
+      mountPath: "/work-dir"
+  - name: q3 
+    image: busybox:1.28
+    command:
+    - "sh"
+    - "-c"
+    - 'echo three >> /work-dir/file'
+    volumeMounts:
+    - name: init-py
+      mountPath: "/work-dir"
