@@ -20,14 +20,37 @@ spec:
       labels:
         app: python
     spec:
+      initContainers:
+        - name: init-wget
+          image: busybox
+          command: [ 'sh', '-c', 'wget -O /downloaded-data/file.html http://example.com' ]
+          volumeMounts:
+            - name: downloaded-data
+              mountPath: /downloaded-data
+        - name: init-2-append
+          image: busybox
+          command: [ 'sh', '-c', 'echo "Hello World from init 2" >> /downloaded-data/file.html' ]
+          volumeMounts:
+            - name: downloaded-data
+              mountPath: /downloaded-data
+        - name: init-3-append
+          image: busybox
+          command: [ 'sh', '-c', 'echo "Hello World from init 3" >> /downloaded-data/file.html' ]
+          volumeMounts:
+            - name: downloaded-data
+              mountPath: /downloaded-data
       containers:
-      - name: app-python
-        image: kernie/time-python
-        ports:
-        - containerPort: 8000
-        volumeMounts:
-          - mountPath: /app/data
-            name: python-data
+        - name: app-python
+          image: kernie/time-python
+          ports:
+            - containerPort: 8000
+          volumeMounts:
+            - mountPath: /app/data
+              name: python-data
+            - mountPath: /downloaded-data
+              name: downloaded-data
       volumes:
         - name: python-data
-          emptyDir: {}
+          emptyDir: { }
+        - name: downloaded-data
+          emptyDir: { }
