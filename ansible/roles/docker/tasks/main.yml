@@ -1,0 +1,15 @@
+---
+- include_tasks: install_docker.yml
+
+- include_tasks: install_compose.yml
+  when: docker_install_compose | bool
+
+- name: Ensure handlers are notified now to avoid firewall conflicts.
+  meta: flush_handlers
+
+- name: Get docker group info using getent.
+  getent:
+    database: group
+    key: docker
+    split: ":"
+  when: docker_users | length > 0
