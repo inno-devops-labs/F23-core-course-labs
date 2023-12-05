@@ -1,0 +1,19 @@
+---
+- name: Deploy app
+  tags: deploy_web_app
+  block:
+    - name: Create dir for {{ app_name }}
+      file:
+        path: "{{ app_dir }}"
+        state: directory
+
+    - name: Create directory for docker compose
+      file:
+        path: "{{ docker_compose_path }}"
+        state: directory
+
+    - name: Run docker compose
+      template:
+        src: "{{ docker_compose_file }}.j2"
+        dest: "{{ docker_compose_file_path }}"
+      notify: docker_restart_handler

@@ -1,0 +1,113 @@
+replicaCount: 3
+
+image:
+  repository: lnsfna/app_go
+  pullPolicy: Always
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "latest"
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: false
+  # Automatically mount a ServiceAccount's API credentials?
+  automount: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: "internal-app"
+
+podAnnotations:
+  vault.hashicorp.com/agent-inject: "true"
+  vault.hashicorp.com/agent-inject-status: "update"
+  vault.hashicorp.com/role: "internal-app"
+  vault.hashicorp.com/agent-inject-secret-secrets.txt: |
+    {{- with secret "internal/data/secrets" -}}
+    {{ .Data.data.secret }}
+    {{- end -}}
+
+podLabels: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: NodePort
+  port: 8081
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: go.app
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+resources:
+ limits:
+   cpu: 100m
+   memory: 128Mi
+ requests:
+   cpu: 100m
+   memory: 128Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+envFrom:
+  - configMapRef:
+      name: go-config-map
+# Additional volumes on the output Deployment definition.
+volumes:
+  - name: go-config-volume
+    configMap:
+      name: go-config-map
+  - name: go-counter-data
+    emptyDir:
+      sizeLimit: 500Mi
+
+volumeMounts:
+            - name: go-config-volume
+              mountPath: "/config.json"
+              subPath: config.json
+            - name: go-counter-data
+              mountPath: /data
+
+volumeClaimTemplates:
+  - metadata:
+      name: go-counter-data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 62Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

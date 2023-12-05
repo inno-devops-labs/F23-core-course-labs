@@ -1,0 +1,9 @@
+---
+# Tasks variables
+web_app_full_wipe: false
+app_dir: "/{{ app_name }}"
+
+# Docker compose variables
+docker_compose_path: "{{ app_dir }}/docker-compose"
+docker_compose_file: 'docker-compose.yml'
+docker_compose_file_path: "{{ docker_compose_path }}/{{ docker_compose_file }}"

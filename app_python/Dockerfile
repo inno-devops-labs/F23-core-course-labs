@@ -1,0 +1,32 @@
+# Use official base image
+FROM python:3.10-slim
+
+# Set working directory for container
+WORKDIR /app
+
+# Copy file with project requirements
+COPY requirements.txt .
+
+# Upgrade pip and install python dependencies
+RUN pip3 install --no-cache-dir -r requirements.txt
+
+# Make directory to start app as module
+RUN mkdir "app_python"
+
+# Copy all necessary files
+COPY . ./app_python
+
+# Create non-root user
+RUN useradd -m user
+
+RUN mkdir /data && chown user /data
+VOLUME [ "/data" ]
+
+# Run app as non-root user
+USER user
+
+# Expose ports
+EXPOSE 8080 8080
+
+# Run app
+ENTRYPOINT ["python3", "-m", "app_python"]

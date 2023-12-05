@@ -1,0 +1,6 @@
+- name: Deploy Docker
+  become: true
+  hosts: all
+  become_method: sudo
+  roles:
+    - docker
