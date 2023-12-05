@@ -3,10 +3,11 @@
 # Declare variables to be passed into your templates.
 
 replicaCount: 1
+podManagementPolicy: Parallel
 
 image:
   repository: ign19ht/dev-ops-labs
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
   command: ['python3']
@@ -92,6 +93,15 @@ volumeMounts: []
 # - name: foo
 #   mountPath: "/etc/foo"
 #   readOnly: true
+
+volumeClaimTemplates:
+- metadata:
+    name: app-python-data
+  spec:
+    accessModes: [ "ReadWriteOnce" ]
+    resources:
+      requests:
+        storage: 10Mi
 
 nodeSelector: {}
 
