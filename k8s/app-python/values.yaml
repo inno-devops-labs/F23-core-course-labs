@@ -86,6 +86,8 @@ volumes:
       name: my-application-config
   - name: volume-for-html
     emptyDir: {}
+  - name: volume-for-queue-init
+    emptyDir: {}
 
 # Additional volumeMounts on the output Deployment definition.
 volumeMounts:
@@ -96,6 +98,8 @@ volumeMounts:
     mountPath: /home/testuser/extra-volume
   - name: volume-for-html
     mountPath: /home/testuser/html
+  - name: volume-for-queue-init
+    mountPath: /home/testuser/queueinit
 
 nodeSelector: {}
 
@@ -123,11 +127,31 @@ pod:
   managementPolicy: "Parallel"
 
 initVolumes:
-  wget:
-    - name: wget-something
-      image: busybox:1.28
-      command:
-        - wget
-        - "-O"
-        - "/home/testuser/html/test.html"
-        - http://info.cern.ch
+  - name: wget-something
+    image: busybox:1.28
+    command:
+      - wget
+      - "-O"
+      - "/home/testuser/html/test.html"
+      - http://info.cern.ch
+    volumeMounts:
+      - name: volume-for-html
+        mountPath: /home/testuser/html
+  - name: echo-first-line-to-file
+    image: busybox:1.28
+    command: ['sh', '-c', "echo 'hello from first init-container!\n' > /home/testuser/queueinit/some-file.txt"]
+    volumeMounts:
+      - name: volume-for-queue-init
+        mountPath: /home/testuser/queueinit
+  - name: echo-another-line-to-file
+    image: busybox:1.28
+    command: ['sh', '-c', "echo 'hello from second init-container!\n' >> /home/testuser/queueinit/some-file.txt"]
+    volumeMounts:
+      - name: volume-for-queue-init
+        mountPath: /home/testuser/queueinit
+  - name: echo-one-more-line-to-file
+    image: busybox:1.28
+    command: ['sh', '-c', "echo 'hello from the last init-container!\n' >> /home/testuser/queueinit/some-file.txt"]
+    volumeMounts:
+      - name: volume-for-queue-init
+        mountPath: /home/testuser/queueinit
