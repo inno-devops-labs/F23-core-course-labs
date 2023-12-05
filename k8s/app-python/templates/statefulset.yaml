@@ -58,15 +58,47 @@ spec:
             httpGet:
               path: /
               port: http
-          resources:
-            {{- toYaml .Values.resources | nindent 12 }}
-          {{- with .Values.volumeMounts }}
           volumeMounts:
+            - name: workdir
+              mountPath: /workdir
             - name: config-volume
               mountPath: /app/config.json
               subPath: config.json
-              {{- toYaml . | nindent 12 }}
-          {{- end }}
+      initContainers:
+        - name: install-0
+          image: busybox:1.28
+          command:
+          - wget
+          - "-O"
+          - "/workdir/index.html"
+          - http://info.cern.ch
+          volumeMounts:
+          - name: workdir
+            mountPath: "/workdir"
+        - name: install-1
+          image: busybox:1.28
+          command:
+          - sh
+          - "-c"
+          - 'echo "install-1 was here" >> /workdir/index.html'
+          volumeMounts:
+          - name: workdir
+            mountPath: "/workdir"
+        - name: install-2
+          image: busybox:1.28
+          command:
+          - sh
+          - "-c"
+          - 'echo "install-2 was here" >> /workdir/index.html'
+          volumeMounts:
+          - name: workdir
+            mountPath: "/workdir"
+      volumes:
+        - name: workdir
+          emptyDir: {}
+        - name: config-volume
+          configMap:
+            name: config
   volumeClaimTemplates:
     - metadata:
         name: data
