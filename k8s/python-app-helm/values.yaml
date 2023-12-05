@@ -6,7 +6,7 @@ replicaCount: 3
 
 image:
   repository: muurrk/myapp
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
 
@@ -30,13 +30,9 @@ podLabels: {}
 podSecurityContext: {}
   # fsGroup: 2000
 
-securityContext: {}
-  # capabilities:
-  #   drop:
-  #   - ALL
-  # readOnlyRootFilesystem: true
-  # runAsNonRoot: true
-  # runAsUser: 1000
+securityContext:
+  runAsNonRoot: false
+  runAsUser: 0
 
 service:
   type: LoadBalancer
@@ -77,8 +73,24 @@ autoscaling:
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
 
+volumes:
+  - name: volumemountsname
+    configMap:
+      name: metadataname
+
+volumeMounts:
+  - name: my-python
+    mountPath: "/app/volume"
+
 nodeSelector: {}
 
 tolerations: []
 
 affinity: {}
+
+
+pvc:
+  activated: true
+  name: my-python
+  storageClassName: standard
+  storage: 13Mi
