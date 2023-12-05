@@ -1,0 +1,32 @@
+---
+- name: Deploy image
+  become: true 
+  tags: docker
+  block:
+    - name: Pull image
+      tags: pull
+      community.docker.docker_image:
+        name: "{{app_docker_image}}"
+        source: pull
+
+    - name: Deploy container
+      tags: deploy
+      community.docker.docker_container:
+        image: "{{app_docker_image}}"
+        name: "{{app_container_name}}"
+        state: started
+        ports:
+          - "{{app_port}}:80"
+  when: not app_wipe | bool
+
+- name: Deliver docker-compose.yml
+  tags: docker_compose
+  ansible.builtin.template:
+    src: docker-compose.yml
+    dest: "docker-compose.yml"
+    mode: "600"
+
+- name: Wipe container and image
+  tags: wipe
+  ansible.builtin.import_tasks: wipe.yml
+  when: app_wipe | bool

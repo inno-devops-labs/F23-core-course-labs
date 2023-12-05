@@ -1,0 +1,20 @@
+---
+- name: Stop Docker
+  become: true
+  block:
+    - name: Stop Container
+      tags: deploy
+      community.docker.docker_container:
+        name: "{{app_container_name}}"
+        state: stopped
+      ignore_errors: true
+
+    - name: Delete Container
+      community.docker.docker_container:
+        name: "{{app_container_name}}"
+        state: absent
+
+    - name: Delete Image
+      community.docker.docker_image:
+        name: "{{app_docker_image}}"
+        state: absent
