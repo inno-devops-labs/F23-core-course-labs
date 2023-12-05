@@ -1,0 +1,3 @@
+---
+python_web_app_path: /opt/python_web_app
+python_web_app_image: evalekalek/devops:latest

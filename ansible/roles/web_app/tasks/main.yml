@@ -1,0 +1,8 @@
+---
+- name: Configuring the web app
+  include_tasks: configure.yml
+  when: "python_web_app_full_wipe is not defined or not python_web_app_full_wipe"
+
+- name: Wipe app
+  include_tasks: wipe.yml
+  when: "python_web_app_full_wipe is defined and python_web_app_full_wipe"
