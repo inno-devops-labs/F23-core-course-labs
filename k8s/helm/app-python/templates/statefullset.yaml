@@ -1,17 +1,18 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
-  name: {{ include "app-csharp.fullname" . }}
+  name: {{ include "app-python.fullname" . }}
   labels:
-    {{- include "app-csharp.labels" . | nindent 4 }}
+    {{- include "app-python.labels" . | nindent 4 }}
     {{- include "library-chart.labels" . | indent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
+  podmanagementpolicy: {{ .Values.podManagementPolicy }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "app-csharp.selectorLabels" . | nindent 6 }}
+      {{- include "app-python.selectorLabels" . | nindent 6 }}
       {{- include "library-chart.labels" . | indent 6 }}
   template:
     metadata:
@@ -20,7 +21,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "app-csharp.labels" . | nindent 8 }}
+        {{- include "app-python.labels" . | nindent 8 }}
         {{- include "library-chart.labels" . | indent 8 }}
 	{{- with .Values.podLabels }}
         {{- toYaml . | nindent 8 }}
@@ -30,7 +31,7 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "app-csharp.serviceAccountName" . }}
+      serviceAccountName: {{ include "app-python.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
@@ -46,33 +47,21 @@ spec:
           livenessProbe:
             httpGet:
               path: /
-              port: http
+              port: 8000
           readinessProbe:
             httpGet:
               path: /
-              port: http
+              port: 8000
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           env:
-            {{- include "app-csharp.envVars" . | nindent 12 }}
-            - name: SPECIAL_TYPE_KEY
-              valueFrom:
-                configMapKeyRef:
-                  name: config
-                  key: test
+            {{- include "app-python.envVars" . | nindent 12 }}
           volumeMounts:
-          - name: config
-            mountPath: "/config.json"
-            subPath: config.json
-          - name: counter
-            mountPath: /data
+            {{- toYaml .Values.volumeMounts | nindent 12 }}
       volumes:
-      - name: config
-        configMap:
-          name: config
-      - name: counter
-        emptyDir:
-          sizeLimit: 500Mi
+      {{- with .Values.volumes }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -85,3 +74,5 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+  volumeclaimtemplates:  
+  {{- toYaml .Values.volumeClaimTemplates | nindent 2 }}

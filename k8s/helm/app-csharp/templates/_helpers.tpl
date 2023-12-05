@@ -64,4 +64,9 @@ Create the name of the service account to use
 {{- define "app-csharp.envVars" -}}
 - name: "CSHARP_ENV"
   value: "TEST"
+- name: SPECIAL_TYPE_KEY
+  valueFrom:
+    configMapKeyRef:
+      name: config
+      key: test
 {{- end }}
