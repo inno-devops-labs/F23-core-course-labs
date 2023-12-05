@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  server:
+    image: {{ image }}
+    command: {{ command }}
+    ports:
+      - {{ ports }}
+    volumes:
+      - 'volumes_visits:/app/volume/'
