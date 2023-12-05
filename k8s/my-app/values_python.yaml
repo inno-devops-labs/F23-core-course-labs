@@ -88,6 +88,9 @@ volumes:
   - name: config
     configMap:
       name: configmap
+  - name: init-data
+    emptyDir:
+      sizeLimit: 10Mi
 
 # Additional volumeMounts on the output Deployment definition.
 
@@ -98,6 +101,8 @@ volumeMounts:
     readOnly: true
   - name: python-visits-pvc
     mountPath: "/app/volume/"
+  - name: init-data
+    mountPath: /init
 
 nodeSelector: {}
 
