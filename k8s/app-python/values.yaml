@@ -84,6 +84,8 @@ volumes:
     configMap:
       defaultMode: 511
       name: my-application-config
+  - name: volume-for-html
+    emptyDir: {}
 
 # Additional volumeMounts on the output Deployment definition.
 volumeMounts:
@@ -92,6 +94,8 @@ volumeMounts:
     subPath: visit-counter.txt
   - name: extra-volume
     mountPath: /home/testuser/extra-volume
+  - name: volume-for-html
+    mountPath: /home/testuser/html
 
 nodeSelector: {}
 
@@ -117,3 +121,13 @@ storage:
 
 pod:
   managementPolicy: "Parallel"
+
+initVolumes:
+  wget:
+    - name: wget-something
+      image: busybox:1.28
+      command:
+        - wget
+        - "-O"
+        - "/home/testuser/html/test.html"
+        - http://info.cern.ch
