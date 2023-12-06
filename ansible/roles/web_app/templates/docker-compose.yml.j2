@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+  web_app:
+    image: {{app_docker_image}}
+    container_name: {{app_container_name}}
+    volumes:
+      - visits:/app/src/data
+    ports:
+      - "{{app_port}}:{{80}}"
+    restart: always
+
+volumes:
+  visits: {}

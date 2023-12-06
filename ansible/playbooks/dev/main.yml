@@ -1,0 +1,6 @@
+- name: Install Docker
+  hosts: vms
+  become: yes
+  become_method: sudo
+  roles:
+    - geerlingguy.docker

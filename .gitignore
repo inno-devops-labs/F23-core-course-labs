@@ -1,0 +1,15 @@
+venv
+terraform
+settings.json
+Session.vim
+**/venv/*
+*.pyc
+app_python/.vscode/settings.json
+*.hcl
+.terraform
+*.tfplan
+*.tfstate
+*.tfstate*.lock*
+*.tfstate*.backup
+geerlingguy.docker
+app_python/visits

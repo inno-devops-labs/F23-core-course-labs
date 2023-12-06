@@ -1,0 +1,6 @@
+- name: Deploy Dockerized app
+  hosts: vms
+  become: yes
+  become_method: sudo
+  roles:
+    - web_app
