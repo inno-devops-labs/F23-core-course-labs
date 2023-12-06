@@ -4,15 +4,7 @@ services:
   web:
     image: path242/clock:latest
     volumes:
-      - app-storage:/app/data
+      - ./data:/app/data
     ports:
       - "8000:8000"
     restart: always
-
-volumes:
-  app-storage:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: ./data
