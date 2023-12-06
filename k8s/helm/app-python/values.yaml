@@ -1,0 +1,95 @@
+replicaCount: 3
+
+image:
+  repository: edikgoose/moscow-time-app
+  pullPolicy: Always
+  tag: "latest"
+
+imagePullSecrets: [ ]
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  create: true
+  automount: true
+  annotations: { }
+  name: ""
+
+podAnnotations: {
+  vault.hashicorp.com/agent-inject: 'true',
+  vault.hashicorp.com/agent-inject-status: 'update',
+  vault.hashicorp.com/role: 'internal-app',
+  vault.hashicorp.com/agent-inject-secret-database-config.txt: 'internal/data/database/config',
+  vault.hashicorp.com/agent-inject-template-database-config.txt: '{{- with secret "internal/data/database/config" -}}Bearer token: {{ .Data.data.token }}{{- end -}}'
+}
+podLabels: { }
+
+podSecurityContext: { }
+# fsGroup: 2000
+
+securityContext: { }
+
+service:
+  type: NodePort
+  port: 80
+
+envFrom:
+  - configMapRef:
+      name: app-python-config-map
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: { }
+  hosts:
+    - host: chart-example.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: [ ]
+
+resources:
+  requests:
+    memory: "64Mi"
+    cpu: "250m"
+  limits:
+    memory: "128Mi"
+    cpu: "500m"
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+
+volumes:
+  - name: config-volume
+    configMap:
+      name: app-python-config-map
+  - name: init-data
+    emptyDir:
+      sizeLimit: 10Mi
+
+volumeMounts:
+  - name: config-volume
+    mountPath: /app/configs/config.json
+    subPath: config.json
+  - name: app-data
+    mountPath: /app/src/resources
+  - name: init-data
+    mountPath: /app/init
+
+volumeClaimTemplates:
+  - metadata:
+      name: app-data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 62Mi
+
+nodeSelector: { }
+
+tolerations: [ ]
+
+affinity: { }
