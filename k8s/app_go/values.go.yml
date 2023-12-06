@@ -1,0 +1,89 @@
+# Default values for python-app.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 3
+
+image:
+  repository: IlyaMirzazhanov/app_go
+  pullPolicy: Always
+  tag: "latest"
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  create: true
+  automount: true
+  annotations: {}
+  name: ""
+
+
+secretData:
+  secretName: devops-secret
+  secretKey: password
+
+
+podLabels: {}
+
+podSecurityContext: {}
+
+securityContext:
+  runAsNonRoot: false
+  runAsUser: 1000
+
+service:
+  type: LoadBalancer
+  port: 10000
+
+ingress:
+  enabled: true
+  className: ""
+  annotations: {}
+
+  hosts:
+    - host: go.lab.app
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []
+
+resources:
+  limits:
+   cpu: 300m
+   memory: 512Mi
+  requests:
+   cpu: 100m
+   memory: 256Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+
+volumes:
+  - name: configuration
+    configMap:
+      name: myconfigmap
+
+volumeMounts:
+  - name: python-access-metric
+    mountPath: "/app/volume"
+
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+pvc:
+  enabled: true
+  name: python-access-metric
+  storageSize: 6Mi
+  storageType: standard
+
+configenvs:
+  enabled: false
