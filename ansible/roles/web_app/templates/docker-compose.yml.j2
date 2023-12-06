@@ -1,0 +1,8 @@
+version: '3'
+services:
+  {{ docker_container_name }}:
+    image: "{{ docker_image }}"
+    ports:
+      - "{{ host_port }}:{{ docker_port }}"
+    volumes:
+      - 'volumes_visits:/app/volume/'
