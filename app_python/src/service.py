@@ -1,6 +1,6 @@
 import datetime
 import pytz
-
+import logging
 
 class Timer:
     """
@@ -9,8 +9,14 @@ class Timer:
 
     """
 
-    def __init__(self):
+    def __init__(self, logger: logging.Logger):
         self.MoscowTimezone = pytz.timezone("Europe/Moscow")
+        self.logger = logger
 
     def now(self):
+        now = datetime.datetime.now(tz=self.MoscowTimezone)
+        self.logger.log(
+            level=logging.INFO,
+            msg=f"time was requested, returned: {now}",
+        )
         return datetime.datetime.now(tz=self.MoscowTimezone)
