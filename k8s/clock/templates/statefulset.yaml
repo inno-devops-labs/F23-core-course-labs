@@ -55,7 +55,20 @@ spec:
                subPath: {{ .Values.volumes.config.subPath }}
              - name: {{ .Values.volumes.persistent.name }}
                mountPath: {{ .Values.volumes.persistent.mountPath }}
+             - name: init-container-test
+               mountPath: /test
+      initContainers:
+        - name: init-container
+          image: busybox
+          command: [ "wget", "-O", "/test/cern.html", "http://info.cern.ch" ]
+          volumeMounts:
+            - name: {{ .Values.volumes.persistent.name }}
+              mountPath: {{ .Values.image.dataDir }}
+            - name: init-container-test
+              mountPath: /test
       volumes:
+        - name: init-container-test
+          emptyDir: {}
         - name: {{ .Values.volumes.config.name }}
           configMap:
             name: {{ .Values.volumes.config.name }}
