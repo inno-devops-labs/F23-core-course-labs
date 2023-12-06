@@ -50,7 +50,6 @@ tolerations: []
 
 affinity: {}
 
-
 volumes:
   config:
     name: app-python-config-volume
@@ -66,3 +65,13 @@ volumes:
       resources:
         requests:
           storage: 256Mi
+
+volumeMounts:
+ readOnly: true
+ name: data
+ mountPath: /app-python/data
+ spec:
+   accessModes: [ "ReadWriteOnce" ]
+   resources:
+     requests:
+       storage: 256Mi

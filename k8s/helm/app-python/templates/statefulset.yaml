@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: {{ include "app-python.fullname" . }}
+  name: {{ include "appw-python.fullname" . }}
   labels:
     {{- include "app-python.labels" . | nindent 4 }}
 spec:
@@ -59,6 +59,18 @@ spec:
             - name: app-python-volume
               mountPath: "/app-python/config.json"
               readOnly: true
+      initContainers:
+        - name: install
+          image: busybox:1.28
+          command:
+            - wget
+            - "-O"
+            - "/data/index.html"
+            - http://info.cern.ch
+          {{ - with .Values.volumeMounts }}
+          volumeMounts:
+            {{ - toYaml . | nindent 12 }}
+          {{ - end }}
       volumes:
         - name: app-python-volume
           configMap:
