@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-csharp
+  labels:
+    app: app-csharp
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app-csharp
+  template:
+    metadata:
+      labels:
+        app: app-csharp
+    spec:
+      containers:
+        - name: app-csharp
+          image: dmitriypru/core_course_labs_csharp:latest
+          ports:
+            - containerPort: 80
+              name: app-csharp-port
