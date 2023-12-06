@@ -1,15 +1,14 @@
-# syntax=docker/dockerfile:1
+FROM python:3.11.5-alpine3.18
 
-FROM python:3.8-slim-buster
+COPY requirements.txt .
+RUN pip install -r requirements.txt && rm requirements.txt && rm -rf `pip cache dir`
 
-WORKDIR /arseniylev17/msctime
+RUN adduser app --system -S /bin/nologin -D -H
+USER app
+WORKDIR /app
 
-COPY requirements.txt requirements.txt
-RUN pip3 install -r requirements.txt
-VOLUME [ "counter.csv" ]
+COPY src/ .
 
-COPY . .
-
-ENV FLASK_APP=MoscowTime.py
-CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0", "--port", "8000"]
-
+ENV PORT="8000"
+EXPOSE $PORT
+CMD ["sh", "-c", "/usr/local/bin/python3 -m uvicorn main:app --host 0.0.0.0 --port $PORT"]

@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ include "python-app.fullname" . }}
   labels:
@@ -8,6 +8,7 @@ metadata:
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
+  podManagementPolicy: {{ .Values.podManagementPolicy }}
   {{- end }}
   selector:
     matchLabels:
@@ -52,16 +53,12 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
           env:
             {{- include "python-app.envVars" . | nindent 12 }}
-            - name: "PASSWORD"
-              valueFrom:
-                secretKeyRef:
-                  name: db-user-pass
-                  key: password
-            - name: "USERNAME"
-              valueFrom:
-                secretKeyRef:
-                  name: db-user-pass
-                  key: username
+          volumeMounts:
+            {{- toYaml .Values.volumeMounts | nindent 12 }}
+      volumes:
+      {{- with .Values.volumes }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -74,3 +71,5 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+  volumeClaimTemplates:
+  {{- toYaml .Values.volumeClaimTemplates | nindent 2 }}

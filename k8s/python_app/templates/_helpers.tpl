@@ -66,4 +66,19 @@ Create the name of the service account to use
   value: "PYTHON_VALUE_ONE"
 - name: "SECOND_CUSTOM_VAR"
   value: "PYTHON_VALUE_TWO"
+- name: "PASSWORD"
+  valueFrom:
+    secretKeyRef:
+      name: db-user-pass
+      key: password
+- name: "USERNAME"
+  valueFrom:
+    secretKeyRef:
+      name: db-user-pass
+      key: username
+- name: SPECIAL_TYPE_KEY
+  valueFrom:
+    configMapKeyRef:
+      name: config-map-entity-py
+      key: test
 {{- end }}
