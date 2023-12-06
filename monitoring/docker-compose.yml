@@ -1,0 +1,115 @@
+version: "3"
+
+networks:
+  loki:
+
+services:
+  app_python:
+    image: vladimirka002/innopolis-devops-python-app
+    container_name: app-python
+    ports:
+      - "8080:8080"
+    logging: &logger
+      driver: "json-file"
+      options:
+        max-size: "100m"
+        tag: "{{.ImageName}}|{{.Name}}|{{.ImageFullID}}|{{.FullID}}"
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -f http://localhost:8080/health" ]
+      interval: 10s
+      timeout: 10s
+      start_period: 10s
+    deploy:
+      resources:
+        limits:
+          memory: 200m
+    networks:
+      - loki
+
+  loki:
+    image: grafana/loki:2.9.1
+    command: -config.file=/etc/loki/local-config.yaml
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --tries=1 --spider http://localhost:3100/ready || exit 1"]
+      timeout: 10s
+      start_period: 1m
+    deploy:
+      resources:
+        limits:
+          memory: 250m
+    logging:
+      <<: *logger
+    networks:
+      - loki
+
+  promtail:
+    image: grafana/promtail:2.9.1
+    volumes:
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - ./promtail/config.yaml:/etc/promtail/config.yml:ro
+    command: -config.file=/etc/promtail/config.yml
+    healthcheck:
+      test: [ "CMD-SHELL", "bash -c 'cat < /dev/null > /dev/tcp/localhost/9080' || exit 1" ]
+      timeout: 30s
+      start_period: 10s
+    deploy:
+      resources:
+        limits:
+          memory: 200m
+    logging:
+      <<: *logger
+    networks:
+      - loki
+
+  grafana:
+    environment:
+      - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+    image: grafana/grafana:latest
+    volumes:
+      - "./grafana/provisioning:/etc/grafana/provisioning:ro"
+      - "./grafana/dashboards:/var/lib/grafana/dashboards"
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -f http://localhost:3000" ]
+      timeout: 10s
+      start_period: 10s
+    deploy:
+      resources:
+        limits:
+          memory: 200m
+    ports:
+      - "3000:3000"
+    logging:
+      <<: *logger
+    networks:
+      - loki
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    volumes:
+      - "./prometheus/config.yaml:/etc/prometheus/config.yaml"
+    command:
+      - '--config.file=/etc/prometheus/config.yaml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+      - '--web.enable-admin-api'
+      - '--web.enable-lifecycle'
+      - '--storage.tsdb.retention.time=7d'
+    healthcheck:
+      test: [ "CMD-SHELL", "wget -q --tries=1 --spider http://localhost:9090/status || exit 1" ]
+      timeout: 10s
+      start_period: 10s
+      interval: 10s
+    ports:
+      - "9090:9090"
+    deploy:
+      resources:
+        limits:
+          memory: 500m
+    logging:
+      <<: *logger
+    networks:
+      - loki

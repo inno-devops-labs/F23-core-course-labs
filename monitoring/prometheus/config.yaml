@@ -1,0 +1,31 @@
+# Global config
+global:
+  scrape_interval:     15s
+  evaluation_interval: 15s
+
+# Defining jobs for metrics scrapping
+scrape_configs:
+  # Python app
+  - job_name: app-python
+    static_configs:
+      - targets: [ app-python:8080 ]
+
+  # Loki
+  - job_name: loki
+    static_configs:
+      - targets: [ loki:3100 ]
+
+  # Promtail
+  - job_name: promtail
+    static_configs:
+      - targets: [ promtail:9080 ]
+
+  # Python app
+  - job_name: grafana
+    static_configs:
+      - targets: [ grafana:3000 ]
+
+  # Python app
+  - job_name: prometheus
+    static_configs:
+      - targets: [ localhost:9090 ]

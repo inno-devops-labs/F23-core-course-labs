@@ -1,0 +1,23 @@
+# Deploy web application using docker-compose
+- name: Deploy Web App
+  block:
+    - name: Create directory for the app
+      file:
+        path: "{{ app_path }}"
+        state: directory
+
+    - name: Create docker-compose file
+      template:
+        src: "docker-compose.yml.j2"
+        dest: "{{ docker_compose_file }}"
+      notify: docker_compose_handler
+
+    - name: Create volume
+      file:
+        path: "{{ volume }}"
+        state: directory
+
+    - name: Copy visits file
+      file:
+        src: "visits"
+        dest: "{{ visits_file }}"
