@@ -92,6 +92,9 @@ volumes:
   - name: config-map
     configMap:
       name: config-map
+  - name: workdir
+    emptyDir:
+      sizeLimit: 128Mi
 
 # Additional volumeMounts on the output Deployment definition.
 volumeMounts: 
@@ -100,6 +103,8 @@ volumeMounts:
   - name: config-map
     mountPath: /proj/config.json
     subPath: config.json
+  - name: workdir
+    mountPath: "/work-dir"
 
 volumeClaimTemplates:
 - metadata:
@@ -116,5 +121,16 @@ tolerations: []
 
 affinity: {}
 
+initContainers:
+  - name: install
+    image: busybox:1.28
+    command:
+    - wget
+    - "-O"
+    - "/work-dir/index.html"
+    - http://info.cern.ch
+    volumeMounts:
+    - name: workdir
+      mountPath: "/work-dir"
 
 password: "Z29vZF9rdWJlcg=="
