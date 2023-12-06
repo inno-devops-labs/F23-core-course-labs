@@ -1,0 +1,14 @@
+FROM python:3.11.4-slim-buster
+
+WORKDIR /code
+COPY ./requirements.txt /code/requirements.txt
+RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
+COPY ./src/main.py /code/
+
+RUN chmod a-wx main.py && useradd -ms /bin/bash myuser
+RUN mkdir /data && chown myuser /data
+VOLUME [ "/data" ]
+USER myuser
+
+EXPOSE 8000
+ENTRYPOINT ["python3", "-m", "uvicorn", "main:app", "--port", "8000", "--host", "0.0.0.0"]

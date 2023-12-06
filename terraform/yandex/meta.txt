@@ -1,0 +1,7 @@
+users:
+  - name: ubuntu
+    groups: sudo
+    shell: /bin/bash
+    sudo: 'ALL=(ALL) NOPASSWD:ALL'
+    ssh-authorized-keys:
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGGiVoLGobQjkU5J1Uk4ECCC7et8scLkTCNA9P/v6PN9 ublunta@lenovo
