@@ -2,21 +2,22 @@ package main
 
 import (
 	"app_go/internals/handlers"
+	"app_go/internals/middlewares"
 	"log"
 	"net/http"
 	"os"
+
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
 func main() {
-	timeHandler := handlers.NewTimeHandler()
-
 	port := os.Getenv("APP_GO_PORT")
 	if port == "" {
 		port = "8080"
 	}
 	addr := ":" + port
-
-	http.HandleFunc("/", timeHandler.CurrentTime)
+	http.Handle("/metrics", promhttp.Handler())
+	http.Handle("/", middlewares.PrometheusMetrics(handlers.NewTimeHandler()))
 
 	log.Printf("Server is starting on port %s...", port)
 

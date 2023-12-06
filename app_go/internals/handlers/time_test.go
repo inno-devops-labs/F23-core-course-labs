@@ -10,7 +10,7 @@ import (
 	"time"
 )
 
-func TestCurrentTime(t *testing.T) {
+func TestTimeHandlerServeHTTP(t *testing.T) {
 	timeZone := "Europe/Moscow"
 	location, err := time.LoadLocation(timeZone)
 
@@ -25,7 +25,7 @@ func TestCurrentTime(t *testing.T) {
 	req := httptest.NewRequest(http.MethodGet, "/", nil)
 	rec := httptest.NewRecorder()
 
-	timeHandler.CurrentTime(rec, req)
+	timeHandler.ServeHTTP(rec, req)
 
 	res := rec.Result()
 	body, _ := ioutil.ReadAll(res.Body)
