@@ -1,8 +1,0 @@
----
-- hosts: devops
-  become: true
-  roles: 
-    - docker
-    - web_app
-
-    
