@@ -6,6 +6,7 @@ metadata:
     {{- include "helm-python-app.labels" . | nindent 4 }}
 spec:
   podManagementPolicy: Parallel
+  serviceName: {{ include "helm-python-app.fullname" . }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
@@ -30,6 +31,35 @@ spec:
       serviceAccountName: {{ include "helm-python-app.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      initContainers:
+      - name: get
+        image: busybox
+        command:
+        - wget
+        - "-O"
+        - "/work-dir/index.html"
+        - "https://www.google.com"
+        volumeMounts:
+        - name: python-data
+          mountPath: /work-dir"
+      - name: first-write
+        image: busybox
+        command:
+        - sh
+        - "-c"
+        - "echo 'first write' >> /work-dir/file"
+        volumeMounts:
+        - name: python-data
+          mountPath: "/work-dir"
+      - name: second-write
+        image: busybox
+        command:
+        - sh
+        - "-c"
+        - "echo 'second write' >> /work-dir/file"
+        volumeMounts:
+        - name: python-data
+          mountPath: "/work-dir"
       containers:
         - name: {{ .Chart.Name }}
           securityContext:

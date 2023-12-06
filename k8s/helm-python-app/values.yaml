@@ -79,11 +79,17 @@ volumes:
   - name: python-visits
     configMap:
       name: visits-configmap
-
+  # add a new volume
+  - name: python-data
+    emptyDir:
+      sizeLimit: 15Mi
 # Additional volumeMounts on the output Deployment definition.
 volumeMounts:
   - name: app-visits
     mountPath: "/app/visit_volume"
+
+  - name: python-data
+    mountPath: "/app/data_volume"
 
 
 nodeSelector: {}
