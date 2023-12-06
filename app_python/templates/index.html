@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Time</title>
+    <script>
+        function updateTime() {
+            const currentTime = new Date();
+            const options = { timeZone: 'Europe/Moscow', hour12: false };
+            const moscowTime = currentTime.toLocaleTimeString('en-US', options);
+            document.getElementById('moscow-time').textContent = moscowTime;
+        }
+
+        setInterval (updateTime, 1000);
+    </script>
+</head>
+<body>
+    <h2>Current Moscow Time:</h2>
+    <p id="moscow-time">{{time}}</p>
+</body>
+</html>

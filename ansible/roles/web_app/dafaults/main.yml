@@ -1,0 +1,6 @@
+app_docker_image: expluto/app_python:latest
+app_container_name: app_python
+docker_port: 5000
+host_port: 5000
+app_port: 5000
+app_wipe: true
