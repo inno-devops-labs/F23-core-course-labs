@@ -1,0 +1,44 @@
+# This file is maintained automatically by "terraform init".
+# Manual edits may be lost in future updates.
+
+provider "registry.terraform.io/kreuzwerker/docker" {
+  version     = "3.0.2"
+  constraints = "~> 3.0.1"
+  hashes = [
+    "h1:cT2ccWOtlfKYBUE60/v2/4Q6Stk1KYTNnhxSck+VPlU=",
+    "zh:15b0a2b2b563d8d40f62f83057d91acb02cd0096f207488d8b4298a59203d64f",
+    "zh:23d919de139f7cd5ebfd2ff1b94e6d9913f0977fcfc2ca02e1573be53e269f95",
+    "zh:38081b3fe317c7e9555b2aaad325ad3fa516a886d2dfa8605ae6a809c1072138",
+    "zh:4a9c5065b178082f79ad8160243369c185214d874ff5048556d48d3edd03c4da",
+    "zh:5438ef6afe057945f28bce43d76c4401254073de01a774760169ac1058830ac2",
+    "zh:60b7fadc287166e5c9873dfe53a7976d98244979e0ab66428ea0dea1ebf33e06",
+    "zh:61c5ec1cb94e4c4a4fb1e4a24576d5f39a955f09afb17dab982de62b70a9bdd1",
+    "zh:a38fe9016ace5f911ab00c88e64b156ebbbbfb72a51a44da3c13d442cd214710",
+    "zh:c2c4d2b1fd9ebb291c57f524b3bf9d0994ff3e815c0cd9c9bcb87166dc687005",
+    "zh:d567bb8ce483ab2cf0602e07eae57027a1a53994aba470fa76095912a505533d",
+    "zh:e83bf05ab6a19dd8c43547ce9a8a511f8c331a124d11ac64687c764ab9d5a792",
+    "zh:e90c934b5cd65516fbcc454c89a150bfa726e7cf1fe749790c7480bbeb19d387",
+    "zh:f05f167d2eaf913045d8e7b88c13757e3cf595dd5cd333057fdafc7c4b7fed62",
+    "zh:fcc9c1cea5ce85e8bcb593862e699a881bd36dffd29e2e367f82d15368659c3d",
+  ]
+}
+
+provider "registry.terraform.io/yandex-cloud/yandex" {
+  version = "0.99.1"
+  hashes = [
+    "h1:AJN2jnZTw+Q/Ckx9Sei8Ghc6TMTVhFTPMPu+zugwjUs=",
+    "zh:2ec2898c8d3dbe416ca181c87c8e020253ba6cf20394e1e05e33503d40b6963e",
+    "zh:476d0b4afe43933271edbffb690706cc60e4faa7273fd10ecd140801a59e7a44",
+    "zh:57df1b9cf43758175dea26ac9c6533fe1a21d82a0fe4a234b838280fbfb7adaf",
+    "zh:6bb08c772a48a216ace02b5a5c613fc6328e7217986db738a9a3aed4e4bdc76a",
+    "zh:6c3c6c1d7432ee682a7cec2acdf666b9a4ff5e919ffa60654c271c8a6a951c53",
+    "zh:777a61b389b5017cf80df7fc78d35ae7b594d944a0e2fe02c21b3956b050470d",
+    "zh:891551293cd81eaa27bf8d22f70fbcc86431316419b8645f1f11af261cefe73a",
+    "zh:902fdc7726b2eb930b09400021bc980cf5f2961c28f9c01114d2d6a4843c8396",
+    "zh:95953ea85e44a0486f9ea6e4a82e6863e9f38e1755a9641f6b76a993e6c8af27",
+    "zh:97f125199d201064213a524d87d7f90220e2f80053cea7d2ebc6909aab17e816",
+    "zh:ab7403ccde1e7aa4b87b1b247b4d0935939c2d6d49bca8e240d623ab0e605511",
+    "zh:c48972228521050d036f4193a310611db90c324af41dc3fb97f2931b35b8e4e8",
+    "zh:dbf865a1c5758e7c080e5fdf1e452e934a40c68dfa497a6a9fbd5fc7895e5a3c",
+  ]
+}
