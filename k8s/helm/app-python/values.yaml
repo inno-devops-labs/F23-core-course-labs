@@ -1,9 +1,11 @@
-replicaCount: 1
+replicaCount: 2
 
 image:
   repository: eukuz/devops_course_python_app
   pullPolicy: IfNotPresent
   tag: "latest"
+
+podManagementPolicy: Parallel
 
 imagePullSecrets: []
 nameOverride: ""
@@ -47,3 +49,20 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+
+volumes:
+  config:
+    name: app-python-config-volume
+    mountPath: /app/config.json
+    subPath: config.json
+    configMap:
+      name: app-python-config
+  pers:
+    name: app-python-pers-volume
+    mountPath: /app-python/pers
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 256Mi
