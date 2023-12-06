@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ include "app-python.fullname" . }}
   labels:
@@ -7,6 +7,7 @@ metadata:
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
+  podManagementPolicy: {{ .Values.podManagementPolicy }}
   {{- end }}
   selector:
     matchLabels:
@@ -56,29 +57,12 @@ spec:
           {{- end }}
           env:
           {{- include "app-python.envs" . | nindent 12 }}
-            - name: "pass"
-              valueFrom:
-                secretKeyRef:
-                  name: mysecret
-                  key: pass_data
-            - name: SPECIAL_TYPE_KEY
-              valueFrom:
-                configMapKeyRef:
-                  name: config-map-entity-py
-                  key: test
           volumeMounts:
-          - name: config-volume-py
-            mountPath: "/config.json"
-            subPath: config.json
-          - name: counter-data-py
-            mountPath: /data
+          {{- toYaml .Values.volumeMounts | nindent 12 }}
       volumes:
-      - name: config-volume-py
-        configMap:
-          name: config-map-entity-py
-      - name: counter-data-py
-        emptyDir:
-          sizeLimit: 500Mi
+      {{- with .Values.volumes }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -91,3 +75,5 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+  volumeClaimTemplates:
+  {{- toYaml .Values.volumeClaimTemplates | nindent 2 }}

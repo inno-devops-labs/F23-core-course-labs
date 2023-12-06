@@ -99,3 +99,24 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+volumeMounts:
+- name: config-volume-py
+  mountPath: "/config.json"
+  subPath: config.json
+- name: counter-data-py
+  mountPath: /data
+
+volumes:
+- name: config-volume-py
+  configMap:
+    name: config-map-entity-py
+
+volumeClaimTemplates:
+- metadata:
+    name: counter-data-py
+  spec:
+    accessModes: [ "ReadWriteOnce" ]
+    resources:
+      requests:
+        storage: 10Mi
