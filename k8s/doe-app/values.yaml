@@ -67,12 +67,12 @@ resources: {}
   #   cpu: 100m
   #   memory: 128Mi
   
-env:
-  - name: DOE_SECRET
-    valueFrom:
-      secretKeyRef:
-        name: doe-secrets
-        key: doesecret
+# env:
+#   - name: DOE_SECRET
+#     valueFrom:
+#       secretKeyRef:
+#         name: doe-secrets
+#         key: doesecret
           
 volumeMounts:
   - name: storage
