@@ -1,0 +1,11 @@
+- name: Remove old packages
+  apt:
+    pkg:
+      - docker.io 
+      - docker-doc 
+      - docker-compose 
+      - podman-docker 
+      - containerd 
+      - runc
+    purge: true
+    state: absent

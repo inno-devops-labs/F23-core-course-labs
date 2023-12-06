@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: moscow-time 
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: moscow-time 
+  template:
+    metadata:
+      labels:
+        app: moscow-time 
+    spec:
+      containers:
+      - name: moscow-time 
+        image: bizuki/moscow-time:latest

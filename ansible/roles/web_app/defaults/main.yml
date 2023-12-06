@@ -1,0 +1,4 @@
+wipe_docker_compose: false
+docker_image: 'bizuki/moscow-time:latest'
+directory_name: 'moscow-time'
+docker_ports: '8080:8080'

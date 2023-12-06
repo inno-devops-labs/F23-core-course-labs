@@ -1,0 +1,6 @@
+yandex:
+  hosts:
+    main:
+      ansible_user: ubuntu
+      ansible_host: 158.160.122.93
+      ansible_python_interpreter: /usr/bin/python3

@@ -1,0 +1,86 @@
+version: "2.9"
+
+networks:
+  monitoring:
+
+x-logger: &logging
+  driver: "json-file"
+  options:
+    max-size: "15m"
+    max-file: "3"
+    tag: "{{.ImageName}}|{{.Name}}"
+
+services:
+  web_application:
+    image: bizuki/moscow-time:latest
+    ports:
+      - "8080:8080"
+    logging:
+      <<: *logging
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+
+  loki:
+    image: grafana/loki:2.9.2
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
+    networks:
+      - monitoring
+    logging:
+      <<: *logging
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+
+  promtail:
+    image: grafana/promtail:2.9.2
+    volumes:
+      - /var/lib/docker/containers:/var/lib/docker/containers
+      - ./promtail.yml:/etc/promtail/config.yml
+    command: -config.file=/etc/promtail/config.yml
+    networks:
+      - monitoring
+    logging:
+      <<: *logging
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+
+  grafana:
+    environment:
+      - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+    image: grafana/grafana:latest
+    volumes:
+      - ./datasources.yml:/etc/grafana/provisioning/datasources/datasources.yaml
+    ports:
+      - "3000:3000"
+    networks:
+      - monitoring
+    logging:
+      <<: *logging
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - monitoring
+    logging:
+      <<: *logging
+    deploy:
+      resources:
+        limits:
+          memory: 512M
