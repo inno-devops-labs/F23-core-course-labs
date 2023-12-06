@@ -1,4 +1,5 @@
 import datetime
+import logging
 import time
 import unittest
 
@@ -7,7 +8,10 @@ class TimerTest(unittest.TestCase):
     def testTimer(self):
         from app_python.src import service
 
-        timer = service.Timer()
+        logger = logging.getLogger()
+        logger.setLevel(logging.INFO)
+
+        timer = service.Timer(logger)
 
         self.assertIsNotNone(timer)
 
