@@ -1,0 +1,6 @@
+dependencies:
+- name: library-chart
+  repository: file://../library-chart
+  version: 0.0.1
+digest: sha256:3189dea3f4e699cc68a2f962a07275d9ad3bf22097997c5f334f78fc463a9344
+generated: "2023-11-15T01:11:29.7303777+03:00"

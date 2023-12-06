@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-svelte
+  labels:
+    app: app-svelte
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app-svelte
+  template:
+    metadata:
+      labels:
+        app: app-svelte
+    spec:
+      containers:
+        - name: app-svelte
+          image: relisqu/svelte-app:latest
+          ports:
+            - containerPort: 5173
+              name: app-svelte-port
