@@ -93,6 +93,8 @@ volumes:
   - name: volume
     configMap:
       name: config-map
+  - name: workdir
+      emptyDir: {}
 
 volumeMounts:
   - name: volume
@@ -100,6 +102,8 @@ volumeMounts:
     subPath: config.json
   - name: visits
     mountPath: /
+  - name: workdir
+    mountPath: "/work-dir"
 
 volumeClaimTemplates:
   - metadata:
