@@ -66,6 +66,9 @@ volumes:
   - name: config-volume
     configMap:
       name: app-python-config-map
+  - name: init-data
+    emptyDir:
+      sizeLimit: 10Mi
 
 volumeMounts:
   - name: config-volume
@@ -73,6 +76,8 @@ volumeMounts:
     subPath: config.json
   - name: app-data
     mountPath: /app/src/resources
+  - name: init-data
+    mountPath: /app/init
 
 volumeClaimTemplates:
   - metadata:

@@ -1,0 +1,11 @@
+prometheus:
+  additionalServiceMonitors:
+    - name: "python-app"
+      selector:
+        matchLabels:
+          app.kubernetes.io/instance: app-python
+      namespaceSelector:
+        any: true
+      endpoints:
+        - port: http
+        - path: metrics
