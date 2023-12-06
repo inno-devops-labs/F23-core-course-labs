@@ -92,6 +92,9 @@ volumes:
 - name: counter-data-py
   emptyDir:
     sizeLimit: 500Mi
+- name: init-data-py
+  emptyDir:
+    sizeLimit: 10Mi
 
 # Additional volumeMounts on the output Deployment definition.
 volumeMounts:
@@ -100,6 +103,8 @@ volumeMounts:
     subPath: config.json
   - name: counter-data-py
     mountPath: /data
+  - name: init-data-py
+    mountPath: /init_data
 
 volumeClaimTemplates:
 - metadata:
@@ -109,6 +114,44 @@ volumeClaimTemplates:
     resources:
       requests:
         storage: 10Mi
+
+initContainers:
+  - name: install
+    image: busybox:1.28
+    command:
+    - wget
+    - "-O"
+    - "/work-dir/index.html"
+    - http://info.cern.ch
+    volumeMounts:
+    - name: init-data-py
+      mountPath: "/work-dir"
+  - name: queue-0
+    image: busybox:1.28
+    command:
+    - "touch"
+    - "/work-dir/file"
+    volumeMounts:
+    - name: init-data-py
+      mountPath: "/work-dir"
+  - name: queue-1
+    image: busybox:1.28
+    command:
+    - "sh"
+    - "-c"
+    - 'echo big >> /work-dir/file'
+    volumeMounts:
+    - name: init-data-py
+      mountPath: "/work-dir"
+  - name: queue-2
+    image: busybox:1.28
+    command:
+    - "sh"
+    - "-c"
+    - 'echo brother >> /work-dir/file'
+    volumeMounts:
+    - name: init-data-py
+      mountPath: "/work-dir"
 
 nodeSelector: {}
 
