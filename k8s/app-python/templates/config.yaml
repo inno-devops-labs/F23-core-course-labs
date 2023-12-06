@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-map-py
+  namespace: default
+data:
+  confmap-env: "this_is_a_config_map_env_var"
+  config.json: |-
+{{ .Files.Get "files/config.json" | indent 4 }}

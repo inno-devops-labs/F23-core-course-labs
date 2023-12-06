@@ -1,0 +1,28 @@
+---
+- name: Deploy python_app
+  tags:
+    - deploy-app
+  block:
+    - name: Create app directory
+      file:
+        path: "/opt/{{ docker_app_name }}"
+        state: directory
+        mode: "0700"
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        recurse: true
+      become: true
+
+    - name: Deliver compose file to target server
+      template:
+        src: templates/docker-compose.yml.j2
+        dest: "{{ docker_compose_proj }}/docker-compose.yml"
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        mode: "0600"
+
+    - name: Start docker-compose service
+      docker_compose:
+        project_src: "{{ docker_compose_proj }}"
+        state: present
+      become: true

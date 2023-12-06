@@ -1,0 +1,27 @@
+---
+- name: Wipe app
+  # stop and remove container, remove image
+  tags:
+    - wipe-app
+  block:
+    - name: Destroy docker-compose service
+      docker_compose:
+        project_src: "{{ docker_compose_proj }}"
+        state: absent
+      become: true
+  rescue: # fall back to legacy method
+    - name: Stop app container
+      docker_container:
+        name: "{{ docker_app_name }}"
+        state: stopped
+      become: true
+    - name: Remove app container
+      docker_container:
+        name: "{{ docker_app_name }}"
+        state: absent
+      become: true
+    - name: Remove app image
+      docker_image:
+        name: "{{ docker_image }}"
+        state: absent
+      become: true

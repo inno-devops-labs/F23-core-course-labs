@@ -1,0 +1,124 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "app-python.fullname" . }}
+  labels:
+    {{- include "app-python.labels" . | nindent 4 }}
+    {{- include "mylibchart.labels" . | indent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  podManagementPolicy: {{ .Values.podManagementPolicy }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "app-python.selectorLabels" . | nindent 6 }}
+      {{- include "mylibchart.labels" . | indent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "app-python.labels" . | nindent 8 }}
+        {{- include "mylibchart.labels" . | indent 8 }}
+	{{- with .Values.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "app-python.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.port }}
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /time
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /time
+              port: http
+          env:
+            - name: "DB_USERNAME"
+              valueFrom:
+                secretKeyRef:
+                  name: db-user-pass
+                  key: username
+            - name: "DB_PASSWORD"
+              valueFrom:
+                secretKeyRef:
+                  name: db-user-pass
+                  key: password
+            - name: "CONFIG_MAP_ENV"
+              valueFrom:
+                configMapKeyRef:
+                  name: config-map-py
+                  key: confmap-env
+            {{- include "app-python.env" . | nindent 12 }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            {{- toYaml .Values.volumeMounts | nindent 12 }}
+      initContainers:
+      - name: install
+        image: busybox:1.28
+        command:
+        - "sh"
+        - "-c"
+        - "wget -O /appdata/index.html http://example.com && echo 'OK'"
+        volumeMounts:
+          {{- toYaml .Values.volumeMounts | nindent 12 }}
+      - name: init-queue-one
+        image: busybox:1.28
+        command:
+        - "sh"
+        - "-c"
+        - "echo 'hello init-1' > /appdata/queue"
+        volumeMounts:
+          {{- toYaml .Values.volumeMounts | nindent 12 }}
+      - name: init-queue-two
+        image: busybox:1.28
+        command:
+        - "sh"
+        - "-c"
+        - "echo 'hello init-2' >> /appdata/queue"
+        volumeMounts:
+          {{- toYaml .Values.volumeMounts | nindent 12 }}
+      - name: init-queue-three
+        image: busybox:1.28
+        command:
+        - "sh"
+        - "-c"
+        - "echo 'hello init-3' >> /appdata/queue"
+        volumeMounts:
+          {{- toYaml .Values.volumeMounts | nindent 12 }}
+      volumes:
+        {{- toYaml .Values.volumes | nindent 8 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+  volumeClaimTemplates:
+    {{- toYaml .Values.volumeClaimTemplates | nindent 4 }}
