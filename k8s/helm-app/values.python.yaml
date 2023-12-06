@@ -83,6 +83,9 @@ volumes:
   - name: config
     configMap:
       name: my-configmap
+  - name: init-data
+    emptyDir:
+      sizeLimit: 10Mi
 
 # Additional volumeMounts on the output Deployment definition.
 volumeMounts:
@@ -92,6 +95,8 @@ volumeMounts:
     readOnly: true
   - name: visits
     mountPath: "/app/volume/"
+  - name: init-data
+    mountPath: /init
 
 volumeClaim:
   name: visits
