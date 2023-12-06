@@ -2,7 +2,7 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-replicaCount: 3
+replicaCount: 2
 
 image:
   repository: path242/clock
@@ -76,8 +76,8 @@ resources:
      cpu: 2.0
      memory: 256Mi
    requests:
-     cpu: 1.0
-     memory: 128Mi
+    cpu: 100m
+    memory: 256Mi
 
 autoscaling:
   enabled: false
@@ -87,7 +87,21 @@ autoscaling:
   # targetMemoryUtilizationPercentage: 80
 
 # Additional volumes on the output Deployment definition.
-volumes: []
+volumes:
+  config:
+    name: helm-app-config
+    mountPath: /app/config.json
+    subPath: config.json
+
+  persistent:
+    name: persistent-volume
+    mountPath: /app/data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClass: ""
+      resources:
+        requests:
+          storage: 128Mi
 # - name: foo
 #   secret:
 #     secretName: mysecret

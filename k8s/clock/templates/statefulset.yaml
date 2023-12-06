@@ -1,10 +1,11 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ include "clock.fullname" . }}
   labels:
     {{- include "clock.labels" . | nindent 4 }}
 spec:
+  podManagementPolicy: "Parallel"
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
@@ -49,13 +50,16 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
-             - name: helm-app-config-volume
-               mountPath: /config.json
-               subPath: config.json
+             - name: {{ .Values.volumes.config.name }}
+               mountPath: {{ .Values.volumes.config.mountPath }}
+               subPath: {{ .Values.volumes.config.subPath }}
+             - name: {{ .Values.volumes.persistent.name }}
+               mountPath: {{ .Values.volumes.persistent.mountPath }}
       volumes:
-        - name: helm-app-config-volume
+        - name: {{ .Values.volumes.config.name }}
           configMap:
-            name: helm-app-config
+            name: {{ .Values.volumes.config.name }}
+        - name: {{ .Values.volumes.persistent.name }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
