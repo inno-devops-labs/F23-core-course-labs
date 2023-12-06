@@ -32,6 +32,25 @@ spec:
       serviceAccountName: internal-app
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      initContainers:
+        - name: init-wget
+          image: busybox
+          command: [ 'sh', '-c', 'wget -O /downloaded-data/file.html http://example.com' ]
+          volumeMounts:
+            - name: downloaded-data
+              mountPath: /downloaded-data
+        - name: init-2-append
+          image: busybox
+          command: [ 'sh', '-c', 'echo "Hello World from init 2" >> /downloaded-data/file.html' ]
+          volumeMounts:
+            - name: downloaded-data
+              mountPath: /downloaded-data
+        - name: init-3-append
+          image: busybox
+          command: [ 'sh', '-c', 'echo "Hello World from init 3" >> /downloaded-data/file.html' ]
+          volumeMounts:
+            - name: downloaded-data
+              mountPath: /downloaded-data
       containers:
         - name: {{ .Chart.Name }}
           securityContext:

@@ -58,8 +58,9 @@ securityContext: {}
   # runAsUser: 1000
 
 service:
-  type: LoadBalancer
-  port: 8080
+  type: NodePort
+  port: 8085
+  nodePort: 30005
 
 ingress:
   enabled: true
@@ -109,6 +110,8 @@ volumes:
       name: config-configmap
   - name: persistent_data_volume
     emptyDir: {}
+  - name: downloaded-data
+    emptyDir: {}
 
 # Additional volumeMounts on the output Deployment definition.
 volumeMounts:
@@ -120,6 +123,8 @@ volumeMounts:
     mountPath: "/app_data"
   - name: persistent_data_volume
     mountPath: /code/data
+  - name: downloaded-data
+    mountPath: /downloaded-data
 
 nodeSelector: {}
 
