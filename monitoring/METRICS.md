@@ -94,10 +94,10 @@
 
     ![grafana_port](./images/grafana_port.png)
 
-- Verify Prometheus UI is accessible at <http://localhost:9090/targets> and all targets are up in status tab, you can also run queries with autocompletion.
-
-- Verify health checks
+  - Verify health checks
   - ![checks](./images/checks.png)
+
+- Verify Prometheus UI is accessible at <http://localhost:9090/targets> and all targets are up in status tab, you can also run queries with autocompletion.
 
 ![monitoring-1](./images/monitoring-1.png)
 
@@ -113,9 +113,9 @@
 
     ![containerlogs](./images/containerlogs.png)
 
-  Example query showing application endpoint responses: `flask_http_request_total`
+    Example query showing application endpoint responses: `flask_http_request_total`
 
-  ![monitoring](./images/monitoring.jpg)
+    ![monitoring](./images/monitoring.jpg)
 
 ### 3.5. Dashboards
 
@@ -138,6 +138,10 @@
 ![monitoring-7](./images/monitoring-7.png)
 
 ![monitoring-6](./images/monitoring-6.png)
+
+
+
+
 
 ## 4. Best Practices
 
