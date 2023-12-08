@@ -9,3 +9,10 @@ datasources:
   isDefault: true
   version: 1
   editable: false
+- name: Prometheus
+  type: prometheus
+  orgId: 1
+  url: http://prometheus:9090
+  basicAuth: false
+  version: 1
+  editable: true

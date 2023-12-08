@@ -6,6 +6,7 @@ from datetime import datetime, timezone
 from pydantic import BaseModel
 from uuid import UUID, uuid4
 from functools import lru_cache
+import prometheus_client
 # zd2
 
 
@@ -84,6 +85,13 @@ def note_repo():
 def healthcheck():
     return 'OK'
 
+
+@app.get('/metrics')
+def metrics():
+    return Response(
+        prometheus_client.generate_latest(),
+        media_type=prometheus_client.CONTENT_TYPE_LATEST
+    )
 
 class StoreNoteRequest(BaseModel):
     text: str
