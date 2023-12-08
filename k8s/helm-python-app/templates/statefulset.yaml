@@ -1,11 +1,11 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ include "helm-python-app.fullname" . }}
   labels:
     {{- include "helm-python-app.labels" . | nindent 4 }}
 spec:
-  {{- if not .Values.autoscaling.enabled }}
+  podManagementPolicy: Parallel
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
@@ -54,9 +54,10 @@ spec:
                 secretKeyRef:
                   name: helm-secrets
                   key: password
-          envFrom:
-            - configMapRef:
-                name: env-configmap
+          # do not use env
+          # envFrom:
+          #   - configMapRef:
+          #       name: env-configmap
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           {{- with .Values.volumeMounts }}
@@ -79,3 +80,15 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+
+    {{- if .Values.pvc.create }}
+    volumeClaimTemplates:
+    - metadata:
+        name: {{ .Values.pvc.name }}
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        storageClassName: {{ .Values.pvc.storageClass }}
+        resources:
+          requests:
+            storage: {{ .Values.pvc.size }}
+    {{- end }} 
