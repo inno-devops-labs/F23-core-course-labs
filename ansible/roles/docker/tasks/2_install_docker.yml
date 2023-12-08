@@ -1,0 +1,10 @@
+---
+- name: Install Docker
+  apt:
+    update_cache: yes
+    name:
+      - "docker-{{ docker_edition }}"
+      - "docker-{{ docker_edition }}-cli"
+      - "docker-{{ docker_edition }}-rootless-extras"
+      - "containerd.io"
+    state: present

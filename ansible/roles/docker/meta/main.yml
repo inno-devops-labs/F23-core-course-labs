@@ -1,0 +1,16 @@
+galaxy_info:
+  author: Asem Abdelhady
+  description: install and deploy docker
+
+  license: MIT
+
+  min_ansible_version: 2.15.4
+
+  platforms:
+    - name: Debian
+      versions:
+        - "all"
+
+  galaxy_tags: []
+
+dependencies: []
