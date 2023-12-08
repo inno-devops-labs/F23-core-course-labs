@@ -29,9 +29,11 @@ spec:
           imagePullPolicy: Always
           ports:
             - containerPort: {{ .Values.containerPort }}
-          env:
-            - name: labno
-              valueFrom:
-                secretKeyRef:
-                  name: lab11-secret
-                  key: labno
+{{ include "app.env" . | indent 10 }}
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "64Mi"
+              cpu: "250m"
