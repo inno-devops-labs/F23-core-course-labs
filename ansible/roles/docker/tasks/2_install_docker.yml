@@ -3,8 +3,7 @@
   apt:
     update_cache: yes
     name:
-      - "docker-{{ docker_edition }}"
-      - "docker-{{ docker_edition }}-cli"
-      - "docker-{{ docker_edition }}-rootless-extras"
-      - "containerd.io"
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
     state: present

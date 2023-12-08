@@ -1,5 +1,0 @@
-plugin: amazon.aws.aws_ec2
-regions:
-  - us-west-2
-filtrers:
-  tag:Name: Webserver
