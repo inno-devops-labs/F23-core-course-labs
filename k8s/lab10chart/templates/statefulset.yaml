@@ -42,7 +42,7 @@ spec:
             - name: MY_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: db-user-pass
+                  name: db-user-pass-1
                   key: password
           livenessProbe:
             httpGet:

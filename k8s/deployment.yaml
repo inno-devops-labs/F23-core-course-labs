@@ -30,7 +30,7 @@ spec:
             memory: 20Mi
         envFrom:
           - configMapRef:
-              name: config-map
+              name: config-map-1
         volumeMounts:
         - name: config-volume
           mountPath: "/config.json"
@@ -38,4 +38,4 @@ spec:
       volumes:
       - name: config-volume
         configMap:
-          name: config-map
+          name: config-map-1
