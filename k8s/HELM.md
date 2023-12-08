@@ -252,3 +252,81 @@ Deleting outdated charts
 ```
 
 ![rust-labels](static/labels.png)
+
+## Deployment to statefulset
+
+```bash
+> helm upgrade --values k8s/charts/app-python/values.yaml app-python k8s/charts/app-python
+Release "app-python" has been upgraded. Happy Helming!
+NAME: app-python
+LAST DEPLOYED: Fri Dec  8 10:07:06 2023
+NAMESPACE: default
+STATUS: deployed
+REVISION: 9
+TEST SUITE: None
+
+> kubectl get po
+NAME                                    READY   STATUS    RESTARTS      AGE
+app-python-0                            1/1     Running   0             6s
+app-python-1                            1/1     Running   0             10s
+app-python-2                            1/1     Running   0             14s
+
+> kubectl describe po app-python-0
+Name:             app-python-0
+Namespace:        default
+Priority:         0
+Service Account:  default
+Node:             minikube/192.168.49.2
+Start Time:       Fri, 08 Dec 2023 10:09:21 +0000
+Labels:           app=app-python
+                  app.kubernetes.io/instance=app-python
+                  app.kubernetes.io/managed-by=Helm
+                  app.kubernetes.io/version=1.16.0
+                  controller-revision-hash=app-python-85d9b9b544
+                  statefulset.kubernetes.io/pod-name=app-python-0
+Annotations:      kubectl.kubernetes.io/restartedAt: 2023-12-08T10:09:12Z
+Status:           Running
+IP:               10.244.0.82
+IPs:
+  IP:           10.244.0.82
+Controlled By:  StatefulSet/app-python
+Containers:
+  app-python:
+    Container ID:   docker://bc2d160e043e3e99aee66154b5b397ea2492e3d534dff6fc67623f8700e26b55
+    Image:          ilyasiluyanov/app_python:dev
+    Image ID:       docker-pullable://ilyasiluyanov/app_python@sha256:62cd69564b8d5e798b6d8845d5906a003f32b9c002bce44d9c33dcb5df21d1a3
+    Port:           8000/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Fri, 08 Dec 2023 10:09:23 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-m7sj6 (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  kube-api-access-m7sj6:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  18s   default-scheduler  Successfully assigned default/app-python-0 to minikube
+  Normal  Pulling    17s   kubelet            Pulling image "ilyasiluyanov/app_python:dev"
+  Normal  Pulled     16s   kubelet            Successfully pulled image "ilyasiluyanov/app_python:dev" in 1.235030733s (1.235043924s including waiting)
+  Normal  Created    16s   kubelet            Created container app-python
+  Normal  Started    16s   kubelet            Started container app-python
+```
