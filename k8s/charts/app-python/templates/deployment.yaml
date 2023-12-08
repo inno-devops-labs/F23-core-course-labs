@@ -17,7 +17,7 @@ spec:
         vault.hashicorp.com/agent-inject: 'true'
         vault.hashicorp.com/agent-inject-status: 'update'
         vault.hashicorp.com/role: 'lab11-reader'
-        vault.hashicorp.com/agent-inject-secret-secrets-labno: 'internal/lab11/secrets'
+        vault.hashicorp.com/agent-inject-secret-labno: 'internal/lab11/secrets'
       labels:
         app: app-python
         {{- include "library-chart.labels" . | indent 8 }}
