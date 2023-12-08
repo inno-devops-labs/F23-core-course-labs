@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: config-entity
+  name: config-map
   namespace: default
 data:
   test: test

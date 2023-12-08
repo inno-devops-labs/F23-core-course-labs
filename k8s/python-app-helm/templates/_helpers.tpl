@@ -64,4 +64,19 @@ Create the name of the service account to use
 {{- define "python-app.envVars" -}}
 - name: "VAR"
   value: "V1"
+- name: "PASSWORD"
+  valueFrom:
+    secretKeyRef:
+      name: db-user-pass
+      key: password
+- name: "USERNAME"
+  valueFrom:
+    secretKeyRef:
+      name: db-user-pass
+      key: username
+- name: SPECIAL_TYPE_KEY
+  valueFrom:
+    configMapKeyRef:
+      name: config-map
+      key: test
 {{- end }}
