@@ -1,0 +1,10 @@
+- name: Deploy App
+  hosts: all
+  become: true
+  roles:
+    - role: web_app
+      vars:
+        app_container_name: app_python
+        app_container_image: "wareverdud/lab3:latest"
+        app_container_ports: 
+          - "8000:8000"
