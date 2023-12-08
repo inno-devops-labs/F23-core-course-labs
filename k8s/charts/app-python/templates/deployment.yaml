@@ -23,3 +23,11 @@ spec:
           imagePullPolicy: Always
           ports:
             - containerPort: {{ .Values.containerPort }}
+          volumeMounts:
+            - name: lab12-config
+              mountPath: /app-python/config.json
+              subPath: config.json
+      volumes:
+        - name: lab12-config
+          configMap:
+            name: lab12-config
