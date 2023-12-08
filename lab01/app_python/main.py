@@ -13,7 +13,7 @@ from pathlib import Path
 
 app = FastAPI()
 
-filepath = Path('/tmp/visits')
+filepath = Path('/app_python/visits')
 
 
 def _get_visits() -> int:
