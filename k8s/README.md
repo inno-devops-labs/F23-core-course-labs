@@ -82,6 +82,12 @@ minikube service --all
 
 ![services-output](./images/services-output.png)
 
-#
+### Curl Output Rust
+
+```html
+<h1>Time in moscow is:  23:20:55 </h1>
+```
+
+![rust-output](./images/rust-output.png)
 
 ​	
