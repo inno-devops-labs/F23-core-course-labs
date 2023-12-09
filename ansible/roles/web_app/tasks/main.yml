@@ -1,0 +1,11 @@
+---
+- name: Deploy python_app
+  block:
+  - name: start python_app container
+    docker_container:
+      name: app_python
+      image: beleet/devops_lab3_app_python
+      state: started
+      ports:
+        - "8080:80"
+    become: true
