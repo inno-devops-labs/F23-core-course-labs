@@ -1,8 +1,10 @@
 import logging
 from flask import Flask
 from datetime import datetime, timezone, timedelta
+from prometheus_flask_exporter import PrometheusMetrics
 
 app = Flask(__name__)
+metrics = PrometheusMetrics(app)
 logging.basicConfig(
     format='[%(levelname)-8s] %(asctime)-s:\t%(message)s',
     datefmt='%Y-%m-%dT%H:%M:%S'
