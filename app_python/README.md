@@ -37,3 +37,5 @@ To test the application use the following command which will invoke pytest:
 
 ## Author
 Pavel Bakharuev, p.baharuev@innopolis.university
+
+![Alt text](image.png)
