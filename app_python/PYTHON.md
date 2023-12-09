@@ -1,19 +1,16 @@
-### FastAPI application for DevOps course.
-I chose FastAPI framework, because it has high performance, asynchronous capabilities (that make it efficient to handle big number of simultaneous requests, it's beneficial for such applications as this, because it requires real-time data processing). As an advantage, it has automatic API documentation generation.
+I've designed my application to feature a solitary API endpoint dedicated to displaying the current time. To validate the accuracy of this functionality, I've established a unit test specifically crafted to confirm that the endpoint consistently delivers the correct time.
+Furthermore, I've implemented a basic integration test to verify not only the operational status of the application but also its ability to return the accurate time. This comprehensive testing approach ensures the robustness and reliability of the time-displaying API endpoint in my application.
 
-In variable app I created a new instance of the FastAPI framework, it will be used to define routes, endpoints and behavior of web application.
+Best practices:
+Isolation of Unit Tests:
 
-In next statement I declare an instance of Jinja2Templates, that used for rendering HTML templates.
+Unit tests are kept independent of each other. This ensures that the outcome of one test does not impact another, fostering a more robust and predictable testing environment.
+Isolation from External Dependencies:
 
-In next lines I defined an endpoint using @app.get decorator, it configured to handle HTTP GET requests to the root 'http://{host}:{port}/'. It returns current Moscow time as an HTML page response.
+Unit tests are designed to be isolated from external dependencies. This helps in creating a controlled environment for testing, preventing issues that may arise from external factors such as network fluctuations or external service outages.
+AAA Pattern (Arrange, Act, Assert):
 
-I used current time on server with specified timezone as an information about current Moscow time. This application will work correctly with assumption that server obtains correct information about current time.
+Following the AAA pattern in unit tests enhances test readability and maintainability. This pattern emphasizes the importance of clearly separating the setup (Arrange), the action or operation being tested (Act), and the expected outcome or assertion (Assert).
+Inclusion of Component and System (Integration) Tests:
 
-I tried my best in code style, I don't know if I need to clarify something about it.
-
-I created a config file temporary, for containing some useful data. It will be removed on stage of containerization.
-
-Unit tests:
-I created a mock test client for my application and implemented two unit tests.
-First one checks for a  success response for current time request.
-Second one validates current time, compare it to current time on system within a 5 seconds range.
+Beyond unit tests, you have incorporated component and system (integration) tests. These higher-level tests focus on checking the overall behavior of the application, such as ensuring the app server is running correctly and returning the expected results.
