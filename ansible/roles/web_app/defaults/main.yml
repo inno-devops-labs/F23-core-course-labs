@@ -1,0 +1,5 @@
+container_name: "moscow_time_python"
+image: "el3os/moscow_time_python"
+
+app_name: "python_app"
+web_app_full_wipe: true
