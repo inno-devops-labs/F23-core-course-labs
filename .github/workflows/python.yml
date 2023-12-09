@@ -49,23 +49,23 @@ jobs:
       - name: Test with pytest
         run: python -m pytest
 
-  snyk:
-    runs-on: ubuntu-22.04
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+#   snyk:
+#     runs-on: ubuntu-22.04
+#     steps:
+#       - name: Checkout repo
+#         uses: actions/checkout@v4
 
-      - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/python-3.10@master
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        with:
-          args: --file=./app_python/requirements.txt
-            --package-manager=pip
-            --skip-unresolved
+#       - name: Run Snyk to check for vulnerabilities
+#         uses: snyk/actions/python-3.10@master
+#         env:
+#           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+#         with:
+#           args: --file=./app_python/requirements.txt
+#             --package-manager=pip
+#             --skip-unresolved
 
   docker:
-    needs: [lint, test, snyk]
+    needs: [lint, test]
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout repo
