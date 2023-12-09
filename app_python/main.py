@@ -15,6 +15,7 @@ logger = logging.getLogger("waitress")
 logger.setLevel(logging.INFO)
 path_to_volume = "./volume/visits.txt"
 
+
 def update_visit_count():
     visit_count = 1
     if os.path.exists(path_to_volume):
