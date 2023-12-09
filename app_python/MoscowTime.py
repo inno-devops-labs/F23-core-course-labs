@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def MoscowTime():
-    counter_file = 'counter.csv'
+    counter_file = '/data/counter.csv'
     response = requests.get('https://api.api-ninjas.com/v1/worldtime?city={}'.format("Moscow"), timeout=5,
                             headers={'X-Api-Key': 'oZDQTEM0MJpKNshpblkFBQ==RRsPxd52ToPtLq75'})
 

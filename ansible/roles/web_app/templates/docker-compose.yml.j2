@@ -1,4 +1,4 @@
-version: "3.6"
+version: "3.7"
 services:
   app:
     image: {{ image }}
@@ -9,4 +9,7 @@ services:
 {% endfor %}
 {% endif %}
     volumes:
-      - data:/counter.csv
+      - data:/data/
+
+volumes:
+  data:
