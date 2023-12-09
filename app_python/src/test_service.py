@@ -2,6 +2,7 @@ import datetime
 import logging
 import time
 import unittest
+import visits_counter
 
 
 class TimerTest(unittest.TestCase):
@@ -11,7 +12,9 @@ class TimerTest(unittest.TestCase):
         logger = logging.getLogger()
         logger.setLevel(logging.INFO)
 
-        timer = service.Timer(logger)
+        visits = visits_counter.VisitsCounter('test.txt')
+
+        timer = service.Timer(visits, logger)
 
         self.assertIsNotNone(timer)
 
