@@ -5,6 +5,10 @@ LABEL version="1.0" maintainer="Mikhail Dmitriev <m.dmitriev@innopolis.universit
 WORKDIR /python_app
 
 RUN adduser -D newuser && chown -R newuser /python_app
+
+RUN mkdir /data && chown newuser /data
+VOLUME [ "/data" ]
+
 USER newuser
 
 COPY requirements.txt requirements.txt

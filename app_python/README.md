@@ -16,3 +16,55 @@ CI contains setting up for python v3.11, dependencies installation, linting (wit
 
 ## Unit Tests
 unit tests are executed using pytest, which is getting installed during the workflow
+
+# Visits count proof (http://51.250.102.232:5555)
+```
+linkstaple@MacBook-Pro-Michael ~ % curl http://51.250.102.232:5555/visits
+```
+{"visits":1}
+```
+linkstaple@MacBook-Pro-Michael ~ % curl http://51.250.102.232:5555       
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time in Moscow</title>
+    <link href="/static/style.css" rel="stylesheet"/>
+</head>
+<body>
+    <div class="layout">
+        <h1 class="title">CURRENT MOSCOW TIME</h1>
+        <div class="datetime">
+            <div class="date">09-12-2023</div>
+            <div class="time">18:15:27</div>
+        </div>
+    </div>
+</body>
+</html>%                                                                                                                                              ```
+linkstaple@MacBook-Pro-Michael ~ % curl http://51.250.102.232:5555
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time in Moscow</title>
+    <link href="/static/style.css" rel="stylesheet"/>
+</head>
+<body>
+    <div class="layout">
+        <h1 class="title">CURRENT MOSCOW TIME</h1>
+        <div class="datetime">
+            <div class="date">09-12-2023</div>
+            <div class="time">18:15:30</div>
+        </div>
+    </div>
+</body>
+</html>%
+```
+linkstaple@MacBook-Pro-Michael ~ % curl http://51.250.102.232:5555/visits
+```
+{"visits":3}
+linkstaple@MacBook-Pro-Michael ~ % 
