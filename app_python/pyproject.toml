@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "app-python"
+version = "0.1.0"
+description = ""
+authors = ["vlasov-egor <vlasov-egorl@ya.ru>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pytz = "^2023.3.post1"
+pytest = "^7.4.2"
+pylint = "^2.17.5"
+fastapi = "^0.104.0"
+uvicorn = "^0.23.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: devops-python-app
+spec:
+  selector:
+    app: devops-python-app
+  ports:
+    - port: 8080
+      targetPort: 8080
