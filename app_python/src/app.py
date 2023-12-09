@@ -1,17 +1,14 @@
-from aiohttp import web
-from time_provider import TimeProvider
-from html_wrapper import HtmlWrapper
+import pytz
+from datetime import datetime
+from fastapi import FastAPI
+from fastapi.responses import HTMLResponse
+
+app = FastAPI()
+tz = pytz.timezone('Europe/Moscow')
 
 
-async def get_current_datetime(_):
-    time = str(TimeProvider.get_current_datetime())
-    html = HtmlWrapper.align_content_to_center(time)
+@app.get('/')
+def get_current_time():
+    time = str(datetime.now(tz))
 
-    return web.Response(text=html, content_type='text/html')
-
-app = web.Application()
-
-app.add_routes([web.get('/', get_current_datetime)])
-
-if __name__ == '__main__':
-    web.run_app(app, host='0.0.0.0', port='8080')
+    return HTMLResponse(text=f"<center>"f"<h1>{time}</h1>"f"</center>", content_type='text/html')
