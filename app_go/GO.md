@@ -1,6 +1,4 @@
-I've designed my application to feature a solitary API endpoint dedicated to displaying the current time. To validate the accuracy of this functionality, I've established a unit test specifically crafted to confirm that the endpoint consistently delivers the correct time.
-Furthermore, I've implemented a basic integration test to verify not only the operational status of the application but also its ability to return the accurate time. This comprehensive testing approach ensures the robustness and reliability of the time-displaying API endpoint in my application.
-
+I've opted for a test-driven methodology, wherein I write tests before implementing specific functionalities in the application. I utilize Go's built-in go test functionality to execute these tests. Given that my application primarily comprises a single API endpoint displaying the current time, I've developed a unit test to verify the accuracy of the time returned by the endpoint. Additionally, I've crafted a straightforward integration test to ensure that the application is operational and returns the correct time.
 Best practices:
 Isolation of Unit Tests:
 
