@@ -5,7 +5,7 @@ networks:
 
 services:
   python_app:
-    image: wiirtex/python_time_service:0.4.0
+    image: sha256:ff8a067d1d9a4857397e2751fea03098d291f9f5c7541848175a8feb752d6826
     container_name: python_app
     ports:
       - "7098:7098"
