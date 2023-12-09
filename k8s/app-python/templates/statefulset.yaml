@@ -60,7 +60,17 @@ spec:
           volumeMounts:
             - name: config-volume
               mountPath: /app/config/config.json
-              subPath: config.json
+              subPath: config.json  
+      initContainers:
+      - name: install
+        image: busybox:1.28
+        command:
+        - "sh"
+        - "-c"
+        - "wget -O /appdata/index.html http://example.com && echo 'OK'"
+        volumeMounts:
+        - name: workdir
+          mountPath: /appdata    
       volumes:
         - name: config-volume
           configMap:
