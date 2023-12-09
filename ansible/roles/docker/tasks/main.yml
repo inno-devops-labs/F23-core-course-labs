@@ -1,0 +1,39 @@
+---
+
+- name: include tasks for CentOS like distributions
+  include: centos.yml
+  when: ansible_os_family == 'RedHat'
+
+- name: include tasks for Debian like distributions
+  include: debian.yml
+  when: ansible_os_family == 'Debian'
+
+- name: add users to the docker group
+  user:
+    name: "{{item}}"
+    groups: docker
+    append: yes
+  with_items: "{{docker_users}}"
+
+- name: create /etc/docker
+  file:
+    dest: /etc/docker
+    state: directory
+
+- name: configure docker daemon
+  template:
+    dest: /etc/docker/daemon.json
+    src: daemon.json.j2
+  notify: reload docker daemon
+
+- name: enable docker daemon
+  service:
+    name: "{{docker_daemon}}"
+    enabled: yes
+  when: docker_enabled
+
+- name: start docker daemon
+  service:
+    name: "{{docker_daemon}}"
+    state: started
+  when: docker_started
