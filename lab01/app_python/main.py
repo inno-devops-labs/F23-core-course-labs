@@ -1,3 +1,4 @@
+import os
 from abc import ABC, abstractmethod
 from fastapi import APIRouter, FastAPI, Depends, Response
 import uvicorn
@@ -26,6 +27,8 @@ def _get_visits() -> int:
 
 
 def update_visits():
+    if 'WRITE_VISITS' in os.environ and os.environ['WRITE_VISITS'] == 'false':
+        return
     num = _get_visits()
     num += 1
     filepath.write_text(str(num))
