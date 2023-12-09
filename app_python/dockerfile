@@ -1,4 +1,4 @@
-FROM python:3.10
+FROM python:3.11.3-slim
 
 RUN mkdir /app
 COPY ./ /app
@@ -6,12 +6,15 @@ WORKDIR /app
 
 ENV PYTHONPATH=${PYTHONPATH}:${PWD}
 
-RUN useradd -ms /bin/bash pythonapp
-
-RUN pip3 install poetry==1.5.1
+RUN python -m pip install --no-cache-dir --upgrade pip
+RUN pip install --no-cache-dir poetry
 RUN poetry config virtualenvs.create false 
 RUN poetry install --no-dev
 
-USER pythonapp
+# RUN adduser app --system -S /bin/nologin -D -H
+# USER app
 
-ENTRYPOINT exec uvicorn src.app:app --host 0.0.0.0 --port 8080
+ENV PORT="8000"
+EXPOSE $PORT
+
+CMD ["sh", "-c", "/usr/local/bin/python3 -m exec uvicorn src.app:app --host 0.0.0.0 --port $PORT"]

@@ -37,3 +37,21 @@ Open URL in browser
 # Unit tests
 `/test` - unit tests
 `pytest` - use for testing
+
+# Docker
+
+## Pull
+```bash
+docker pull vlasovegorl/devops-python-app:latest
+```
+
+## Build
+```bash
+docker build -t vlasovegorl/devops-python-app:latest .
+```
+
+## Run
+```bash
+docker run -p 8000:8000 -it vlasovegorl/devops-python-app:latest
+```
+Application will be available on port 8000
