@@ -1,22 +1,24 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
-  name: {{ .Values.deployment.name }}
+  name: {{ .Values.statefulset.name }}
   labels:
-    app: {{ .Values.deployment.label }}
+    app: {{ .Values.statefulset.label }}
 spec:
   replicas: {{ .Values.replicaCount }}
+  serviceName: {{ .Values.service.name }}
+  podManagementPolicy: Parallel
   selector:
     matchLabels:
-      app: {{ .Values.deployment.label }}
+      app: {{ .Values.statefulset.label }}
   template:
     metadata:
       labels:
-        app: {{ .Values.deployment.label }}
+        app: {{ .Values.statefulset.label }}
     spec:
-      serviceAccountName: {{ .Values.deployment.serviceAccountName }}
+      serviceAccountName: {{ .Values.statefulset.serviceAccountName }}
       containers:
-        - name: {{ .Values.deployment.containerName }}
+        - name: {{ .Values.statefulset.containerName }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           resources:
             requests:
@@ -36,9 +38,22 @@ spec:
             - name: config-volume
               mountPath: /config
               readOnly: true
-
+            {{- if .Values.storage.create }}
+            - name: {{ .Values.storage.name }}
+              mountPath: /data
+            {{- end }}
       volumes:
         - name: config-volume
           configMap:
             name: {{ .Values.configMap.name }}
-
+  {{- if .Values.storage.create }}
+  volumeClaimTemplates:
+    - metadata:
+        name: {{ .Values.storage.name }}
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        storageClassName: {{ .Values.storage.storageClass }}
+        resources:
+          requests:
+            storage: {{ .Values.storage.size }}
+  {{- end }}
