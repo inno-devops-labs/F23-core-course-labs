@@ -30,6 +30,10 @@ $ python run.py
 
 The application should now be running at http://localhost:5000.
 
+To see the number of visits to the website go to http://localhost:5000/visits
+
+Also, some metrics gathered about the app here: http://localhost:5000/metrics
+
 ## Running the Tests
 
 ```
