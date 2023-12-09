@@ -72,4 +72,30 @@ services:
       - loki
     logging:
        <<: *logger
-    
+  
+  prometheus:
+    image: prom/prometheus:v2.47.2
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - "./prometheus/config.yml:/etc/prometheus/prometheus-config.yml"
+    command:
+      - "--config.file=/etc/prometheus/prometheus-config.yml"
+      - "--storage.tsdb.path=/prometheus"
+      - "--web.console.libraries=/etc/prometheus/console_libraries"
+      - "--web.console.templates=/etc/prometheus/consoles"
+      - "--storage.tsdb.retention.time=200h"
+      - "--web.enable-lifecycle"
+    healthcheck:
+      test: [ "CMD-SHELL", "wget -q --tries=1 --spider http://localhost:9090/status || exit 1" ]
+      timeout: 10s
+      start_period: 15s
+    deploy:
+      resources:
+        limits:
+          memory: 750m
+    logging: 
+      <<: *logger
+    networks:
+      - loki
