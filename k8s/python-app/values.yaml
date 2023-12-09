@@ -7,7 +7,7 @@ replicaCount: 3
 containerPort: 5000
 
 image:
-  repository: xmtox/moscow_time
+  repository: xmtosx/moscow_time
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
