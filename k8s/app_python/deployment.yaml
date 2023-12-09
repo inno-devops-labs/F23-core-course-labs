@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-python
+spec:
+  selector:
+    matchLabels:
+      app: app-python
+  replicas: 2 # tells deployment to run 2 pods matching the template
+  template:
+    metadata:
+      labels:
+        app: app-python
+    spec:
+      containers:
+      - name: app-python
+        image: wiirtex/python_time_service:0.4.0
+        ports:
+        - containerPort: 7098
