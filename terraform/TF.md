@@ -57,7 +57,7 @@ resource "docker_container" "nginx" {
     wait_timeout                                = 60
 
     ports {
-        external = 8000
+        external = 5000
         internal = 80
         ip       = "0.0.0.0"
         protocol = "tcp"
