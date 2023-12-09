@@ -12,6 +12,9 @@ RUN pip3 install poetry==1.5.1
 RUN poetry config virtualenvs.create false 
 RUN poetry install --no-dev
 
+RUN mkdir -p /proj/data && chown pythonapp /proj/data
+VOLUME /proj/data
+
 USER pythonapp
 
 ENTRYPOINT exec uvicorn src.app:app --host 0.0.0.0 --port 8080

@@ -40,8 +40,6 @@ spec:
             - name: http
               containerPort: {{ .Values.service.port }}
               protocol: TCP
-          env:
-            {{- include "my-app-1.env" . | nindent 12 }}
           livenessProbe:
             httpGet:
               path: /
@@ -53,11 +51,33 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           {{- with .Values.volumeMounts }}
+          env:
+            - name: "USERNAME"
+              valueFrom:
+                secretKeyRef:
+                  name: db-credentials
+                  key: username
+            - name: "PASSWORD"
+              valueFrom:
+                secretKeyRef:
+                  name: db-credentials
+                  key: password
           volumeMounts:
+            - name: config-volume-kn
+              mountPath: "/proj/config.json"
+              subPath: config.json
+            - name: counter-data-kn
+              mountPath: /proj/data
             {{- toYaml . | nindent 12 }}
           {{- end }}
       {{- with .Values.volumes }}
       volumes:
+        - name: config-volume-kn
+          configMap:
+            name: config-map-entity-kn
+        - name: counter-data-kn
+          emptyDir:
+            sizeLimit: 500Mi
         {{- toYaml . | nindent 8 }}
       {{- end }}
       {{- with .Values.nodeSelector }}
