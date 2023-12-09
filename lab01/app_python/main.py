@@ -8,12 +8,13 @@ from uuid import UUID, uuid4
 from functools import lru_cache
 import prometheus_client
 from pathlib import Path
+import logging
 # zd2
 
 
 app = FastAPI()
 
-filepath = Path('/app_python/visits')
+filepath = Path('/app_python/volumes/visits')
 
 
 def _get_visits() -> int:
@@ -167,7 +168,9 @@ app.include_router(prefix='/notes', router=notes_router)
 
 if __name__ == '__main__':
     if not filepath.exists():
-        raise ValueError(f'{filepath} does not exist')
+        logging.warning(f"File {filepath} not found. Create it")
+        filepath.touch(exist_ok=True)
+        logging.warning(f"File {filepath} is created")
     parser = argparse.ArgumentParser(
         formatter_class=argparse.ArgumentDefaultsHelpFormatter
     )

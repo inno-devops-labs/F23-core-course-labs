@@ -24,8 +24,6 @@ spec:
         - name: app-python
           image: ilyasiluyanov/app_python:dev
           imagePullPolicy: Always
-          command: ["sleep"]
-          args: ["100500"]
           ports:
             - containerPort: {{ .Values.containerPort }}
           volumeMounts:
@@ -33,8 +31,13 @@ spec:
               mountPath: /app-python/config.json
               subPath: config.json
             - name: visits-storage
-              mountPath: /app_python/visits
-              subPath: visits
+              mountPath: /app_python/volumes
+          env:
+            - name: labnofromcm
+              valueFrom:
+                configMapKeyRef:
+                  name: envfromconfigmap
+                  key: labnofromcm
 
       volumes:
         - name: lab12-config
