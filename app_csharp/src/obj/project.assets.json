@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/egor-vlasov/src/IU/iu-devops-labs/lab1/app_csharp/src/src.csproj",
+      "projectUniqueName": "/Users/egor-vlasov/src/IU/iu-devops-labs/app_csharp/src/src.csproj",
       "projectName": "src",
-      "projectPath": "/Users/egor-vlasov/src/IU/iu-devops-labs/lab1/app_csharp/src/src.csproj",
+      "projectPath": "/Users/egor-vlasov/src/IU/iu-devops-labs/app_csharp/src/src.csproj",
       "packagesPath": "/Users/egor-vlasov/.nuget/packages/",
-      "outputPath": "/Users/egor-vlasov/src/IU/iu-devops-labs/lab1/app_csharp/src/obj/",
+      "outputPath": "/Users/egor-vlasov/src/IU/iu-devops-labs/app_csharp/src/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/egor-vlasov/.nuget/NuGet/NuGet.Config"

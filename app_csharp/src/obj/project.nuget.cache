@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Dk2g0UAR1BMa1grA75aTtcgMg3nfbQrMaIgbf58QkEsqDdu0/+w7lVz96CSh5mY18DMR2R0stMx94fb6tejaYA==",
+  "dgSpecHash": "eaHItGa9q2Xjhy/PDO4WWquVzcb/LSUOxY5DrgkN7cg7vMteo2aB15msHqn4xgLlpYHs0VuSiw593f9bLfWkNg==",
   "success": true,
-  "projectFilePath": "/Users/egor-vlasov/src/IU/iu-devops-labs/lab1/app_csharp/src/src.csproj",
+  "projectFilePath": "/Users/egor-vlasov/src/IU/iu-devops-labs/app_csharp/src/src.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
