@@ -47,11 +47,25 @@ jobs:
           pip install -r ./app_python/requirements.txt
 
       - name: Test with pytest
-        run: python3 app_python/test_main.py
+        run: python -m pytest
 
+  snyk:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/python-3.10@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --file=./app_python/requirements.txt
+            --package-manager=pip
+            --skip-unresolved
 
   docker:
-    needs: [lint, test]
+    needs: [lint, test, snyk]
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout repo
@@ -69,4 +83,4 @@ jobs:
           context: ./app_python
           file: ./app_python/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/do_course:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/innopolis-devops-python-app:latest
