@@ -1,0 +1,1 @@
+flask --app src/index run --debug
