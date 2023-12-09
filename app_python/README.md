@@ -54,6 +54,7 @@ These instructions will help you set up and run the project on your local machin
 ## Visits count
 
 * You can check visits count at: /visits
+* It saves count in /visits.txt
 
 ## Tests
 
