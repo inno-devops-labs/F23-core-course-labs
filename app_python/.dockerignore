@@ -1,9 +1,4 @@
-.dockerignore
-README*
+__pycache__/
 Dockerfile
-DOCKER*
-.git*
-.env*
-.docker*
-PYTHON*
-photo-proof*
+*.md
+*.git/
