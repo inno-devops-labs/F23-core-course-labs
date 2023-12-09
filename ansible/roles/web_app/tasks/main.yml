@@ -1,0 +1,11 @@
+---
+- name: Pull image and run container
+  community.docker.docker_container:
+    name: 'my_app'
+    image: "midnoon/devops-lab:latest"
+    exposed_ports:
+      - 8000
+    published_ports:
+      - 8000:8000
+  tags:
+    - deployment
