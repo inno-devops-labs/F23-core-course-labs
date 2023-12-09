@@ -1,0 +1,5 @@
+yandex-cloud:
+  hosts:
+    main:
+      ansible_host: 51.250.102.232
+      ansible_user: linkstaple

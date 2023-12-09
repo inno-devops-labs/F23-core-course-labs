@@ -1,0 +1,6 @@
+- name: deploy
+  become: yes
+  hosts:
+    yandex-cloud
+  roles:
+    - docker
