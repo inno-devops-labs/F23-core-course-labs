@@ -19,6 +19,6 @@ spec:
     spec:
       containers:
         - name: app-python
-          image: rakavaqaflow/app-python:v1
+          image: rakavaqaflow/app-python:latest
           ports:
             - containerPort: 5000

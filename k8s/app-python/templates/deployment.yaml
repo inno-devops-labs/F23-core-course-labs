@@ -40,6 +40,12 @@ spec:
             - name: http
               containerPort: 5000
               protocol: TCP
+          env:
+            - name: PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: secret-base
           livenessProbe:
             httpGet:
               path: /
