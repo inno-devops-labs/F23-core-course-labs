@@ -9,6 +9,7 @@ WORKDIR /app
 
 # Copy the requirements file and install dependencies
 COPY requirements.txt /app/requirements.txt
+COPY /volume/visits.txt /app/volume/
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the application code
