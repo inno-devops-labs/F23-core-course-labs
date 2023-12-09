@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: linkstaple/app_python_arm
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
 
@@ -85,11 +85,28 @@ volumes: []
 #     secretName: mysecret
 #     optional: false
 
+volumeClaimTemplates:
+  - metadata:
+      name: app-chart
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      resources:
+        requests:
+          storage: 10Mi
+
+
 # Additional volumeMounts on the output Deployment definition.
-volumeMounts: []
-# - name: foo
-#   mountPath: "/etc/foo"
-#   readOnly: true
+volumeMounts:
+  - name: visits-counter
+    mountPath: /data/visits
+    subPath: visits
+
+envKeys:
+  - name: SECRET_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: credentials
+        key: password
 
 nodeSelector: {}
 
