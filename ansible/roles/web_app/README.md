@@ -1,5 +1,5 @@
 # Overview
-This role serves the purpose of setting up Docker using the APT package manager, configuring it with Docker Compose via pip, and then pulling the "xmotsx/moscow_time(_go)" image to run it on the server.
+This role serves the purpose of setting up Docker using the APT package manager, configuring it with Docker Compose via pip, and then pulling the "xmotsx/moscow_time" image to run it on the server.
 
 ## Role Tasks
 1. Stop: Stop the running containers, Verify the existence of Docker Compose.
