@@ -42,6 +42,15 @@ securityContext: {}
 deployment:
   name: go-app
   label: go
+  serviceAccountName: internal-app
+  containerName: go-web
+
+configMap:
+  name: go-configmap
+
+envConfigMap:
+  name: go-configmap-env
+
 
 service:
   name: "go-web-app-svc"
