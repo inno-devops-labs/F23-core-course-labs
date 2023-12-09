@@ -15,4 +15,6 @@ RUN ~/opt/venv/bin/pip install --no-cache-dir -r requirements.txt
 
 COPY . ./app_python
 
+COPY volume/visits /app/volume/visits
+
 CMD . ~/opt/venv/bin/activate && exec python app_python/src/main.py
