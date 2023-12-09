@@ -83,4 +83,4 @@ jobs:
           context: ./app_python
           file: ./app_python/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/innopolis-devops-python-app:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/do_course:latest
