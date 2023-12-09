@@ -19,5 +19,8 @@ Application was written in python using [falcon framework](https://falconframewo
 To run tests:
 `$ python3 -m unittest app_test.Test`
 
+### Visits counter
+Application counts the number it was visited in visits file. In /monitoring/docker-compose.yml this visits file was mounted into /monitoring/visits for consistent logging
+
 ### CI Workflow
 On each push, CI workflow is triggered. It installs dependencies, runs linter, tests the application, builds and pushes docker image to dockerhub. 
