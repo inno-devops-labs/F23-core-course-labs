@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: midnoon/devops-lab
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
 
@@ -84,6 +84,15 @@ volumes: []
 #   secret:
 #     secretName: mysecret
 #     optional: false
+
+volumeClaimTemplates:
+  - metadata:
+      name: devops-lab
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      resources:
+        requests:
+          storage: 10Mi
 
 # Additional volumeMounts on the output Deployment definition.
 volumeMounts: []
