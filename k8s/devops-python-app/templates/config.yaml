@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: config-map-entity-kn
+  name: config-map-entity-py
   namespace: default
 data:
   config.json: |-
