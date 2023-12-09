@@ -51,6 +51,10 @@ These instructions will help you set up and run the project on your local machin
 
 2. Enter the app in browser at: http://127.0.0.1:5000/
 
+## Visits count
+
+* You can check visits count at: /visits
+
 ## Tests
 
 * I add some tests to check moscow time, using **pytest** library

@@ -24,7 +24,7 @@ def read_visits():
 
 def increment_visits():
     count = read_visits() + 1
-    with open("out/visits.txt", "w+") as file:
+    with open("visits.txt", "w+") as file:
         file.write(str(count))
     return count
 
