@@ -1,21 +1,24 @@
----
- - name: Install packages required by docker
-   apt:
-     name: "{{ docker_dependencies }}"
-     update_cache: yes
+# https://www.digitalocean.com/community/tutorials/how-to-use-ansible-to-install-and-set-up-docker-on-ubuntu-20-04
 
- - name: Add docker GPG key
-   apt_key:
-     url: "{{ docker_gpg_key }}"
+# Installing Docker using Pip
+- name: Update cache
+  apt:
+    update_cache: yes
 
- - name: Add docker apt repo
-   apt_repository:
-     repo: " {{ docker_repo }}"
+- name: Install dependencies
+  apt:
+    name: "{{ docker_dependencies }}"
+    update_cache: yes
 
- - name: Install docker
-   apt:
-     update_cache: yes
-     state: "{{ docker_packages_state }}"
-     name: "{{ docker_packages }}"
-   notify: Restart docker
-  
+- name: Add apt key
+  apt_key:
+    url: "{{ docker_apt_key }}"
+
+- name: Add repository
+  apt_repository:
+    repo: "{{ docker_repo }}"
+
+- name: Install Docker
+  apt:
+    name: "{{ docker_packages }}"
+    state: "{{ docker_packages_state }}"
