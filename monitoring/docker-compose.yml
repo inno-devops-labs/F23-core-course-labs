@@ -6,6 +6,7 @@ networks:
 services:
   app_python:
     image: linkstaple/app_python_arm:latest
+    container_name: app_python
     ports:
       - "5555:5555"
     networks:
@@ -17,10 +18,9 @@ services:
 
   loki:
     image: grafana/loki:2.9.2
+    container_name: loki
     ports:
       - "3100:3100"
-    volumes:
-      - ./loki-local-config.yml:/etc/loki/local-config.yaml
     command: -config.file=/etc/loki/local-config.yaml
     networks:
       - loki
@@ -29,7 +29,9 @@ services:
 
   promtail:
     image: grafana/promtail:2.9.2
+    container_name: promtail
     volumes:
+      - /var/lib/docker/containers:/var/lib/docker/containers
       - ./promtail.yml:/etc/promtail/config.yml
     command: -config.file=/etc/promtail/config.yml
     networks:
