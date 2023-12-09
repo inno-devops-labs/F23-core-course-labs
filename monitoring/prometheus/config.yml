@@ -1,11 +1,11 @@
-lobal:
+global:
   scrape_interval: 5s
 
 scrape_configs:
   # Python app
-  - job_name: my-app
+  - job_name: app_python
     static_configs:
-      - targets: [python_app:9000]
+      - targets: [app_python:5000]
 
   # Loki
   - job_name: loki
