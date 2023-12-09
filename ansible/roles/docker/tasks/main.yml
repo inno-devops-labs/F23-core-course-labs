@@ -1,0 +1,15 @@
+- name: Include install_pip
+  ansible.builtin.include_tasks:
+    file: 1_install_pip.yml
+
+- name: Include install_docker
+  ansible.builtin.include_tasks:
+    file: 2_install_docker.yml
+
+- name: Include install_compose
+  ansible.builtin.include_tasks:
+    file: 3_install_compose.yml
+
+- name: Include check_docker
+  ansible.builtin.include_tasks:
+    file: 4_check_version.yml
