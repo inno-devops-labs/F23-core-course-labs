@@ -1,0 +1,8 @@
+{{- define "mylibchart.labels" -}}
+{{- if .Chart.AppVersion }}
+app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+{{- end }}
+app.kubernetes.io/managed-by: {{ .Release.Service }}
+app.kubernetes.io/instance: {{ .Release.Name }}
+additional_template_label: "bonus-library-chart-label"
+{{- end }}
