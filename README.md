@@ -1,3 +1,5 @@
+![workflow name](https://github.com/bizuki/devops-course/actions/workflows/ci.yml/badge.svg)
+
 # DevOps Engineering Labs
 
 ## Introduction
