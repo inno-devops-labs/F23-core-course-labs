@@ -35,7 +35,6 @@ jobs:
         run: poetry install --no-interaction --no-root --with=test
       - name: check vulnerabilities using snyk
         uses: snyk/actions/python@master
-        continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
