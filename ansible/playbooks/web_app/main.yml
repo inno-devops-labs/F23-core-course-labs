@@ -1,0 +1,6 @@
+- name: deploy-app-python
+  become: yes
+  hosts:
+    yandex-cloud
+  roles:
+    - web_app

@@ -1,0 +1,11 @@
+- name: run app-python docker container
+
+  community.docker.docker_container:
+    name: 'app_python'
+    image: "linkstaple/app_python:latest"
+    exposed_ports:
+      - 5555
+    published_ports:
+      - 5555:5555
+  tags:
+    - deployment

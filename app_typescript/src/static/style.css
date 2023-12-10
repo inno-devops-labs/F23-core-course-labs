@@ -1,0 +1,43 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.layout {
+    width: 100vw;
+    height: 100vh;
+    background: #ffa69e;
+    overflow: hidden;
+}
+
+.title {
+    margin-top: 100px;
+    text-align: center;
+}
+
+.datetime {
+    width: 250px;
+    height: 150px;
+    margin: auto;
+    margin-top: 200px;
+    padding: 20px 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 12px;
+    box-shadow: 0 0 20px 2px #e4c1f9;
+    background: #a5adff;
+}
+
+.date {
+    font-size: 35px;
+    line-height: 37px;
+    font-weight: 600;
+}
+
+.time {
+    font-size: 28px;
+    line-height: 30px;
+}
