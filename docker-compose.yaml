@@ -5,7 +5,5 @@ services:
     ports:
       - "5000:5000"
     volumes:
-      - out:/app/out
-
-volumes:
-  out:
+      - ./out:/app/out
+      
