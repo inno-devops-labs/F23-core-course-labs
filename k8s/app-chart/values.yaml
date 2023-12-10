@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: linkstaple/app_python_arm
+  repository: linkstaple/app_python
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
@@ -40,8 +40,8 @@ securityContext: {}
   # runAsUser: 1000
 
 service:
-  type: ClusterIP
-  port: 80
+  type: NodePort
+  port: 5555
 
 ingress:
   enabled: false
@@ -94,12 +94,11 @@ volumeClaimTemplates:
         requests:
           storage: 10Mi
 
-
 # Additional volumeMounts on the output Deployment definition.
 volumeMounts:
-  - name: visits-counter
-    mountPath: /data/visits
-    subPath: visits
+- name: visits-counter
+  mountPath: /data/visits
+  subPath: visits
 
 envKeys:
   - name: SECRET_PASSWORD
