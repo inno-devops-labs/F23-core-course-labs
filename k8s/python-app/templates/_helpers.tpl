@@ -61,9 +61,7 @@ Create the name of the service account to use
 {{- end }}
 {{- end }}
 
-{{- define "python-app.pythonEnvs" -}}
-- name: RELEASE_NAME
-  value: {{ .Release.Name }}
-- name: SLEEP_TIME
-  value: "{{ .Values.sleepyTime }}"
-{{- end -}}
+{{- define "python-app.envVars" -}}
+- name: "VAR"
+  value: "V1"
+{{- end }}

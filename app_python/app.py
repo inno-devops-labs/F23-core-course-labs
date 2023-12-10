@@ -7,7 +7,25 @@ metrics = PrometheusMetrics(app)
 
 @app.route('/time', methods=["GET"])
 def display_moscow_time():
+    with open('./volume/visits', 'r') as f:
+        visits = int(f.read()) + 1
+    with open('./volume/visits', 'w') as f:
+        f.write(str(visits))
     return get_moscow_time()
+
+@app.route('/visits')
+def visits():
+    """
+    Returns the rendered visits page template
+    """
+    with open('./volume/visits', 'r') as f:
+        visits = f.read()
+
+    return app.response_class(
+        response=str(visits),
+        status=200,
+        mimetype="text/plain"
+    )
 
 def get_moscow_time():
     # Get the current time in UTC
