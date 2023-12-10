@@ -19,6 +19,11 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v3
+      - name: install poetry
+        uses: snok/install-poetry@v1
+        with:
+          virtualenvs-create: true
+          installer-parallel: true
       - name: setup python
         id: setup-python
         uses: actions/setup-python@v4
@@ -26,11 +31,6 @@ jobs:
           python-version: '3.10'
           cache: 'poetry'
           cache-dependency-path: 'app_python/poetry.lock'
-      - name: install poetry
-        uses: snok/install-poetry@v1
-        with:
-          virtualenvs-create: true
-          installer-parallel: true
       - name: install dependencies
         run: poetry install --no-interaction --no-root --with=test
       - name: check vulnerabilities using snyk
