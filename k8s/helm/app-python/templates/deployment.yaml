@@ -42,6 +42,11 @@ spec:
                 secretKeyRef:
                   name: mypass
                   key: password
+            - name: "LAB12_BONUS"
+              valueFrom:
+                configMapKeyRef:
+                  name: config
+                  key: bonusEnv
           {{ include "app-python.dummyEnvs" . | nindent 12 }}
           ports:
             - name: http
@@ -57,14 +62,19 @@ spec:
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-          {{- with .Values.volumeMounts }}
           volumeMounts:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
-      {{- with .Values.volumes }}
+            - name: config
+              mountPath: "/config.json"
+              subPath: config.json
+            - name: persistence
+              mountPath: /persistence
       volumes:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+        - name: config
+          configMap:
+            name: config
+        - name: persistence
+          emptyDir:
+            sizeLimit: 500Mi
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

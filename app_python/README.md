@@ -47,7 +47,7 @@ pylint *.py
 ### Use prebuild image:
 
 ```bash
-docker run amoriodi/app_python:latest
+docker run -v ./persistence:/persistence amoriodi/app_python:latest
 ```
 
 ### Build manually:
