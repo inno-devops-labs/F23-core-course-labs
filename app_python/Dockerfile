@@ -10,7 +10,13 @@ COPY . .
 
 RUN useradd --system --uid 1000 --group users appuser
 
+RUN mkdir /data && chown -R appuser:users /data
+
+VOLUME [ "/data" ]
+
 USER appuser
+
+ENV VISITFILE="/data/visits"
 
 RUN pytest tests
 

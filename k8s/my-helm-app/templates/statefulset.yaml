@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ .Values.statefulset.name }}
+  labels:
+    app: {{ .Values.statefulset.label }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  serviceName: {{ .Values.service.name }}
+  podManagementPolicy: Parallel
+  selector:
+    matchLabels:
+      app: {{ .Values.statefulset.label }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.statefulset.label }}
+    spec:
+      serviceAccountName: {{ .Values.statefulset.serviceAccountName }}
+      containers:
+        - name: {{ .Values.statefulset.containerName }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m" 
+          ports:
+          - containerPort: {{ .Values.service.port }}
+          env:
+            {{- include "my-helm-app.envVars" . | nindent 12 }}
+          envFrom:
+            - configMapRef:
+                name: {{ .Values.envConfigMap.name }}
+          volumeMounts:
+            - name: config-volume
+              mountPath: /config
+              readOnly: true
+            {{- if .Values.storage.create }}
+            - name: {{ .Values.storage.name }}
+              mountPath: /data
+            {{- end }}
+      volumes:
+        - name: config-volume
+          configMap:
+            name: {{ .Values.configMap.name }}
+  {{- if .Values.storage.create }}
+  volumeClaimTemplates:
+    - metadata:
+        name: {{ .Values.storage.name }}
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        storageClassName: {{ .Values.storage.storageClass }}
+        resources:
+          requests:
+            storage: {{ .Values.storage.size }}
+  {{- end }}

@@ -43,6 +43,27 @@ deployment:
   name: go-app
   label: go
   serviceAccountName: internal-app
+  containerName: go-web
+
+statefulset:
+  name: stateful-go-app
+  label: go
+  serviceName: stateful-go-svc
+  serviceAccountName: stateful-internal-app
+  containerName: stateful-go-web
+
+storage:
+  create: false
+  name: data
+  size: 1Mi
+  storageClass: standard  
+
+configMap:
+  name: go-configmap
+
+envConfigMap:
+  name: go-configmap-env
+
 
 service:
   name: "go-web-app-svc"

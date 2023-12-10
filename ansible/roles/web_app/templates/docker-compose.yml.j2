@@ -7,3 +7,8 @@ services:
         - {{ ports }}
     environment:
         - TZ={{ timezone }}
+    volumes:
+      - data:/data
+
+volumes:
+  data:
