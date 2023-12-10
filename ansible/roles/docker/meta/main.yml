@@ -1,0 +1,21 @@
+galaxy_info:
+  author: Thomas Steinert
+  description: Install and configure docker-ce.
+  license: MIT
+  min_ansible_version: 2.3
+  github_branch: master
+  platforms:
+    - name: Debian
+      versions:
+        - jessie
+    - name: EL
+      versions:
+        - 7
+    - name: Ubuntu
+      versions:
+        - xenial
+  galaxy_tags:
+    - docker
+    - install
+    - config
+dependencies: []

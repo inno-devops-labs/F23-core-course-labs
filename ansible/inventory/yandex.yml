@@ -1,0 +1,5 @@
+yandex:
+  hosts:
+    main:
+      ansible_host: 51.250.8.189
+      ansible_user: midnoon

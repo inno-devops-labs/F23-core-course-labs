@@ -1,0 +1,6 @@
+- name: deploy-docker
+  become: yes
+  hosts:
+    yandex
+  roles:
+    - docker

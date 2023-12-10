@@ -1,0 +1,11 @@
+---
+
+docker_daemon: docker
+docker_daemon_config: {}
+docker_enabled: true
+docker_package: docker-ce
+docker_started: true
+docker_reload: reloaded
+docker_users:
+  - root
+docker_version: latest
