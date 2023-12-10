@@ -1,18 +1,16 @@
-# Default values for app-helm.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
-
-replicaCount: 3
+replicaCount: 1
 
 image:
-  repository: nginx
+  repository: pavel5609/do_course
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
+  tag: "latest"
 
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
+
+podManagementPolicy: Parallel
 
 serviceAccount:
   # Specifies whether a service account should be created
@@ -32,11 +30,19 @@ podAnnotations:
 podLabels: {}
 
 podSecurityContext: {}
+  # fsGroup: 2000
 
 securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
 service:
   type: ClusterIP
-  port: 80
+  port: 5000
 
 ingress:
   enabled: false
@@ -54,17 +60,15 @@ ingress:
   #    hosts:
   #      - chart-example.local
 
+
 resources:
-  # We usually recommend not to specify default resources and to leave this as a conscious
-  # choice for the user. This also increases chances charts run on environments with little
-  # resources, such as Minikube. If you do want to specify resources, uncomment the following
-  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
   limits:
-    cpu: 200m
-    memory: 256Mi
+    cpu: 100m
+    memory: 128Mi
   requests:
     cpu: 100m
     memory: 128Mi
+
 
 autoscaling:
   enabled: false
@@ -77,21 +81,19 @@ autoscaling:
 volumes:
   - name: config
     configMap:
-      name: config-configmap
-
-pvc:
-  create: true
-  name: visits-web
-  size: 1Mi
-  storageClass: standard
+      name: configmap
+  - name: init-data
+    emptyDir:
+      sizeLimit: 10Mi
 
 # Additional volumeMounts on the output Deployment definition.
 volumeMounts:
-  - name: visits-web
-    mountPath: "/app/volume"
-
-configmap:
-  enabled: false
+  - name: config
+    mountPath: "/config.json"
+    subPath: config.json
+    readOnly: true
+  - name: init-files
+    mountPath: /init-files
 
 nodeSelector: {}
 
@@ -99,10 +101,37 @@ tolerations: []
 
 affinity: {}
 
-password:
-  existingSecret: secret-base
-  existingSecretKey: password
+volumeClaimTemplates:
+- metadata:
+    name: python-stateful-volume
+  spec:
+    accessModes: [ "ReadWriteOnce" ]
+    resources:
+      requests:
+        storage: 50Mi
 
-token:
-  existingSecret: token-base
-  existingSecretKey: token
+initContainers:
+  - name: init-step-1
+    image: busybox:1.28
+    command: [ "wget", "-O", "/init-files/index-0.html", "http://info.cern.ch" ]
+    volumeMounts:
+    - name: init-files
+      mountPath: /init-files
+  - name: init-step-2
+    image: busybox:1.28
+    command:  [ "wget", "-O", "/init-files/index-1.html", "http://info.cern.ch" ]
+    volumeMounts:
+      - name: init-files
+        mountPath: /init-files
+  - name: init-step-3
+    image: busybox:1.28
+    command:  [ "wget", "-O", "/init-files/index-2.html", "http://info.cern.ch" ]
+    volumeMounts:
+      - name: init-files
+        mountPath: /init-files
+  - name: init-step-4
+    image: busybox:1.28
+    command:  [ "wget", "-O", "/init-files/index-3.html", "http://info.cern.ch" ]
+    volumeMounts:
+      - name: init-files
+        mountPath: /init-files
