@@ -38,14 +38,13 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
           args: 
-            --sarif-file-output=snyk.sarif
-            --file=app_python/app_python/pyproject.toml
+            --sarif-file-output=app_python/snyk.sarif
             --file=app_python/poetry.lock
             --package-manager=poetry
       - name: upload report
         uses: github/codeql-action/upload-sarif@v2
         with:
-          sarif_file: snyk.sarif
+          sarif_file: app_python/snyk.sarif
       - name: run linter
         run: poetry run pycodestyle src
       - name: run tests
