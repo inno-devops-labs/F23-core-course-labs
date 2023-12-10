@@ -152,7 +152,7 @@ initContainers:
     command:
       - "sh"
       - "-c"
-      - "echo el3os >> /work-dir/file"
+      - "echo one >> /work-dir/file"
     volumeMounts:
       - name: init-data-py
         mountPath: "/work-dir"
@@ -161,7 +161,7 @@ initContainers:
     command:
       - "sh"
       - "-c"
-      - "echo el3os >> /work-dir/file"
+      - "echo two >> /work-dir/file"
     volumeMounts:
       - name: init-data-py
         mountPath: "/work-dir"
@@ -170,7 +170,7 @@ initContainers:
     command:
       - "sh"
       - "-c"
-      - "echo el3os >> /work-dir/file"
+      - "echo three >> /work-dir/file"
     volumeMounts:
       - name: init-data-py
         mountPath: "/work-dir"
