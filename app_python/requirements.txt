@@ -1,0 +1,6 @@
+flask
+pytz
+pytest
+flake8
+prometheus_flask_exporter
+waitress
