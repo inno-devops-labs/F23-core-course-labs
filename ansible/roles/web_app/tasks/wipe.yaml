@@ -1,0 +1,14 @@
+- name: Stop application
+  docker_compose:
+    project_src: "/opt/{{ image }}"
+    state: absent
+
+- name: Delete image from docker
+  docker_image:
+    name: "{{ image }}"
+    state: absent
+
+- name: Remove directory
+  ansible.builtin.file:
+    path: "/opt/{{ image }}"
+    state: absent

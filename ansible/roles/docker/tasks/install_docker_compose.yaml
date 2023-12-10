@@ -1,0 +1,4 @@
+- name: Install docker-compose via pip
+  ansible.builtin.pip:
+    name: "docker-compose=={{pip_docker_compose_version}}"
+    state: present

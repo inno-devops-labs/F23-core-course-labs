@@ -1,0 +1,14 @@
+- name: Create a directory if it does not exist
+  ansible.builtin.file:
+    path: "/opt/{{ image }}"
+    state: directory
+
+- name: Create docker-compose
+  template:
+    src: "../templates/docker-compose.yml.j2"
+    dest: "/opt/{{ image }}/docker-compose.yml"
+
+- name: Run application
+  docker_compose:
+    project_src: "/opt/{{ image }}"
+    state: present
