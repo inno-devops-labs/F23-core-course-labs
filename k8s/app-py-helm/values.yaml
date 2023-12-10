@@ -80,12 +80,21 @@ volumes:
   - name: python-config-volume
     configMap:
       name: app-py-cm
+  - name: visits-data
+    emptyDir:
+      sizeLimit: 500Mi
+  - name: init-data
+    emptyDir:
+      sizeLimit: 100Mi
+
 
 # Additional volumeMounts on the output Deployment definition.
 volumeMounts:
   - name: python-config-volume
     mountPath: "./files/config.json"
     subPath: config.json
+  - name: init-data
+    mountPath: /app/init_workdir
 # - name: foo
 #   mountPath: "/etc/foo"
 #   readOnly: true
