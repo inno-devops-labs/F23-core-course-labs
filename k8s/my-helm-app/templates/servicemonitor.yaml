@@ -1,0 +1,13 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ .Values.statefulset.name }}-service-monitor
+  labels:
+    app: {{ .Values.statefulset.label }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.statefulset.label }}
+  endpoints:
+  - port: "5000"
+    path: /metrics

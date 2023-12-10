@@ -59,6 +59,10 @@ storage:
   size: 1Mi
   storageClass: standard  
 
+volumeMounts: 
+  - name: data
+    mountPath: /data
+
 configMap:
   name: python-configmap
 
@@ -114,7 +118,7 @@ volumes: []
 #     optional: false
 
 # Additional volumeMounts on the output Deployment definition.
-volumeMounts: []
+
 # - name: foo
 #   mountPath: "/etc/foo"
 #   readOnly: true
