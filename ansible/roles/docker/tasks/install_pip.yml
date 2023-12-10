@@ -1,6 +1,12 @@
----
- - name: Install pip
-   apt:
-     name: "{{ pip_package }}"
-     update_cache: yes
-     state: "{{ pip_state }}"
+# Updating Apt
+- name: Update apt
+  apt:
+    update_cache: true
+
+# Using Apt to install Python and Pip
+- name: Install python and pip
+  apt:
+    name:
+      - python3
+      - python3-pip
+    state: present

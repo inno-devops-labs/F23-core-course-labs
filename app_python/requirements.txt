@@ -1,4 +1,6 @@
-Flask
+flask
 pytz
+pytest
 flake8
-werkzeug==2.0.3
+prometheus_flask_exporter
+waitress

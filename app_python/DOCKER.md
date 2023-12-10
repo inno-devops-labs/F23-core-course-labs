@@ -1,11 +1,22 @@
-# Docker Best Practices
+# Docker Best Practices:
 
-1. Setting main directory /app/
+- Opt for using podman instead of docker, as it offers the following advantages:
+  - It does not require root privileges to run.
 
-2. Update pip `RUN pip install --upgrade pip`
+  - No need for a daemon to be running.
 
-3. Separate Dependency Installation using `requirements.txt`
+- Utilize rootless containers to enhance security and avoid unnecessary privileges.
 
-4. Add `.dockerignore` File
+- Cache dependencies in separate Docker steps to optimize the build process.
 
-5. Use a Minimal Base Image python 3.8-slim-buster
+- Implement multi-stage builds to reduce the final image size.
+
+- Select a minimal busybox image as the base image for Rust applications.
+
+- Utilize .dockerignore to exclude unnecessary files from the containers.
+
+- Minimize the number of layers in the Dockerfile, such as grouping apt install and pip install commands.
+
+- Remove caches from package managers to reduce image size.
+
+- Prefer using COPY instead of ADD when network capabilities are not required.

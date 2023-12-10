@@ -1,0 +1,14 @@
+- name: Deploy python docker app with Ansible role
+  hosts: all
+  become: true
+  roles:
+    # Web application role
+    - name: web_app
+      tags: [python_web_app]
+      vars:
+        app_name: "app_python"
+        docker_container: "do_course"
+        docker_image: "pavel5609/do_course"
+        docker_image_tag: "latest"
+        internal_port: 5000
+        external_port: 8000

@@ -1,11 +1,9 @@
----
-- name: Ensure old versions of Docker are not installed.
-  package:
-    name:
-      - docker
-      - docker-engine
-    state: absent
-  become: true
-- include_tasks: install_docker.yml
-- include_tasks: install_pip.yml
-- include_tasks: install_docker_compose.yml
+# Splitting tasks and running them sequentially
+- name: Create Docker Role
+  block:
+    - name: Pip
+      import_tasks: install_pip.yml
+    - name: Docker
+      import_tasks: install_docker.yml
+    - name: Compose
+      import_tasks: install_compose.yml
