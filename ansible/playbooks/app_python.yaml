@@ -1,0 +1,9 @@
+---
+- name: Deploys app_python on Yandex Cloud
+  hosts: all
+  become: true
+  roles:
+    - role: web_app
+      image: amoriodi/app_python:latest
+      ports:
+        - "8000:8080"
