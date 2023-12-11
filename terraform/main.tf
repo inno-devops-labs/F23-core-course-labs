@@ -34,7 +34,14 @@ resource "yandex_compute_instance" "vm-1" {
   }
 
   metadata = {
-    user-data = "${file("~/Desktop/meta.txt")}"
+    user-data = <<-EOT
+                #!/bin/bash
+                apt-get update
+                apt-get install -y docker.io
+                systemctl start docker
+                systemctl enable docker
+                docker run --name ${var.nginx_container_name} -p 80:80 -d nginx
+                EOT
   }
 }
 

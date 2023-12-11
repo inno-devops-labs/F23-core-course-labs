@@ -15,3 +15,9 @@ variable "account_key_file" {
   type        = string
   default     = "/home/daniil/authorized_key.json"
 }
+
+variable "nginx_container_name" {
+  description = "The name of the Nginx Docker container"
+  type        = string
+  default     = "nginx-container"
+}
