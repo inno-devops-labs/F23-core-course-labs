@@ -1,3 +1,6 @@
+## Docker role
+Latest 50 lines of playbook:
+`
 +++ after: /etc/apt/sources.list.d/docker.list
 @@ -0,0 +1 @@
 +deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/docker.asc] https://download.docker.com/linux/ubuntu jammy stable
@@ -47,3 +50,182 @@ changed: [[IP EXPLUNGED]]
 
 PLAY RECAP *********************************************************************
 [IP EXPLUNGED]             : ok=7    changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+`
+
+
+Inventory:
+
+```
+[Arseniy172@ ]$ ansible-inventory -i inventory/ --list
+{
+    "_meta": {
+        "hostvars": {
+            "[IP EXPLUNGED]": {
+                "ansible_host": "[IP_EXPLUNGED]",
+                "ansible_user": "ubuntu",
+                "fixed_ip": "",
+                "floating_ip": "[IP EXPLUNGED]",
+                "id": "[IP EXPLUNGED]/251e02c5-8987-48df-9207-c5fdb1224b86/",
+                "instance_fip": "[IP EXPLUNGED]",
+                "instance_id": "251e02c5-8987-48df-9207-c5fdb1224b86",
+                "region": "RegionOne",
+                "timeouts": "<error>",
+                "wait_until_associated": "<error>"
+            },
+            "[INTERNAL IP EXPUNGED]": {
+                "access_ip_v4": "[INTERNAL IP EXPLUNGED]",
+                "admin_pass": "<error>",
+                "all_metadata.#": "0",
+                "all_tags.#": "0",
+                "ansible_host": "[INTERNAL IP EXPLUNGED]",
+                "availability_zone": "MS1",
+                "block_device.#": "1",
+                "block_device.0.boot_index": "<error>",
+                "block_device.0.delete_on_termination": "<error>",
+                "block_device.0.destination_type": "volume",
+                "block_device.0.device_type": "",
+                "block_device.0.disk_bus": "",
+                "block_device.0.guest_format": "",
+                "block_device.0.source_type": "image",
+                "block_device.0.uuid": "b75595ca-4e1d-47e0-8e95-7a02edc0e242",
+                "block_device.0.volume_size": "<error>",
+                "block_device.0.volume_type": "ceph-ssd",
+                "config_drive": "<error>",
+                "flavor_id": "25ae869c-be29-4840-8e12-99e046d2dbd4",
+                "flavor_name": "Basic-1-2-20",
+                "force_delete": "<error>",
+                "id": "251e02c5-8987-48df-9207-c5fdb1224b86",
+                "image_id": "Attempt to boot from volume - no image supplied",
+                "image_name": "<error>",
+                "instance_fip": "[EXTERNAL IP EXPLUNGED]",
+                "key_pair": "albert_pc",
+                "metadata": "<error>",
+                "name": "compute-instance",
+                "network.#": "1",
+                "network.0.access_network": "<error>",
+                "network.0.fixed_ip_v4": "[INTERNAL IP EXPLUNGED]",
+                "network.0.mac": "fa:16:3e:61:cb:50",
+                "network.0.name": "net",
+                "network.0.port": "",
+                "network.0.uuid": "71a3667f-46c7-4372-bcd7-9578595d2f03",
+                "network_mode": "<error>",
+                "personality.#": "0",
+                "power_state": "active",
+                "region": "RegionOne",
+                "scheduler_hints.#": "0",
+                "security_groups.#": "2",
+                "security_groups.0": "default",
+                "security_groups.1": "security_group",
+                "stop_before_destroy": "<error>",
+                "tags.#": "0",
+                "timeouts": "<error>",
+                "user_data": "<error>",
+                "vendor_options.#": "0"
+            }
+        }
+    },
+    "all": {
+        "children": [
+            "ungrouped",
+            "vk_cloud",
+            "compute",
+            "compute_0",
+            "fip",
+            "fip_0",
+            "type_vkcs_compute_instance"
+        ]
+    },
+    "compute": {
+        "hosts": [
+            "[INERNAL IP EXPLUNGED]"
+        ]
+    },
+    "compute_0": {
+        "hosts": [
+            "[INTERNAL IP EXPLUNGED]"
+        ]
+    },
+    "fip": {
+        "hosts": [
+            "[IP EXPLUNGED]"
+        ]
+    },
+    "fip_0": {
+        "hosts": [
+            "[IP EXPLUNGED]"
+        ]
+    },
+    "type_vkcs_compute_floatingip_associate": {
+        "hosts": [
+            "[IP EXPLUNGED]"
+        ]
+    },
+    "type_vkcs_compute_instance": {
+        "hosts": [
+            "[INTERNAL IP EXPUNGED]"
+        ]
+    },
+    "vk_cloud": {
+        "children": [
+            "type_vkcs_compute_floatingip_associate"
+        ]
+    }
+}
+```
+
+## Deploy using docker-compose Role
+Logs:
+```
+ok: [[IP EXPUNGED]]
+
+TASK [docker : include_tasks] **************************************************
+included: /Users/Arseniy172/core-course-labs/ansible/roles/docker/tasks/deps.yaml for [IP EXPUNGED]
+
+TASK [docker : Ensure dependencies are installed.] *****************************
+ok: [[IP EXPUNGED]]
+
+TASK [docker : include_tasks] **************************************************
+included: /Users/Arseniy172/core-course-labs/ansible/roles/docker/tasks/repo.yaml for [IP EXPUNGED]
+
+TASK [docker : Install keys] ***************************************************
+ok: [[IP EXPUNGED]]
+
+TASK [docker : Add docker repo] ************************************************
+ok: [[IP EXPUNGED]]
+
+TASK [docker : include_tasks] **************************************************
+included: /Users/Arseniy172/core-course-labs/ansible/roles/docker/tasks/install.yaml for [IP EXPUNGED]
+
+TASK [docker : Ensure unnecessary, unofficial or old packages are removed] *****
+ok: [[IP EXPUNGED]]
+
+TASK [docker : Install docker] *************************************************
+ok: [[IP EXPUNGED]]
+
+TASK [docker : Install pip packets] ********************************************
+ok: [[IP EXPUNGED]]
+
+TASK [web_app : Install application] *******************************************
+included: /Users/Arseniy172/core-course-labs/ansible/roles/web_app/tasks/run.yaml for [IP EXPUNGED]
+
+TASK [web_app : Create a directory if it does not exist] ***********************
+changed: [[IP EXPUNGED]]
+
+TASK [web_app : Create docker-compose] *****************************************
+changed: [[IP EXPUNGED]]
+
+TASK [web_app : Run application] ***********************************************
+changed: [[IP EXPUNGED]]
+
+TASK [web_app : Wipe appliction] ***********************************************
+skipping: [[IP EXPUNGED]]
+
+PLAY RECAP *********************************************************************
+[IP EXPUNGED]             : ok=28   changed=6    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0   
+
+
+EXIT NOTICE [Playbook execution success] **************************************
+===============================================================================
+```
+
+
