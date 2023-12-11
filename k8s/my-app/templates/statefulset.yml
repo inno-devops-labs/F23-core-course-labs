@@ -1,16 +1,19 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ include "my-app.fullname" . }}
   labels:
     {{- include "my-app.labels" . | nindent 4 }}
+    {{- include "library-chart.labels" . | nindent 4 }}
 spec:
+  podManagementPolicy: Parallel
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
       {{- include "my-app.selectorLabels" . | nindent 6 }}
+      {{- include "library-chart.labels" . | indent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -19,6 +22,7 @@ spec:
       {{- end }}
       labels:
         {{- include "my-app.labels" . | nindent 8 }}
+        {{- include "library-chart.labels" . | indent 8 }}
 	{{- with .Values.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
@@ -40,14 +44,27 @@ spec:
             - name: http
               containerPort: {{ .Values.service.port }}
               protocol: TCP
+          env:
+            {{- if .Values.configenvs.enabled }}
+              - name: CONFIG_ENV
+                valueFrom:
+                  configMapKeyRef:
+                    name: myconfigmap
+                    key: key2
+            {{- end }}
+            {{- include "my-app.mySecrets" . | indent 12 }}
           livenessProbe:
             httpGet:
               path: /
               port: http
+            initialDelaySeconds: 20
+            periodSeconds: 5
           readinessProbe:
             httpGet:
               path: /
               port: http
+            initialDelaySeconds: 20
+            periodSeconds: 5
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           {{- with .Values.volumeMounts }}
@@ -56,9 +73,6 @@ spec:
           {{- end }}
       {{- with .Values.volumes }}
       volumes:
-        - name: configuration
-          configMap:
-            name: myconfigmap
         {{- toYaml . | nindent 8 }}
       {{- end }}
       {{- with .Values.nodeSelector }}
@@ -73,4 +87,14 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-  
+  {{- if .Values.pvc.enabled }}
+  volumeClaimTemplates:
+    - metadata:
+        name: {{ .Values.pvc.name }}
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        storageClassName: {{ .Values.pvc.storageType }}
+        resources:
+          requests:
+            storage: {{ .Values.pvc.storageSize }}
+  {{- end }}
