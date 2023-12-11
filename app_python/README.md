@@ -1,5 +1,7 @@
 # Flask App README
 
+[![PR Testing and Building](https://github.com/thecarrot123/core-course-labs/actions/workflows/main.yml/badge.svg)](https://github.com/thecarrot123/core-course-labs/actions/workflows/main.yml)
+
 ## Project Overview
 
 This Flask app displays the current time in Moscow's time zone (MSK).
@@ -36,12 +38,40 @@ Or with gunicorn:
 
 The app will be available at <http://localhost:5050/>.
 
-## Testing the App
+## Unit Test
 
 To test the Flask app run:
 
 ```bash
-    python -m unittest tests.py
+    python -m unittest main/tests.py
+```
+
+## Docker
+
+I proved a docker file to run this application with ease.
+
+### Build
+
+To build the docker run:
+
+```bash
+    docker build -t thecarrot/whataretime .
+```
+
+### Run
+
+To run the docker container write:
+
+```bash
+    docker run -it -p 8000:8000 thecarrot/whataretime
+```
+
+### Pull
+
+To pull the docker image:
+
+```bash
+    docker pull thecarrot/whataretime
 ```
 
 ## Docker
