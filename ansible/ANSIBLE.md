@@ -91,6 +91,58 @@ webserver1                 : ok=12   changed=5    unreachable=0    failed=0    s
 
 ```
 
+### Deployment app_python
+
+```
+TASK [docker : Install python3-pip via apt] ************************************
+ok: [terraform-vm]
+
+TASK [docker : Install docker-compose via pip] *********************************
+ok: [lab6]
+
+TASK [web_app : Check web_app_deployment_way] **********************************
+skipping: [lab6]
+
+TASK [web_app : Get container info] ********************************************
+ok: [lab6]
+
+TASK [web_app : Stop container if it is running] *******************************
+skipping: [lab6]
+
+TASK [web_app : Check Docker-Compose file exists] ******************************
+skipping: [lab6]
+
+TASK [web_app : Stop Docker-Compose services] **********************************
+skipping: [lab6]
+
+TASK [web_app : Remove container] **********************************************
+ok: [lab6]
+
+TASK [web_app : Remove image] **************************************************
+ok: [lab6]
+
+TASK [web_app : Check Docker-Compose file exists] ******************************
+skipping: [lab6]
+
+TASK [web_app : Remove Docker-Compose services] ********************************
+skipping: [lab6]
+
+TASK [web_app : Remove application's directory with it's content] **************
+skipping: [lab6]
+
+TASK [web_app : Deploy Application using Docker] *******************************
+changed: [lab6]
+
+TASK [web_app : Create application directory] **********************************
+skipping: [lab6]
+
+TASK [web_app : Create Docker-Compose file from template] **********************
+skipping: [lab6]
+
+PLAY RECAP *********************************************************************
+lab6               : ok=18   changed=1    unreachable=0    failed=0    skipped=9    rescued=0    ignored=0   
+```
+
 ### Inventory details
 
 ```

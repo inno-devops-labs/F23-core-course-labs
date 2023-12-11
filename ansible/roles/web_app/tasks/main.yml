@@ -1,0 +1,21 @@
+- name: Web App Role
+  block:
+    - name: Check necessary flags
+      import_tasks: check_flags.yml
+      tags:
+        - check-flags
+        - stop-application
+        - wipe-application
+        - deploy-application
+
+    - name: Stop Application
+      import_tasks: stop.yml
+      tags: stop-application
+
+    - name: Wipe Application
+      import_tasks: wipe.yml
+      tags: wipe-application
+
+    - name: Deploy Application
+      import_tasks: deploy.yml
+      tags: deploy-application

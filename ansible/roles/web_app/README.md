@@ -1,0 +1,24 @@
+# Ansible Role: Application Deployment
+
+Ansible role specifically for deploying application's Docker image
+
+## Usage
+
+```
+- name: Deploy Python Application
+  hosts: all
+  become: true
+  roles:
+    - name: web_app
+      vars:
+        app_name: app_python
+        docker_image_name: kolbaster2/python-app-inno
+        docker_image_version: 0.1.0
+        docker_container_name: app_python_container
+        internal_port: 8080
+        external_port: 8080
+```
+
+## Requirements
+
+Docker
