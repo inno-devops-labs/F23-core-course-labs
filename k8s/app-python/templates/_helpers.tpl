@@ -66,4 +66,14 @@ Create the name of the service account to use
   value: "VAR1"
 - name: "VAR2"
   value: "VAR2"
+- name: "pass"
+  valueFrom:
+    secretKeyRef:
+      name: mysecret
+      key: pass_data
+- name: SPECIAL_TYPE_KEY
+  valueFrom:
+    configMapKeyRef:
+      name: config-map-entity-py
+      key: test
 {{- end }}
