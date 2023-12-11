@@ -93,8 +93,6 @@ volumeMounts:
   - name: config-volume
     mountPath: /app_python/config.json
     subPath: config.json
-  - name: app-data
-    mountPath: /app_python/data
 
 
 nodeSelector: {}

@@ -1,0 +1,13 @@
+version: "3.5"
+
+services:
+  app-python:
+    image: 0x22d1ab/app_python
+    ports:
+      - 3434:8000
+    volumes:
+      - app-python-data:/app_python/data
+  
+
+volumes:
+  app-python-data:

@@ -8,5 +8,8 @@ services:
     ports:
       - {{ web_app_port_host }}:{{ web_app_port_docker }}
     volumes:
-      - {{ web_app_name }}-data:/app/data
-    
+      - {{ web_app_name }}-data:{{ web_app_data_container_path }}
+  
+
+volumes:
+  {{ web_app_name }}-data:

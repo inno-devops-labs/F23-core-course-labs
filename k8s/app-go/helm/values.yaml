@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: docker.io/0x22d1ab/app_go
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
 

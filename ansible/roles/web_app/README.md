@@ -19,6 +19,7 @@ Role Variables
 | web_app_port_host       | Forwarded port at host                                                             | 80                                                               | 0-65536     | no       |
 | web_app_port_docker     | Forwarded port in container                                                        | 80                                                               | 0-65536     | no       |
 
+| web_app_data_volume: | data volume mount path inside container | str | "/app/data"  
 
 ---
 
