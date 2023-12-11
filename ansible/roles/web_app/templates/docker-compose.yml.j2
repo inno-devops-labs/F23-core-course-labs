@@ -7,3 +7,8 @@ services:
     ports:
       - {{ internal_port }}:{{ external_port }}
     restart: always
+    volumes:
+      - 'visits:/{{ volume }}'
+
+volumes:
+  'visits:'

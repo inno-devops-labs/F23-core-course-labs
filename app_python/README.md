@@ -73,3 +73,9 @@ Need to specife these secrets to run:
 
 ***DOCKERHUB_USERNAME*** - DockerHub username.
 ***DOCKERHUB_PASSWORD*** - DockerHub password.
+
+## Visits
+
+The following routes are described below:
+`/` - displays the current Moscow time
+`/visits` - counts the number of times a webpage has been visited

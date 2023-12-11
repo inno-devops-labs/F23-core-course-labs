@@ -42,6 +42,11 @@ spec:
                 secretKeyRef:
                   name: secret-base
                   key: password
+            - name: CONFIGMAP
+              valueFrom:
+                configMapKeyRef:
+                  name: env-configmap
+                  key: KEY
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}

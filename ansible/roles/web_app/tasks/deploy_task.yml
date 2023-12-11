@@ -10,3 +10,13 @@
         src: "docker-compose.yml.j2"
         dest: "{{ docker_compose_file }}"
       notify: docker_compose_handler
+
+    - name: Volume creation
+      file:
+        path: "{{ volume }}"
+        state: directory
+
+    - name: Visits file copy
+      file:
+        src: "visits"
+        dest: "{{ visits_file }}"
