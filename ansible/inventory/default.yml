@@ -1,0 +1,6 @@
+vms:
+  hosts:
+    virtual_machine_1:
+      ansible_host: 51.250.14.244
+  vars:
+    ansible_ssh_user: vm-admin
