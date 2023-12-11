@@ -14,6 +14,7 @@ spec:
       labels:
         app: python-web-app
     spec:
+      serviceAccountName: internal-app
       containers:
       - name: python-app
         image: rentacat45/python-web-app:latest
