@@ -1,0 +1,15 @@
+version: "3.7"
+
+services:
+  app_python:
+    image: xmtosx/moscow_time:latest
+    container_name: app_python
+    restart: always
+    user: root
+    ports:
+      - "8080:8080"
+    volumes:
+      - app_python_visits:/app/volume/
+
+volumes:
+  app_python_visits:
