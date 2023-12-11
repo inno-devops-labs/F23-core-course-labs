@@ -1,0 +1,6 @@
+---
+- name: Deploy web application on Yandex Cloud Virtual Machine
+  hosts: inventory/dev
+  become: true
+  roles:
+    - web_app

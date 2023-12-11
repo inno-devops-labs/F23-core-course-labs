@@ -1,0 +1,17 @@
+- block:
+  - name: Create web_app directory
+    file:
+      path: "{{ app_directory }}"
+      state: directory
+
+  - name: Copy docker-compose.yml from the template
+    template:
+      src: docker-compose.yml.j2
+      dest: "{{ app_directory }}/docker-compose.yml"
+
+  - name: Run docker-compose
+    docker_compose:
+      project_src: "{{ app_directory }}"
+    
+  tags:
+    - app-deploy
