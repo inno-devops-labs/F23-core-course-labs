@@ -1,30 +1,29 @@
-from flask import Flask
-from datetime import datetime
-from zoneinfo import ZoneInfo
-import os
+from flask import Flask, render_template
+import datetime
 
+app = Flask(__name__)
 
-def create_app(visits_file_path='data/visits', reset=False):
-    visits_file_path = os.path.expanduser(visits_file_path)
+@app.route('/')  #the decorator registers the url
+def index():
+    record_visit()
+    moscow_time = (datetime.datetime.utcnow() + datetime.timedelta(hours=3)).strftime("%H:%M:%S")  # creates a string constraining in the current time in the format "hour:minutes:seconds"
+    return render_template('index.html', moscow_time=moscow_time)
 
-    app = Flask(__name__)
+@app.route('/visits')  #the decorator registers the url
+def visits():
+    return str(record_visit())
 
-    if not os.path.isfile(visits_file_path):
-        os.makedirs(os.path.dirname(visits_file_path), exist_ok=True)
-        with open(visits_file_path, 'w' if reset else 'a') as _:
-            pass
+def record_visit(): 
+    with open('data/visits', 'r') as f:
+        count = f.read()
+        if count == '': 
+            count = 0
+        else: 
+            count = int(count) 
+    with open('data/visits', 'w') as f: 
+        f.flush() 
+        f.write(str(count + 1))
+    return count 
 
-    @app.route('/')
-    def time_in_moscow():
-        moscow_timezone = ZoneInfo('Europe/Moscow')
-        ret = datetime.now(tz=moscow_timezone).time().__str__()
-        with open(visits_file_path, 'a') as visits_file:
-            visits_file.write(ret + '\n')
-        return ret
-
-    @app.route('/visits')
-    def visits_history():
-        with open(visits_file_path) as visits_file:
-            return visits_file.read()
-
-    return app
+if __name__ == '__main__':
+    app.run(debug=True)
