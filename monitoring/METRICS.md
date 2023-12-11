@@ -12,8 +12,19 @@ Navigate to `http://localhost:9090` in your web browser to access directly the w
 
 ## Proofs
 Grafana
-![Alt text](image.png)
+![Alt text](image-2.png)
 
 Prometheus
+![Alt text](image.png)
+
+Loki
 ![Alt text](image-1.png)
+
+## healthcheck
+```
+healthcheck:
+  test: ["CMD-SHELL", {command to check status}]
+  timeout: {amount of time}
+  start_period: {amount of time}
+```
 
