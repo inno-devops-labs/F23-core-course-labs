@@ -61,10 +61,24 @@ spec:
                 secretKeyRef:
                   name: mysecret
                   key: pass_data
-      {{- with .Values.volumes }}
+            - name: SPECIAL_TYPE_KEY
+              valueFrom:
+                configMapKeyRef:
+                  name: config-map-entity-py
+                  key: test
+          volumeMounts:
+          - name: config-volume-py
+            mountPath: "/config.json"
+            subPath: config.json
+          - name: counter-data-py
+            mountPath: /data
       volumes:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+      - name: config-volume-py
+        configMap:
+          name: config-map-entity-py
+      - name: counter-data-py
+        emptyDir:
+          sizeLimit: 500Mi
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

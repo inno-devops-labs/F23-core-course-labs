@@ -48,3 +48,12 @@ Crucial steps triggered on push:
 - Run pytest
 - Build test docker, test image and push
 - Build production docker and push
+
+## Visits
+/visits path display number of site visits
+
+![Alt text](image.png)
+
+Also, mount volume done on /data
+
+![Alt text](image-1.png)
