@@ -4,9 +4,10 @@ from flask import Flask
 
 app = Flask(__name__)
 
-@app.route('/MoscowTime/',methods=['GET'])
+
+@app.route("/MoscowTime/", methods=["GET"])
 def moscow_time():
-    moscow_timezone = pytz.timezone('Europe/Moscow')
+    moscow_timezone = pytz.timezone("Europe/Moscow")
     current_time_moscow = datetime.now(moscow_timezone)
     with open("volume/visits.txt", 'a') as fl:
         fl.write(current_time_moscow.strftime('%Y-%m-%d %H:%M:%S %Z'))
