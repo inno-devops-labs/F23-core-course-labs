@@ -62,6 +62,30 @@ This command removes all the Kubernetes components associated with the chart and
 
 ## Exercise outputs
 
+### Service Access
+
+```bash
+$> minikube service my-release-my-django-app
+|-----------|--------------------------|-------------|---------------------------|
+| NAMESPACE |           NAME           | TARGET PORT |            URL            |
+|-----------|--------------------------|-------------|---------------------------|
+| default   | my-release-my-django-app |        5000 | http://192.168.67.2:30002 |
+|-----------|--------------------------|-------------|---------------------------|
+🎉  Opening service default/my-release-my-django-app in default browser...
+```
+
+### kubectl get pods,svc
+
+```bash
+$> kubectl get pods,svc
+NAME                                           READY   STATUS    RESTARTS   AGE
+pod/my-release-my-django-app-878c687d9-zmvm4   1/1     Running   0          31s
+
+NAME                               TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
+service/kubernetes                 ClusterIP   10.96.0.1        <none>        443/TCP          40d
+service/my-release-my-django-app   NodePort    10.106.153.227   <none>        5000:30002/TCP   31s
+```
+
 ### Hook description ouput
 
 ```bash
