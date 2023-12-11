@@ -12,6 +12,7 @@ spec:
       labels:
         app: app_python
     spec:
+    serviceAccountName: internal-app
       containers:
         - name: minikube
           image: rinnatova/docker_lab:latest
