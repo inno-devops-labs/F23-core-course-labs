@@ -62,8 +62,10 @@ Create the name of the service account to use
 {{- end }}
 
 {{- define "python-app.envVars" -}}
-- name: "VAR"
-  value: "V1"
+- name: "FIRST_CUSTOM_VAR"
+  value: "PYTHON_VALUE_ONE"
+- name: "SECOND_CUSTOM_VAR"
+  value: "PYTHON_VALUE_TWO"
 - name: "PASSWORD"
   valueFrom:
     secretKeyRef:

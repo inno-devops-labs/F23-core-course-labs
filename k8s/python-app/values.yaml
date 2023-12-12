@@ -2,8 +2,7 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-replicaCount: 2
-podManagementPolicy: Parallel
+replicaCount: 1
 
 containerPort: 5000
 
@@ -29,9 +28,7 @@ serviceAccount:
   name: ""
 
 podAnnotations:
-  vault.hashicorp.com/agent-inject: "true"
-  vault.hashicorp.com/role: "internal-app"
-  vault.hashicorp.com/agent-inject-secret-config.txt: "internal/data/server/config"
+  vault.hashicorp.com/role: "python-app"
 
 podLabels: {}
 
@@ -75,7 +72,7 @@ resources: {}
 
 autoscaling:
   enabled: false
-  minReplicas: 1
+  # minReplicas: 1
   maxReplicas: 100
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
@@ -93,11 +90,16 @@ volumeMounts:
     subPath: config.json
   - name: counter-data-py
     mountPath: /data
+  - name: init-data-py
+    mountPath: /init_data
 
 volumes:
   - name: config-volume-py
     configMap:
       name: config-map-entity-py
+  - name: init-data-py
+    emptyDir:
+      sizeLimit: 10Mi
 
 volumeClaimTemplates:
   - metadata:
@@ -107,6 +109,53 @@ volumeClaimTemplates:
       resources:
         requests:
           storage: 10Mi
+
+initContainers:
+  - name: install
+    image: busybox:1.28
+    command:
+      - wget
+      - "-O"
+      - "/work-dir/index.html"
+      - http://info.cern.ch
+    volumeMounts:
+      - name: init-data-py
+        mountPath: "/work-dir"
+  - name: queue-zero
+    image: busybox:1.28
+    command:
+      - "touch"
+      - "/work-dir/file"
+    volumeMounts:
+      - name: init-data-py
+        mountPath: "/work-dir"
+  - name: queue-one
+    image: busybox:1.28
+    command:
+      - "sh"
+      - "-c"
+      - "echo one >> /work-dir/file"
+    volumeMounts:
+      - name: init-data-py
+        mountPath: "/work-dir"
+  - name: queue-two
+    image: busybox:1.28
+    command:
+      - "sh"
+      - "-c"
+      - "echo two >> /work-dir/file"
+    volumeMounts:
+      - name: init-data-py
+        mountPath: "/work-dir"
+  - name: queue-three
+    image: busybox:1.28
+    command:
+      - "sh"
+      - "-c"
+      - "echo three >> /work-dir/file"
+    volumeMounts:
+      - name: init-data-py
+        mountPath: "/work-dir"
 
 nodeSelector: {}
 
