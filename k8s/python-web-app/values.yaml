@@ -89,6 +89,9 @@ volumes:
    - name: config-volume
      configMap:
        name: python-web-app-config-map
+   - name: initdir
+     emptyDir:
+       sizeLimit: 10Mi
 
 volumeMounts:
   - name: config-volume
@@ -97,6 +100,9 @@ volumeMounts:
 
   - name: app-data
     mountPath: /app/resources
+
+  - name: initdir
+    mountPath: /init_data
 
 nodeSelector: {}
 
@@ -112,3 +118,16 @@ volumeClaimTemplates:
     resources:
       requests:
         storage: 10Mi
+
+
+initContainers:
+  - name: install
+    image: busybox:1.28
+    command:
+    - wget
+    - "-O"
+    - "/work-dir/index.html"
+    - http://info.cern.ch
+    volumeMounts:
+    - name: workdir
+      mountPath: "/work-dir"
