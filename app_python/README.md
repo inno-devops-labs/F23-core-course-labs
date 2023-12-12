@@ -1,96 +1,25 @@
-# Moscow Time Web App
+# Innopolis Time Webpage
 
-A simple Flask web app that displays the current time in Moscow without using HTML templates.
+## Description
 
-## Table of Contents
+A web application that shows the current time in the city of Innopolis
 
-- [Moscow Time Web App](#moscow-time-web-app)
-  - [Table of Contents](#table-of-contents)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-  - [Usage](#usage)
-  - [Testing](#testing)
-  - [App Description](#app-description)
-  - [Docker](#docker)
-    - [Delete your container](#delete-your-container)
-    - [Delete your image](#delete-your-image)
+## Quick Start
 
-## Prerequisites
+1. Install docker ([link](https://docs.docker.com/get-docker/))
+2. Run `docker pull timurbl/devops_labs`
+3. Run `docker run -p 9000:5000 timurbl/devops_labs`
+4. Open page on http://127.0.0.1:9000
 
-- Python 3.x
-- Flask
-- pytest
-- pytest-flask
+## Tests
 
-## Installation
+### Unit tests
 
-1. Install the required libraries:
+To test the app run `cd app_python && pytest .`
 
-```
-pip install flask pytest pytest-flask
-```
+## CI GitHub Actions
 
-## Usage
-
-1. Run the web app using:
-
-```
-python app.py
-```
-
-2. Open your browser and navigate to `http://127.0.0.1:5000/`. Refresh the page to update the displayed time.
-![Alt Text](files/screen_shot.png)
-
-## Testing
-
-1. To run the unit tests, execute:
-
-```
-pytest
-```
-
-2. Ensure that the test passes and corresponds to the expected functionality of the app.
-
-## App Description
-
-Please refer to [PYTHON.md](PYTHON.md) for an explanation of the best practices and choices made in the app.
-
-## Docker
-* In order to build docker image manually, get app_python directory run there: 
-  ```
-  docker build -t app_python.
-  ``` 
-* If you wish to get image from Docker Hub, run: 
-  ```
-  docker pull bovvlet/app_python:latest
-  ```
-* And run it on backround with: 
-  ```
-  docker run -d bovvlet/app_python
-  ```
-* If you strugle to find IP on which your service is running, use this command and find it:
-  ```
-  docker inspect bovvlet/app_python | grep IPAddress
-  ```
-### Delete your container
-* Find your running container:
-  ```
-  docker ps
-  ```
-* Stop it:
-  ```
-  docker stop {your docker container id}
-  ```
-* Remove it:
-  ```
-  docker rm {your docker container id}
-  ```
-### Delete your image
-* Find your image:
-  ```
-  docker images
-  ```
-* Remove it:
-  ```
-  docker rmi {your docker image id}
-  ```
+- Dependencies
+- Linter
+- Tests
+- Updating docker public image
