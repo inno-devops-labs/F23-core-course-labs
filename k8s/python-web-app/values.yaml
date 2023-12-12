@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: rentacat45/python-web-app
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
 
@@ -84,18 +84,15 @@ autoscaling:
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
 
-# Additional volumes on the output Deployment definition.
-volumes: []
-# - name: foo
-#   secret:
-#     secretName: mysecret
-#     optional: false
+volumes:
+   - name: config-volume
+     configMap:
+       name: python-web-app-config-map
 
-# Additional volumeMounts on the output Deployment definition.
-volumeMounts: []
-# - name: foo
-#   mountPath: "/etc/foo"
-#   readOnly: true
+volumeMounts:
+  - name: config-volume
+    mountPath: /app/configs/config.json
+    subPath: config.json
 
 nodeSelector: {}
 

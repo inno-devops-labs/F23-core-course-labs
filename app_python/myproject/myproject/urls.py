@@ -16,9 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from myproject.views import current_msk_time
+from myproject.views import current_msk_time, visits
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('display_time/', current_msk_time, name='display_time')
+    path('display_time/', current_msk_time, name='display_time'),
+    path('visits/', visits, name='visits')
 ]

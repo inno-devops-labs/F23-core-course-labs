@@ -17,6 +17,8 @@ services:
         max-size: "100m"
     networks:
       - monitoring
+    volumes:
+       - app_python_data:/myproject/resources
 
   loki:
     image: grafana/loki:2.9.0

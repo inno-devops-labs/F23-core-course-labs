@@ -8,3 +8,8 @@ services:
       - "{{ port }}"
 {% endfor %}
 {% endif %}
+     volumes:
+       - {{ service_name }}_data:/myproject/resources
+
+ volumes:
+   {{ service_name }}_data:

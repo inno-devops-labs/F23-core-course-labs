@@ -12,7 +12,19 @@ This is a web application which displays current time in moscow time zone. It is
 
     `python manage.py runserver`
 
-Go to http://localhost:8000/display_time/ to see current time
+### Endpoints
+
+- Go to http://localhost:8000/display_time/ to see current time
+
+- Go to http://localhost:8000/visits/ to get the number of visits for the endpoint of '/display_time'.
+
+Visits are stored in `resources/visits`.
+
+Working /display_time example:
+![browser](display_time_screenshot.png)
+
+Working /visits example:
+![browser](vitsits_screen_shot.png)
 
 ### Unit Tests
 1. Run tests using the following command:
