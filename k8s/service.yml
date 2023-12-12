@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: python-web-app
+spec:
+  type: LoadBalancer
+  selector:
+    app: python-web-app
+  ports:
+    - nodePort: 31685 # access service via this port
+      port: 8000 # internally in cluster
+      targetPort: 8000 # container listening

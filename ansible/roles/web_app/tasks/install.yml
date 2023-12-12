@@ -1,0 +1,17 @@
+---
+- name: Install and launch docker container
+  block:
+    - name: Create a directory if it does not exist
+      ansible.builtin.file:
+        path: "/opt/composes/{{ docker_image }}"
+        state: directory
+    - name: Create docker-compose
+      template:
+        src: "templates/docker-compose.yml.j2"
+        dest: "/opt/composes/{{ docker_image }}/docker-compose.yml"
+    - name: Run application
+      docker_compose:
+        project_src: "/opt/composes/{{ docker_image }}"
+        state: present
+  tags:
+    - deployment
