@@ -1,0 +1,16 @@
+django_env
+__pycache__
+db.sqlite3
+
+.DS_STORE
+*~
+*.pyc
+.vscode
+
+**/.terraform/*
+*.auto.tfvars
+*.tfoverride
+.envrc
+.terraformrc
+terraform.rc
+**/.terraform.lock.hcl
