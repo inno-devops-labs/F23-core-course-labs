@@ -1,0 +1,22 @@
+- name: Deploy task
+  block:
+    - name: Directory creation
+      file:
+        path: "{{ app_path }}"
+        state: directory
+
+    - name: Docker-compose creation
+      template:
+        src: "docker-compose.yml.j2"
+        dest: "{{ docker_compose_file }}"
+      notify: docker_compose_handler
+
+    - name: Volume creation
+      file:
+        path: "{{ volume }}"
+        state: directory
+
+    - name: Visits file copy
+      file:
+        src: "visits"
+        dest: "{{ visits_file }}"
