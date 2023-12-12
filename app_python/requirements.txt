@@ -1,4 +1,3 @@
-plaintext
 flake8
 Flask
 mypy
