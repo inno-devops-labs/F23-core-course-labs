@@ -24,7 +24,10 @@ class FlaskAppTestCase(unittest.TestCase):
         # Test if the content of the / route includes the expected time
         response = self.app.get('/')
         expect = fixtime.strftime('%Y-%m-%d %H:%M:%S')
-        self.assertIn(f'Current time in Moscow: {expect}', response.get_data(as_text=True))
+        self.assertIn(
+            f'Current time in Moscow: {expect}', 
+            response.get_data(as_text=True)
+        )
 
 
 if __name__ == '__main__':
