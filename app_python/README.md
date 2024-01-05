@@ -20,6 +20,16 @@ This Python web application displays the current time in Moscow using the Flask 
    python3 app.py
 2. Open your web browser and navigate to http://127.0.0.1:5000/ to view the current time in Moscow.
 
+## Unit Tests
+
+### Overview
+
+This project includes a suite of unit tests designed to validate the correctness and reliability of the codebase. Unit tests play a crucial role in maintaining code quality, preventing regressions, and ensuring the stability of the application. Follow the instructions below to run the tests locally and contribute to the ongoing development of robust and maintainable software.
+
+### How to Run
+
+1. cd app_python
+2. python3 -m unittets test_app.py
 
 ## Docker Container
 

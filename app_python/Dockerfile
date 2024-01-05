@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY . /app
 
-RUN pip install flask pytz
+RUN pip install --no-cache-dir -r requirements.txt
 RUN useradd -m -d /home/appuser -s /bin/bash appuser
 
 USER appuser
