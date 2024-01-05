@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import patch
-from app import app, display_time
+from app import app
 from datetime import datetime
 
 
@@ -25,7 +25,7 @@ class FlaskAppTestCase(unittest.TestCase):
         response = self.app.get('/')
         expect = fixtime.strftime('%Y-%m-%d %H:%M:%S')
         self.assertIn(
-            f'Current time in Moscow: {expect}', 
+            f'Current time in Moscow: {expect}',
             response.get_data(as_text=True)
         )
 
