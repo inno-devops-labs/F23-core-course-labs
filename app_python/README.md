@@ -1,3 +1,4 @@
+![Build Status](https://github.com/RobertGabdullin/core-course-labs/workflows/CI/badge.svg)
 # My Python Web Application
 
 ## Description
@@ -20,6 +21,33 @@ This Python web application displays the current time in Moscow using the Flask 
    python3 app.py
 2. Open your web browser and navigate to http://127.0.0.1:5000/ to view the current time in Moscow.
 
+## Unit Tests
+
+### Overview
+
+This project includes a suite of unit tests designed to validate the correctness and reliability of the codebase. Unit tests play a crucial role in maintaining code quality, preventing regressions, and ensuring the stability of the application. Follow the instructions below to run the tests locally and contribute to the ongoing development of robust and maintainable software.
+
+### How to Run
+
+1. cd app_python
+2. python3 -m unittets test_app.py
+
+## CI 
+
+- Name: ```CI```
+- Triggers on:
+  - Pull requests targeting the main branch
+  - Push to the main or lab3 branches
+- Jobs:
+  - Steps:
+      1. Checkout code using the ```actions/checkout``` action.
+      2. Set up Python with the specified version using the ```actions/setup-python``` action.
+      3. Install dependencies by running ```pip install -r requirements.txt``` in the app_python directory.
+      7. Run the flake8 linter for Python code.
+      8. Run unit tests using ```python3 -m unittest test_app.py``` in the app_python directory.
+      10. Login to Docker Hub using the ```docker/login-action``` action and the specified username and password.
+      11. Build and push a Docker image using the ```docker/build-push-action``` action.
+  
 
 ## Docker Container
 
