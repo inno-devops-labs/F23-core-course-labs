@@ -1,4 +1,6 @@
 ```terraform show```:
+
+```
 # data.vkcs_compute_flavor.compute:
 data "vkcs_compute_flavor" "compute" {
     disk         = 0
@@ -299,9 +301,10 @@ resource "vkcs_networking_subnet" "subnetwork" {
 Outputs:
 
 instance_fip = "89.208.223.22"
-
+```
 
 ```terraform state list```:
+```
 data.vkcs_compute_flavor.compute
 data.vkcs_images_image.compute
 data.vkcs_networking_network.extnet
@@ -317,6 +320,9 @@ vkcs_networking_secgroup.secgroup
 vkcs_networking_secgroup_rule.secgroup_rule_1
 vkcs_networking_secgroup_rule.secgroup_rule_2
 vkcs_networking_subnet.subnetwork
+```
 
 ```terraform output```:
+```
 instance_fip = "89.208.223.22"
+```
