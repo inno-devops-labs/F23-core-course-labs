@@ -1,4 +1,6 @@
 ```terraform show```:
+
+```
 # docker_container.nginx:
 resource "docker_container" "nginx" {
     attach                                      = false
@@ -71,11 +73,16 @@ resource "docker_image" "nginx" {
     name         = "nginx:latest"
     repo_digest  = "nginx@sha256:2bdc49f2f8ae8d8dc50ed00f2ee56d00385c6f8bc8a8b320d0a294d9e3b49026"
 }
+```
 
 ```terraform state list```:
+```
 docker_container.nginx
 docker_image.nginx
+```
 
 ```terraform output```:
+```
 container_id = "0e9b732d07222723bee94dd0c6633ac8d1673aa7331ca15459085e25b5df9183"
 image_id = "sha256:d453dd892d9357f3559b967478ae9cbc417b52de66b53142f6c16c8a275486b9nginx:latest"
+```
