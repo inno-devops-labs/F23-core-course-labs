@@ -3,3 +3,4 @@ pytest
 pylint
 beautifulsoup4
 pytz
+prometheus_client
