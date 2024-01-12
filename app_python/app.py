@@ -1,8 +1,22 @@
-from flask import Flask
-from datetime import datetime
+from flask import Flask, Response
+from prometheus_client import generate_latest, Counter
 import pytz
 
 app = Flask(__name__)
+
+healthcheck_counter = Counter('healthcheck_requests', 'Number of healthcheck requests')
+
+
+@app.route('/healthcheck')
+def healthcheck():
+    healthcheck_counter.inc()  # Increment the healthcheck counter
+    return 'Ok'
+
+
+# Define a route for metrics
+@app.route('/metrics')
+def metrics():
+    return Response(generate_latest(), content_type='text/plain')
 
 
 # Define a route to display the current time in Moscow
@@ -15,4 +29,4 @@ def display_time():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=80)
+    app.run(host='0.0.0.0', port=8008)
