@@ -1,10 +1,14 @@
 from flask import Flask, Response
+from datetime import datetime
 from prometheus_client import generate_latest, Counter
 import pytz
 
 app = Flask(__name__)
 
-healthcheck_counter = Counter('healthcheck_requests', 'Number of healthcheck requests')
+healthcheck_counter = Counter(
+    'healthcheck_requests',
+    'Number of healthcheck requests'
+)
 
 
 @app.route('/healthcheck')
