@@ -9,6 +9,6 @@ RUN useradd -m -d /home/appuser -s /bin/bash appuser
 
 USER appuser
 
-EXPOSE 80
+EXPOSE 8008
 
 CMD ["python", "app.py"]
