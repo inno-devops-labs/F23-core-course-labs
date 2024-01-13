@@ -5,7 +5,7 @@
 ![Task1 - install2](images/install2.png)
 
 ### Deployment and Services Creation
-![Task1 - creation](images/deplyandservice.png)
+![Task1 - creation](images/deployandservice.png)
 
 ### Output of command
 ![Task1 - output](images/output.png)
