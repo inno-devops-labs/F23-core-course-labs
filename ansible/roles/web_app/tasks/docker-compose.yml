@@ -4,3 +4,5 @@ services:
     image: "acceptasis/my-python-app:latest"
     ports:
       - "8008:8008"
+    volumes:
+      - 'volumes_visits:/app/volume/'
