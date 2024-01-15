@@ -32,6 +32,21 @@ This project includes a suite of unit tests designed to validate the correctness
 1. cd app_python
 2. python3 -m unittets test_app.py
 
+## Endpoint description
+
+#### Endpoint: /
+* Description: Returns the current Moscow time. Also it increments a counter value that written in ```volume/visits``` each time it is called.
+
+####  Endpoint: /healthcheck
+* Description: Returns a simple "OK" message.
+
+####  Endpoint: /metrics
+* Description: Returns the current metrics of the server.
+
+####  Endpoint: /visits
+* Description: Returns the current counter value. It is incremented each time the root endpoint (/) is called.
+
+
 ## CI 
 
 - Name: ```CI```
