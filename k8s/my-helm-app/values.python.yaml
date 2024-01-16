@@ -25,6 +25,7 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template
   name: ""
 
+
 podAnnotations: {}
 podLabels: {}
 
@@ -42,6 +43,7 @@ securityContext: {}
 deployment:
   name: python-app
   label: python
+  serviceAccountName: internal-app
 
 service:
   name: "python-web-app-svc"
