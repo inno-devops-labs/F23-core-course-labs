@@ -1,0 +1,8 @@
+version: "3.5"
+services:
+  time_app:
+    image: "acceptasis/my-python-app:latest"
+    ports:
+      - "8008:8008"
+    volumes:
+      - 'volumes_visits:/app/volume/'
