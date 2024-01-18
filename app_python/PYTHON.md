@@ -22,14 +22,17 @@ app_python
 │   ├── __init__.py
 │   ├── views/
 │   │   ├── __init__.py
-|   |   └── time_view.py
+|   |   ├── time_view.py
+|   |   ├── metrics_view.py
+|   |   └── visits_view.py
 |   |
 │   ├── utils/
 │   │   ├── __init__.py
 |   |   └── time.py
 |   |
 |   └── templates/
-│       └── current_time.html
+│       ├── current_time.html
+│       └── visits.html
 |
 ├── tests/
 │   ├── __init__.py

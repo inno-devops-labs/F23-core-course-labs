@@ -16,16 +16,29 @@ spec:
     spec:
       serviceAccountName: {{ .Values.deployment.serviceAccountName }}
       containers:
-      - name: python-web
-        image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-        resources:
-          requests:
-            memory: "64Mi"
-            cpu: "250m"
-          limits:
-            memory: "128Mi"
-            cpu: "500m"
-        ports:
-        - containerPort: {{ .Values.service.port }}
-        env:
-          {{- include "my-helm-app.envVars" . | nindent 12 }}
+        - name: {{ .Values.deployment.containerName }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m" 
+          ports:
+          - containerPort: {{ .Values.service.port }}
+          env:
+            {{- include "my-helm-app.envVars" . | nindent 12 }}
+          envFrom:
+            - configMapRef:
+                name: {{ .Values.envConfigMap.name }}
+          volumeMounts:
+            - name: config-volume
+              mountPath: /config
+              readOnly: true
+
+      volumes:
+        - name: config-volume
+          configMap:
+            name: {{ .Values.configMap.name }}
+

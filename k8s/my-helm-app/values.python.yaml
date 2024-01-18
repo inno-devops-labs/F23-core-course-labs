@@ -44,6 +44,13 @@ deployment:
   name: python-app
   label: python
   serviceAccountName: internal-app
+  containerName: python-web
+
+configMap:
+  name: python-configmap
+
+envConfigMap:
+  name: python-configmap-env
 
 service:
   name: "python-web-app-svc"
