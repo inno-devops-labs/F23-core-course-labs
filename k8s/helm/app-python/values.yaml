@@ -1,0 +1,77 @@
+replicaCount: 2
+
+image:
+  repository: eukuz/devops_course_python_app
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
+podManagementPolicy: Parallel
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  create: true
+  annotations: {}
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+
+securityContext: {}
+
+service:
+  type: LoadBalancer
+  port: 80
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+  hosts:
+    - host: chart-example.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []
+
+resources: {}
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+volumes:
+  config:
+    name: app-python-config-volume
+    mountPath: /app/config.json
+    subPath: config.json
+    configMap:
+      name: app-python-config
+  pers:
+    name: app-python-pers-volume
+    mountPath: /app-python/pers
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 256Mi
+
+volumeMounts:
+ readOnly: true
+ name: data
+ mountPath: /app-python/data
+ spec:
+   accessModes: [ "ReadWriteOnce" ]
+   resources:
+     requests:
+       storage: 256Mi
