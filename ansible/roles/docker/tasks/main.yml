@@ -1,0 +1,10 @@
+---
+- name: Update apt
+  apt:
+    update_cache: true
+
+- name: Install python and pip
+  apt:
+    name:
+      - python3
+      - python3-pip
