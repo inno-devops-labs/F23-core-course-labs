@@ -4,6 +4,10 @@ metadata:
   name: {{ .Values.statefulset.name }}
   labels:
     app: {{ .Values.statefulset.label }}
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "{{ .Values.service.port }}"
+    prometheus.io/path: "/metrics"
 spec:
   replicas: {{ .Values.replicaCount }}
   serviceName: {{ .Values.service.name }}
@@ -38,10 +42,42 @@ spec:
             - name: config-volume
               mountPath: /config
               readOnly: true
-            {{- if .Values.storage.create }}
-            - name: {{ .Values.storage.name }}
-              mountPath: /data
-            {{- end }}
+        {{- if .Values.storage.create }}
+          {{- with .Values.volumeMounts }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+        {{- end }}
+      initContainers:
+        - name: queue-zero
+          image: busybox:1.28
+          command:
+          - "touch"
+          - "/data/queue-file"
+          {{- with .Values.volumeMounts }}
+          volumeMounts:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+        - name: queue-one
+          image: busybox:1.28
+          command: ['sh', '-c', 'echo one >> /data/queue-file']
+          {{- with .Values.volumeMounts }}
+          volumeMounts:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+        - name: install-two
+          image: busybox:1.28
+          command: ['sh', '-c', 'echo two >> /data/queue-file']
+          {{- with .Values.volumeMounts }}
+          volumeMounts:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+        - name: install-three
+          image: busybox:1.28
+          command: ['sh', '-c', 'echo three >> /data/queue-file']
+          {{- with .Values.volumeMounts }}
+          volumeMounts:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
       volumes:
         - name: config-volume
           configMap:
