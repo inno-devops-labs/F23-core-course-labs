@@ -1,0 +1,25 @@
+---
+- name: Check if Docker container is running
+  docker_container_info:
+    name: "{{ docker_container }}"
+  register: container_status
+
+- name: Remove Docker container if it is running
+  docker_container:
+    name: "{{ docker_container }}"
+    state: absent
+  when: container_status.exists == true
+
+- name: Pull the Docker image from Docker Hub
+  docker_image:
+    name: "{{ docker_image }}"
+    source: pull
+
+- name: Run the Docker container
+  docker_container:
+    name: "{{ docker_container }}"
+    image: "{{ docker_image }}"
+    state: started
+    published_ports:
+      - "{{ external_port }}:{{ internal_port }}"
+    restart_policy: unless-stopped

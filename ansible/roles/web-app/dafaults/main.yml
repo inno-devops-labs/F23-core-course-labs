@@ -1,0 +1,5 @@
+---
+docker_container: "time_app"
+docker_image: "irsokolova/time_app:latest"
+internal_port: 5000
+external_port: 5000
