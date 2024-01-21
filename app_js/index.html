@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HTTP GET Request Example</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column; /* Display content and button in a column */
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        #content {
+            text-align: center;
+            font-size: 24px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            background-color: #f0f0f0;
+        }
+
+        #button-container {
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div id="content">Loading...</div>
+<div id="button-container">
+    <button id="nextJokeButton">Another Joke</button>
+</div>
+
+<script>
+    // Function to make an HTTP GET request
+    function httpRequest(url, callback) {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    callback(null, JSON.parse(xhr.responseText));
+                } else {
+                    callback(xhr.status, null);
+                }
+            }
+        };
+        xhr.open("GET", url, true);
+        xhr.send();
+    }
+
+    // Function to update the content with the fetched joke
+    function updateContent(error, data) {
+        var contentDiv = document.getElementById("content");
+        if (error) {
+            contentDiv.textContent = "Error fetching joke.";
+        } else {
+            if (data.joke != null) {
+                contentDiv.textContent = data.joke;
+            } else if (data.setup != null) {
+                contentDiv.textContent = data.setup + "\n - " + data.delivery;
+            } else {
+                contentDiv.textContent = "No joke available.";
+            }
+        }
+    }
+
+    // Function to fetch and display a new joke when the button is clicked
+    function fetchAndDisplayNextJoke() {
+        httpRequest("https://v2.jokeapi.dev/joke/Any", updateContent);
+    }
+
+    // Add an event listener to the "Another Joke" button
+    var button = document.getElementById("nextJokeButton");
+    fetchAndDisplayNextJoke()
+    button.addEventListener("click", fetchAndDisplayNextJoke);
+</script>
+</body>
+</html>
