@@ -1,13 +1,22 @@
+# Use an official Python runtime as a parent image
 FROM python:3-alpine3.15
 
-WORKDIR /application
+# Set the working directory in the container
+WORKDIR /app 
 
-COPY . /application
+# Copy all of the application files in the container
+COPY . /app
 
-RUN adduser someuser -D && chown -R someuser /application && pip install --no-cache-dir -r requirements.txt
+# Create user and set ownership and permissions as required
+# Install any needed packages specified in requirements.txt
+RUN adduser myuser -D && chown -R myuser /app \
+    && pip install --no-cache-dir -r requirements.txt 
 
-USER someuser
+# Pick the running user
+USER myuser
 
+# Expose the port of the Flask app
 EXPOSE 8080
 
-CMD ["python", "./src/app.py"]
+# Start the Flask app
+CMD ["python", "./app.py"]
