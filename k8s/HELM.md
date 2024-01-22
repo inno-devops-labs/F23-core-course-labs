@@ -1,5 +1,4 @@
 # Helm
-The lab is completed including the bonus task
 
 * Instead of creating two seperate charts, one flexible chart is created and files `deployment.yml`,  `ingress.yml` and `service.yml` from the last lab are brought with a bit of change. 
 * Two `values` files are added for two applicaitons:
