@@ -1,0 +1,7 @@
+---
+# Used in order to restart services or take 
+# other actions when specific tasks notify them.
+- name: Restart Docker
+  service:
+    name: docker
+    state: restarted

@@ -1,0 +1,16 @@
+galaxy_info:
+  author: Makar Rabotiaev
+  description: Installing and deploying Docker
+
+  license: MIT
+
+  min_ansible_version: 2.15.4
+
+  platforms:
+    - name: Ubuntu
+      versions:
+        - "all"
+
+  galaxy_tags: []
+
+dependencies: []

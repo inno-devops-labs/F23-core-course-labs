@@ -1,0 +1,20 @@
+# Pinging the hosts, in order to check they're up.
+- name: Pinging all the hosts ( mainly one here )
+  hosts: server
+  tasks:
+    - name: Ping my hosts
+      ansible.builtin.ping:
+
+# Using a module from the community.docker collection
+- name: Deploying docker from predefined galaxy role
+  hosts: server
+  become: yes
+  roles:
+    - geerlingguy.docker
+
+# Deploying custom Docker Role
+- name: Deploying custom Docker role
+  hosts: all
+  become: yes
+  roles:
+    - docker
