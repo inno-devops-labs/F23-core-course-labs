@@ -1,0 +1,25 @@
+---
+- name: Deployment logic, used to deploy a python web app. 
+  
+  tags: deploy_process
+
+  block:
+
+  - name: Wiping containers
+    ansible.builtin.include_tasks:
+        file: 0-wipe.yml
+
+  - name: Create directory for the {{app_name}} container
+    file: 
+      path: "/{{app_name}}"
+      state: directory
+  
+  - name: Copy Docker Compose 
+    template: 
+      src: docker-compose.yml.j2
+      dest: "/{{app_name}}/docker-compose.yml"
+
+  - name: Run Docker Compose 
+    shell: "cd /{{app_name}} && docker-compose -p {{app_name}} up -d"
+
+...
