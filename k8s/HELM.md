@@ -1,6 +1,6 @@
 ### First Task ( helm install & helm-python-app )
 
-Here is the output of command `helm install helm-python-app helm-python-app`
+Here is the output of command `helm install helm-python-app helm-node-app`
 
 ```sh
 ❯ helm install helm-python-app helm-python-app
@@ -13,7 +13,7 @@ NOTES:
 1. Get the application URL by running these commands:
   export NODE_PORT=$(kubectl get --namespace default -o jsonpath="{.spec.ports[0].nodePort}" services helm-python-app)
   export NODE_IP=$(kubectl get nodes --namespace default -o jsonpath="{.items[0].status.addresses[0].address}")
-  echo http://$NODE_IP:$NODE_PORT                
+  echo http://$NODE_IP:$NODE_PORT
 ```
 
 ![Helm Python App](img/helm-python-app.png)
@@ -22,7 +22,7 @@ The app is accessible, checked using `minikube service --all`
 
 ![App is accessible](img/app-access.png)
 
-Output of the commands : 
+Output of the commands :
 
 ```sh
 ❯ kubectl get svc
@@ -48,7 +48,8 @@ helm-python-app-67577fd5f4-25dq7   1/1     Running   0              3m17s
 
 The helm chart hooks are implemented !
 
-Linting the helm-python-app, installing dry-runs and installing 
+Linting the helm-python-app, installing dry-runs and installing
+
 ```sh
 ❯ helm lint helm-python-app
 ==> Linting helm-python-app
@@ -219,7 +220,8 @@ NOTES:
   export NODE_IP=$(kubectl get nodes --namespace default -o jsonpath="{.items[0].status.addresses[0].address}")
   echo http://$NODE_IP:$NODE_PORT
 ```
-The result of the execution is going to be the following 
+
+The result of the execution is going to be the following
 
 ```sh
 ❯ kubectl get pods
@@ -237,7 +239,7 @@ postinstall-hook                   0/1     Completed   0             91s
 preinstall-hook                    0/1     Completed   0             115s
 ```
 
-Descriptions of postinstall hook: 
+Descriptions of postinstall hook:
 
 ```sh
 ❯ kubectl describe pod postinstall-hook
@@ -276,10 +278,10 @@ Containers:
       /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-hs4pn (ro)
 Conditions:
   Type              Status
-  Initialized       True 
-  Ready             False 
-  ContainersReady   False 
-  PodScheduled      True 
+  Initialized       True
+  Ready             False
+  ContainersReady   False
+  PodScheduled      True
 Volumes:
   kube-api-access-hs4pn:
     Type:                    Projected (a volume that contains injected data from multiple sources)
@@ -299,12 +301,12 @@ Events:
   Normal  Pulled     2m11s  kubelet            Successfully pulled image "busybox" in 1.890552126s (1.890575542s including waiting)
   Normal  Created    2m11s  kubelet            Created container post-install-container
   Normal  Started    2m11s  kubelet            Started container post-install-container
-  ```
+```
 
-  Description of preinstall hook : 
+Description of preinstall hook :
 
-  ```sh
-  ❯ kubectl describe pod preinstall-hook
+```sh
+❯ kubectl describe pod preinstall-hook
 Name:             preinstall-hook
 Namespace:        default
 Priority:         0
@@ -316,57 +318,55 @@ Annotations:      helm.sh/hook: pre-install
 Status:           Succeeded
 IP:               10.244.0.82
 IPs:
-  IP:  10.244.0.82
+IP:  10.244.0.82
 Containers:
-  pre-install-container:
-    Container ID:  docker://6059b538045a6496b89499b8828f7077be6a9a736c201bf9485e3683a808b237
-    Image:         busybox
-    Image ID:      docker-pullable://busybox@sha256:3fbc632167424a6d997e74f52b878d7cc478225cffac6bc977eedfe51c7f4e79
-    Port:          <none>
-    Host Port:     <none>
-    Command:
-      sh
-      -c
-      echo The pre-install hook is running && sleep 20
-    State:          Terminated
-      Reason:       Completed
-      Exit Code:    0
-      Started:      Wed, 08 Nov 2023 10:38:14 +0300
-      Finished:     Wed, 08 Nov 2023 10:38:34 +0300
-    Ready:          False
-    Restart Count:  0
-    Environment:    <none>
-    Mounts:
-      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-rs4dr (ro)
+pre-install-container:
+  Container ID:  docker://6059b538045a6496b89499b8828f7077be6a9a736c201bf9485e3683a808b237
+  Image:         busybox
+  Image ID:      docker-pullable://busybox@sha256:3fbc632167424a6d997e74f52b878d7cc478225cffac6bc977eedfe51c7f4e79
+  Port:          <none>
+  Host Port:     <none>
+  Command:
+    sh
+    -c
+    echo The pre-install hook is running && sleep 20
+  State:          Terminated
+    Reason:       Completed
+    Exit Code:    0
+    Started:      Wed, 08 Nov 2023 10:38:14 +0300
+    Finished:     Wed, 08 Nov 2023 10:38:34 +0300
+  Ready:          False
+  Restart Count:  0
+  Environment:    <none>
+  Mounts:
+    /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-rs4dr (ro)
 Conditions:
-  Type              Status
-  Initialized       True 
-  Ready             False 
-  ContainersReady   False 
-  PodScheduled      True 
+Type              Status
+Initialized       True
+Ready             False
+ContainersReady   False
+PodScheduled      True
 Volumes:
-  kube-api-access-rs4dr:
-    Type:                    Projected (a volume that contains injected data from multiple sources)
-    TokenExpirationSeconds:  3607
-    ConfigMapName:           kube-root-ca.crt
-    ConfigMapOptional:       <nil>
-    DownwardAPI:             true
+kube-api-access-rs4dr:
+  Type:                    Projected (a volume that contains injected data from multiple sources)
+  TokenExpirationSeconds:  3607
+  ConfigMapName:           kube-root-ca.crt
+  ConfigMapOptional:       <nil>
+  DownwardAPI:             true
 QoS Class:                   BestEffort
 Node-Selectors:              <none>
 Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
-                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+                           node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
 Events:
-  Type    Reason     Age    From               Message
-  ----    ------     ----   ----               -------
-  Normal  Scheduled  3m39s  default-scheduler  Successfully assigned default/preinstall-hook to minikube
-  Normal  Pulling    3m39s  kubelet            Pulling image "busybox"
-  Normal  Pulled     3m37s  kubelet            Successfully pulled image "busybox" in 1.752479751s (1.75249946s including waiting)
-  Normal  Created    3m37s  kubelet            Created container pre-install-container
-  Normal  Started    3m37s  kubelet            Started container pre-install-container
-  ```
-  
-  Hook delete policy is implemented. 
+Type    Reason     Age    From               Message
+----    ------     ----   ----               -------
+Normal  Scheduled  3m39s  default-scheduler  Successfully assigned default/preinstall-hook to minikube
+Normal  Pulling    3m39s  kubelet            Pulling image "busybox"
+Normal  Pulled     3m37s  kubelet            Successfully pulled image "busybox" in 1.752479751s (1.75249946s including waiting)
+Normal  Created    3m37s  kubelet            Created container pre-install-container
+Normal  Started    3m37s  kubelet            Started container pre-install-container
+```
 
+Hook delete policy is implemented.
 
-  # Bonus
-  
+# Bonus
