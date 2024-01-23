@@ -3,6 +3,6 @@ all:
     web_servers:
       hosts:
         server:
-          ansible_host: 158.160.102.54
+          ansible_host: 158.160.118.69
           ansible_user: mainuser  # Replace with your SSH username
           ansible_ssh_private_key_file: /Users/m4k4rich/.ssh/id_ed25519  # Replace with the actual path to your SSH private key file
