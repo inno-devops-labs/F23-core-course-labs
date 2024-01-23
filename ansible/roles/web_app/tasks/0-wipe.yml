@@ -1,0 +1,33 @@
+---
+- name: Wipe logic, used to remove the Docker container and all related files
+  tags: wipe_process
+  when: web_app_full_wipe
+  block: 
+    - name: Check for the existance of /{{app_name}} 
+      ansible.builtin.stat:
+        path: "/{{ app_name }}"
+      register: web_app_compose_dir
+    
+    - name: Check for the existance of Docker Compose File 
+      ansible.builtin.stat:  
+        path: "/{{ app_name }}/docker-compose.yml"
+      register: compose_status 
+    
+    - name: Removing existing Docker Compose containers
+      ansible.builtin.command: docker-compose -p {{app_name}} down --remove-orphans
+      args:
+        chdir: "/{{ app_name }}"
+      when: compose_status.stat.exists == true
+    
+    - name: Removing existing Docker Compose files 
+      ansible.builtin.file: 
+        path: "/{{ app_name }}/docker-compose.yml"
+        state: absent
+      when: compose_status.stat.exists == true
+    
+    - name: Remove app directory /{{ app_name }}
+      when: web_app_compose_dir.stat.exists
+      ansible.builtin.file:
+        path: "/{{ app_name }}"
+        
+...

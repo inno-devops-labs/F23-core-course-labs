@@ -1,0 +1,5 @@
+# Docker version to install
+docker_version: "latest"
+
+# Docker Compose version to install
+docker_compose_version: "latest"
