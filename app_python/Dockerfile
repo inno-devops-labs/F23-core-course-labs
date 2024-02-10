@@ -6,6 +6,8 @@ WORKDIR /app
 RUN useradd --create-home newuser && chown -R newuser:newuser /app
 USER newuser
 
+RUN mkdir volume && touch volume/visits.txt
+
 RUN pip install --upgrade pip
 COPY requirements.txt .
 RUN pip install -r requirements.txt
