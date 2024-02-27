@@ -40,3 +40,4 @@ terraform.rc
 
 # Ignore tokens since they are private
 **/*.token
+

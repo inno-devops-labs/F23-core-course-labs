@@ -5,3 +5,5 @@ services:
     ports:
       - "{{ external_port }}:{{ internal_port }}"
     restart: unless-stopped
+    volumes:
+      - './visits_dir/:/{{ app_name }}/visits_dir/:rw'
