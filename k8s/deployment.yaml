@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-python-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app_python
+  template:
+    metadata:
+      labels:
+        app: app_python
+    spec:
+    serviceAccountName: internal-app
+      containers:
+        - name: minikube
+          image: rinnatova/docker_lab:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: MY_ENV_VARIABLE
+              value: "my_variable_value"
